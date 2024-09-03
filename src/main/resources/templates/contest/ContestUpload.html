@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/contest/ContestUpload.css">
+    <title>Contest Upload Form</title>
+</head>
+<body>
+<div class="container">
+    <h1>어떤 작품이 필요하세요?</h1>
+    <form action="/contest" method="post" enctype="multipart/form-data">
+        <label for="conCompanyName">회사명(단체명)</label>
+        <input type="text" id="conCompanyName" name="conCompanyName" placeholder="회사명을 입력해 주세요" required>
+
+
+        <label for="conOneLiner">한 줄 소개</label>
+        <textarea id="conOneLiner" name="conOneLiner" rows="3" placeholder="우리 서비스는 OO을 판매하는 회사입니다." required></textarea>
+
+        <label for="conType">업종</label>
+        <select id="conType" name="conType" required>
+            <option value="">업종 선택</option>
+            <option value="1">식당/카페</option>
+            <option value="2">식품/건강</option>
+            <option value="3">IT/미디어</option>
+            <option value="4">뷰티/패션</option>
+            <option value="5">병원</option>
+            <option value="6">반려동물</option>
+            <option value="7">교육/육아</option>
+            <option value="8">공공기관</option>
+            <option value="9">일반기타</option>
+        </select>
+
+        <label for="conLogoName">로고명</label>
+        <input type="text" id="conLogoName" name="conLogoName" placeholder="로고명을 입력해 주세요." required>
+
+        <label for="conBriefing">브리핑</label>
+        <textarea id="conBriefing" name="conBriefing" rows="5" placeholder="브리핑을 입력해 주세요" required></textarea>
+
+<!--        <label for="conFile">첨부파일</label>-->
+<!--        <input type="file" id="conFile" name="conFile" accept=".zip,.jpg,.jpeg,.png" required>-->
+
+        <button type="submit" class="btn">다음</button>
+    </form>
+</div>
+</body>
+</html>

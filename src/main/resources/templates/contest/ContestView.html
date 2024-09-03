@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Posting_View.css">
+    <title>Document</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>제목</h1>
+        <P><label for="company">회사명(단체명)</label></P>
+        <div class="meta">
+            <span id="request-tab" onclick="showContent('request')">요청 사항</span>
+            <span id="comments-tab" onclick="showContent('comments')">문의 댓글</span>
+        </div>
+    </div>
+    <!-- 요청사항 -->
+    <div class="request">
+        <p><label for="description">한 줄 소개</label></p>
+        <p><label for="logo">로고명</label></p>
+        <p><label for="description">브리핑</label></p>
+        <p><label for="file">첨부파일</label></p>
+    </div>
+    <!-- 문의댓글 -->
+    <div class="comments">
+        <textarea id="comments" placeholder="요청 사항에 관련된 사항을 남길 수 있습니다."></textarea>
+        <div class="button-container">
+            <button type="button">등록</button>
+            <P>악성, 비방성 댓글은 관리자에 의해 경고 없이 삭제될 수 있으며, 이용이 제한될 수 있습니다.</P>
+        </div>
+    </div>
+</div>
+
+<!-- 사이드바 -->
+<div class="sidebar">
+    <h2>콘테스트 제목</h2>
+    <h4>회사명</h4>
+    <h2>총 상금 만원</h2>
+    <P>1등</P>
+    <P>2등</P>
+    <P>3등</P>
+    <hr>
+    <p>남은 기간</p>
+    <p>참여작</p>
+    <p>조회수</p>
+    <a href="#" class="button">콘테스트 참여하기</a>
+</div>
+
+</body>
+<script>
+    function showContent(section) {
+        // 모든 섹션 숨기기
+        document.querySelector('.request').style.display = 'none';
+        document.querySelector('.comments').style.display = 'none';
+
+        // 선택된 섹션만 보이기 및 탭 스타일링
+        if (section === 'request') {
+            document.querySelector('.request').style.display = 'block';
+            document.getElementById('request-tab').classList.add('active');
+            document.getElementById('comments-tab').classList.remove('active');
+        } else if (section === 'comments') {
+            document.querySelector('.comments').style.display = 'block';
+            document.getElementById('comments-tab').classList.add('active');
+            document.getElementById('request-tab').classList.remove('active');
+        }
+    }
+
+    // 페이지 로드 시 기본적으로 '요청 사항' 섹션을 표시
+    window.onload = function() {
+        showContent('request');
+    };
+</script>
+</html>

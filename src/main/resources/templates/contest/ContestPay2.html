@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Posting_Pay_2.css">
+    <title>Document</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="title">결제 정보를 확인해주세요.</div>
+
+    <div class="info">
+        <h3>의뢰자 정보</h3>
+        <p>이메일 <span id="displayEmail"></span></p>
+        <p>이름 <span id="displayName"></span></p>
+        <p>연락처 <span id="displayContact"></span></p>
+    </div>
+
+    <div class="payment-info">
+        <h3>상금 설정</h3>
+        <p>콘테스트 상금 <span id="displayContest"></span> 원</p>
+        <p>서비스 이용료 <span id="displayService"></span> 원</p>
+
+    </div>
+
+    <div class="pay">
+        <h3>총 금액</h3>
+        <P><span id="displayTotal"></span> 원</P>
+    </div>
+
+    <div class="btn-container">
+        <a href="javascript:history.back()" class="btn btn-back">이전</a>
+        <a href="#" class="btn">결제하기</a>
+    </div>
+
+</div>
+
+</body>
+</html>

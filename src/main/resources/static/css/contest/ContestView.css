@@ -1,0 +1,69 @@
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+        .body {
+            font-family: 'NanumSquare', sans-serif;
+            display: flex;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .sidebar {
+            width: 300px; /* 사이드바의 고정 너비 설정 */
+            padding: 20px;
+            position: -webkit-sticky; /* For Safari */
+            position: sticky;
+            top: 20px; /* 스크롤 시 상단에서 얼마나 떨어져 있을지 설정 */
+            height: fit-content;
+            border: 1px solid #ddd;
+        }
+
+        .content, .comments {
+            margin-bottom: 20px;
+        }
+
+        .button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .header {
+            margin-bottom: 20px;
+        }
+        .meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .meta span {
+            cursor: pointer;
+            padding: 10px 15px;
+            color: #888;
+            font-weight: bold;
+        }
+
+        .meta span.active {
+            color: #000;
+            border-bottom: 3px solid #000; /* 선택된 탭 하단에 검은색 강조선 */
+        }
+
+        .meta hr {
+            margin-top: 10px;
+        }
