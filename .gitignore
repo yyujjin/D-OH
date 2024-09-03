@@ -35,6 +35,3 @@ out/
 
 ### VS Code ###
 .vscode/
-
-# Ignore application.properties to prevent sensitive configuration details
-application.properties
