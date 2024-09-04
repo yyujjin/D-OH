@@ -1,0 +1,35 @@
+.footer {
+    background-color: #212529;
+    color: white;
+    padding: 32px 16px;
+    text-align: center;
+    border-top: 3.2px solid rgb(193, 192, 255);
+    font-size: 12px;
+    margin-top: auto;
+}
+
+.footer .contact-info {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.footer .links {
+    margin-bottom: 10px;
+}
+
+.footer .links a {
+    color: rgb(193, 192, 255);
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 12px;
+}
+
+.footer .links a:hover {
+    text-decoration: underline;
+}
+
+.footer .copyright {
+    color: #aaa;
+    font-size: 11px;
+    margin-top: 5px;
+}
