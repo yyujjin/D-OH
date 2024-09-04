@@ -14,10 +14,18 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
+    #추가
+thymeleaf:
+  enabled: true
+  cache: false #개발시 새로고침하면 적용.
+  prefix: classpath:templates/
+  suffix: .html
+  check-template-location: true
+
 mybatis:
   mapper-locations: classpath:/mapper/**/*Mapper.xml
 
 server:
   port: 8083
 
-  
+
