@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Posting_View.css">
+    <link rel="stylesheet" href="/css/contest/ContestView.css">
     <title>Document</title>
 </head>
 <body>
@@ -15,6 +15,7 @@
         <div class="meta">
             <span id="request-tab" onclick="showContent('request')">요청 사항</span>
             <span id="comments-tab" onclick="showContent('comments')">문의 댓글</span>
+            <span id="work-tab" onclick="showContent('work')">작품 목록</span>
         </div>
     </div>
     <!-- 요청사항 -->
@@ -31,6 +32,10 @@
             <button type="button">등록</button>
             <P>악성, 비방성 댓글은 관리자에 의해 경고 없이 삭제될 수 있으며, 이용이 제한될 수 있습니다.</P>
         </div>
+    </div>
+    <!-- 참여작 -->
+    <div class="work">
+        <P>작품리스트</P>
     </div>
 </div>
 
@@ -52,25 +57,34 @@
 </body>
 <script>
     function showContent(section) {
-        // 모든 섹션 숨기기
-        document.querySelector('.request').style.display = 'none';
-        document.querySelector('.comments').style.display = 'none';
+            // 모든 섹션 숨기기
+            document.querySelector('.request').style.display = 'none';
+            document.querySelector('.comments').style.display = 'none';
+            document.querySelector('.work').style.display = 'none';
 
-        // 선택된 섹션만 보이기 및 탭 스타일링
-        if (section === 'request') {
-            document.querySelector('.request').style.display = 'block';
-            document.getElementById('request-tab').classList.add('active');
-            document.getElementById('comments-tab').classList.remove('active');
-        } else if (section === 'comments') {
-            document.querySelector('.comments').style.display = 'block';
-            document.getElementById('comments-tab').classList.add('active');
+            // 선택된 섹션만 보이기 및 탭 스타일링 초기화
             document.getElementById('request-tab').classList.remove('active');
-        }
-    }
+            document.getElementById('comments-tab').classList.remove('active');
+            document.getElementById('work-tab').classList.remove('active');
 
-    // 페이지 로드 시 기본적으로 '요청 사항' 섹션을 표시
-    window.onload = function() {
-        showContent('request');
-    };
+            // 선택된 섹션 보이기 및 탭 활성화
+            if (section === 'request') {
+                document.querySelector('.request').style.display = 'block';
+                document.getElementById('request-tab').classList.add('active');
+
+            } else if (section === 'comments') {
+                document.querySelector('.comments').style.display = 'block';
+                document.getElementById('comments-tab').classList.add('active');
+
+            } else if (section === 'work') {
+                document.querySelector('.work').style.display = 'block';
+                document.getElementById('work-tab').classList.add('active');
+            }
+        }
+
+        // 페이지 로드 시 기본적으로 '요청 사항' 섹션을 표시
+        window.onload = function() {
+            showContent('request');
+        };
 </script>
 </html>
