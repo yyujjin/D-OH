@@ -1,0 +1,243 @@
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+:root
+{
+    --main-color : #c1c0ff;
+    --sub-color : #ECFCE4;
+    --color-black : #000;
+    --dark-gray : #757575;
+    --line-gray: #D9D9D9;
+    --color-white : #fff;
+    
+    --font-size-32 : 32px;
+    --font-size-24 : 24px;
+    --font-size-20 : 20px;
+    --font-size-16 : 16px;
+    --font-size-14 : 14px;
+    --font-size-12 : 12px;
+
+}
+
+
+/* @font-face {
+    font-family: 'goorm-sans-serif';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408@1.0/goorm-sans-serif.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+} */
+
+*
+{
+    font-family: 'NanumSquare';
+    /* font-family: 'goorm-sans-serif'; */
+}
+
+/* a 태그 색, 밑줄 삭제 */
+a
+{
+ color: var(--color-black);
+ text-decoration: none;
+}
+
+/* header 영역 */
+header
+{
+    height: 145px;
+}
+
+
+/* main 영역 */
+main
+{
+    display: flex;
+    justify-content: center;
+}
+
+.mainWrap
+{
+    width: 1200px;
+}
+
+.banner
+{
+    height: 100px;
+    background-color: var(--line-gray);
+    border-radius: 6px;
+}
+
+.listHead
+{
+    height: 198px;
+    display: flex;
+    align-items: center;
+    padding-left: 50px;
+}
+.headWrap
+{
+    font-size: var(--font-size-32);
+    line-height: 10px;
+}
+
+
+/* 공모전 외부 영역 */
+section
+{
+    /* display: flex; */
+    width: 100%;
+    padding: 0px 23px 0 23px;
+    box-sizing: border-box;
+}
+.listWrap
+{
+    /* display: block; */
+    margin-bottom: 90px;
+    /* width: 100%; */
+}
+
+/* 정렬 select box 영역 */
+.orderWrap
+{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.orderType
+{
+    height: 30px;
+    width: 134px;
+    border-radius: 6px;
+    border: 1px solid var(--line-gray);
+    font-size: var(--font-size-14);
+    font-weight: 600;
+    padding: 5px 11px;
+    box-sizing: border-box;   
+}
+
+/* 공모전 리스트 영역 */
+.listValue
+{
+    width: 100%;
+    height: 115px;
+    border: 1px solid var(--line-gray);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    &:hover
+    {
+        /* box-shadow: 0 5px 15px rgba(0,0,0,0.25); */
+        box-shadow: 0 5px 10px rgba(0,0,0,0.25);
+    }
+}
+
+.listArea
+{
+ width: 80%;
+ height: 100%;
+ border-right: 1px solid var(--line-gray); 
+ padding: 20px 40px;
+ box-sizing: border-box;
+}
+
+.listArea .content
+{
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-14);
+    gap: 15px;
+    margin-bottom: 7px;
+}
+
+.endDate
+{
+    background-color: var(--sub-color);
+    border-radius: 50px;
+    width: initial;
+    padding: 3px 7px;
+}
+
+.heart
+{
+    margin-left: auto;
+    font-size: 18px;
+    color: var(--line-gray);
+}
+
+.listArea h5
+{
+    font-size: var(--font-size-16);
+    font-weight: 900;
+    margin-bottom: 7px;
+    margin-top: 0;
+}
+
+.listArea .content.B
+{
+    gap: 20px;
+    margin-bottom: 0;
+}
+
+.content.B span
+{
+    margin-left: 5px;
+    color: var(--dark-gray);
+}
+
+.listChar
+{
+    /* display: flex; */
+    /* align-items: center; */
+    padding: 20px 40px;
+    box-sizing: border-box;
+    width: 20%;
+}
+
+.priceInfo
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-size-14);
+    color: var(--dark-gray);
+    margin-bottom: 7px;
+
+}
+
+.infoArea
+{
+    display: flex;
+    align-items: center;
+    height: 10px;
+    font-size: var(--font-size-14);
+    /* gap: 10px; */
+}
+
+/* 아이콘과 텍스트 높이를 맞추기 위함 */
+.infoArea i
+{
+    font-size: 1.2em; /* 아이콘 크기 조정 */
+    margin-right: 10px; /* 텍스트와의 간격 조정 */
+}
+
+.host, .total
+{
+    font-size: 1em; /* 텍스트 크기 */
+    line-height: 1; /* 줄 높이 */
+}
+
+.priceInfo:last-child
+{
+    display: flex;
+    justify-content: flex-end;
+    font-size: var(--font-size-12);
+    margin-bottom: 0;
+}
+
+
+/* footer 영역 */
+footer
+{
+    height: 322px;
+    border-top: 1px solid var(--line-gray);
+}
