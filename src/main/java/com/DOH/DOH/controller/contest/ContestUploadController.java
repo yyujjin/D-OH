@@ -63,28 +63,44 @@ public class ContestUploadController {
         // 업데이트된 DTO를 다시 세션에 저장
         session.setAttribute("contestData", existingContestData);
 
-        return "redirect:/contest/final";  // 최종 확인 단계로 이동
+        return "redirect:/contest/payment";  // 결제 정보 확인 페이지로 이동
     }
 
 
-    // 최종 단계: 데이터베이스에 저장하고 성공 페이지로 이동
-    @GetMapping("/contest/final")
-    public String finalizeContest(HttpSession session) {
-        // 세션에서 최종 DTO 불러오기
+    // 결제 정보 확인 페이지
+    // 결제 정보 확인 페이지
+    @GetMapping("/contest/payment")
+    public String showPaymentPage(HttpSession session, Model model) {
+        // 세션에서 콘테스트 데이터를 가져옴
         ContestUploadDTO contestUploadDTO = (ContestUploadDTO) session.getAttribute("contestData");
+
+        if (contestUploadDTO == null) {
+            return "redirect:/contest";  // 세션에 데이터가 없으면 처음으로 리다이렉트
+        }
+
+        // 필요한 데이터를 모델에 추가하여 뷰에 전달
+        model.addAttribute("contestUploadDTO", contestUploadDTO);
 
         // DB에 저장
         contestUploadService.saveContest(contestUploadDTO);
 
-        // 세션 초기화 (필요에 따라 유지 가능)
+        return "contest/ContestPay2";  // 파일명을 올바르게 변경
+    }
+
+    // 결제 정보 확인 후 DB 저장
+    @PostMapping("/contest/payment/submit")
+    public String submitPayment(HttpSession session) {
+        // 세션에서 최종 DTO 불러오기
+        ContestUploadDTO contestUploadDTO = (ContestUploadDTO) session.getAttribute("contestData");
+
+        if (contestUploadDTO == null) {
+            return "redirect:/contest";  // 세션에 데이터가 없으면 처음으로 리다이렉트
+        }
+
+        // 세션 초기화 (필요시 유지할 수 있음)
         session.invalidate();
 
-        return "redirect:/contest/success";  // 성공 페이지로 리다이렉트
+        return "contest/PaymentSuccess";  // 결제 성공 페이지로 이동
     }
 
-    // 성공 페이지
-    @GetMapping("/contest/success")
-    public String showSuccessPage() {
-        return "contest/success";  // 성공 템플릿 반환
-    }
 }
