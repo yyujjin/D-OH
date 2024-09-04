@@ -1,7 +1,6 @@
 package com.DOH.DOH.service.notifications;
 
 import com.DOH.DOH.dto.notifications.NoticeDTO;
-import com.DOH.DOH.mapper.NoticeMapper;
 import com.DOH.DOH.mapper.notifications.NoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
