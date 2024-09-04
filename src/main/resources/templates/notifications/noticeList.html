@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <title>공지사항</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  
-</head>
-<body>
-    <!-- 헤더 포함 -->
-    <div th:replace="header :: header"></div>
 
-    <!-- 공지사항 내용 -->
+</head>
+
+<body>
+    <div id="header"></div>
     <div class="container">
         <h1>공지사항</h1>
         <table class="table">
@@ -18,37 +17,95 @@
                 <th>제목</th>
                 <th>날짜</th>
             </tr>
-            <tr>
+            <tr class="toggle-row" data-target=".content-row-1" onclick="toggleContent(this)">
                 <td>시스템 정기점검 안내</td>
                 <td>2024.08.16</td>
             </tr>
-            <tr>
+            <tr class="content-row content-row-1">
+                <td colspan="2">
+                    시스템 점검은 2024년 8월 16일에 예정되어 있습니다. 서비스 이용에 불편을 끼쳐 드려 죄송합니다.
+                    <div class="buttons">
+                        <button class="btn btn-primary btn-sm">수정</button>
+                        <button class="btn btn-danger btn-sm">삭제</button>
+                    </div>
+                </td>
+            </tr>
+            <tr class="toggle-row" data-target=".content-row-2" onclick="toggleContent(this)">
                 <td>공모전 등록 페이지 안내</td>
                 <td>2024.08.01</td>
             </tr>
-            <tr>
+            <tr class="content-row content-row-2">
+                <td colspan="2">
+                    공모전 등록 페이지가 새롭게 추가되었습니다. 많은 참여 부탁드립니다.
+                    <div class="buttons">
+                        <button class="btn btn-primary btn-sm">수정</button>
+                        <button class="btn btn-danger btn-sm">삭제</button>
+                    </div>
+                </td>
+            </tr>
+            <tr class="toggle-row" data-target=".content-row-3" onclick="toggleContent(this)">
                 <td>소셜 계정 로그인 안내</td>
                 <td>2024.07.15</td>
             </tr>
-            <tr class="content-row">
+            <tr class="content-row content-row-3">
                 <td colspan="2">
                     안녕하세요, D'OH입니다.<br><br>
                     24.07.16 부터 소셜 로그인 서비스가 제공 될 예정입니다.<br>
                     제공되는 소셜 로그인 서비스는 구글, 카카오, 네이버 입니다.<br>
                     앞으로도 많은 관심 부탁드립니다.<br><br>
                     D'OH를 이용해주셔서 항상 감사합니다.
+                    <div class="buttons">
+                        <button class="btn btn-primary btn-sm">수정</button>
+                        <button class="btn btn-danger btn-sm">삭제</button>
+                    </div>
                 </td>
             </tr>
         </table>
+
+        <!-- Pagination Controls -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+            </ul>
+        </nav>
+
         <div class="buttons">
-            <button>수정</button>
             <button>등록</button>
         </div>
     </div>
 
-    <!-- 푸터 포함 -->
-    <div th:replace="footer :: footer"></div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleContent(element) {
+            const targetClass = element.getAttribute('data-target');
+            const contentRow = document.querySelector(targetClass);
+
+            // Check if the content row is currently visible
+            if (contentRow.style.display === 'table-row') {
+                // If visible, hide it
+                contentRow.style.display = 'none';
+                element.classList.remove('active-toggle');
+            } else {
+                // If not visible, hide all other content rows and show the clicked one
+                document.querySelectorAll('.content-row').forEach(row => row.style.display = 'none');
+                document.querySelectorAll('.toggle-row').forEach(row => row.classList.remove('active-toggle'));
+
+                contentRow.style.display = 'table-row';
+                element.classList.add('active-toggle');
+            }
+        }
+    </script>
+
+    <div id="footer"></div>
+
+    <script>
+        $("#header").load("header.html");
+        $("#footer").load("footer.html");
+    </script>
 </body>
+
 </html>
