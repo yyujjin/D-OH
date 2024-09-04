@@ -1,6 +1,7 @@
 package com.DOH.DOH.dto.contest;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -29,6 +30,9 @@ public class ContestUploadDTO {
     private Integer conSecondPeople; // 2등 수
     private Integer conThirdPeople; // 3등 수
 
-    private Date conStartDate; // 콘테스트 시작일
-    private Date conEndDate; // 콘테스트 종료일
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date conStartDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date conEndDate;
 }
