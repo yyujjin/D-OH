@@ -1,0 +1,262 @@
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+:root
+{
+    --main-color : #c1c0ff;
+    --sub-color : #ECFCE4;
+    --color-black : #000;
+    --dark-gray : #757575;
+    --line-gray: #D9D9D9;
+    --color-white : #fff;
+    
+    --font-size-32 : 32px;
+    --font-size-24 : 24px;
+    --font-size-20 : 20px;
+    --font-size-16 : 16px;
+    --font-size-14 : 14px;
+
+}
+
+*
+{
+    font-family: 'NanumSquare';
+}
+
+/* header 영역 */
+header
+{
+    height: 145px;
+}
+
+/* main 영역 */
+main
+{
+    display: flex;
+    justify-content: center;
+}
+
+.mainWarap
+{
+    width: 1200px;
+}
+
+/* banner 영역 */
+.banner
+{
+    height: 460px;
+    background-position: center;
+    background-size: 80%;
+    background-color: var(--line-gray);
+    border-radius: 6px;
+}
+
+.banner .bannerContent
+{
+    padding: 120px 0 240px 93px;
+}
+
+.bannerTitle
+{
+    font-weight: 900;
+    font-size: var(--font-size-32);
+    margin-bottom: 20px;
+}
+
+.bannerText
+{
+    font-size: var(--font-size-24);
+}
+
+/* section 공통 */
+.section
+{
+    margin: 60px 0 90px 0;
+}
+
+/* section A */
+.section .title
+{
+    font-size: var(--font-size-24);
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.cardConWarap
+{
+    display: flex;
+    gap: 20px;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.cardConWarap .bar
+{
+    display: flex;
+    align-items: center;
+}
+
+.fa-solid
+{ 
+    font-size: var(--font-size-32);
+    cursor: pointer;
+}
+
+.cardList
+{
+    min-width: 200px; /* 카드의 최소 너비를 설정하세요 */
+    margin-right: 10px; /* 카드 사이의 간격을 설정하세요 */
+&:hover
+    .cardImage{
+        box-shadow: 0 5px 10px rgba(0,0,0,0.25);
+        /* transition: all; */
+    }
+}
+
+.cardConWarap .cardImage
+{
+    width: 260px;
+    height: 300px;
+    border: 1px solid var(--line-gray);
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+/*a 태그 링크 적용 색 없애기 + 밑줄 없애기*/
+a
+{
+    color: var(--color-black);
+    text-decoration-line: none;
+}
+
+
+.endDate
+{
+    background: var(--sub-color);
+    width: 64px;
+    padding: 3px 8px;
+    font-size: var(--font-size-14);
+    display: flex;
+    justify-content: center;
+    border-radius: 50px;
+    margin-bottom: 8px;
+}
+
+.conTitle
+{
+    font-size: var(--font-size-16);
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+
+.conSub
+{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.context
+{
+    font-size: var(--font-size-14);
+}
+
+.context.gray
+{
+    color: var(--dark-gray);
+}
+.conIcon
+{
+    gap: 5px;
+}
+
+/* section B */
+.section.B
+{
+    border: 1px solid var(--line-gray);
+    border-radius: 6px;
+    padding: 50px;
+}
+
+.tabTitle
+{
+    display: flex;
+    justify-content: space-around;
+}
+
+.tabTitle .title
+{
+    margin-bottom: 35px;
+    color: var(--dark-gray);
+    cursor: pointer;
+
+}
+
+.tabTitle .title.active
+{
+    color: var(--color-black);
+}
+
+.tabContent
+{
+    display: none;
+}
+
+.tabContent.active
+{
+    display: block;
+}
+
+.tabContent .list
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 87px;
+    /* border: 1px solid var(--dark-gray); */
+    padding: 30px;
+    /* padding: 20px; */
+    box-sizing: border-box;
+}
+
+.tabContent .list:hover
+{
+    border: 1px solid var(--line-gray);
+    border-radius: 6px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+}
+
+.listContent .conTitle
+{
+    font-size: var(--font-size-20);
+}
+
+.listValue
+{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.listContent .listValue > *
+{
+    line-height: 10px;
+}
+
+.listContent .listValue > *,
+.importData .price
+{
+    font-size: var(--font-size-14);
+}
+.importData .endDate
+{
+    margin-bottom: 0;
+}
+
+/* footer 영역 */
+footer
+{
+    height: 322px;
+    border-top: 1px solid var(--line-gray);
+}
