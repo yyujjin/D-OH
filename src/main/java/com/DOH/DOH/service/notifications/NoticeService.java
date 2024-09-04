@@ -1,8 +1,7 @@
 package com.DOH.DOH.service.notifications;
 
+import com.DOH.DOH.dto.notifications.NoticeDTO;
 import org.springframework.ui.Model;
-import com.DOH.DOH.domain.Notice;
-import java.util.List;
 
 public interface NoticeService {
 
@@ -13,10 +12,10 @@ public interface NoticeService {
 //    Notice getNoticeDetail(int noticeNum);
 
     // 공지사항 작성
-    void writeNotice(Notice notice);
+    void writeNotice(NoticeDTO notice);
 
     // 공지사항 수정
-    void updateNotice(Notice notice);
+    void updateNotice(NoticeDTO notice);
 
     // 공지사항 삭제
     void deleteNotice(int noticeNum);
