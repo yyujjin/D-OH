@@ -3,149 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Posting_Upload_1.css">
+    <link rel="stylesheet" href="/css/contest/ContestUpload1.css">
     <title>Document</title>
 </head>
+
 <body>
 <div class="container">
     <h1>예산은 어떻게 되나요?</h1>
+    <form action="/contest1" method="post" enctype="multipart/form-data">
+        <h2>콘테스트 제목</h2>
+        <div class="contest-title">
+            <input type="text" id="conTitle" name="conTitle" placeholder="콘테스트 제목을 입력해 주세요." value="" maxlength="40" required>
+        </div>
 
-    <h2>콘테스트 제목</h2>
-    <div class="contest-title">
-        <input type="text" id="contestTitle" name="contestTitle" placeholder="콘테스트 제목을 입력해 주세요." value="" maxlength="40" required>
-    </div>
+        <h2>상금 설정</h2>
+        <p class="description">2명 이상의 1등 작품을 선정하거나, 2등, 3등 작품을 선정하는 콘테스트를 구성할 수 있습니다. (5만원 단위)</p>
 
-    <h2>상금 설정</h2>
-    <p class="description">2명 이상의 1등 작품을 선정하거나, 2등, 3등 작품을 선정하는 콘테스트를 구성할 수 있습니다. (5만원 단위)</p>
+        <div id="prizeContainer">
+            <!-- 1등 필드 -->
+            <div class="flex-container" data-index="1">
+                <div class="rank first">
+                    <span>🏆 1등</span> <!-- 1등 표시 -->
+                </div>
+                <div class="winners">
+                    <input type="number" id="conFirstPeople" name="conFirstPeople" min="1" value="1" required>
+                </div>
+                <span class="label-text">명</span>
+                <div class="prize">
+                    <input type="number" id="conFirstPrice" name="prize[]" min="0" step="5" value="35" required> <!-- name을 prize[]로 변경 -->
+                </div>
+                <span class="label-text">만원</span>
+                <!-- 1등 삭제 버튼 간격용-->
+                <div class="remove-btn-container"></div>
+            </div>
 
-    <div id="prizeContainer">
-        <div class="flex-container" data-index="1">
-            <div class="rank first">
-                <span>🏆 1등</span> <!-- 1등 표시 -->
+            <!-- 2등과 3등은 동적으로 추가 및 삭제 가능 -->
+            <div class="flex-container" id="secondPrize" style="display: none;" data-index="2">
+                <div class="rank second">
+                    <span>🥈 2등</span>
+                </div>
+                <div class="winners">
+                    <input type="number" id="conSecondPeople" name="conSecondPeople" min="1" value="1">
+                </div>
+                <span class="label-text">명</span>
+                <div class="prize">
+                    <input type="number" id="conSecondPrice" name="conSecondPrice" min="0" step="5" value="20">
+                </div>
+                <span class="label-text">만원</span>
+                <!-- 삭제 버튼 -->
+                <div class="remove-btn-container">
+                    <button type="button" class="remove-btn" onclick="removePrize(this)">✖</button>
+                </div>
             </div>
-            <div class="winners">
-                <input type="number" id="winners-1" name="winners[]" min="1" value="1" required>
-            </div>
-            <span class="label-text">명</span>
-            <div class="prize">
-                <input type="number" id="prize-1" name="prize[]" min="0" step="5" value="35" required>
-            </div>
-            <span class="label-text">만원</span>
-            <!-- 삭제 버튼을 감싸는 컨테이너 -->
-            <div class="remove-btn-container">
-                <!-- 삭제 버튼이 없는 경우를 위해 빈 div 추가 -->
+
+            <div class="flex-container" id="thirdPrize" style="display: none;" data-index="3">
+                <div class="rank third">
+                    <span>🥉 3등</span>
+                </div>
+                <div class="winners">
+                    <input type="number" id="conThirdPeople" name="conThirdPeople" min="1" value="1">
+                </div>
+                <span class="label-text">명</span>
+                <div class="prize">
+                    <input type="number" id="conThirdPrice" name="conThirdPrice" min="0" step="5" value="10">
+                </div>
+                <span class="label-text">만원</span>
+                <!-- 삭제 버튼 -->
+                <div class="remove-btn-container">
+                    <button type="button" class="remove-btn" onclick="removePrize(this)">✖</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <button type="button" class="btn-secondary" onclick="addPrize()">등수 추가하기</button>
+        <button type="button" class="btn-secondary" onclick="addPrize()">등수 추가하기</button>
 
-    <div class="total-prize">
-        <span>🏆 총 상금 <span id="totalPrize">35</span> 만원</span>
-    </div>
+        <div class="total-prize">
+            <span>🏆 총 상금 <span id="totalPrize">35</span> 만원</span>
+        </div>
 
-    <div class="date-settings">
-        <h2>개최 기간 설정 *</h2>
-        <div class="flex-container">
-            <div>
-                <label for="startDate">시작 날짜</label>
-                <input type="date" id="startDate" name="startDate" value="2024-08-16" required>
-            </div>
-            <div>
-                <label for="endDate">종료 날짜</label>
-                <input type="date" id="endDate" name="endDate" value="2024-08-22" required>
+        <div class="date-settings">
+            <h2>개최 기간 설정 *</h2>
+            <div class="flex-container">
+                <div>
+                    <label for="conStartDate">시작 날짜</label>
+                    <input type="date" id="conStartDate" name="conStartDate" value="2024-08-16" required>
+                </div>
+                <div>
+                    <label for="conEndDate">종료 날짜</label>
+                    <input type="date" id="conEndDate" name="conEndDate" value="2024-08-22" required>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="flex-buttons">
-        <button type="button" class="btn previous-btn">이전</button>
-        <button type="submit" class="btn">다음</button>
-    </div>
+        <div class="flex-buttons">
+            <button type="button" class="btn previous-btn">이전</button>
+            <button type="submit" class="btn">다음</button>
+        </div>
+    </form>
 </div>
 </body>
 
 <script>
     let prizeIndex = 2;
 
-    function addPrize() {
-        const prizeContainer = document.getElementById('prizeContainer');
-
-        const newPrize = document.createElement('div');
-        newPrize.className = 'flex-container';
-        newPrize.setAttribute('data-index', prizeIndex);
-
-        let rankIcon = `🏅 ${prizeIndex}등`;
-        if (prizeIndex === 2) {
-            rankIcon = `🥈 ${prizeIndex}등`;
-        } else if (prizeIndex === 3) {
-            rankIcon = `🥉 ${prizeIndex}등`;
-        }
-
-        newPrize.innerHTML = `
-            <div class="rank">
-                <span>${rankIcon}</span> <!-- 등수를 고정된 텍스트로 표시 -->
-            </div>
-            <div class="winners">
-                <input type="number" id="winners-${prizeIndex}" name="winners[]" min="1" value="1" required>
-            </div>
-                <span class="label-text">명</span>
-            <div class="prize">
-                <input type="number" id="prize-${prizeIndex}" name="prize[]" min="0" step="5" value="35" required>
-            </div>
-                <span class="label-text">만원</span>
-            <div>
-                <button class="remove-btn" onclick="removePrize(this)">✖</button>
-            </div>
-        `;
-        prizeContainer.appendChild(newPrize);
-        prizeIndex++;
-        updateTotalPrize();
+function addPrize() {
+    if (prizeIndex > 3) {
+        alert("3등까지만 추가할 수 있습니다."); // 3등까지만 추가 가능
+        return;
     }
 
-    function removePrize(element) {
-        const prizeContainer = document.getElementById('prizeContainer');
-        const prizeToRemove = element.parentElement.parentElement;
-        const removedIndex = parseInt(prizeToRemove.getAttribute('data-index'));
+    const prizeContainer = document.getElementById('prizeContainer');
 
-        // 1. 삭제된 요소를 제거
-        prizeToRemove.remove();
+    // 새로운 등수를 나타내는 div 생성
+    const newPrize = document.createElement('div');
+    newPrize.className = 'flex-container';
+    newPrize.setAttribute('data-index', prizeIndex);
 
-        // 2. 삭제된 요소 아래의 모든 등수 값을 1씩 줄이기
-        const remainingPrizes = prizeContainer.querySelectorAll('.flex-container');
-        remainingPrizes.forEach(prize => {
-            const currentIndex = parseInt(prize.getAttribute('data-index'));
-            if (currentIndex > removedIndex) {
-                prize.setAttribute('data-index', currentIndex - 1);
+    // 등수에 맞는 아이콘 및 텍스트 설정
+    let rankIcon = `🏅 ${prizeIndex}등`;
+    if (prizeIndex === 2) {
+        rankIcon = `🥈 ${prizeIndex}등`;
+    } else if (prizeIndex === 3) {
+        rankIcon = `🥉 ${prizeIndex}등`;
+    }
 
-                // 등수 텍스트 업데이트 (예: "2등" -> "1등")
-                const rankSpan = prize.querySelector('.rank span');
-                const newRankIcon = (currentIndex - 1 === 2) ? '🥈' : ((currentIndex - 1 === 3) ? '🥉' : '🏅');
-                rankSpan.textContent = `${newRankIcon} ${currentIndex - 1}등`;
+    // 새 등수 필드에 HTML 추가
+    newPrize.innerHTML = `
+        <div class="rank">
+            <span>${rankIcon}</span> <!-- 등수를 고정된 텍스트로 표시 -->
+        </div>
+        <div class="winners">
+            <input type="number" id="winners-${prizeIndex}" name="winners[]" min="1" value="1" required>
+        </div>
+            <span class="label-text">명</span>
+        <div class="prize">
+            <input type="number" id="prize-${prizeIndex}" name="prize[]" min="0" step="5" value="35" required>
+        </div>
+            <span class="label-text">만원</span>
+        <div>
+            <button class="remove-btn" onclick="removePrize(this)">✖</button>
+        </div>
+    `;
+
+    // 새 등수를 prizeContainer에 추가
+    prizeContainer.appendChild(newPrize);
+
+    // 등수 증가
+    prizeIndex++;
+
+    // 총 상금 업데이트
+    updateTotalPrize();
+}
+
+function removePrize(element) {
+    const prizeContainer = document.getElementById('prizeContainer');
+    const prizeToRemove = element.parentElement.parentElement;
+    const removedIndex = parseInt(prizeToRemove.getAttribute('data-index'));
+
+    // 1. 삭제된 요소를 제거
+    prizeToRemove.remove();
+
+    // 2. 삭제된 요소 아래의 모든 등수 값을 1씩 줄이기
+    const remainingPrizes = prizeContainer.querySelectorAll('.flex-container');
+    remainingPrizes.forEach(prize => {
+        const currentIndex = parseInt(prize.getAttribute('data-index'));
+        if (currentIndex > removedIndex) {
+            prize.setAttribute('data-index', currentIndex - 1);
+
+            // 등수 텍스트 및 아이콘 업데이트
+            const rankSpan = prize.querySelector('.rank span');
+            let newRankIcon = `🏅 ${currentIndex - 1}등`;
+            if (currentIndex - 1 === 2) {
+                newRankIcon = `🥈 ${currentIndex - 1}등`;
+            } else if (currentIndex - 1 === 3) {
+                newRankIcon = `🥉 ${currentIndex - 1}등`;
             }
-        });
-
-        // 3. 총 상금 업데이트
-        updateTotalPrize();
-
-        // 4. prizeIndex를 1 감소
-        prizeIndex--;
-    }
-
-    function updateTotalPrize() {
-        let totalPrize = 0;
-        const prizes = document.querySelectorAll('input[name="prize[]"]');
-        prizes.forEach(prize => {
-            totalPrize += parseInt(prize.value || 0);
-        });
-        document.getElementById('totalPrize').textContent = totalPrize;
-    }
-
-    document.addEventListener('input', function(event) {
-        if (event.target.name === 'prize[]') {
-            updateTotalPrize();
+            rankSpan.textContent = newRankIcon;
         }
     });
+
+    // 3. 총 상금 업데이트
+    updateTotalPrize();
+
+    // 4. 등수 카운트 감소
+    prizeIndex--;
+}
+
+function updateTotalPrize() {
+    let totalPrize = 0;
+    const prizes = document.querySelectorAll('input[name="prize[]"]');
+    prizes.forEach(prize => {
+        totalPrize += parseInt(prize.value || 0);
+    });
+    document.getElementById('totalPrize').textContent = totalPrize;
+}
+
+// 상금 필드 값이 변경될 때마다 총 상금을 업데이트
+document.addEventListener('input', function(event) {
+    if (event.target.name === 'prize[]') {
+        updateTotalPrize();
+    }
+});
+</script>
+
 </script>
 
 </html>
