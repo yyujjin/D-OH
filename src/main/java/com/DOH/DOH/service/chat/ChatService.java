@@ -28,6 +28,10 @@ public class ChatService {
         return new ArrayList<>(chatRooms.values());
     }
 
+    public ChatRoomDTO findRoomById(String roomId) {
+        return chatRooms.get(roomId);
+    }
+
     public ChatRoomDTO createRoom(String name) {
         String randomId = UUID.randomUUID().toString();
         ChatRoomDTO chatRoomDTO = ChatRoomDTO.builder()
