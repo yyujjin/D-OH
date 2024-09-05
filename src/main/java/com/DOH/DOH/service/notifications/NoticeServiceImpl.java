@@ -34,12 +34,36 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     /**
-     * 새로운 공지사항을 작성하는 메서드
+     * 새로운 공지사항을 작성하는 메서드 (임시 저장 여부에 따라 저장 방식이 달라짐)
      * @param notice 공지사항 DTO 객체 (제목, 내용, 작성자 등)
      */
     @Override
     public void writeNotice(NoticeDTO notice) {
-        noticeMapper.writeNotice(notice); // 공지사항 작성 로직 실행
+        if (notice.isNoticeTempSave()) {
+            saveTempNotice(notice); // 임시 저장 처리
+        } else {
+            saveNotice(notice); // 정식 저장 처리
+        }
+    }
+
+    /**
+     * 공지사항 정식 저장 메서드
+     * @param noticeDTO 저장할 공지사항 객체
+     */
+    @Override
+    public void saveNotice(NoticeDTO noticeDTO) {
+        noticeDTO.setNoticeTempSave(false); // 임시 저장이 아닌 정식 저장
+        noticeMapper.insertNotice(noticeDTO); // 수정: writeNotice에서 insertNotice로 변경
+    }
+
+    /**
+     * 공지사항 임시 저장 메서드
+     * @param noticeDTO 임시 저장할 공지사항 객체
+     */
+    @Override
+    public void saveTempNotice(NoticeDTO noticeDTO) {
+        noticeDTO.setNoticeTempSave(true); // 임시 저장으로 설정
+        noticeMapper.insertNotice(noticeDTO); // 수정: writeNotice에서 insertNotice로 변경
     }
 
     /**

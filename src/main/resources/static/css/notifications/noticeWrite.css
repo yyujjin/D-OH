@@ -75,6 +75,7 @@ textarea {
     box-shadow: 0 4px 10px rgba(193, 192, 255, 0.3);
 }
 
+/* Secondary 버튼 스타일 (목록보기 및 임시저장 버튼 동일) */
 .btn-secondary {
     padding: 10px 20px;
     font-size: 14px;
