@@ -1,0 +1,225 @@
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+:root
+{
+    --main-color : #c1c0ff;
+    --sub-color : #ECFCE4;
+    --color-black : #000;
+    --dark-gray : #757575;
+    --line-gray: #D9D9D9;
+    --color-white : #fff;
+    
+    --font-size-32 : 32px;
+    --font-size-24 : 24px;
+    --font-size-20 : 20px;
+    --font-size-16 : 16px;
+    --font-size-14 : 14px;
+
+}
+
+*
+{
+    font-family: 'NanumSquare';
+}
+
+/* header 영역 */
+header
+{
+    height: 145px;
+    border-bottom: 1px solid var(--line-gray);
+}
+
+/* main 영역 */
+main
+{
+    display: flex;
+    justify-content: center;
+}
+
+.mainWarap
+{
+    width: 1200px;
+}
+/* 콘테스트 정보 영역 */
+.contestWarap
+{
+    height: 114px;
+    padding: 15px 35px 15px 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.day, .applyInfo
+{
+    display: flex;
+    align-items: center;
+    gap: 0 15px;
+}
+
+.day
+{
+    line-height: 10px;
+    font-size: var(--font-size-16);
+    margin-bottom: 10px;
+}
+.endDate
+{
+    background-color: var(--sub-color);
+    padding: 8px 15px;
+    border-radius: 50px;
+}
+
+.contitle
+{
+    font-size: var(--font-size-20);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.info
+{
+    font-size: var(--font-size-16);
+}
+
+a
+{
+    color: var(--color-black);
+    text-decoration-line: none;
+}
+.briefing
+{
+    font-size: var(--font-size-20);
+    padding: 15px 20px;
+    border: 1px solid var(--line-gray);
+    border-radius: 6px;
+}
+
+/* section */
+section
+{
+    /* display: flex;
+    justify-content: center; */
+    margin-bottom: 90px;
+}
+
+/* .sectionWrap
+{
+    display: flex;
+    justify-content: center;
+
+} */
+.titleWrap
+{
+    display: flex;
+    justify-content: center;
+}
+
+.sectionBri .title
+{
+    font-size: var(--font-size-32);
+    color: var(--color-black);
+    margin-bottom: 0;
+}
+
+.sectionBri h5
+{
+    margin-top: 10px;
+    font-size: var(--font-size-16);
+    color: var(--dark-gray);
+}
+
+/* 약관 동의 항목 */
+.contentWrap
+/* .contentWrap */
+{
+    width: 100%;
+    /* width: 80%; */
+    /* display: block; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.applyWrap
+{
+    width: 80%;
+}
+
+.conditions
+{
+    /* width: 80%; */
+    border: 1px solid var(--line-gray);
+    border-radius: 6px;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    &:first-child
+    {
+        margin-bottom: 50px;
+    }
+}
+
+.check
+{
+    font-size: var(--font-size-16);
+    :not(:first-of-type)
+    {
+        font-weight: 700;
+    }
+}
+
+.conditionsContent
+{
+    font-size: var(--font-size-20);
+    /* font-weight: 500; */
+    gap: 5px;
+}
+
+/* 콘테스트 이용약관 동의 버튼 영역 */
+.agree
+{
+    /* font-weight: 500; */
+    color: var(--color-black);
+    margin-bottom: 15px;
+}
+
+.buttonWrap
+{
+    display: flex;
+    justify-content: center;
+}
+
+.buttonWrap > button
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--line-gray);
+    width: 92px;
+    height: 45px;
+    border-radius: 6px;
+    background-color: var(--line-gray);
+    cursor: pointer;
+}
+
+/* 이용 약관 부분 */
+
+.popUP
+{
+    display: none;
+    margin-top: 10px;
+    padding: 15px;
+    line-height: 1.6; /* 줄 간격 조정 */
+    white-space: pre-line; /* 줄바꿈과 연속 공백을 유지 */
+    font-size: var(--font-size-14);
+}
+
+
+/* footer 영역 */
+footer
+{
+    height: 322px;
+    border-top: 1px solid var(--line-gray);
+}
