@@ -1,9 +1,26 @@
 package com.DOH.DOH.controller.chat;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
+import com.DOH.DOH.dto.chat.ChatRoomDTO;
+import com.DOH.DOH.service.chat.ChatService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
-@Slf4j
-@Controller
+import java.util.List;
+
+@RequiredArgsConstructor
+@RestController
+@RequestMapping
 public class ChatController {
+
+    private final ChatService chatService;
+
+    @PostMapping
+    public ChatRoomDTO createRoom(@RequestParam String name) {
+        return chatService.createRoom(name);
+    }
+
+    @GetMapping
+    public List<ChatRoomDTO> findAllRoom() {
+        return chatService.findAllRoom();
+    }
 }
