@@ -14,6 +14,12 @@ public interface NoticeService {
     // 공지사항 작성
     void writeNotice(NoticeDTO notice);
 
+    // 공지사항 저장 메서드
+    void saveNotice(NoticeDTO noticeDTO);
+
+    // 공지사항 임시 저장 메서드
+    void saveTempNotice(NoticeDTO noticeDTO);
+
     // 공지사항 수정
     void updateNotice(NoticeDTO notice);
 
