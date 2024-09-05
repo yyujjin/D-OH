@@ -23,14 +23,16 @@
 }
 
 /* header 영역 */
+/*
 header
 {
     height: 145px;
 }
-
+*/
 /* main 영역 */
 main
 {
+    margin-top: 90px;
     display: flex;
     justify-content: center;
 }
@@ -255,8 +257,10 @@ a
 }
 
 /* footer 영역 */
+/*
 footer
 {
     height: 322px;
     border-top: 1px solid var(--line-gray);
 }
+*/
