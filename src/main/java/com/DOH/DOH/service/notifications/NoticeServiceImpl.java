@@ -5,6 +5,8 @@ import com.DOH.DOH.mapper.notifications.NoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,7 +24,13 @@ public class NoticeServiceImpl implements NoticeService {
     public void getNoticeList(int page, Model model) {
         int offset = (page - 1) * 10; // 페이징 처리를 위한 offset 계산
         List<NoticeDTO> noticeList = noticeMapper.getNoticeList(offset); // 공지사항 목록 가져오기
+
+        if (noticeList == null) {
+            noticeList = new ArrayList<>(); // 리스트가 null이면 빈 리스트로 초기화
+        }
+
         model.addAttribute("noticeList", noticeList); // 모델에 공지사항 목록 추가
+        model.addAttribute("noticeNum", noticeList.size()); // 모델에 noticeNum 추가
     }
 
     /**

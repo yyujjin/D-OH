@@ -26,16 +26,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="toggle-row" th:each="notice : ${notices}" 
-                    th:data-target="'#content-row-' + ${notice.noticeNum}"
-                    th:onclick="|toggleContent(this)|">
-                    <td th:text="${notice.title}">시스템 정기점검 안내</td>
-                    <td th:text="${#dates.format(notice.date, 'yyyy.MM.dd')}">2024.08.16</td>
+                <!-- 공지사항이 없을 때 -->
+                <tr th:if="${noticeNum == null or noticeNum == 0}">
+                    <td colspan="2">등록된 공지사항이 없습니다.</td>
                 </tr>
-                <tr th:id="'content-row-' + ${notice.noticeNum}" class="content-row">
-                    <td colspan="2" th:text="${notice.content}">
-                        시스템 점검은 2024년 8월 16일에 예정되어 있습니다. 서비스 이용에 불편을 끼쳐 드려 죄송합니다.
-                    </td>
+
+                <!-- 공지사항이 있을 때 -->
+                <!-- 공지사항 리스트 반복 -->
+                <tr class="toggle-row" th:each="notice : ${noticeList}"
+                    th:data-target="'#content-row-' + ${notice.noticeNum}" th:onclick="|toggleContent(this)|">
+                    <td th:text="${notice.title}"></td> <!-- 공지사항 제목 -->
+                    <td th:text="${#dates.format(notice.date, 'yyyy.MM.dd')}"></td> <!-- 공지사항 작성일 -->
+                </tr>
+
+                <!-- 공지사항 내용 반복 -->
+                <tr th:each="notice : ${noticeList}" th:id="'content-row-' + ${notice.noticeNum}" class="content-row">
+                    <td colspan="2" th:text="${notice.content}"></td> <!-- 공지사항 내용 -->
                     <td>
                         <div class="buttons">
                             <button class="btn btn-primary btn-sm">수정</button>
@@ -43,7 +49,9 @@
                         </div>
                     </td>
                 </tr>
+
             </tbody>
+
         </table>
 
         <!-- Pagination Controls -->
@@ -57,7 +65,7 @@
             </ul>
         </nav>
 
-        
+
         <!-- 등록 버튼 -->
         <div class="buttons">
             <button class="btn btn-success">등록</button>

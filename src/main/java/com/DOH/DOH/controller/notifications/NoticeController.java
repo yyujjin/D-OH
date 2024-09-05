@@ -18,10 +18,11 @@ public class NoticeController {
 
     @GetMapping("/list")
     public String noticeList(Model model, @RequestParam(required = false, defaultValue = "1") int page) {
+        model.addAttribute("noticeNum",123);
         // 공지사항 목록을 서비스 계층에서 불러와 모델에 추가
         noticeService.getNoticeList(page, model);
 
         // 공지사항 목록 페이지로 이동 (로그인 여부와 상관없이)
-        return "notifications/List";
+        return "notifications/noticeList";
     }
 }
