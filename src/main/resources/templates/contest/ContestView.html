@@ -1,90 +1,74 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/contest/ContestView.css">
+    <script src="/js/contest/ContestView.js"></script>
     <title>Document</title>
 </head>
 <body>
 
 <div class="container">
-    <div class="header">
-        <h1>제목</h1>
-        <P><label for="company">회사명(단체명)</label></P>
-        <div class="meta">
-            <span id="request-tab" onclick="showContent('request')">요청 사항</span>
-            <span id="comments-tab" onclick="showContent('comments')">문의 댓글</span>
-            <span id="work-tab" onclick="showContent('work')">작품 목록</span>
+    <form action="/contestview" method="post" enctype="multipart/form-data">
+        <div class="header">
+            <h1><p>제목 : <span th:text="${conTitle}"></span></p></h1>
+            <p>회사명 : <span th:text="${conCompanyName}"></span></p>
+            <div class="meta">
+                <span id="request-tab" onclick="showContent('request')">요청 사항</span>
+                <span id="comments-tab" onclick="showContent('comments')">문의 댓글</span>
+                <span id="work-tab" onclick="showContent('work')">작품 목록</span>
+            </div>
         </div>
-    </div>
-    <!-- 요청사항 -->
-    <div class="request">
-        <p><label for="description">한 줄 소개</label></p>
-        <p><label for="logo">로고명</label></p>
-        <p><label for="description">브리핑</label></p>
-        <p><label for="file">첨부파일</label></p>
-    </div>
-    <!-- 문의댓글 -->
-    <div class="comments">
-        <textarea id="comments" placeholder="요청 사항에 관련된 사항을 남길 수 있습니다."></textarea>
-        <div class="button-container">
-            <button type="button">등록</button>
-            <P>악성, 비방성 댓글은 관리자에 의해 경고 없이 삭제될 수 있으며, 이용이 제한될 수 있습니다.</P>
+        <!-- 요청사항 -->
+        <div class="request">
+            <p>한줄 소개 : <span th:text="${conOneLiner}"></span></p>
+            <p>로고명 : <span th:text="${conLogoName}"></span></p>
+            <p>브리핑 : <span th:text="${conBriefing}"></span></p>
+<!--            <p><label for="file">첨부파일</label></p>-->
         </div>
-    </div>
-    <!-- 참여작 -->
-    <div class="work">
-        <P>작품리스트</P>
-    </div>
-</div>
+        <!-- 문의댓글 -->
+        <div class="comments">
+            <textarea id="comments" placeholder="요청 사항에 관련된 사항을 남길 수 있습니다."></textarea>
+            <div class="button-container">
+                <button type="button">등록</button>
+                <p>악성, 비방성 댓글은 관리자에 의해 경고 없이 삭제될 수 있으며, 이용이 제한될 수 있습니다.</p>
+            </div>
+        </div>
+        <!-- 참여작 -->
+        <div class="work">
+            <p>작품 리스트</p>
+        </div>
+    </form>
 
-<!-- 사이드바 -->
-<div class="sidebar">
-    <h2>콘테스트 제목</h2>
-    <h4>회사명</h4>
-    <h2>총 상금 만원</h2>
-    <P>1등</P>
-    <P>2등</P>
-    <P>3등</P>
-    <hr>
-    <p>남은 기간</p>
-    <p>참여작</p>
-    <p>조회수</p>
-    <a href="#" class="button">콘테스트 참여하기</a>
+    <!-- 사이드바 -->
+    <div class="sidebar">
+        <h2>제목 : <span th:text="${conTitle}"></span></h2>
+
+        <h4>회사명 : <span th:text="${conCompanyName}"></span></h4>
+
+        <h2>총 상금 <span th:text="${conFirstPrice+conSecondPrice+conThirdPrice}"></span>만원</h2>
+
+        <p>1등  <span th:text="${conFirstPrice}"></span>만원
+        x <span th:text="${conFirstPeople}"></span>명</p>
+
+        <p>2등  <span th:text="${conSecondPrice}"></span>만원
+        x <span th:text="${conSecondPeople}"></span>명</p>
+
+        <p>3등  <span th:text="${conThirdPrice}"></span>만원
+        x <span th:text="${conThirdPeople}"></span>명</p>
+        <hr>
+
+        <h4>진행 기간</h4>
+        <span th:text="${#dates.format(conStartDate, 'MM/dd/yyyy')}"></span> ~
+        <span th:text="${#dates.format(conEndDate, 'MM/dd/yyyy')}"></span>
+
+        <p>참여작</p>
+        <p>조회수</p>
+        <a href="#" class="button">콘테스트 목록으로</a> // 하진언니페이지
+        <a href="#" class="button">콘테스트 참여하기</a> // 하진언니페이지
+    </div>
 </div>
 
 </body>
-<script>
-    function showContent(section) {
-            // 모든 섹션 숨기기
-            document.querySelector('.request').style.display = 'none';
-            document.querySelector('.comments').style.display = 'none';
-            document.querySelector('.work').style.display = 'none';
-
-            // 선택된 섹션만 보이기 및 탭 스타일링 초기화
-            document.getElementById('request-tab').classList.remove('active');
-            document.getElementById('comments-tab').classList.remove('active');
-            document.getElementById('work-tab').classList.remove('active');
-
-            // 선택된 섹션 보이기 및 탭 활성화
-            if (section === 'request') {
-                document.querySelector('.request').style.display = 'block';
-                document.getElementById('request-tab').classList.add('active');
-
-            } else if (section === 'comments') {
-                document.querySelector('.comments').style.display = 'block';
-                document.getElementById('comments-tab').classList.add('active');
-
-            } else if (section === 'work') {
-                document.querySelector('.work').style.display = 'block';
-                document.getElementById('work-tab').classList.add('active');
-            }
-        }
-
-        // 페이지 로드 시 기본적으로 '요청 사항' 섹션을 표시
-        window.onload = function() {
-            showContent('request');
-        };
-</script>
 </html>
