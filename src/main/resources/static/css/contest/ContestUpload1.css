@@ -7,16 +7,16 @@
             background-color: #f4f4f4;
         }
         .container {
-            max-width: 800px;
+            max-width: 600px;
             margin: auto;
             background: white;
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 30px;
         }
         .container h1 {
             font-size: 1.75em;
-            margin-bottom: 20px;
+            margin-bottom: 50px;
             color: #333;
             display: flex;
             align-items: center;

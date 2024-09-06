@@ -8,14 +8,24 @@
         }
         .container {
             max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
+            margin: auto;
+            background: white;
             padding: 20px;
+            border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .title {
-            font-size: 24px;
-            margin-bottom: 20px;
+        .container h1 {
+            font-size: 1.75em;
+            margin-bottom: 50px;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+        .container h1::before {
+            content: "👉";
+            margin-right: 10px;
+            font-size: 1.5em;
+            color: #f5b000;
         }
         .info, .payment-info, .pay {
             margin-bottom: 20px;

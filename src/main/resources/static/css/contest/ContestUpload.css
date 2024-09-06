@@ -15,8 +15,17 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         .container h1 {
-            text-align: center;
+            font-size: 1.75em;
+            margin-bottom: 50px;
             color: #333;
+            display: flex;
+            align-items: center;
+        }
+        .container h1::before {
+            content: "👉";
+            margin-right: 10px;
+            font-size: 1.5em;
+            color: #f5b000;
         }
         label {
             display: block;
