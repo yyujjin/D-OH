@@ -23,12 +23,12 @@ public class ContestUploadDTO {
 
     private String conTitle; // 콘테스트 제목
 
-    private Integer conFirstPrice; // 1등
-    private Integer conSecondPrice; // 2등
-    private Integer conThirdPrice; // 3등
-    private Integer conFirstPeople; // 1등 수
-    private Integer conSecondPeople; // 2등 수
-    private Integer conThirdPeople; // 3등 수
+    private Integer conFirstPrice = 0; // 1등
+    private Integer conSecondPrice = 0; // 2등
+    private Integer conThirdPrice = 0; // 3등
+    private Integer conFirstPeople = 0; // 1등 수
+    private Integer conSecondPeople = 0; // 2등 수
+    private Integer conThirdPeople = 0; // 3등 수
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date conStartDate;
