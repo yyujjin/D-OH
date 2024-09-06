@@ -9,13 +9,14 @@ import java.util.List;
 @Mapper
 public interface EventMapper {
 
-    List<EventDTO> getAllEvents();
+    // Add pagination support by offset
+    List<EventDTO> getEventList(@Param("offset") int offset);
 
-    EventDTO getEventById(@Param("id") int id);
+    EventDTO getEventById(@Param("eventNum") int eventNum);
 
-    void createEvent(EventDTO eventDTO);
+    void writeEvent(EventDTO eventDTO);
 
-    void updateEvent(@Param("id") int id, EventDTO eventDTO);
+    void updateEvent(EventDTO eventDTO);
 
-    void deleteEvent(@Param("id") int id);
+    void deleteEvent(@Param("eventNum") int eventNum);
 }

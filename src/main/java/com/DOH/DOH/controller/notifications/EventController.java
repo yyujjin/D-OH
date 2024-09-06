@@ -5,6 +5,7 @@ import com.DOH.DOH.service.notifications.EventService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +20,9 @@ public class EventController {
 
     // 이벤트 목록 조회
     @GetMapping("/list")
-    public ResponseEntity<List<EventDTO>> getAllEvents() {
-        List<EventDTO> events = eventService.getAllEvents();
+    public ResponseEntity<List<EventDTO>> getAllEvents(@RequestParam(defaultValue = "1") int page) {
+        // Model을 사용하지 않고 List<EventDTO>를 반환하도록 수정
+        List<EventDTO> events = eventService.getAllEvents(page);
         return ResponseEntity.ok(events);
     }
 
@@ -38,19 +40,16 @@ public class EventController {
     // 이벤트 등록
     @PostMapping("/write")
     public ResponseEntity<EventDTO> createEvent(@RequestBody EventDTO eventDTO) {
-        EventDTO createdEvent = eventService.createEvent(eventDTO);
-        return ResponseEntity.ok(createdEvent);
+        eventService.writeEvent(eventDTO); // 작성 메소드 호출
+        return ResponseEntity.ok(eventDTO);
     }
 
     // 이벤트 수정
     @PutMapping("/{eventNum}")
     public ResponseEntity<EventDTO> updateEvent(@PathVariable("eventNum") int eventNum, @RequestBody EventDTO eventDTO) {
-        EventDTO updatedEvent = eventService.updateEvent(eventNum, eventDTO);
-        if (updatedEvent != null) {
-            return ResponseEntity.ok(updatedEvent);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        eventDTO.setId(eventNum); // eventDTO에 id를 설정
+        eventService.updateEvent(eventDTO); // 수정 메소드 호출
+        return ResponseEntity.ok(eventDTO);
     }
 
     // 이벤트 삭제
