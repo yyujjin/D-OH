@@ -3,4 +3,32 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0.3//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.DOH.DOH.mapper.notifications.EventMapper">
+    <select id="getAllEvents" resultType="com.DOH.DOH.dto.notifications.EventDTO">
+        SELECT * FROM event
+    </select>
+
+    <select id="getEventById" parameterType="int" resultType="com.DOH.DOH.dto.notifications.EventDTO">
+        SELECT * FROM event WHERE eventNum = #{id}
+    </select>
+
+    <insert id="createEvent" parameterType="com.DOH.DOH.dto.notifications.EventDTO">
+        INSERT INTO event (eventTitle, eventContent, eventCreateTime, eventImageName, eventImageUrl, userNum, eventTempSave)
+        VALUES (#{eventTitle}, #{eventContent}, #{eventCreateTime}, #{eventImageName}, #{eventImageUrl}, #{userNum}, #{eventTempSave})
+    </insert>
+
+    <update id="updateEvent" parameterType="com.DOH.DOH.dto.notifications.EventDTO">
+        UPDATE event
+        SET eventTitle = #{eventTitle},
+        eventContent = #{eventContent},
+        eventCreateTime = #{eventCreateTime},
+        eventImageName = #{eventImageName},
+        eventImageUrl = #{eventImageUrl},
+        userNum = #{userNum},
+        eventTempSave = #{eventTempSave}
+        WHERE eventNum = #{eventNum}
+    </update>
+
+    <delete id="deleteEvent" parameterType="int">
+        DELETE FROM event WHERE eventNum = #{id}
+    </delete>
 </mapper>
