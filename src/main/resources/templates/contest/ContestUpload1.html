@@ -51,17 +51,17 @@
             <div class="flex-container">
                 <div>
                     <label for="conStartDate">시작 날짜</label>
-                    <input type="date" id="conStartDate" name="conStartDate" value="2024-08-16" required>
+                    <input type="date" id="conStartDate" name="conStartDate" required>
                 </div>
                 <div>
                     <label for="conEndDate">종료 날짜</label>
-                    <input type="date" id="conEndDate" name="conEndDate" value="2024-08-22" required>
+                    <input type="date" id="conEndDate" name="conEndDate" required>
                 </div>
             </div>
         </div>
 
         <div class="flex-buttons">
-            <button type="button" class="btn previous-btn">이전</button>
+            <button type="button" class="btn previous-btn" onclick="history.back()">이전</button>
             <button type="submit" class="btn">다음</button>
         </div>
     </form>
@@ -157,6 +157,42 @@
             updateTotalPrize();
         }
     });
+
+    // 현재 날짜를 가져오는 함수
+    function getToday() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = ('0' + (today.getMonth() + 1)).slice(-2); // 월은 0부터 시작하므로 +1
+        const day = ('0' + today.getDate()).slice(-2);
+        return `${year}-${month}-${day}`;
+    }
+
+    // 시작 날짜 기본값을 현재 날짜로 설정
+    const startDateInput = document.getElementById('conStartDate');
+    startDateInput.value = getToday();
+    startDateInput.min = getToday(); // 시작 날짜는 현재 날짜 이후여야 함
+
+    // 종료 날짜 기본값을 시작 날짜로부터 7일 뒤로 설정
+    const endDateInput = document.getElementById('conEndDate');
+    function setEndDate() {
+        const startDate = new Date(startDateInput.value);
+        const endDate = new Date(startDate);
+        endDate.setDate(startDate.getDate() + 7); // 7일 뒤로 설정
+
+        const year = endDate.getFullYear();
+        const month = ('0' + (endDate.getMonth() + 1)).slice(-2);
+        const day = ('0' + endDate.getDate()).slice(-2);
+
+        endDateInput.value = `${year}-${month}-${day}`;
+        endDateInput.min = `${year}-${month}-${day}`; // 종료 날짜는 시작 날짜 + 7일 이후여야 함
+    }
+
+    // 시작 날짜가 변경되면 종료 날짜를 다시 설정
+    startDateInput.addEventListener('change', setEndDate);
+
+    // 초기 호출: 페이지 로드 시 종료 날짜 설정
+    setEndDate();
+
 </script>
 
 </script>
