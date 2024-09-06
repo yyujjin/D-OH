@@ -141,11 +141,7 @@
         .date-settings {
             margin-top: 30px;
         }
-        .date-settings h2 {
-            margin-bottom: 10px;
-            font-size: 1.2em;
-            color: #333;
-        }
+
         .btn {
             display: inline-block;
             width: 48%;
