@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,16 +8,18 @@
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"> -->
     <!-- <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script> -->
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-<!--    <script src="main.js"></script>-->
-<!--    <link rel="stylesheet" href="main.css">-->
+    <!--  기존 방식 :  <link rel="stylesheet" href="main.css">-->
+    <!--    thymeleaf를 이용한 CSS include-->
     <link rel="stylesheet" th:href="@{/css/list/main.css}"/>
     <link rel="stylesheet" th:href="@{/css/fragments/header.css}">
     <link rel="stylesheet" th:href="@{/css/fragments/footer.css}">
+    <!--   기존 방식 : <script src="main.js"></script>-->
+    <!--    thymeleaf를 이용한 JS include-->
     <script th:src="@{/js/list/main.js}"></script>
 </head>
 <body>
 <!--    <header>-->
-<header th:insert="~{fragments/header :: headerFragment}">
+<header th:replace="~{fragments/header :: headerFragment}">
 
     </header>
     <main>
@@ -355,7 +357,7 @@
         </div>
     </main>
 <!--    <footer>-->
-<footer th:insert="~{fragments/footer :: footerFragment}">
+<footer th:replace="~{fragments/footer :: footerFragment}">
 
     </footer>
 </body>
