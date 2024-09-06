@@ -66,8 +66,6 @@ public class ContestUploadController {
         return "redirect:/contest/payment";  // 결제 정보 확인 페이지로 이동
     }
 
-
-    // 결제 정보 확인 페이지
     // 결제 정보 확인 페이지
     @GetMapping("/contest/payment")
     public String showPaymentPage(HttpSession session, Model model) {
@@ -77,9 +75,16 @@ public class ContestUploadController {
         if (contestUploadDTO == null) {
             return "redirect:/contest";  // 세션에 데이터가 없으면 처음으로 리다이렉트
         }
+        // 각 등수의 상금과 명수를 곱해서 총 상금 계산
+        int firstTotal = contestUploadDTO.getConFirstPrice() * contestUploadDTO.getConFirstPeople();
+        int secondTotal = contestUploadDTO.getConSecondPrice() * contestUploadDTO.getConSecondPeople();
+        int thirdTotal = contestUploadDTO.getConThirdPrice() * contestUploadDTO.getConThirdPeople();
+
+        int totalPrize = firstTotal + secondTotal + thirdTotal;
 
         // 필요한 데이터를 모델에 추가하여 뷰에 전달
         model.addAttribute("contestUploadDTO", contestUploadDTO);
+        model.addAttribute("totalPrize", totalPrize);  // 총 상금 추가
 
         // DB에 저장
         contestUploadService.saveContest(contestUploadDTO);
