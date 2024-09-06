@@ -1,81 +1,65 @@
 package com.DOH.DOH.service.notifications;
 
 import com.DOH.DOH.dto.notifications.EventDTO;
+import com.DOH.DOH.mapper.notifications.EventMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class EventServiceImpl implements EventService {
 
     @Autowired
-    private EventRepository eventRepository;
+    private EventMapper eventMapper;
 
+    /**
+     * 이벤트 목록을 가져와서 모델에 추가하는 메서드
+     * @param page 현재 페이지 번호 (페이징 처리용)
+     * @param model 이벤트 목록을 저장할 모델 객체
+     */
     @Override
-    public List<EventDTO> getAllEvents() {
-        return eventRepository.findAll().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+    public void getEventList(int page, Model model) {
+        int offset = (page - 1) * 10; // 페이징 처리를 위한 offset 계산
+        List<EventDTO> eventList = eventMapper.getEventList(offset); // 이벤트 목록 가져오기
+        model.addAttribute("eventList", eventList); // 모델에 이벤트 목록 추가
     }
 
+    /**
+     * 새로운 이벤트를 작성하는 메서드
+     * @param eventDTO 이벤트 DTO 객체 (제목, 내용, 이미지 등)
+     */
     @Override
-    public EventDTO getEventById(int id) {
-        Optional<Event> event = eventRepository.findById(id);
-        return event.map(this::convertToDTO).orElse(null);
+    public void writeEvent(EventDTO eventDTO) {
+        eventMapper.writeEvent(eventDTO); // 이벤트 작성 로직 실행
     }
 
+    /**
+     * 기존 이벤트를 수정하는 메서드
+     * @param eventDTO 수정된 이벤트 DTO 객체
+     */
     @Override
-    public EventDTO createEvent(EventDTO eventDTO) {
-        Event event = convertToEntity(eventDTO);
-        event = eventRepository.save(event);
-        return convertToDTO(event);
+    public void updateEvent(EventDTO eventDTO) {
+        eventMapper.updateEvent(eventDTO); // 이벤트 수정 로직 실행
     }
 
+    /**
+     * 이벤트를 삭제하는 메서드
+     * @param eventNum 삭제할 이벤트 번호
+     */
     @Override
-    public EventDTO updateEvent(int id, EventDTO eventDTO) {
-        if (eventRepository.existsById(id)) {
-            Event event = convertToEntity(eventDTO);
-            event.setEventNum(id);
-            event = eventRepository.save(event);
-            return convertToDTO(event);
-        }
-        return null;
+    public void deleteEvent(int eventNum) {
+        eventMapper.deleteEvent(eventNum); // 이벤트 삭제 로직 실행
     }
 
+    /**
+     * 이벤트 번호로 특정 이벤트를 조회하는 메서드
+     * @param eventNum 조회할 이벤트 번호
+     * @return 조회된 이벤트 DTO 객체
+     */
     @Override
-    public boolean deleteEvent(int id) {
-        if (eventRepository.existsById(id)) {
-            eventRepository.deleteById(id);
-            return true;
-        }
-        return false;
-    }
-
-    private EventDTO convertToDTO(Event event) {
-        EventDTO dto = new EventDTO();
-        dto.setEventNum(event.getEventNum());
-        dto.setEventTitle(event.getEventTitle());
-        dto.setEventContent(event.getEventContent());
-        dto.setEventCreateTime(event.getEventCreateTime());
-        dto.setEventImageName(event.getEventImageName());
-        dto.setEventImageUrl(event.getEventImageUrl());
-        dto.setUserNum(event.getUserNum());
-        dto.setEventTempSave(event.isEventTempSave());
-        return dto;
-    }
-
-    private Event convertToEntity(EventDTO dto) {
-        Event event = new Event();
-        event.setEventNum(dto.getEventNum());
-        event.setEventTitle(dto.getEventTitle());
-        event.setEventContent(dto.getEventContent());
-        event.setEventCreateTime(dto.getEventCreateTime());
-        event.setEventImageName(dto.getEventImageName());
-        event.setEventImageUrl(dto.getEventImageUrl());
-        event.setUserNum(dto.getUserNum());
-        event.setEventTempSave(dto.isEventTempSave());
-        return event;
+    public EventDTO getEventById(int eventNum) {
+        return eventMapper.getEventById(eventNum); // 특정 이벤트 조회
     }
 }
