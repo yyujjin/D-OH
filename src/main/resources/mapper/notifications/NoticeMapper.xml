@@ -65,4 +65,9 @@
         LIMIT #{offset}, 10
     </select>
 
+    <!-- 전체 공지사항 수 조회 -->
+    <select id="getTotalNotices" resultType="int">
+        SELECT COUNT(*) FROM notice WHERE noticeTempSave = false
+    </select>
+
 </mapper>

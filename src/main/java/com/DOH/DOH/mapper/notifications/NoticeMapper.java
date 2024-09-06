@@ -47,4 +47,10 @@ public interface NoticeMapper {
      * @param noticeNum 삭제할 공지사항 번호
      */
     void deleteNotice(@Param("noticeNum") int noticeNum);
+
+    /**
+     * 전체 공지사항 수를 가져오는 메서드 (페이지 계산을 위해 사용)
+     * @return 전체 공지사항 수
+     */
+    int getTotalNotices();
 }

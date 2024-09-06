@@ -12,6 +12,8 @@ import java.util.List;
 @Service
 public class NoticeServiceImpl implements NoticeService {
 
+    private static final int PAGE_SIZE = 10; // 페이지당 공지사항 수
+
     @Autowired
     private NoticeMapper noticeMapper;
 
@@ -25,7 +27,7 @@ public class NoticeServiceImpl implements NoticeService {
         if (page < 1) {
             page = 1; // 최소 페이지 번호는 1
         }
-        int offset = (page - 1) * 10;
+        int offset = (page - 1) * PAGE_SIZE;
         // 페이징 처리를 위한 offset 계산
         List<NoticeDTO> noticeList = noticeMapper.getNoticeList(offset); // 공지사항 목록 가져오기
 
@@ -34,7 +36,18 @@ public class NoticeServiceImpl implements NoticeService {
         }
 
         model.addAttribute("noticeList", noticeList); // 모델에 공지사항 목록 추가
-        model.addAttribute("noticeNum", noticeList.size()); // 모델에 noticeNum 추가
+        model.addAttribute("currentPage", page); // 현재 페이지 추가
+        model.addAttribute("totalPages", getTotalPages()); // 총 페이지 수 추가
+    }
+
+    /**
+     * 전체 공지사항 수를 기반으로 총 페이지 수를 계산하는 메서드
+     * @return 총 페이지 수
+     */
+    @Override
+    public int getTotalPages() {
+        int totalNotices = noticeMapper.getTotalNotices(); // 공지사항 총 개수 가져오기
+        return (int) Math.ceil((double) totalNotices / PAGE_SIZE); // 총 페이지 수 계산
     }
 
     /**
@@ -57,7 +70,7 @@ public class NoticeServiceImpl implements NoticeService {
     @Override
     public void saveNotice(NoticeDTO noticeDTO) {
         noticeDTO.setNoticeTempSave(false); // 임시 저장이 아닌 정식 저장
-        noticeMapper.insertNotice(noticeDTO); // 수정: writeNotice에서 insertNotice로 변경
+        noticeMapper.insertNotice(noticeDTO);
     }
 
     /**
@@ -67,7 +80,7 @@ public class NoticeServiceImpl implements NoticeService {
     @Override
     public void saveTempNotice(NoticeDTO noticeDTO) {
         noticeDTO.setNoticeTempSave(true); // 임시 저장으로 설정
-        noticeMapper.insertNotice(noticeDTO); // 수정: writeNotice에서 insertNotice로 변경
+        noticeMapper.insertNotice(noticeDTO);
     }
 
     /**
@@ -76,7 +89,7 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public void updateNotice(NoticeDTO notice) {
-        noticeMapper.updateNotice(notice); // 공지사항 수정 로직 실행
+        noticeMapper.updateNotice(notice);
     }
 
     /**
@@ -85,6 +98,6 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public void deleteNotice(int noticeNum) {
-        noticeMapper.deleteNotice(noticeNum); // 공지사항 삭제 로직 실행
+        noticeMapper.deleteNotice(noticeNum);
     }
 }
