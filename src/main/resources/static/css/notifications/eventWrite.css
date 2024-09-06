@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700&display=swap');
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, rgb(193, 192, 255), rgb(193, 192, 255));
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    max-width: 800px;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgb(193, 192, 255);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.container:hover {
+    transform: translateY(-10px);
+}
+
+h1 {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 40px;
+    color: rgb(193, 192, 255);
+    font-weight: 700;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    display: block;
+    color: rgb(193, 192, 255);
+    font-weight: 600;
+}
+
+input[type="text"],
+textarea,
+input[type="date"],
+input[type="time"],
+input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgb(193, 192, 255);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="file"]:focus {
+    box-shadow: 0 0 8px rgba(193, 192, 255, 0.5);
+    outline: none;
+}
+
+textarea {
+    height: 150px;
+    resize: none;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn-group button {
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.btn-primary {
+    background-color: rgb(193, 192, 255);
+    color: white;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background-color: rgba(193, 192, 255, 0.8);
+    box-shadow: 0 4px 10px rgba(193, 192, 255, 0.3);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: rgb(193, 192, 255);
+    text-decoration: none;
+    border: 1px solid rgb(193, 192, 255);
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.btn-secondary:hover {
+    background-color: rgb(193, 192, 255);
+    color: white;
+}
+
+.date-time-group {
+    display: flex;
+    gap: 20px;
+}
+
+.date-time-group .form-group {
+    flex: 1;
+}
+
+.file-group {
+    margin-top: 20px;
+}
