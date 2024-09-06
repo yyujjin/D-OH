@@ -14,4 +14,9 @@ public class ContestUploadServiceImpl implements ContestUploadService {
     public void saveContest(ContestUploadDTO contestUploadDTO) {
         contestMapper.insertContest(contestUploadDTO);
     }
+
+    @Override
+    public ContestUploadDTO findContestById(Long contestId) {
+        return contestMapper.selectContestById(contestId);
+    }
 }
