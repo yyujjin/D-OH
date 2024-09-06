@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>이벤트 페이지</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/notifications/eventList.css}">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- Header Fragment -->
+    <header th:replace="~{fragments/header :: headerFragment}">
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            <!-- 이벤트 카드 반복 -->
+            <div class="col" th:each="event : ${eventList}">
+                <a th:href="@{/event/detail/{id}(id=${event.id})}" class="card-link">
+                    <div class="card h-100">
+                        <img th:src="@{/images/event{id}.jpg(id=${event.id})}" class="card-img-top" th:alt="${event.title} 이미지">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${event.title}">이벤트 제목</h5>
+                            <p class="card-text" th:text="${event.description}">이벤트 설명입니다.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- //이벤트 카드 반복 끝 -->
+        </div>
+    </div>
+
+    <!-- Footer Fragment -->
+    <footer th:replace="~{fragments/footer :: footerFragment}">
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
