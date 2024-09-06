@@ -1,5 +1,5 @@
 .container {
-    max-width: 800px;
+    max-width: 1100px;
     padding: 30px;
     background-color: white;
     border: 1px solid rgb(193, 192, 255);
@@ -8,11 +8,11 @@
     margin: 20px auto;
 }
 
-.container h1 {
+.container h2 {
     font-size: 28px;
     text-align: center;
     margin-bottom: 30px;
-    color: rgb(193, 192, 255);
+    color: black;
     font-weight: 700;
 }
 

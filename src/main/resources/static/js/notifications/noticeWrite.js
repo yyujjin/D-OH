@@ -13,14 +13,12 @@ $(document).ready(function() {
         }
         
         // 내용 유효성 검사
-        if (content === '') {
-            alert('내용을 입력하세요.');
-            $('#content').focus();
-            event.preventDefault();
-            return false;
-        }
-
-        // 추가로 다른 유효성 검사를 여기에 추가할 수 있습니다.
+        // if (content === '') {
+        //     alert('내용을 입력하세요.');
+        //     $('#content').focus();
+        //     event.preventDefault();
+        //     return false;
+        // }
     });
 
     // 임시 저장 버튼 클릭 시 처리
