@@ -22,7 +22,7 @@
 
 <body>
     <!-- Header Fragment -->
-    <header th:insert="~{fragments/header :: headerFragment}">
+    <header th:replace="~{fragments/header :: headerFragment}">
 
     </header>
 
@@ -52,8 +52,8 @@
 
                 <!-- 공지사항 내용 반복 -->
                 <tr th:each="notice : ${noticeList}" th:id="'content-row-' + ${notice.noticeNum}" class="content-row">
-                    <td colspan="2" th:text="${notice.content}"></td> <!-- 공지사항 내용 -->
-                    <td>
+                    <td colspan="2">
+                        <div th:text="${notice.content}"></div> <!-- 공지사항 내용 -->
                         <div class="buttons">
                             <button class="btn btn-primary btn-sm">수정</button>
                             <button class="btn btn-danger btn-sm">삭제</button>
@@ -65,16 +65,22 @@
 
         </table>
 
-        <!-- Pagination Controls -->
+        <!-- Pagination Controls 페이지네이션 -->
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                    <a class="page-link" th:href="@{/list(page=${currentPage-1})}">&laquo;</a>
+                </li>
+                <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}"
+                    th:classappend="${i == currentPage} ? 'active'">
+                    <a class="page-link" th:href="@{/list(page=${i})}" th:text="${i}">1</a>
+                </li>
+                <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                    <a class="page-link" th:href="@{/list(page=${currentPage+1})}">&raquo;</a>
+                </li>
             </ul>
         </nav>
+
 
 
         <!-- 등록 버튼 -->
@@ -84,7 +90,7 @@
     </div>
 
     <!-- Footer Fragment -->
-    <footer th:insert="~{fragments/footer :: footerFragment}">
+    <footer th:replace="~{fragments/footer :: footerFragment}">
 
     </footer>
 </body>
