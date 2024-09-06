@@ -75,6 +75,7 @@ public class ContestUploadController {
         if (contestUploadDTO == null) {
             return "redirect:/contest";  // 세션에 데이터가 없으면 처음으로 리다이렉트
         }
+
         // 각 등수의 상금과 명수를 곱해서 총 상금 계산
         int firstTotal = contestUploadDTO.getConFirstPrice() * contestUploadDTO.getConFirstPeople();
         int secondTotal = contestUploadDTO.getConSecondPrice() * contestUploadDTO.getConSecondPeople();
@@ -84,7 +85,9 @@ public class ContestUploadController {
 
         // 필요한 데이터를 모델에 추가하여 뷰에 전달
         model.addAttribute("contestUploadDTO", contestUploadDTO);
-        model.addAttribute("totalPrize", totalPrize);  // 총 상금 추가
+        model.addAttribute("totalPrize", totalPrize);
+        model.addAttribute("conCompany", contestUploadDTO.getConCompanyName());  // 회사명 추가
+//        model.addAttribute("이메일이름", 문균호DTO.get이메일 이름());  // 회사명 추가
 
         // DB에 저장
         contestUploadService.saveContest(contestUploadDTO);
