@@ -2,15 +2,12 @@ package com.DOH.DOH.controller.notifications;
 
 import com.DOH.DOH.dto.notifications.NoticeDTO;
 import com.DOH.DOH.service.notifications.NoticeService;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
@@ -41,19 +38,21 @@ public class NoticeController {
 
     // 공지사항 등록 처리
     @PostMapping("/register")
-    public String registerNotice(@ModelAttribute NoticeDTO noticeDTO, Model model) {
-        log.info("공지사항 등록: {}", noticeDTO);
+    public String registerNotice(@ModelAttribute NoticeDTO noticeDTO, HttpSession session) {
+        // 로그인된 사용자 정보 가져오기 (세션에서 사용자 ID나 번호를 가져온다고 가정)
+        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
 
-        // 임시 저장 여부에 따른 처리
-        if (noticeDTO.isNoticeTempSave()) {
-            // 임시 저장 로직
-            noticeService.saveTempNotice(noticeDTO);
+        if (loggedInUser != null) {
+            // userNum 설정
+            noticeDTO.setUserNum(loggedInUser.getUserNum());
         } else {
-            // 정식 공지 등록 처리 로직
-            noticeService.saveNotice(noticeDTO);
+            // 로그인된 사용자가 없을 경우 처리
+            throw new RuntimeException("로그인된 사용자가 없습니다.");
         }
 
-        // 공지사항 목록 페이지로 리디렉션
+        // 공지사항 저장 처리
+        noticeService.saveNotice(noticeDTO);
+
         return "redirect:/notice/list";
     }
 }
