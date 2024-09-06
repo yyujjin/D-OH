@@ -66,27 +66,26 @@
         </table>
 
         <!-- Pagination Controls 페이지네이션 -->
-        <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation example" th:if="${totalPages != null and totalPages > 0}">
             <ul class="pagination justify-content-center">
                 <!-- 이전 페이지 버튼 (현재 페이지가 1인 경우 비활성화) -->
-                <li class="page-item" th:classappend="${currentPage == 1 or currentPage == null} ? 'disabled'">
-                    <a class="page-link"
-                        th:href="@{/list(page=${currentPage != null ? currentPage - 1 : 1})}">&laquo;</a>
+                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                    <a class="page-link" th:href="@{/list(page=${currentPage - 1})}">&laquo;</a>
                 </li>
-
+        
                 <!-- 페이지 번호 반복 -->
                 <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}"
                     th:classappend="${i == currentPage} ? 'active'">
                     <a class="page-link" th:href="@{/list(page=${i})}" th:text="${i}">1</a>
                 </li>
-
+        
                 <!-- 다음 페이지 버튼 (현재 페이지가 마지막 페이지인 경우 비활성화) -->
-                <li class="page-item" th:classappend="${currentPage == totalPages or currentPage == null} ? 'disabled'">
-                    <a class="page-link"
-                        th:href="@{/list(page=${currentPage != null ? currentPage + 1 : 2})}">&raquo;</a>
+                <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                    <a class="page-link" th:href="@{/list(page=${currentPage + 1})}">&raquo;</a>
                 </li>
             </ul>
         </nav>
+        
 
         <!-- 등록 버튼 -->
         <div class="buttons">

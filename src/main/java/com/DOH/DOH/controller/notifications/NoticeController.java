@@ -22,13 +22,14 @@ public class NoticeController {
 
     // 공지사항 목록 페이지
     @GetMapping("/list")
-    public String noticeList(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
-        log.info("Received page parameter: {}", page);
-        model.addAttribute("noticeNum", 123);
-        noticeService.getNoticeList(page, model);
+    public String noticeList(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
+        int totalPages = noticeService.getTotalPages();  // 전체 페이지 수 계산
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage", page);
+
+        noticeService.getNoticeList(page, model);  // 공지사항 목록 조회
         return "notifications/noticeList";
     }
-
 
     // 공지사항 작성 페이지
     @GetMapping("/write")
