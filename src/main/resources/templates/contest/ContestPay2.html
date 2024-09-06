@@ -9,25 +9,25 @@
 <body>
 
 <div class="container">
-
     <form action="/contest/payment/submit" method="post" enctype="multipart/form-data">
-    <div class="title">결제 정보를 확인해주세요.</div>
+        <div class="title">결제 정보를 확인해주세요.</div>
 
         <div class="info">
             <h3>의뢰자 정보</h3>
             <p>이메일 <span id="displayEmail"></span></p>
+            <p>회사명 <span id="displaycompany"></span></p>
+
         </div>
 
         <div class="payment-info">
             <h3>상금 설정</h3>
-            <p>콘테스트 상금 <span id="displayContest" th:text="${contestUploadDTO.conFirstPrice}"></span> 원</p>
-            <p>서비스 이용료 <span id="displayService"></span> 원</p>
-
+            <p>상금 <span id="totalPrize" th:text="${totalPrize * 10000}"></span> 원</p>
+            <p>서비스 이용료 <span id="serviceFee" th:text="${totalPrize * 2500}"></span> 원</p>
         </div>
 
         <div class="pay">
             <h3>총 금액</h3>
-            <p><span id="displayTotal">총 금액 계산 로직 추가</span> 원</p>
+            <p><span id="totalAmount" th:text="${totalPrize * 2500 + totalPrize * 10000}"></span> 원</p>
         </div>
 
         <div class="btn-container">
@@ -38,4 +38,15 @@
 </div>
 
 </body>
+<script>
+    // 숫자를 세자리마다 콤마(,)를 찍는 함수
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    // 각 금액을 세자리마다 콤마로 포맷팅
+    document.getElementById('totalPrize').textContent = numberWithCommas(document.getElementById('totalPrize').textContent);
+    document.getElementById('serviceFee').textContent = numberWithCommas(document.getElementById('serviceFee').textContent);
+    document.getElementById('totalAmount').textContent = numberWithCommas(document.getElementById('totalAmount').textContent);
+</script>
 </html>
