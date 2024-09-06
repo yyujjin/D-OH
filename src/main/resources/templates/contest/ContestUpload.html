@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/contest/ContestUpload.css">
+    <script src="/js/contest/ContestUpload.js"></script>
     <title>Contest Upload Form</title>
 </head>
 <body>
 <div class="container">
     <h1>어떤 작품이 필요하세요?</h1>
     <form action="/contest" method="post" enctype="multipart/form-data">
-        <label for="conCompanyName">회사명(단체명)</label>
+<!--        <label for="conCompanyName">회사명(단체명)</label>-->
+        <h3>회사명(단체명)</h3>
         <input type="text" id="conCompanyName" name="conCompanyName" placeholder="회사명을 입력해 주세요" required>
 
 
-        <label for="conOneLiner">한 줄 소개</label>
+<!--        <label for="conOneLiner">한 줄 소개</label>-->
+        <h3>한 줄 소개</h3>
         <textarea id="conOneLiner" name="conOneLiner" rows="3" placeholder="우리 서비스는 OO을 판매하는 회사입니다." required></textarea>
 
-        <label for="conType">업종</label>
+<!--        <label for="conType">업종</label>-->
+        <h3>업종</h3>
         <select id="conType" name="conType" required>
             <option value="">업종 선택</option>
             <option value="식당/카페">식당/카페</option>
@@ -31,10 +34,12 @@
             <option value="일반기타">일반기타</option>
         </select>
 
-        <label for="conLogoName">로고명</label>
+<!--        <label for="conLogoName">로고명</label>-->
+        <h3>로고명</h3>
         <input type="text" id="conLogoName" name="conLogoName" placeholder="로고명을 입력해 주세요." required>
 
-        <label for="conBriefing">브리핑</label>
+<!--        <label for="conBriefing">브리핑</label>-->
+        <h3>브리핑</h3>
         <textarea id="conBriefing" name="conBriefing" rows="5" placeholder="브리핑을 입력해 주세요" required></textarea>
 
         <!--        <label for="conFile">첨부파일</label>-->
