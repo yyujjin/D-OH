@@ -5,11 +5,15 @@ import com.DOH.DOH.service.contest.ContestUploadService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Date;
 
 @Slf4j
 @Controller
@@ -86,7 +90,7 @@ public class ContestUploadController {
         // 필요한 데이터를 모델에 추가하여 뷰에 전달
         model.addAttribute("contestUploadDTO", contestUploadDTO);
         model.addAttribute("totalPrize", totalPrize);
-        model.addAttribute("conCompany", contestUploadDTO.getConCompanyName());  // 회사명 추가
+        model.addAttribute("conCompanyName", contestUploadDTO.getConCompanyName());  // 회사명 추가
 //        model.addAttribute("이메일이름", 문균호DTO.get이메일 이름());  // 회사명 추가
 
         // DB에 저장
@@ -109,6 +113,35 @@ public class ContestUploadController {
         session.invalidate();
 
         return "contest/PaymentSuccess";  // 결제 성공 페이지로 이동
+    }
+//    결제 api 겟 포스트 알아서 하고
+
+    @GetMapping("/contestview")
+    public String contestView(@RequestParam Long contestId, Model model) {
+        // 서비스 계층을 통해 DB에서 콘테스트 데이터를 가져옴
+        ContestUploadDTO contestUploadDTO = contestUploadService.findContestById(contestId);
+
+        // 모델에 데이터를 추가
+        model.addAttribute("contestUploadDTO", contestUploadDTO);
+        model.addAttribute("conTitle", contestUploadDTO.getConTitle());  // 회사명 추가
+        model.addAttribute("conCompanyName", contestUploadDTO.getConCompanyName());  // 회사명 추가
+        model.addAttribute("conOneLiner", contestUploadDTO.getConOneLiner());  // 회사명 추가
+        model.addAttribute("conLogoName", contestUploadDTO.getConLogoName());  // 회사명 추가
+        model.addAttribute("conBriefing", contestUploadDTO.getConBriefing());  // 회사명 추가
+
+        model.addAttribute("conFirstPrice", contestUploadDTO.getConFirstPrice());  // 회사명 추가
+        model.addAttribute("conFirstPeople", contestUploadDTO.getConFirstPeople());  // 회사명 추가
+
+        model.addAttribute("conSecondPrice", contestUploadDTO.getConSecondPrice());  // 회사명 추가
+        model.addAttribute("conSecondPeople", contestUploadDTO.getConSecondPeople());  // 회사명 추가
+
+        model.addAttribute("conThirdPrice", contestUploadDTO.getConThirdPrice());  // 회사명 추가
+        model.addAttribute("conThirdPeople", contestUploadDTO.getConThirdPeople());  // 회사명 추가
+
+        model.addAttribute("conStartDate", contestUploadDTO.getConStartDate());  // 회사명 추가
+        model.addAttribute("conEndDate", contestUploadDTO.getConEndDate());  // 회사명 추가
+
+        return "contest/ContestView";  // 뷰로 이동
     }
 
 }
