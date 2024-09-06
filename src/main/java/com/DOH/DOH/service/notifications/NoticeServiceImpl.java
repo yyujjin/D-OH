@@ -22,7 +22,11 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public void getNoticeList(int page, Model model) {
-        int offset = (page - 1) * 10; // 페이징 처리를 위한 offset 계산
+        if (page < 1) {
+            page = 1; // 최소 페이지 번호는 1
+        }
+        int offset = (page - 1) * 10;
+        // 페이징 처리를 위한 offset 계산
         List<NoticeDTO> noticeList = noticeMapper.getNoticeList(offset); // 공지사항 목록 가져오기
 
         if (noticeList == null) {
