@@ -30,7 +30,7 @@
     <!-- Main Content -->
     <div class="container">
         <h1>공지사항 등록</h1>
-        <form id="noticeForm" th:action="@{/notices/register}" method="post">
+        <form id="noticeForm" th:action="@{/notice/register}" method="post">
             <div class="form-group">
                 <label for="date">날짜</label>
                 <input type="date" id="date" name="date" class="form-control"
@@ -48,7 +48,7 @@
             <input type="hidden" id="noticeTempSave" name="noticeTempSave" value="false">
 
             <div class="btn-group">
-                <a th:href="@{/notices/list}" class="btn-secondary">목록보기</a>
+                <a th:href="@{/notice/list}" class="btn-secondary">목록보기</a>
                 <button type="submit" class="btn-primary">등록</button>
                 <button type="button" class="btn-secondary" id="tempSaveBtn">임시 저장</button>
             </div>
