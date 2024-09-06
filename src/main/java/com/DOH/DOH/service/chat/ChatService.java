@@ -39,6 +39,7 @@ public class ChatService {
                 .name(name)
                 .build();
         chatRooms.put(randomId, chatRoomDTO);
+        log.info("실행됨:{}",randomId,"chatRoomDTO :{}",chatRoomDTO);
         return chatRoomDTO;
     }
 
