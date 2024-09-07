@@ -25,7 +25,7 @@ body {
 
 .chat-list-header {
   padding: 15px;
-  background-color: #ff6600;
+  background-color: #C1C0FF;
   color: white;
   text-align: center;
   font-size: 18px;
@@ -67,7 +67,7 @@ body {
 }
 
 .unread {
-  background-color: #ff6600;
+  background-color: #C1C0FF;
   color: white;
   border-radius: 50%;
   padding: 2px 8px;
@@ -125,7 +125,7 @@ body {
 }
 
 .message-bubble.sent {
-  background-color: #ff6600;
+  background-color: #C1C0FF;
   color: white;
   border-bottom-right-radius: 0;
 }
@@ -155,7 +155,7 @@ body {
 }
 
 .chat-footer button {
-  background-color: #ff6600;
+  background-color: #C1C0FF;
   color: white;
   border: none;
   padding: 10px 20px;
