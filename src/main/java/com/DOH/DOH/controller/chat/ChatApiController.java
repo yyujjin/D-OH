@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/chat")
-public class ChatController {
+public class ChatApiController {
 
     private final SimpMessagingTemplate messagingTemplate;
     private final ChatRoomService chatRoomService;
     private final MessageService messageService;
 
-    public ChatController(SimpMessagingTemplate messagingTemplate, ChatRoomService chatRoomService, MessageService messageService) {
+    public ChatApiController(SimpMessagingTemplate messagingTemplate, ChatRoomService chatRoomService, MessageService messageService) {
         this.messagingTemplate = messagingTemplate;
         this.chatRoomService = chatRoomService;
         this.messageService = messageService;
@@ -47,5 +47,8 @@ public class ChatController {
                 messageDto
         );
     }
+
+    //채팅방 찾기
+
 
 }
