@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class MessageDto {
+    private String roomId; // 룸넘버
     private String sender; //발신자
     private String receiver; //수신자
     private String content; //메시지 내용
