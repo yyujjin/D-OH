@@ -1,10 +1,8 @@
 package com.DOH.DOH.dto.chat;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class ChatRoomDTO {
     private String roomId; //채팅방 ID
     private String client; //의뢰인
