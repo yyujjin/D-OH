@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Room</title>
+    <script src="./js/chat/chatRoom.js" defer></script>
+    <link rel="stylesheet" href="./css/chat/chatRoom.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- 채팅 목록 -->
+      <div class="chat-list">
+        <div class="chat-list-header">조이마미</div>
+        <div class="chat-item">
+          <img src="https://via.placeholder.com/40" alt="User" />
+          <div class="chat-item-details">
+            <div class="name">공책</div>
+            <div class="last-message">조이마미님이 이미지를 보냈어요.</div>
+          </div>
+          <span class="unread">1</span>
+        </div>
+        <div class="chat-item">
+          <img src="https://via.placeholder.com/40" alt="User" />
+          <div class="chat-item-details">
+            <div class="name">양복 구해요</div>
+            <div class="last-message">만나서 반가워요</div>
+          </div>
+        </div>
+        <!-- 추가 채팅 항목들 -->
+      </div>
+
+      <!-- 채팅 창 -->
+      <div class="chat-window">
+        <div class="chat-header">
+          <div class="chat-title">공책</div>
+        </div>
+        <div class="chat-body" id="chatBody">
+          <div class="chat-message received">
+            <div class="message-bubble received">안녕하세요.</div>
+          </div>
+          <div class="chat-message sent">
+            <div class="message-bubble sent">네 안녕하세요!</div>
+          </div>
+          <!-- 추가 메시지 -->
+        </div>
+        <div class="chat-footer">
+          <input
+            type="text"
+            id="chatInput"
+            placeholder="메시지를 입력하세요..."
+          />
+          <button onclick="sendMessage()">전송</button>
+        </div>
+      </div>
+    </div>
+
+    <!--<script>
+    function sendMessage() {
+        const chatBody = document.getElementById('chatBody');
+        const chatInput = document.getElementById('chatInput');
+        const message = chatInput.value.trim();
+
+        if (message) {
+            // 메시지 추가
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message', 'sent');
+
+            const bubbleDiv = document.createElement('div');
+            bubbleDiv.classList.add('message-bubble', 'sent');
+            bubbleDiv.innerText = message;
+
+            messageDiv.appendChild(bubbleDiv);
+            chatBody.appendChild(messageDiv);
+
+            // 스크롤을 하단으로
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            // 입력 필드 초기화
+            chatInput.value = '';
+        }
+    }
+</script>-->
+  </body>
+</html>
