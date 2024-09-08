@@ -6,6 +6,11 @@
     <title>Chat Room</title>
     <script src="/js/chat/chatRoom.js" defer></script>
     <link rel="stylesheet" href="/css/chat/chatRoom.css" />
+    <!-- SockJS 라이브러리 -->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.2/dist/sockjs.min.js"></script>
+
+    <!-- STOMP 라이브러리 -->
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -55,31 +60,32 @@
       </div>
     </div>
 
-    <!--<script>
-    function sendMessage() {
-        const chatBody = document.getElementById('chatBody');
-        const chatInput = document.getElementById('chatInput');
+    <script>
+      console.log("이 페이지 실행됨")
+      function sendMessage() {
+        const chatBody = document.getElementById("chatBody");
+        const chatInput = document.getElementById("chatInput");
         const message = chatInput.value.trim();
 
         if (message) {
-            // 메시지 추가
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('chat-message', 'sent');
+          // 메시지 추가
+          const messageDiv = document.createElement("div");
+          messageDiv.classList.add("chat-message", "sent");
 
-            const bubbleDiv = document.createElement('div');
-            bubbleDiv.classList.add('message-bubble', 'sent');
-            bubbleDiv.innerText = message;
+          const bubbleDiv = document.createElement("div");
+          bubbleDiv.classList.add("message-bubble", "sent");
+          bubbleDiv.innerText = message;
 
-            messageDiv.appendChild(bubbleDiv);
-            chatBody.appendChild(messageDiv);
+          messageDiv.appendChild(bubbleDiv);
+          chatBody.appendChild(messageDiv);
 
-            // 스크롤을 하단으로
-            chatBody.scrollTop = chatBody.scrollHeight;
+          // 스크롤을 하단으로
+          chatBody.scrollTop = chatBody.scrollHeight;
 
-            // 입력 필드 초기화
-            chatInput.value = '';
+          // 입력 필드 초기화
+          chatInput.value = "";
         }
-    }
-</script>-->
+      }
+    </script>
   </body>
 </html>
