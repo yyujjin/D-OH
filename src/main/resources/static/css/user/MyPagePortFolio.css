@@ -5,14 +5,6 @@
     margin: 0px;
     padding: 0px;
 }
-header{
-    grid-area: header;
-    border-bottom: 1px solid black;
-}
-footer{
-    grid-area: footer;
-    border-top: 1px solid black;
-}
 banner{
     display: grid;
     justify-content: center;
