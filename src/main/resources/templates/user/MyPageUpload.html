@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- import font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script src="/js/list/apply_2.js"></script>
+    <link rel="stylesheet" th:href="@{/css/user/MyPageUpload.css}">
+</head>
+<body>
+    <main>
+        <div class="mainWarap">
+            <div class="contestWarap">
+                <div class="contestInfo">
+                    <div class="day">
+<!--                        <div class="endDate info">8일</div>-->
+<!--                        <div class="type info">공공 기관</div>-->
+                    </div>
+                    <div class="contitle">작품 업로드</div>
+                    <div class="applyInfo">
+                        <div class="info"></div>
+                        <div class="info"></div>
+                    </div>
+                </div> <!--contestInfo-->
+                <a href="#">
+<!--                    <div class="briefing">브리핑 확인하기</div>-->
+                </a>
+            </div><!--contestWarap-->
+            
+            
+            <section>
+                <div class="applyContent">
+                    <input type="text" placeholder="제목을 입력해주세요.">
+                    <div class="contArea">
+
+                    </div>
+                </div>
+                <!-- </section> -->
+                <!-- <section> -->
+                <div class="applyWarap">
+                    <div class="applyInput">
+                        <div class="InputArea">
+                            <label for="image" class="imageUpload">
+                                <div class="content">
+                                    <span class="Image">
+                                        <i class="fa-regular fa-image"></i>
+                                    </span>
+                                    <div class="inputText">이미지 추가</div>
+                                </div>
+                            </label>
+                            <input type="file" name="" id="image" multiple>
+                        </div>
+                        <div class="InputArea">
+                            <div class="content text">
+                                <span class="Image">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </span>
+                                <div class="inputText">텍스트 추가</div>
+                            </div>
+                        </div>
+                    </div><!--applyInput-->
+                    <button type="button" class="temporary">
+                      임시 저장  
+                    </button>
+                    <button type="submit" class="apply">
+                      등록하기  
+                    </button>
+                <div class="oc">
+                    <input type="radio" id="open" name="oc">
+                    <label for="open" class="open">공개</label>
+                    <input type="radio" id="close" name="oc">
+                    <label for="close" class="close">비공개</label>
+                </div>
+                <div class="back">
+                    <a href="/mypage" class="mypageback">마이페이지 돌아가기</a>
+                </div>
+                </div><!--applyWarap-->
+            </section>
+        </div>
+    </main>
+</body>
+</html>
