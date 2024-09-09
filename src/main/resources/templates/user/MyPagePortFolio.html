@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css" rel="stylesheet">
+    <script src="/js/jquery-3.7.1.min.js"></script>
+    <script src="/js/bootstrap/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/user/MyPagePortFolio.css}">
+    <title>Document</title>
+</head>
+<body>
+<header>
+    <div th:include="fragments/header"></div>
+</header>
+<banner>
+    <img th:src="@{/img/banner.png}" alt="banner"  height="240px">
+</banner>
+<main>
+    <div class="container">
+        <div class="sidebar">
+            <img th:src="@{/img/quokka.jpg}"><br>
+            <div class="username">
+                쿼카
+            </div>
+            <div>
+                http://naver.com/
+            </div><br>
+            <button class="edit-profile">프로필 수정하기</button>
+            <div class="activity">
+                <div class="section-title">
+                    <h6>라우드 활동</h6>
+                </div>
+                <span>평균 응답시간: 정보 없음</span>
+                <span>연락 가능시간: 정보 없음</span>
+            </div>
+        </div> <!-- sidebar end -->
+        <div class="button-class">
+            <div class="profilesetting">
+                <a href="/mypage" class="underline">프로필 설정</a>
+            </div>
+            <div class="portfolio">
+                <a href=/portfolio class="underline">포트폴리오</a>
+            </div>
+            <div class="upload">
+                <a href="/upload" class="underline">작품 업로드하기</a>
+            </div>
+        </div> <!-- button-class end -->
+            <div class="portfolio-header">
+                <h6>작품</h6>
+                <div class="tab-select">
+                    <input type="radio" id="tab-all" name="tab-select" checked>
+                    <label for="tab-all" class="tab-all">공개</label>
+                    
+                    <input type="radio" id="tab-win" name="tab-select">
+                    <label for="tab-win" class="tab-win">비공개</label>
+                </div>                
+            </div>
+            <div class="portfolio-content">
+<!--                <div th:if="${artworks.size() == 0}">-->
+<!--                    <p>등록된 작품이 없습니다.</p>-->
+<!--                </div>-->
+<!--                <div th:if="${artworks.size() > 0}">-->
+<!--                    <div class="imagecard" th:each="artwork : ${artworks}">-->
+<!--                        &lt;!&ndash; 작품 카드 내용 &ndash;&gt;-->
+<!--                        <p th:text="${artwork}">작품 제목</p>-->
+<!--                    </div>-->
+                <a href="#" class="imagecard"></a>
+                <a href="#" class="imagecard"></a>
+                <a href="#" class="imagecard"></a>
+                <a href="#" class="imagecard"></a>
+                <a href="#" class="imagecard"></a>
+                <a href="#" class="imagecard"></a>
+                <a href="#" class="imagecard"></a>
+                <a href="#" class="imagecard"></a>
+                <a href="#" class="imagecard"></a>
+                <a href="#" class="imagecard"></a>
+                <a href="#" class="imagecard"></a>
+                <a href="#" class="imagecard"></a>
+                <a href="#" class="imagecard"></a>
+                <a href="#" class="imagecard"></a>
+                <a href="#" class="imagecard"></a>
+            </div>
+    </div> <!-- container end -->
+</main>
+    <footer>
+        <div th:include="fragments/footer"></div>
+    </footer>
+</body>
+</html>
