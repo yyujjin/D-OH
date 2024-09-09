@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -25,6 +26,11 @@ public class ContestUploadController {
     // 1단계: 첫 번째 폼 (회사 정보 등) 보여주기
     @GetMapping("/contest")
     public String showContestForm(Model model) {
+
+        // DB에서 업종 목록 가져오기
+        List<String> contestTypes = contestUploadService.getContestTypes();
+        model.addAttribute("contestTypes", contestTypes); // 업종 목록을 모델에 추가
+
         model.addAttribute("contestUploadDTO", new ContestUploadDTO());
         return "contest/ContestUpload";
     }

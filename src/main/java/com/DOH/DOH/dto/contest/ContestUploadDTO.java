@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Data
 public class ContestUploadDTO {
-    private int conNum; // 콘테스트 번호
+    private Long conNum; // id와 매핑되는 필드 (Primary Key)
     private String conEmail; // 콘테스트 등록 업체 이메일
 
     private String conCompanyName; // 회사명
