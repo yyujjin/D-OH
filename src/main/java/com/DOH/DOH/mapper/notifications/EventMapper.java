@@ -9,6 +9,9 @@ import java.util.List;
 @Mapper
 public interface EventMapper {
 
+    // 전체 이벤트 수 조회
+    int getTotalEventCount();
+
     // 이벤트 목록 조회 (페이징 처리)
     List<EventDTO> getEventList(@Param("offset") int offset, @Param("limit") int limit);
 
