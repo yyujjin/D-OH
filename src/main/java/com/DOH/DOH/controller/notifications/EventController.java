@@ -20,7 +20,7 @@ public class EventController {
 
     // 이벤트 목록 조회
     @GetMapping("/list")
-    public String noticeList(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
+    public String eventList(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
         int totalPages = eventService.getTotalPages();  // 전체 페이지 수 계산
 
         // 이벤트 목록을 모델에 추가
@@ -30,6 +30,18 @@ public class EventController {
         model.addAttribute("currentPage", page);
 
         return "notifications/eventList";  // 이벤트 목록 페이지로 이동
+    }
+
+    // 이벤트 상세 조회
+    @GetMapping("/detail")
+    public String showEventDetail(@RequestParam(name = "eventNum", defaultValue = "0") int eventNum, Model model) {
+        if (eventNum <= 0) {
+            // 파라미터가 누락되었거나 유효하지 않은 경우 처리
+            return "redirect:/event/list";  // 목록 페이지로 리다이렉트 또는 오류 페이지 표시
+        }
+        EventDTO event = eventService.getEventDetail(eventNum);
+        model.addAttribute("event", event);
+        return "notifications/eventView";
     }
 
 
