@@ -4,13 +4,14 @@ import com.DOH.DOH.dto.notifications.EventDTO;
 import com.DOH.DOH.service.notifications.EventService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Slf4j
-@RestController
+@Controller
 @RequestMapping("event")
 public class EventController {
 
