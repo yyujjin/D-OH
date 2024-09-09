@@ -2,13 +2,15 @@ function toggleContent(element) {
     const targetId = element.getAttribute('data-target');
     const contentRow = document.querySelector(targetId);
 
-    // Check if the content row is currently visible
-    if (contentRow.style.display === 'table-row') {
-        // If visible, hide it
+    // 현재 행이 보이는지 여부 확인
+    const currentDisplay = window.getComputedStyle(contentRow).display;
+
+    if (currentDisplay === 'table-row') {
+        // 보이면 숨기기
         contentRow.style.display = 'none';
         element.classList.remove('active-toggle');
     } else {
-        // If not visible, hide all other content rows and show the clicked one
+        // 보이지 않으면 다른 행 숨기고 클릭한 행 보이기
         document.querySelectorAll('.content-row').forEach(row => row.style.display = 'none');
         document.querySelectorAll('.toggle-row').forEach(row => row.classList.remove('active-toggle'));
 
