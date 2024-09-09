@@ -13,19 +13,20 @@ public class EventServiceImpl implements EventService {
     @Autowired
     private EventMapper eventMapper;
 
+    private static final int PAGE_SIZE = 10;  // 페이지당 이벤트 수
+
     // 이벤트 목록 조회 (리스트 반환)
     @Override
     public List<EventDTO> getEventList(int page) {
-        int offset = (page - 1) * 10;  // 페이지당 10개의 이벤트
-        return eventMapper.getEventList(offset, 10);  // 이벤트 목록을 반환
+        int offset = (page - 1) * PAGE_SIZE;  // 페이지에 따른 오프셋 계산
+        return eventMapper.getEventList(offset, PAGE_SIZE);  // 이벤트 목록을 반환
     }
 
     // 전체 페이지 수 계산 (페이지네이션)
     @Override
     public int getTotalPages() {
         int totalEvents = eventMapper.getTotalEventCount();
-        int pageSize = 10;  // 페이지당 이벤트 수
-        return (int) Math.ceil((double) totalEvents / pageSize);  // 전체 페이지 수 계산
+        return (int) Math.ceil((double) totalEvents / PAGE_SIZE);  // 전체 페이지 수 계산
     }
 
     // 이벤트 상세 조회
@@ -43,7 +44,8 @@ public class EventServiceImpl implements EventService {
     // 이벤트 임시 저장
     @Override
     public void saveTempEvent(EventDTO event) {
-        eventMapper.writeEvent(event);
+        event.setEventTempSave(true);  // 임시 저장 플래그 설정
+        eventMapper.writeEvent(event);  // 이벤트 저장
     }
 
     // 이벤트 수정
