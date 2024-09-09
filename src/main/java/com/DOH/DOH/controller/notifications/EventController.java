@@ -46,21 +46,21 @@ public class EventController {
 
 
     // 이벤트 작성 페이지 이동
-    @GetMapping("/write")
+    @GetMapping("/admin/write")
     public String showEventWritePage(Model model) {
         model.addAttribute("currentDate", new java.util.Date());
         return "notifications/eventWrite";  // 이벤트 작성 페이지로 이동
     }
 
     // 이벤트 등록
-    @PostMapping("/create")
+    @PostMapping("/admin/create")
     public String createEvent(@ModelAttribute EventDTO eventDTO) {
         eventService.writeEvent(eventDTO);
         return "redirect:/event/list";  // 작성 후 목록으로 리다이렉트
     }
 
     // 이벤트 임시 저장
-    @PostMapping("/save")
+    @PostMapping("/admin/save")
     public String saveEvent(@ModelAttribute EventDTO eventDTO) {
         eventDTO.setEventTempSave(true);
         eventService.writeEvent(eventDTO);  // 임시 저장 후 목록으로 리다이렉트
@@ -68,7 +68,7 @@ public class EventController {
     }
 
     // 이벤트 삭제
-    @PostMapping("/delete")
+    @PostMapping("/admin/delete")
     public String deleteEvent(@RequestParam("eventNum") int eventNum) {
         eventService.deleteEvent(eventNum);
         return "redirect:/event/list";  // 삭제 후 목록으로 리다이렉트
