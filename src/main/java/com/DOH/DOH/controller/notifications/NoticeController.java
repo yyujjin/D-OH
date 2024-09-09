@@ -28,6 +28,18 @@ public class NoticeController {
         return "notifications/noticeList";
     }
 
+    // 공지사항 상세 조회
+    @GetMapping("/detail")
+    public String noticeDetail(@RequestParam(name = "noticeNum", defaultValue = "0") int noticeNum, Model model) {
+        if (noticeNum <= 0) {
+            // 파라미터가 누락되었거나 유효하지 않은 경우 처리
+            return "redirect:/notice/list";  // 목록 페이지로 리다이렉트 또는 오류 페이지 표시
+        }
+        NoticeDTO notice = noticeService.getNoticeDetail(noticeNum);
+        model.addAttribute("notice", notice);
+        return "notifications/noticeDetail";
+    }
+
     // 공지사항 작성 페이지
     @GetMapping("/write")
     public String noticeWrite(Model model) {
@@ -40,7 +52,7 @@ public class NoticeController {
     @PostMapping("/register")
     public String registerNotice(@ModelAttribute NoticeDTO noticeDTO, HttpSession session) {
         // 로그인된 사용자 정보 가져오기 (세션에서 사용자 ID나 번호를 가져온다고 가정)
-        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
+        NoticeDTO loggedInUser = (NoticeDTO) session.getAttribute("loggedInUser");
 
         if (loggedInUser != null) {
             // userNum 설정
@@ -53,6 +65,30 @@ public class NoticeController {
         // 공지사항 저장 처리
         noticeService.saveNotice(noticeDTO);
 
+        return "redirect:/notice/list";
+    }
+
+    // 공지사항 임시 저장
+    @PostMapping("/save")
+    public String saveNotice(@ModelAttribute NoticeDTO noticeDTO, HttpSession session) {
+        NoticeDTO loggedInUser = (NoticeDTO) session.getAttribute("loggedInUser");
+
+        if (loggedInUser != null) {
+            noticeDTO.setUserNum(loggedInUser.getUserNum());
+            noticeDTO.setNoticeTempSave(true);  // 임시 저장 플래그 설정
+        } else {
+            throw new RuntimeException("로그인된 사용자가 없습니다.");
+        }
+
+        noticeService.saveNotice(noticeDTO);
+
+        return "redirect:/notice/list";
+    }
+
+    // 공지사항 삭제
+    @PostMapping("/delete")
+    public String deleteNotice(@RequestParam("noticeNum") int noticeNum) {
+        noticeService.deleteNotice(noticeNum);
         return "redirect:/notice/list";
     }
 }

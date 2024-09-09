@@ -29,7 +29,7 @@ public class NoticeServiceImpl implements NoticeService {
         }
         int offset = (page - 1) * PAGE_SIZE;
         // 페이징 처리를 위한 offset 계산
-        List<NoticeDTO> noticeList = noticeMapper.getNoticeList(offset); // 공지사항 목록 가져오기
+        List<NoticeDTO> noticeList = noticeMapper.getNoticeList(offset, PAGE_SIZE); // 공지사항 목록 가져오기
 
         if (noticeList == null) {
             noticeList = new ArrayList<>(); // 리스트가 null이면 빈 리스트로 초기화
@@ -51,21 +51,18 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     /**
-     * 새로운 공지사항을 작성하는 메서드 (임시 저장 여부에 따라 저장 방식이 달라짐)
-     * @param notice 공지사항 DTO 객체 (제목, 내용, 작성자 등)
+     * 공지사항 상세 정보를 가져오는 메서드
+     * @param noticeNum 공지사항 번호
+     * @return 공지사항 DTO 객체
      */
     @Override
-    public void writeNotice(NoticeDTO notice) {
-        if (notice.isNoticeTempSave()) {
-            saveTempNotice(notice); // 임시 저장 처리
-        } else {
-            saveNotice(notice); // 정식 저장 처리
-        }
+    public NoticeDTO getNoticeDetail(int noticeNum) {
+        return noticeMapper.getNoticeDetail(noticeNum);
     }
 
     /**
-     * 공지사항 정식 저장 메서드
-     * @param noticeDTO 저장할 공지사항 객체
+     * 새로운 공지사항을 작성하는 메서드 (임시 저장 여부에 따라 저장 방식이 달라짐)
+     * @param notice 공지사항 DTO 객체 (제목, 내용, 작성자 등)
      */
     @Override
     public void saveNotice(NoticeDTO noticeDTO) {
@@ -88,8 +85,8 @@ public class NoticeServiceImpl implements NoticeService {
      * @param notice 수정된 공지사항 DTO 객체
      */
     @Override
-    public void updateNotice(NoticeDTO notice) {
-        noticeMapper.updateNotice(notice);
+    public void updateNotice(NoticeDTO noticeDTO) {
+        noticeMapper.updateNotice(noticeDTO);
     }
 
     /**
