@@ -20,6 +20,7 @@ body {
     background-color: #212529;
     padding: 16px 0;
     border-bottom: 3.2px solid rgb(193, 192, 255);
+    margin-bottom: 100px;
 }
 
 .navbar {
