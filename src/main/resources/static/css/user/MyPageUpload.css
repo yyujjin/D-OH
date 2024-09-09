@@ -25,8 +25,8 @@
 /* header 영역 */
 header
 {
-    height: 145px;
-    border-bottom: 1px solid var(--line-gray);
+    /* height: 145px;
+    border-bottom: 1px solid var(--line-gray); */
 }
 
 /* main 영역 */
