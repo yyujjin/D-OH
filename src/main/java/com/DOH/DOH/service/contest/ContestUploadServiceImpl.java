@@ -5,6 +5,8 @@ import com.DOH.DOH.mapper.contest.ContestUploadMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ContestUploadServiceImpl implements ContestUploadService {
     @Autowired
@@ -18,5 +20,11 @@ public class ContestUploadServiceImpl implements ContestUploadService {
     @Override
     public ContestUploadDTO findContestById(Long contestId) {
         return contestMapper.selectContestById(contestId);
+    }
+
+    // 업종 목록을 가져오는 메서드 구현
+    @Override
+    public List<String> getContestTypes() {
+        return contestMapper.findconTypes();
     }
 }
