@@ -1,10 +1,10 @@
 let stompClient = null;
-console.log("이 페이지 실행됨")
-
+console.log("아니 연결리 왜 안됨")
 // WebSocket 연결하고
 function connect() {
   const socket = new SockJS("ws://localhost:8083/chat");
   stompClient = Stomp.over(socket);
+  console.log("이 페이지 실행됨")
 
   // WebSocket 연결
   stompClient.connect({}, function (frame) {
@@ -45,3 +45,29 @@ function showMessage(message) {
 document.addEventListener("DOMContentLoaded", function () {
   connect();
 });
+
+
+ function sendMessage() {
+        const chatBody = document.getElementById("chatBody");
+        const chatInput = document.getElementById("chatInput");
+        const message = chatInput.value.trim();
+
+        if (message) {
+          // 메시지 추가
+          const messageDiv = document.createElement("div");
+          messageDiv.classList.add("chat-message", "sent");
+
+          const bubbleDiv = document.createElement("div");
+          bubbleDiv.classList.add("message-bubble", "sent");
+          bubbleDiv.innerText = message;
+
+          messageDiv.appendChild(bubbleDiv);
+          chatBody.appendChild(messageDiv);
+
+          // 스크롤을 하단으로
+          chatBody.scrollTop = chatBody.scrollHeight;
+
+          // 입력 필드 초기화
+          chatInput.value = "";
+        }
+      }

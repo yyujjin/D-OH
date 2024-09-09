@@ -59,33 +59,5 @@
         </div>
       </div>
     </div>
-
-    <script>
-      console.log("이 페이지 실행됨")
-      function sendMessage() {
-        const chatBody = document.getElementById("chatBody");
-        const chatInput = document.getElementById("chatInput");
-        const message = chatInput.value.trim();
-
-        if (message) {
-          // 메시지 추가
-          const messageDiv = document.createElement("div");
-          messageDiv.classList.add("chat-message", "sent");
-
-          const bubbleDiv = document.createElement("div");
-          bubbleDiv.classList.add("message-bubble", "sent");
-          bubbleDiv.innerText = message;
-
-          messageDiv.appendChild(bubbleDiv);
-          chatBody.appendChild(messageDiv);
-
-          // 스크롤을 하단으로
-          chatBody.scrollTop = chatBody.scrollHeight;
-
-          // 입력 필드 초기화
-          chatInput.value = "";
-        }
-      }
-    </script>
   </body>
 </html>
