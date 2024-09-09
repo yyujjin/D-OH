@@ -19,7 +19,7 @@
 /* 전체 font 적용 */
 *
 {
-    font-family: 'NanumSquare';
+    font-family: 'NanumSquare', sans-serif;
 }
 
 /* header 영역 */
@@ -74,9 +74,9 @@ main
 
 .contitle
 {
-    font-size: var(--font-size-20);
+    font-size: var(--font-size-32);
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-top: 100px;
 }
 
 .info
@@ -242,13 +242,43 @@ footer
     border-top: 1px solid var(--line-gray);
 }
 .oc{
+    display: flex;
     margin-top: 20px;
+    text-align: center;
+}
+.oc input[type=radio]{
+    display: none;
+}
+.oc input[type="radio"]:checked + label {
+    background-color: black; /* 선택된 탭 강조 */
+    color: white;
 }
 .oc .open{
     background-color: white;
-    border: 2px solid whitesmoke;
+    width: 100px;
+    border-radius: 5px;
+    border: 1px solid var(--line-gray);
 }
 .oc .close{
     background-color: white;
-    border: 2px solid whitesmoke;
+    margin-left: 20px;
+    width: 100px;
+    border-radius: 5px;
+    border: 1px solid var(--line-gray);
 }
+.back{
+    display: flex;
+    background-color: #c1c0ff;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid var(--line-gray);
+    font-size: var(--font-size-16);
+}
+.back .mypageback{
+    font-weight: bold;
+    align-content: center;
+}
+

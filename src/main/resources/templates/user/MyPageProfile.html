@@ -7,11 +7,12 @@
     <script src="/js/jquery-3.7.1.min.js"></script>
     <script src="/js/bootstrap/bootstrap.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/user/MyPageProfile.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/footer.css}">
     <title>Document</title>
 </head>
 <body>
-<header>
-    <div th:include="fragments/header"></div>
+<header th:replace="~{fragments/header :: headerFragment}">
 </header>
 <form>
 <div class="container">
@@ -131,8 +132,7 @@
         </div>
 </div>
 </form>
-<footer>
-    <div th:include="fragments/footer"></div>
+<footer th:replace="~{fragments/footer :: footerFragment}">
 </footer>
 </body>
 </html>
