@@ -8,55 +8,59 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" th:href="@{/css/notifications/eventWrite.css}">
-
-    <!-- jQuery -->
+    <!-- jQuery 추가 -->
     <script src="https://code.jquery.com/jquery-3.6.4.js"
         integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+
+    <!-- 커스텀 CSS 추가 -->
+    <link rel="stylesheet" th:href="@{/css/notifications/eventWrite.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/footer.css}">
+    <script th:src="@{/js/notifications/eventWrite.js}"></script>
 </head>
 
 <body>
-    <!-- Include Header -->
-    <div th:replace="~{header :: header}"></div>
+    <!-- Header Fragment -->
+    <header th:replace="fragments/header :: headerFragment"></header>
 
     <div class="container mt-5">
         <h1 class="text-center mb-4">이벤트 등록</h1>
-        <form th:action="@{/events/register}" method="post" enctype="multipart/form-data">
-            <div class="form-group mb-3">
+        <form th:action="@{/event/register}" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
                 <label for="title">이벤트 제목</label>
                 <input type="text" id="title" name="title" class="form-control" placeholder="이벤트 제목을 입력하세요" required>
             </div>
             <div class="row">
-                <div class="form-group col-md-6 mb-3">
+                <div class="col-md-6 mb-3">
                     <label for="date">날짜</label>
                     <input type="date" id="date" name="date" class="form-control" required>
                 </div>
-                <div class="form-group col-md-6 mb-3">
+                <div class="col-md-6 mb-3">
                     <label for="time">시간</label>
                     <input type="time" id="time" name="time" class="form-control" required>
                 </div>
             </div>
-            <div class="form-group mb-3">
+            <div class="mb-3">
                 <label for="content">이벤트 설명</label>
-                <textarea id="content" name="content" class="form-control" placeholder="이벤트 설명을 입력하세요"
-                    required></textarea>
+                <textarea id="content" name="content" class="form-control" placeholder="이벤트 설명을 입력하세요" required></textarea>
             </div>
-            <div class="form-group mb-3">
+            <div class="mb-3">
                 <label for="file">이벤트 이미지</label>
                 <input type="file" id="file" name="file" class="form-control">
             </div>
             <div class="d-flex justify-content-between">
-                <a th:href="@{/events/list}" class="btn btn-secondary">목록보기</a>
+                <a th:href="@{/event/list}" class="btn btn-secondary">목록보기</a>
                 <button type="submit" class="btn btn-primary">등록</button>
             </div>
         </form>
     </div>
 
-    <!-- Include Footer -->
-    <div th:replace="~{footer :: footer}"></div>
+    <!-- Footer Fragment -->
+    <footer th:replace="fragments/footer :: footerFragment"></footer>
 
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
