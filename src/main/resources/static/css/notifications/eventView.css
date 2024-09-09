@@ -1,0 +1,92 @@
+.banner {
+    background-image: url('event-banner.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 350px;
+    position: relative;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.banner h2 {
+    font-size: 40px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px 30px;
+    border-radius: 10px;
+}
+
+.event-container {
+    max-width: 1100px;
+    margin: 0 auto 0;
+}
+
+.event-details {
+    padding: 30px 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.event-details h2 {
+    color: #212529;
+    font-size: 30px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 15px;
+}
+
+.event-details p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.event-info {
+    margin-bottom: 35px;
+}
+
+.event-info h3 {
+    font-size: 18px;
+    color: #212529;
+    margin-bottom: 20px;
+}
+
+.event-info .info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #495057;
+}
+
+.info-item i {
+    color: rgb(193, 192, 255);
+    margin-right: 12px;
+    font-size: 16px;
+}
+
+.register-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.register-btn a {
+    padding: 10px 30px;
+    font-size: 16px;
+    background-color: #000;
+    color: white;
+    border-radius: 40px;
+    text-decoration: none;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.register-btn a:hover {
+    background-color: #333;
+    transform: translateY(-3px);
+}

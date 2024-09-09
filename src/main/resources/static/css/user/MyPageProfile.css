@@ -1,0 +1,98 @@
+body .container{
+    width: 1050px
+}
+.container{
+    display: grid;
+    background-color: white;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.20);
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    align-content: center;
+    grid-template-areas:"profile profile profile"
+                        "career . ."
+                        "selectskill selectskill selectskill"
+                        "end end end";
+}
+.container h5{
+    /*margin-top: 10px;*/
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+.container h6{
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+.profile{
+    grid-area: profile;
+    justify-content: center;
+    align-content: center;
+}
+.profile input {
+    width: 900px;
+    height: 40px;
+    padding: 10px;
+    border: 1px solid grey;
+    border-radius: 3px;
+}
+.profile textarea{
+    width: 900px;
+    height: 150px;
+    padding: 10px;
+    resize: none;
+    border-radius: 3px;
+}
+.career{
+    grid-area: career;
+}
+select{
+    width: 150px;
+    height: 50px;
+    padding: 10px;
+}
+.select-skill {
+    display: flex;
+    grid-area: selectskill;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.select-skill input[type="checkbox"] {
+    display: none; /* 라디오 버튼 숨기기 */
+}
+
+.select-skill label {
+    background-color: #d6d6d6;
+    padding: 7px;
+    margin-left: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.select-skill input[type="checkbox"]:checked + label {
+    background-color: black; /* 선택된 탭 강조 */
+    color: white;
+}
+.end{
+    display: flex;
+    /*background-color: whitesmoke;*/
+    grid-area: end;
+    margin-top: 50px;
+    justify-content: center;
+    align-content: center;
+}
+.end .reset{
+    background-color: white;
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid grey;
+}
+.end .submit{
+    background-color: #c1c0ff;
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+}
