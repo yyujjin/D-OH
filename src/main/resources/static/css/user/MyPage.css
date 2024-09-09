@@ -8,18 +8,15 @@ main{
 }
 .container{
     display: grid;
-    grid-area: container;
     width: 1200px;  
     margin-top: 10px;
     grid-template-columns: 200px 2fr;
     grid-column-gap: 10px;
-  /* grid-template-rows: 100px, 2fr; */
     grid-template-areas:
     ". button-class"
     "sidebar main-class"
     "sidebar management"
     "sidebar commition";
-    /* border: 1px solid black; */
 } 
 
 /* sidebar */
@@ -30,8 +27,9 @@ main{
     margin:10px;
     height: 400px;
     list-style-type: none;
-    border: 2px solid whitesmoke;
-    /* background-color: brown; */
+    border: 1px solid whitesmoke;
+    border-radius: 6px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.20);
 }
 .sidebar img {
     width: 100px;
@@ -56,6 +54,7 @@ main{
     background-color: white;
     padding: 10px 20px;
     border: 2px solid whitesmoke;
+    text-decoration-line: none;
     border-radius: 5px;
     cursor: pointer;
 }
