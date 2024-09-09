@@ -1,12 +1,6 @@
 @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 
-        .body {
-            font-family: 'NanumSquare', sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
+        .Contestview {
             max-width: 600px;
             margin: auto;
             background: white;
@@ -14,14 +8,14 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .container h1 {
+        .Contestview h1 {
             font-size: 1.75em;
             margin-bottom: 50px;
             color: #333;
             display: flex;
             align-items: center;
         }
-        .container h1::before {
+        .Contestview h1::before {
             content: "👉";
             margin-right: 10px;
             font-size: 1.5em;
