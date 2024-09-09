@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("event")
@@ -17,14 +19,23 @@ public class EventController {
 
     // 이벤트 목록 조회
     @GetMapping("/list")
-    public String eventList(Model model, @RequestParam(required = false, defaultValue = "1") int page) {
-        eventService.getEventList(page, model);
-        return "notifications/eventList";
+    public String noticeList(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
+        int totalPages = eventService.getTotalPages();  // 전체 페이지 수 계산
+
+        // 이벤트 목록을 모델에 추가
+        List<EventDTO> eventList = eventService.getEventList(page);
+        model.addAttribute("eventList", eventList);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage", page);
+
+        return "notifications/eventList";  // 이벤트 목록 페이지로 이동
     }
+
 
     // 이벤트 작성 페이지 이동
     @GetMapping("/write")
-    public String showEventWritePage() {
+    public String showEventWritePage(Model model) {
+        model.addAttribute("currentDate", new java.util.Date());
         return "notifications/eventWrite";  // 이벤트 작성 페이지로 이동
     }
 

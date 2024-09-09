@@ -5,6 +5,11 @@
 
 <mapper namespace="com.DOH.DOH.mapper.notifications.EventMapper">
 
+    <!-- 전체 이벤트 수 조회 -->
+    <select id="getTotalEventCount" resultType="int">
+        SELECT COUNT(*) FROM event
+    </select>
+
     <!-- 이벤트 목록 조회 (페이징 처리) -->
     <select id="getEventList" resultType="com.DOH.DOH.dto.notifications.EventDTO">
         SELECT eventNum,
