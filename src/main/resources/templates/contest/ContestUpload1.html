@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/contest/ContestUpload1.css">
+    <script src="/js/contest/ContestUpload1.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+<div class="Contestupload1">
+    <h1>예산은 어떻게 되나요?</h1>
+    <form action="/contest1" method="post" enctype="multipart/form-data">
+        <h3>콘테스트 제목</h3>
+        <div class="contest-title">
+            <input type="text" id="conTitle" name="conTitle" placeholder="콘테스트 제목을 입력해 주세요." value="" maxlength="40" required>
+        </div>
+
+        <h3>상금 설정</h3>
+        <p class="description">2명 이상의 1등 작품을 선정하거나,  최대 3등까지 작품을 선정하는 콘테스트를 구성할 수 있습니다. </p>
+
+        <div id="prizeContainer">
+            <!-- 1등 필드 (고정) -->
+            <div class="flex-container" data-index="1">
+                <div class="rank first">
+                    <span>🏆 1등</span>
+                </div>
+                <div class="winners">
+                    <input type="number" id="conFirstPeople" name="conFirstPeople" min="1" value="1" required>
+                </div>
+                <span class="label-text">명</span>
+                <div class="prize">
+                    <input type="number" id="conFirstPrice" name="conFirstPrice" min="0" step="5" value="35" required>
+                </div>
+                <span class="label-text">만원</span>
+                <div class="remove-btn-container"></div>
+            </div>
+
+            <!-- 동적으로 추가될 2등 및 3등 필드 영역 -->
+            <div id="dynamicPrizes"></div>
+        </div>
+
+        <button type="button" class="btn-secondary" onclick="addPrize()">등수 추가하기</button>
+
+        <div class="total-prize">
+            <span>🏆 총 상금 <span id="totalPrize">35</span> 만원</span>
+        </div>
+
+        <div class="date-settings">
+            <h3>개최 기간 설정</h3>
+            최소 7일
+            <div class="flex-container">
+                <div>
+                    <label for="conStartDate">시작 날짜</label>
+                    <input type="date" id="conStartDate" name="conStartDate" required onchange="setEndDate()">
+                </div>
+                <div>
+                    <label for="conEndDate">종료 날짜</label>
+                    <input type="date" id="conEndDate" name="conEndDate" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-buttons">
+            <button type="button" class="btn previous-btn" onclick="history.back()">이전</button>
+            <button type="submit" class="btn">다음</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
