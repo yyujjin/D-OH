@@ -1,0 +1,203 @@
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+:root
+{
+    --main-color : #c1c0ff;
+    --sub-color : #ECFCE4;
+    --color-black : #000;
+    --dark-gray : #757575;
+    --line-gray: #D9D9D9;
+    --color-white : #fff;
+    
+    --font-size-32 : 32px;
+    --font-size-24 : 24px;
+    --font-size-20 : 20px;
+    --font-size-16 : 16px;
+    --font-size-14 : 14px;
+
+}
+
+*
+{
+    font-family: 'NanumSquare';
+}
+
+/* header 영역 */
+header
+{
+    height: 145px;
+}
+
+/* main 영역 */
+main
+{
+    display: block;
+}
+
+.banner
+{
+    width: 100%;
+    min-height: 292px;
+    background-color: var(--dark-gray);
+    position: relative;
+
+}
+
+/* banner 하위 영역에 대한 전체적인 틀을 잡아중 */
+section
+{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: -25vh;
+}
+
+.mainWrap
+{
+    width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 90px;
+    
+}
+
+/* applyWrap 영역 */
+.applyWrap
+{
+    width: calc(70% - 15px);
+    /* border: 1px solid var(--dark-gray); */
+}
+
+.applyMain
+{
+    width: 100%;
+    height: 480px;
+    background-color: var(--line-gray);
+    border-radius: 6px;
+    border: 1px solid var(--line-gray);
+}
+
+.applyWrap h5
+{
+    font-size: var(--font-size-20);
+    font-weight: 900;
+    /* margin-top: 40px; */
+    margin: 50px 0 20px 0;
+}
+
+.applyTitle
+{
+    border-bottom: 1px solid var(--line-gray);
+}
+
+/* sectionInfo 영역 */
+.sectionInfo
+{
+    width: calc(30% - 15px);
+    display: block;
+}
+
+.infoArea
+{
+    margin: 20px 0 40px 0;
+}
+
+.infoArea .info
+{
+    font-size: var(--font-size-24);
+    font-weight: 800;
+    color: var(--color-white);
+}
+
+.info.id
+{
+    margin-top: 10px;
+    font-size: var(--font-size-16);
+}
+
+/* boxSection */
+.boxWrap
+{
+    width: 100%;
+    border: 1px solid var(--line-gray);
+    border-radius: 6px;
+    background-color: var(--color-white);
+    padding: 20px;
+    box-sizing: border-box;   
+    margin-bottom: 15px;
+
+    &:last-child
+    {
+        margin-bottom: 0;
+    }
+    &.active
+    {
+        border: 2px solid var(--main-color);
+    }
+}
+
+.boxWrap .box
+{
+    display: flex;
+    align-items: center;
+}
+
+.box .boxContent
+{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+}
+
+.trophyArea
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 5px;
+}
+
+.choosePeople
+{
+    font-size: var(--font-size-14);
+    margin-left: 20px;
+    color: var(--dark-gray);
+}
+
+.buttonWrap
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    /* margin-bottom: 20px; */
+}
+
+.boxWrap button
+{
+    width: 80%;
+    background-color: var(--line-gray);
+    border: 1px solid var(--line-gray);
+    border-radius: 6px;
+    padding: 5px 0 5px 0;
+    display: none;
+    &:hover
+    {
+        background-color: var(--main-color);
+        border: 1px solid var(--main-color);
+    }
+    &.active
+    {
+        background-color: var(--main-color);
+        border: 1px solid var(--main-color);
+    }
+}
+
+
+/* footer 영역 */
+footer
+{
+    height: 322px;
+    border-top: 1px solid var(--line-gray);
+}

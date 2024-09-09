@@ -1,0 +1,40 @@
+
+/* 페이지 전체 너비 제한 */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* 카드 이미지의 크기 및 비율 */
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* 카드 링크에 대한 스타일링 */
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card-link:hover .card {
+    transform: scale(1.05);
+    transition: transform 0.3s;
+}
+
+/* 카드에 그림자 추가 */
+.card {
+    transition: box-shadow 0.3s, transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* 반응형 설정 */
+@media (max-width: 767px) {
+    .card-img-top {
+        height: 150px;
+    }
+}
