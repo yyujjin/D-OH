@@ -4,6 +4,7 @@ import com.DOH.DOH.dto.contest.ContestUploadDTO;
 import com.DOH.DOH.service.contest.ContestUploadService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -50,19 +51,11 @@ public class ContestUploadController {
     // 2단계: 폼 데이터를 세션에 업데이트하고 최종 저장 단계로 이동
     @PostMapping("/contest1")
     public String submitContest1(@ModelAttribute ContestUploadDTO contestUploadDTO, HttpSession session) {
-        // 세션에 저장된 기존 DTO 불러오기
+        // 세션에서 기존 DTO 불러오기
         ContestUploadDTO existingContestData = (ContestUploadDTO) session.getAttribute("contestData");
 
-        // 2단계에서 입력된 데이터를 기존 DTO에 업데이트
-        existingContestData.setConTitle(contestUploadDTO.getConTitle());
-        existingContestData.setConFirstPrice(contestUploadDTO.getConFirstPrice());
-        existingContestData.setConSecondPrice(contestUploadDTO.getConSecondPrice());
-        existingContestData.setConThirdPrice(contestUploadDTO.getConThirdPrice());
-        existingContestData.setConFirstPeople(contestUploadDTO.getConFirstPeople());
-        existingContestData.setConSecondPeople(contestUploadDTO.getConSecondPeople());
-        existingContestData.setConThirdPeople(contestUploadDTO.getConThirdPeople());
-        existingContestData.setConStartDate(contestUploadDTO.getConStartDate());
-        existingContestData.setConEndDate(contestUploadDTO.getConEndDate());
+        // 2단계에서 입력된 데이터를 기존 DTO에 업데이트 (null 값 무시)
+        BeanUtilsHelper.copyNonNullProperties(contestUploadDTO, existingContestData);
 
         // 업데이트된 DTO를 다시 세션에 저장
         session.setAttribute("contestData", existingContestData);
@@ -121,25 +114,8 @@ public class ContestUploadController {
         // 서비스 계층을 통해 DB에서 콘테스트 데이터를 가져옴
         ContestUploadDTO contestUploadDTO = contestUploadService.findContestById(contestId);
 
-        // 모델에 데이터를 추가
+        // 모델에 DTO 객체 자체를 추가
         model.addAttribute("contestUploadDTO", contestUploadDTO);
-        model.addAttribute("conTitle", contestUploadDTO.getConTitle());  // 회사명 추가
-        model.addAttribute("conCompanyName", contestUploadDTO.getConCompanyName());  // 회사명 추가
-        model.addAttribute("conOneLiner", contestUploadDTO.getConOneLiner());  // 회사명 추가
-        model.addAttribute("conLogoName", contestUploadDTO.getConLogoName());  // 회사명 추가
-        model.addAttribute("conBriefing", contestUploadDTO.getConBriefing());  // 회사명 추가
-
-        model.addAttribute("conFirstPrice", contestUploadDTO.getConFirstPrice());  // 회사명 추가
-        model.addAttribute("conFirstPeople", contestUploadDTO.getConFirstPeople());  // 회사명 추가
-
-        model.addAttribute("conSecondPrice", contestUploadDTO.getConSecondPrice());  // 회사명 추가
-        model.addAttribute("conSecondPeople", contestUploadDTO.getConSecondPeople());  // 회사명 추가
-
-        model.addAttribute("conThirdPrice", contestUploadDTO.getConThirdPrice());  // 회사명 추가
-        model.addAttribute("conThirdPeople", contestUploadDTO.getConThirdPeople());  // 회사명 추가
-
-        model.addAttribute("conStartDate", contestUploadDTO.getConStartDate());  // 회사명 추가
-        model.addAttribute("conEndDate", contestUploadDTO.getConEndDate());  // 회사명 추가
 
         return "contest/ContestView";  // 뷰로 이동
     }
