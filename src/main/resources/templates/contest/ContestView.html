@@ -2,16 +2,15 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/contest/ContestView.css">
     <script src="/js/contest/ContestView.js"></script>
     <title>Contest View</title>
 </head>
 <body>
 
-<div class="container">
+<div class="Contestview">
     <form action="/contestview" method="post" enctype="multipart/form-data">
-        <div class="header">
+        <div class="Contestviewheader">
             <h1><p>제목 : <span th:text="${contestUploadDTO.conTitle}"></span></p></h1>
             <p>회사명 : <span th:text="${contestUploadDTO.conCompanyName}"></span></p>
             <div class="meta">
@@ -44,7 +43,7 @@
     </form>
 
     <!-- 사이드바 -->
-    <div class="sidebar">
+    <div class="Contestviewsidebar">
         <h2>제목 : <span th:text="${contestUploadDTO.conTitle}"></span></h2>
 
         <h4>회사명 : <span th:text="${contestUploadDTO.conCompanyName}"></span></h4>
