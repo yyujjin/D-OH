@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/contest/ContestUpload.css">
+    <script src="/js/contest/ContestUpload.js"></script>
+    <title>Contest Upload Form</title>
+</head>
+<body>
+<div class="Contestupload">
+    <h1>어떤 작품이 필요하세요?</h1>
+    <form action="/contest" method="post" enctype="multipart/form-data">
+
+        <h3>회사명(단체명)</h3>
+        <input type="text" id="conCompanyName" name="conCompanyName" placeholder="회사명을 입력해 주세요" required>
+
+        <h3>한 줄 소개</h3>
+        <textarea id="conOneLiner" name="conOneLiner" rows="3" placeholder="우리 서비스는 OO을 판매하는 회사입니다." required></textarea>
+
+        <h3>업종</h3>
+        <select id="conType" name="conType" required>
+            <option value="">업종 선택</option>
+            <!-- DB에서 가져온 업종 목록을 Thymeleaf로 동적으로 표시 -->
+            <option th:each="type : ${contestTypes}" th:value="${type}" th:text="${type}"></option>
+        </select>
+
+        <h3>로고명</h3>
+        <input type="text" id="conLogoName" name="conLogoName" placeholder="로고명을 입력해 주세요." required>
+
+        <h3>브리핑</h3>
+        <textarea id="conBriefing" name="conBriefing" rows="5" placeholder="브리핑을 입력해 주세요" required></textarea>
+
+        <!--        <label for="conFile">첨부파일</label>-->
+        <!--        <input type="file" id="conFile" name="conFile" accept=".zip,.jpg,.jpeg,.png" required>-->
+
+        <button type="submit" class="btn">다음</button>
+    </form>
+</div>
+</body>
+</html>

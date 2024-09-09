@@ -1,0 +1,40 @@
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+        .Contestview {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .Contestview h1 {
+            font-size: 1.75em;
+            margin-bottom: 50px;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+        .Contestview h1::before {
+            content: "👉";
+            margin-right: 10px;
+            font-size: 1.5em;
+            color: #f5b000;
+        }
+        .info, .payment-info, .pay {
+            margin-bottom: 20px;
+        }
+        .info p, .payment-info p, .pay p {
+            margin: 5px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
