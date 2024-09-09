@@ -22,9 +22,7 @@
 
 <body>
     <!-- Header Fragment -->
-    <header th:replace="~{fragments/header :: headerFragment}">
-
-    </header>
+    <header th:replace="~{fragments/header :: headerFragment}"></header>
 
     <!-- Main Content -->
     <div class="container" th:fragment="content">
@@ -38,7 +36,7 @@
             </thead>
             <tbody>
                 <!-- 공지사항이 없을 때 -->
-                <tr th:if="${noticeNum == null or noticeNum == 0}">
+                <tr th:if="${#lists.isEmpty(noticeList)}">
                     <td colspan="2">등록된 공지사항이 없습니다.</td>
                 </tr>
 
@@ -51,17 +49,21 @@
                 </tr>
 
                 <!-- 공지사항 내용 반복 -->
-                <tr th:each="notice : ${noticeList}" th:id="'content-row-' + ${notice.noticeNum}" class="content-row">
+                <tr th:each="notice : ${noticeList}" th:id="'content-row-' + ${notice.noticeNum}" class="content-row"
+                    style="display: none;">
                     <td colspan="2">
                         <div th:text="${notice.content}"></div> <!-- 공지사항 내용 -->
                         <div class="buttons">
-                            <button class="btn btn-primary btn-sm">수정</button>
-                            <button class="btn btn-danger btn-sm">삭제</button>
+                            <a th:href="@{/notice/edit(noticeNum=${notice.noticeNum})}"
+                                class="btn btn-primary btn-sm">수정</a>
+                            <form th:action="@{/notice/delete(noticeNum=${notice.noticeNum})}" method="post"
+                                style="display: inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+                            </form>
                         </div>
                     </td>
                 </tr>
             </tbody>
-
         </table>
 
         <!-- Pagination Controls 페이지네이션 -->
@@ -71,21 +73,20 @@
                 <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
                     <a class="page-link" th:href="@{/list(page=${currentPage - 1})}">&laquo;</a>
                 </li>
-        
+
                 <!-- 페이지 번호 반복 -->
                 <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}"
                     th:classappend="${i == currentPage} ? 'active'">
-                    <a class="page-link" th:href="@{/list(page=${i})}" th:text="${i}">1</a>
+                    <a class="page-link" th:href="@{/list(page=${i})}" th:text="${i}"></a>
                 </li>
-        
+
                 <!-- 다음 페이지 버튼 (현재 페이지가 마지막 페이지인 경우 비활성화) -->
                 <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
                     <a class="page-link" th:href="@{/list(page=${currentPage + 1})}">&raquo;</a>
                 </li>
             </ul>
         </nav>
-        
-        
+
         <!-- 등록 버튼 -->
         <div class="buttons">
             <a th:href="@{/notice/write}" class="btn btn-success">등록</a>
@@ -93,9 +94,8 @@
     </div>
 
     <!-- Footer Fragment -->
-    <footer th:replace="~{fragments/footer :: footerFragment}">
+    <footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 
-    </footer>
 </body>
 
 </html>

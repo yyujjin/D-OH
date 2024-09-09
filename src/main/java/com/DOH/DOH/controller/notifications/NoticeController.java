@@ -41,7 +41,7 @@ public class NoticeController {
     }
 
     // 공지사항 작성 페이지
-    @GetMapping("/write")
+    @GetMapping("/admin/write")
     public String noticeWrite(Model model) {
         // 초기값이 필요하면 모델에 추가 가능 (예: 현재 날짜)
         model.addAttribute("currentDate", new java.util.Date());
@@ -49,7 +49,7 @@ public class NoticeController {
     }
 
     // 공지사항 등록 처리
-    @PostMapping("/register")
+    @PostMapping("/admin/register")
     public String registerNotice(@ModelAttribute NoticeDTO noticeDTO, HttpSession session) {
         // 로그인된 사용자 정보 가져오기 (세션에서 사용자 ID나 번호를 가져온다고 가정)
         NoticeDTO loggedInUser = (NoticeDTO) session.getAttribute("loggedInUser");
@@ -69,7 +69,7 @@ public class NoticeController {
     }
 
     // 공지사항 임시 저장
-    @PostMapping("/save")
+    @PostMapping("/admin/save")
     public String saveNotice(@ModelAttribute NoticeDTO noticeDTO, HttpSession session) {
         NoticeDTO loggedInUser = (NoticeDTO) session.getAttribute("loggedInUser");
 
@@ -86,7 +86,7 @@ public class NoticeController {
     }
 
     // 공지사항 삭제
-    @PostMapping("/delete")
+    @PostMapping("/admin/delete")
     public String deleteNotice(@RequestParam("noticeNum") int noticeNum) {
         noticeService.deleteNotice(noticeNum);
         return "redirect:/notice/list";
