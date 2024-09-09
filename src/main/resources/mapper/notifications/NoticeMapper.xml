@@ -51,7 +51,7 @@
         notice
         WHERE noticeTempSave = false
         ORDER BY noticeCreateTime DESC
-        LIMIT #{offset}, 10
+        LIMIT #{offset}, #{limit}
     </select>
 
     <!-- 임시 저장된 공지사항 목록 조회 -->
@@ -62,12 +62,17 @@
         notice
         WHERE noticeTempSave = true
         ORDER BY noticeCreateTime DESC
-        LIMIT #{offset}, 10
+        LIMIT #{offset}, #{limit}
     </select>
 
     <!-- 전체 공지사항 수 조회 -->
     <select id="getTotalNotices" resultType="int">
         SELECT COUNT(*) FROM notice WHERE noticeTempSave = false
+    </select>
+
+    <!-- 전체 임시 저장된 공지사항 수 조회 -->
+    <select id="getTotalTempNotices" resultType="int">
+        SELECT COUNT(*) FROM notice WHERE noticeTempSave = true
     </select>
 
 </mapper>

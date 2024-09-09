@@ -12,19 +12,16 @@ public interface NoticeService {
     int getTotalPages();
 
     // 공지사항 상세 조회
-//    Notice getNoticeDetail(int noticeNum);
+    NoticeDTO getNoticeDetail(int noticeNum);
 
-    // 공지사항 작성
-    void writeNotice(NoticeDTO notice);
-
-    // 공지사항 저장 메서드
+    // 공지사항 정식 저장
     void saveNotice(NoticeDTO noticeDTO);
 
     // 공지사항 임시 저장 메서드
     void saveTempNotice(NoticeDTO noticeDTO);
 
     // 공지사항 수정
-    void updateNotice(NoticeDTO notice);
+    void updateNotice(NoticeDTO noticeDTO);
 
     // 공지사항 삭제
     void deleteNotice(int noticeNum);
