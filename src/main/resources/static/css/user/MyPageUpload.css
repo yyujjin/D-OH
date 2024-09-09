@@ -12,19 +12,6 @@
     --font-size-20 : 20px;
     --font-size-16 : 16px;
     --font-size-14 : 14px;
-
-}
-/* 전체 font 적용 */
-*
-{
-    font-family: 'NanumSquare', sans-serif;
-}
-
-/* header 영역 */
-header
-{
-    /* height: 145px;
-    border-bottom: 1px solid var(--line-gray); */
 }
 
 /* main 영역 */
@@ -232,13 +219,6 @@ button
     font-size: var(--font-size-16);
 }
 
-
-/* footer 영역 */
-footer
-{
-    height: 322px;
-    border-top: 1px solid var(--line-gray);
-}
 .oc{
     display: flex;
     margin-top: 20px;
