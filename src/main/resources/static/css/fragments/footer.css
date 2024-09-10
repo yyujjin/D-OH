@@ -1,16 +1,3 @@
-/* 페이지 전체를 Flexbox로 설정 */
-html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-/* 콘텐츠 영역을 확장 */
-.content {
-    flex: 1;
-}
-
 /* 푸터 스타일 */
 .footer {
     background-color: #212529;
@@ -19,7 +6,8 @@ html, body {
     text-align: center;
     border-top: 3.2px solid rgb(193, 192, 255);
     font-size: 12px;
-    margin-top: auto; /* 푸터가 항상 하단에 위치하도록 */
+    margin-top: 100px; 
+    margin-bottom: auto; 
 }
 
 .footer .contact-info {

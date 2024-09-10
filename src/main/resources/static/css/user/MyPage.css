@@ -1,14 +1,12 @@
-banner{
+/* 불필요한 클래스 제거 및 필요없는 주석 삭제 */
+main {
     display: grid;
     justify-content: center;
 }
-main{
+
+.container {
     display: grid;
-    justify-content: center;
-}
-.container{
-    display: grid;
-    width: 1200px;  
+    width: 1200px;
     margin-top: 10px;
     grid-template-columns: 200px 2fr;
     grid-column-gap: 10px;
@@ -17,20 +15,20 @@ main{
     "sidebar main-class"
     "sidebar management"
     "sidebar commition";
-} 
+}
 
-/* sidebar */
-.sidebar{
+.sidebar {
     grid-area: sidebar;
     text-align: center;
     padding: 10px;
-    margin:10px;
+    margin: 10px;
     height: 400px;
     list-style-type: none;
     border: 1px solid whitesmoke;
     border-radius: 6px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.20);
 }
+
 .sidebar img {
     width: 100px;
     height: 100px;
@@ -38,11 +36,13 @@ main{
     margin-bottom: 10px;
     justify-content: center;
 }
+
 .sidebar .username {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
 }
+
 .sidebar .profile-link {
     color: #007bff;
     text-decoration: none;
@@ -50,6 +50,7 @@ main{
     margin-bottom: 20px;
     display: block;
 }
+
 .sidebar .edit-profile {
     background-color: white;
     padding: 10px 20px;
@@ -58,15 +59,18 @@ main{
     border-radius: 5px;
     cursor: pointer;
 }
+
 .sidebar .activity {
     font-size: 14px;
     color: #555;
     margin-top: 20px;
 }
+
 .sidebar .activity span {
     display: block;
     margin: 5px 0;
 }
+
 .sidebar .section-title {
     font-weight: bold;
     margin-top: 20px;
@@ -74,28 +78,13 @@ main{
     font-size: 16px;
     color: #333;
 }
-/* sidebar 끝 */
 
-
-
-.underline{
-    text-decoration-line: none;
-}
 /* main-class */
-.main-class{
+.main-class {
     grid-area: main-class;
-    /* background-color: rebeccapurple; */
 }
-.main-class .profilewrite{
-    float: right;
-}
-.profilewrite{
-    text-decoration-line: none;
-}
-/* main-class 끝 */
 
-/* button-class */
-.button-class{
+.button-class {
     display: flex;
     grid-area: button-class;
     padding: 10px;
@@ -103,48 +92,48 @@ main{
     align-items: center;
     height: 50px;
     border: 1px solid black;
-    /* background-color: aqua; */
 }
 
-.button-class .portfolio{
+.button-class .portfolio {
     margin-left: auto;
 }
-.button-class .upload{
+
+.button-class .upload {
     margin-left: auto;
 }
-/* button-class 끝 */
-.management{
+
+.management {
     grid-area: management;
-    /* border: 1px solid black; */
 }
-.commition{
+
+.commition {
     grid-area: commition;
     margin-top: 20px;
-    /* border: 1px solid black; */
 }
-.commition1{
+
+.commition1 {
     height: 100px;
     margin: 10px; 
-     padding: 10px;
-    /* background-color: brown; */
+    padding: 10px;
     overflow: auto;
     border: 2px solid whitesmoke;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.20);
 }
-.management .imagecard{
+
+.management .imagecard {
     display: flex;
     border: 1px solid gainsboro;
     float: left;
     margin: 5px;
-    /* margin-left: 10px; */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.20);
     width: 180px;
     height: 256px;
 }
-.management .imagecard:hover{
+
+.management .imagecard:hover {
     transform: scale(1.05);
 }
 
-hr{
+hr {
     border: 1px solid gainsboro;
 }
