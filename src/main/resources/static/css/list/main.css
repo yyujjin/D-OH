@@ -8,11 +8,11 @@
     --line-gray: #D9D9D9;
     --color-white : #fff;
     
-    --font-size-32 : 32px;
-    --font-size-24 : 24px;
-    --font-size-20 : 20px;
-    --font-size-16 : 16px;
-    --font-size-14 : 14px;
+    --font-size-32: 32px;
+    --font-size-24: 24px;
+    --font-size-20: 20px;
+    --font-size-16: 16px;
+    --font-size-14: 14px;
 
 }
 
@@ -123,7 +123,6 @@ a
 {
     background: var(--sub-color);
     width: 64px;
-    padding: 3px 8px;
     font-size: var(--font-size-14);
     display: flex;
     justify-content: center;

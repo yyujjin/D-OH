@@ -11,10 +11,22 @@ main {
     grid-template-columns: 200px 2fr;
     grid-column-gap: 10px;
     grid-template-areas:
-    ". button-class"
-    "sidebar main-class"
-    "sidebar management"
-    "sidebar commition";
+        ". button-class"
+        "sidebar main-class"
+        "sidebar management"
+        "sidebar commition";
+}
+
+.underline {
+    text-decoration-line: none;
+}
+
+.main-class .profilewrite {
+    float: right;
+}
+
+.profilewrite {
+    text-decoration-line: none;
 }
 
 .sidebar {
@@ -113,7 +125,7 @@ main {
 
 .commition1 {
     height: 100px;
-    margin: 10px; 
+    margin: 10px;
     padding: 10px;
     overflow: auto;
     border: 2px solid whitesmoke;
