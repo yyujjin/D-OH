@@ -1,8 +1,37 @@
-let MessageDTO = {
-    sender : "testUser",
-    receiver : "testUser",
-    content :null
-  }
+
+
+
+let MessageDTO = null;
+
+function makeMessageDTO(sender,receiver,content) {
+    
+    let MessageDTO = {
+        sender : sender,
+        receiver : receiver,
+        content :content
+    }
+
+    return MessageDTO;
+}
+
+
+
+function makeUser() {
+
+    if (window.location.href.includes("userA")) {
+        MessageDTO = makeMessageDTO("userA","userB",null)
+    } else if (window.location.href.includes("userB")) {
+        MessageDTO = makeMessageDTO("userB","userA",null)
+    }
+
+    return MessageDTO;
+
+}
+
+MessageDTO = makeUser();
+
+
+console.log(MessageDTO.sender)
 
   const  MessageType = ["sent", "receive"];
 
@@ -13,11 +42,29 @@ const stompClient = new StompJs.Client({
 stompClient.onConnect = (frame) => {
     //setConnected(true);
     console.log('Connected: ' + frame);
-    stompClient.subscribe('/user/queue/messages', (message) => {
+
+
+    let userId;
+    if (window.location.href.includes("userA")) {
+        userId = "userA";
+    } else if (window.location.href.includes("userB")) {
+        userId = "userB";
+    }
+
+
+
+
+    stompClient.subscribe(`/user/queue/messages`, (message) => {
     
         const parsedMessage = JSON.parse(message.body).content;
-        console.log('받은 메시지 : ' + parsedMessage)
-        addMessageToChat(parsedMessage,'received');
+        console.log(JSON.parse(message.body));
+        console.log(userId+'가 받은 메시지 : ' + parsedMessage)
+        if(JSON.parse(message.body).sender==userId){
+        addMessageToChat(MessageDTO.content,'sent')
+        }else{
+            addMessageToChat(parsedMessage,'received');
+        }
+       
     });
 };
 
@@ -47,13 +94,14 @@ function sendMesssage() {
         destination: "/app/message",
         body: JSON.stringify(MessageDTO)
     });
-    addMessageToChat(MessageDTO.content,'sent')
+    
 }
 
 
 // 페이지 로드 시 웹소켓 연결 자동 시작
 window.onload = function() {
     connect();
+    makeUser();
 };
 
 const sendButton = document.getElementById("sendButton").addEventListener("click",sendMesssage);

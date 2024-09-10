@@ -4,7 +4,11 @@ const chatRoomDTO = {
   creator: "제작자123", // 제작자
 };
 
-function startChat() {
+
+
+
+
+function startChat1() {
   alert("1:1 채팅방으로 이동합니다.");
 
   fetch("http://localhost:8083/chat/room", {
@@ -17,7 +21,29 @@ function startChat() {
     .then((response) => {
       if (response.ok) {
         console.log("채팅방 이동 성공");
-        window.location.href = "/chat/room";
+        window.location.href = "/chat/room?userA";
+      } else {
+        console.error("채팅방 이동 실패");
+      }
+    })
+    .catch((error) => {
+      console.error("네트워크 에러", error);
+    });
+}
+function startChat2() {
+  alert("1:1 채팅방으로 이동합니다.");
+
+  fetch("http://localhost:8083/chat/room", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(chatRoomDTO),
+  })
+    .then((response) => {
+      if (response.ok) {
+        console.log("채팅방 이동 성공");
+        window.location.href = "/chat/room?userB";
       } else {
         console.error("채팅방 이동 실패");
       }

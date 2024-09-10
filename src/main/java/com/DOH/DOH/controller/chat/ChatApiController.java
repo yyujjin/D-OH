@@ -32,6 +32,7 @@ public class ChatApiController {
     }
 
 
+
     //채팅방 입장
     @PostMapping("/room")
     public ResponseEntity createChatRoom(@RequestBody ChatRoomDTO chatRoomDTO){
@@ -49,8 +50,12 @@ public class ChatApiController {
 
     //채팅 메시지 전송
     @MessageMapping("/message")
-    @SendToUser("/queue/messages")// WebSocket을 통해 /app/message 경로로 메시지를 받음
+    @SendToUser("/queue/messages")
+    // WebSocket을 통해 /app/message 경로로 메시지를 받음
     public MessageDTO sendMessage(MessageDTO messageDTO) {
+
+        messagingTemplate.convertAndSendToUser(messageDTO.getReceiver(),"/queue/messages",messageDTO.getContent());
+
 
         log.info("받은 메시지 :{}",messageDTO.getContent());
         /*// 메시지를 DB에 저장
@@ -59,7 +64,11 @@ public class ChatApiController {
         log.info("수신자 : {}",messageDTO.getReceiver());
         // 메시지를 해당 수신자에게 전송 (WebSocket)
 
+
+
         return messageDTO;
 
     }
 }
+
+//자기 자신도 그 경로를 구독하고 있어서
