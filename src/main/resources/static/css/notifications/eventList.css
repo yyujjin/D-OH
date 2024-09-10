@@ -74,7 +74,7 @@
 }
 
 /* 이벤트 등록 버튼 스타일링 */
-.btn-primary {
+.d-flex a {
     padding: 10px 20px;
     font-size: 16px;
     background-color: rgb(193, 192, 255);
@@ -85,9 +85,10 @@
     transition: background-color 0.3s ease-in-out;
 }
 
-.btn-primary:hover {
+.d-flex a:hover {
     background-color: rgba(193, 192, 255, 0.5);
     border: solid 1px rgba(193, 192, 255, 0.5);
+    color: white;
 }
 
 /* 반응형 설정 */
