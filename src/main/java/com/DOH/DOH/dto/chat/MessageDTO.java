@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class MessageDto {
+public class MessageDTO {
     private String roomId; // 룸넘버
     private String sender; //발신자
     private String receiver; //수신자

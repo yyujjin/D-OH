@@ -1,14 +1,18 @@
 package com.DOH.DOH.controller.chat;
 
 import com.DOH.DOH.dto.chat.ChatRoomDTO;
-import com.DOH.DOH.dto.chat.MessageDto;
+import com.DOH.DOH.dto.chat.MessageDTO;
 import com.DOH.DOH.service.chat.ChatRoomService;
 import com.DOH.DOH.service.chat.MessageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.messaging.simp.annotation.SendToUser;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
@@ -44,18 +48,18 @@ public class ChatApiController {
     }
 
     //채팅 메시지 전송
-    @MessageMapping("/message")  // WebSocket을 통해 /app/message 경로로 메시지를 받음
-    public void sendMessage(MessageDto messageDto) {
+    @MessageMapping("/message")
+    @SendToUser("/queue/messages")// WebSocket을 통해 /app/message 경로로 메시지를 받음
+    public MessageDTO sendMessage(MessageDTO messageDTO) {
 
-        log.info("받은 메시지 :{}",messageDto.getContent());
+        log.info("받은 메시지 :{}",messageDTO.getContent());
         /*// 메시지를 DB에 저장
         messageService.saveMessage(messageDto);*/
 
+        log.info("수신자 : {}",messageDTO.getReceiver());
         // 메시지를 해당 수신자에게 전송 (WebSocket)
-        /*messagingTemplate.convertAndSendToUser(
-                messageDto.getReceiver(),
-                "/queue/messages" + messageDto.getRoomId(),
-                messageDto
-        );*/
+
+        return messageDTO;
+
     }
 }
