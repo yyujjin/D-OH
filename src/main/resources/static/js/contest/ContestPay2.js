@@ -13,4 +13,23 @@ document.addEventListener("DOMContentLoaded", function() {
     totalPrizeElement.textContent = numberWithCommas(totalPrizeElement.textContent);
     serviceFeeElement.textContent = numberWithCommas(serviceFeeElement.textContent);
     totalAmountElement.textContent = numberWithCommas(totalAmountElement.textContent);
+
+    $(function(){
+        $('#apibtn').click(function(){
+            $.ajax({
+                url:"/contest/payment/submit"
+                dataType:'json',
+                success:function(data){
+                    var box = data.next_redirect_pc_url;
+                    window.open(box);
+                    alert(data.tid);
+                    var
+                    } ,
+                    error:function(error){
+                        alert(error);
+                    }
+                });
+            });
+        });
+
 });
