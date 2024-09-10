@@ -29,7 +29,6 @@
             <div class="last-message">만나서 반가워요</div>
           </div>
         </div>
-        <!-- 추가 채팅 항목들 -->
       </div>
 
       <!-- 채팅 창 -->
@@ -37,22 +36,14 @@
         <div class="chat-header">
           <div class="chat-title">공책</div>
         </div>
-        <div class="chat-body" id="chatBody">
-          <div class="chat-message received">
-            <div class="message-bubble received">안녕하세요.</div>
-          </div>
-          <div class="chat-message sent">
-            <div class="message-bubble sent">네 안녕하세요!</div>
-          </div>
-          <!-- 추가 메시지 -->
-        </div>
+        <div class="chat-body" id="chatBody"></div>
         <div class="chat-footer">
           <input
             type="text"
             id="chatInput"
             placeholder="메시지를 입력하세요..."
           />
-          <button onclick="sendMessage()">전송</button>
+          <button id="sendButton">전송</button>
         </div>
       </div>
     </div>
