@@ -27,4 +27,14 @@ public class ContestListController {
         model.addAttribute("contestList", contestList);
         return "list/contestList";
     }
+
+    @GetMapping("/contest/application/terms")
+    public String applictionTerms(){
+        return "list/apply_1";
+    }
+
+    @GetMapping("/contest/application/write")
+    public String applictionWrite(){
+        return "list/apply_2";
+    }
 }
