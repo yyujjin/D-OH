@@ -35,7 +35,3 @@ out/
 
 ### VS Code ###
 .vscode/
-
-### Ignore sensitive application files ###
-/src/main/resources/application.yml
-/java/com/DOH/DOH/configuration/S3Config.java
