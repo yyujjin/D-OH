@@ -1,4 +1,16 @@
-# 기본 프로파일 공통 설정
+
+cloud:
+  aws:
+    credentials:
+      access-key: {액세스키 입력}
+      secret-key: {비밀 액세스키 입력}
+    s3:
+      bucket: doh-contest-storage
+    region:
+      static: ap-northeast-2 # 리전 정보
+    stack:
+      auto: false # 기본 프로파일 공통 설정
+
 spring:
   application:
     name: DohApplication  # 애플리케이션 이름
@@ -28,5 +40,3 @@ mybatis:
 
 server:
   port: 8083
-
-
