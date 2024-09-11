@@ -19,9 +19,9 @@ function makeMessageDTO(sender,receiver,content) {
 function makeUser() {
 
     if (window.location.href.includes("userA")) {
-        MessageDTO = makeMessageDTO("userA","userB",null)
+        MessageDTO = makeMessageDTO("aaaa","bbbb",null)
     } else if (window.location.href.includes("userB")) {
-        MessageDTO = makeMessageDTO("userB","userA",null)
+        MessageDTO = makeMessageDTO("aaaa","bbbb",null)
     }
 
     return MessageDTO;
@@ -29,11 +29,6 @@ function makeUser() {
 }
 
 MessageDTO = makeUser();
-
-
-console.log(MessageDTO.sender)
-
-  const  MessageType = ["sent", "receive"];
 
 const stompClient = new StompJs.Client({
     brokerURL: 'ws://localhost:8083/chat'
@@ -46,13 +41,10 @@ stompClient.onConnect = (frame) => {
 
     let userId;
     if (window.location.href.includes("userA")) {
-        userId = "userA";
+        userId = "aaaa";
     } else if (window.location.href.includes("userB")) {
-        userId = "userB";
+        userId = "bbbb";
     }
-
-
-
 
     stompClient.subscribe(`/user/queue/messages`, (message) => {
     
@@ -64,6 +56,10 @@ stompClient.onConnect = (frame) => {
         }else{
             addMessageToChat(parsedMessage,'received');
         }
+
+        addMessageToChat(MessageDTO.content,'sent')
+        addMessageToChat(parsedMessage,'received');
+
        
     });
 };

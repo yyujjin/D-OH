@@ -4,7 +4,9 @@ import com.DOH.DOH.dto.chat.ChatRoomDTO;
 import com.DOH.DOH.dto.chat.MessageDTO;
 import com.DOH.DOH.service.chat.ChatRoomService;
 import com.DOH.DOH.service.chat.MessageService;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -31,7 +33,8 @@ public class ChatApiController {
         this.chatPageController = chatPageController;
     }
 
-
+@Autowired
+    HttpSession httpSession;
 
     //채팅방 입장
     @PostMapping("/room")
@@ -52,8 +55,13 @@ public class ChatApiController {
     @MessageMapping("/message")
     @SendToUser("/queue/messages")
     // WebSocket을 통해 /app/message 경로로 메시지를 받음
-    public MessageDTO sendMessage(MessageDTO messageDTO) {
+    public MessageDTO sendMessage(MessageDTO messageDTO, HttpSession httpSession) {
 
+        String user = (String) httpSession.getAttribute("userId");
+        log.info("로그이ㅣㅣㅣㅣㄴ :{}",user);
+
+        messageDTO.setSender(user);
+        messageDTO.setReceiver("aaaa");
         messagingTemplate.convertAndSendToUser(messageDTO.getReceiver(),"/queue/messages",messageDTO.getContent());
 
 
