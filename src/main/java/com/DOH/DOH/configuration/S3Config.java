@@ -21,7 +21,7 @@ public class S3Config {
 
     @Bean
     public AmazonS3 amazonS3() {
-        BasicAWSCredentials awsCreds = new BasicAWSCredentials("KIARSU7KSFREXNL6YJM", "Pk793mtBCDSwogPJC31Pjceuv/hKOB3jdRRlyUHx");
+        BasicAWSCredentials awsCreds = new BasicAWSCredentials("액세스 키 입력", "비밀액세스키 입력");
         return AmazonS3ClientBuilder
                 .standard()
                 .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
