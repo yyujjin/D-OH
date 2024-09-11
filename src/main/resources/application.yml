@@ -1,0 +1,42 @@
+
+cloud:
+  aws:
+    credentials:
+      access-key: {액세스키 입력}
+      secret-key: {비밀 액세스키 입력}
+    s3:
+      bucket: doh-contest-storage
+    region:
+      static: ap-northeast-2 # 리전 정보
+    stack:
+      auto: false # 기본 프로파일 공통 설정
+
+spring:
+  application:
+    name: DohApplication  # 애플리케이션 이름
+  datasource:
+    url: jdbc:mysql://teamdb.cx6acq2ikt1l.ap-northeast-2.rds.amazonaws.com:3306/DOH
+    username: abc3
+    password: 123456789
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  main:
+    allow-bean-definition-overriding: true
+
+    #추가
+thymeleaf:
+  enabled: true
+  cache: false #개발시 새로고침하면 적용.
+  prefix: classpath:templates/
+  suffix: .html
+  check-template-location: true
+  mode: HTML
+
+mybatis:
+  mapper-locations: classpath:/mapper/**/*Mapper.xml
+
+server:
+  port: 8083
