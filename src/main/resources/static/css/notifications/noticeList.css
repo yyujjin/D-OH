@@ -1,5 +1,6 @@
-
+/* 컨테이너가 페이지의 남은 공간을 차지하게 설정 */
 .container {
+    flex: 1; /* 이 부분을 추가하여 컨테이너가 남은 공간을 채우도록 설정 */
     max-width: 1100px;
     background-color: white;
     padding: 20px;
