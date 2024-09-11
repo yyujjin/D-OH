@@ -1,20 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<!--<html lang="en">-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/fragments/layout">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-<!--    <script src="../js/list/apply_1.js"></script>-->
-    <script type="text/javascript" th:src="@{/js/list/apply_1.js}"></script>
-    <link th:href="@{css/list/apply_1.css}">
-</head>
-<body>
-    <header>
+    <title>페이지</title>
 
-    </header>
+    <!-- jQuery 추가 -->
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+            integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 커스텀 CSS 및 JS 추가 -->
+    <link rel="stylesheet" th:href="@{/css/list/apply_1.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/footer.css}">
+    <script th:src="@{/js/list/apply_1.js}"></script>
+
+</head>
+
+<th:block layout:fragment="content">
     <main>
         <div class="mainWarap">
             <div class="contestWarap">
@@ -418,8 +425,7 @@
             </section><!--section-->
         </div><!--mainWarap-->
     </main>
-    <footer>
 
-    </footer>
-</body>
+</th:block>
+
 </html>
