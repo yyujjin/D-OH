@@ -1,20 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>헤더</title>
-    <!-- NanumSquare 폰트와 Bootstrap 추가 -->
-    <link href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- 커스텀 CSS -->
-    <link rel="stylesheet" th:href="@{/css/fragments/header.css}">
-    <!-- jQuery와 Bootstrap JS 추가 -->
-    <script src="/js/jquery-3.7.1.min.js"></script>
-    <script src="/js/bootstrap/bootstrap.min.js"></script>
-</head>
-<body>
-<header class="header" th:fragment="headerFragment">
+
+    <th:block th:fragment="headerFragment">
+    <!--<header class="header" th:fragment="headerFragment">-->
+<header class="header">
     <nav class="navbar">
         <div class="navbar-left">
             <a class="navbar-brand" href="/main">
@@ -28,18 +17,19 @@
             </div>
         </div>
         <div class="nav-center">
-            <a class="nav-link" href="#">공모전</a>
-            <a class="nav-link" href="#">디자인 의뢰</a>
-            <a class="nav-link" href="#">이벤트</a>
-            <a class="nav-link" href="#">공지사항</a>
+            <a class="nav-link" th:href="@{/contest/list}">공모전</a>
+            <a class="nav-link" th:href="@{/contest}">디자인 의뢰</a>
+            <a class="nav-link" th:href="@{/portfolio/list}">포트폴리오</a>
+            <a class="nav-link" th:href="@{/event/list}">이벤트</a>
+            <a class="nav-link" th:href="@{/notice/list}">공지사항</a>
         </div>
         <div class="navbar-right">
             <div class="login-links">
-                <a class="nav-link" href="#">로그인</a>
-                <a class="nav-link" href="#">회원가입</a>
+                <a class="nav-link" th:href="@{/login}">로그인</a>
+                <a class="nav-link" th:href="@{/users/register}">회원가입</a>
             </div>
         </div>
     </nav>
 </header>
-</body>
+    </th:block>
 </html>

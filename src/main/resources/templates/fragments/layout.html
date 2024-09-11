@@ -1,16 +1,13 @@
-<!-- <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
-<head th:replace="fragments/header :: header">
-</head>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!-- 헤더 프래그먼트 불러오기 -->
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
 
 <body>
-    -- content 
-    <th:block layout:fragment="content"></th:block>
-
-    -- footer 
-    <footer th:replace="fragments/footer :: footer"></footer>
+<!-- 레이아웃 콘텐츠 삽입 -->
+<th:block layout:fragment="content"></th:block>
 </body>
 
-</html> -->
+<!-- 푸터 프래그먼트 불러오기 -->
+<th:block th:replace="fragments/footer :: footerFragment"></th:block>
+</html>
