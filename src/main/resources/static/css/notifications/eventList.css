@@ -82,18 +82,20 @@
     border-radius: 5px;
     text-decoration: none;
     color: white;
-    transition: background-color 0.3s ease-in-out;
 }
 
 .d-flex a:hover {
+    transition: background-color 0.3s ease-in-out;
     background-color: rgba(193, 192, 255, 0.5);
     border: solid 1px rgba(193, 192, 255, 0.5);
     color: white;
 }
 
 /* 반응형 설정 */
+/*
 @media (max-width: 767px) {
     .card-img-top {
         height: 150px;
     }
 }
+*/
