@@ -1,8 +1,8 @@
 cloud:
   aws:
     credentials:
-      access-key: {KIARSU7KSFREXNL6YJM}
-      secret-key: {Pk793mtBCDSwogPJC31Pjceuv/hKOB3jdRRlyUHx}
+      access-key: {액세스키 입력}
+      secret-key: {비밀 액세스키 입력}
     s3:
       bucket: doh-contest-storage
     region:
