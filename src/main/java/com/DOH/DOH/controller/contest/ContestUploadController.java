@@ -98,22 +98,22 @@ public class ContestUploadController {
         return "contest/ContestPay2";  // 파일명을 올바르게 변경
     }
 
-//    // 결제 정보 확인 후 DB 저장
-//    @PostMapping("/contest/payment/submit")
-//    public String submitPayment(HttpSession session) {
-//        // 세션에서 최종 DTO 불러오기
-//        ContestUploadDTO contestUploadDTO = (ContestUploadDTO) session.getAttribute("contestData");
-//
-//        if (contestUploadDTO == null) {
-//            return "redirect:/contest";  // 세션에 데이터가 없으면 처음으로 리다이렉트
-//        }
-//
-//        // 세션 초기화 (필요시 유지할 수 있음)
-//        session.invalidate();
-//
-//        return "contest/PaymentSuccess";  // 결제 성공 페이지로 이동
-//    }
-////    결제 api 겟 포스트 알아서 하고
+    // 결제 정보 확인 후 DB 저장
+    @PostMapping("/contest/payment/submit")
+    public String submitPayment(HttpSession session) {
+        // 세션에서 최종 DTO 불러오기
+        ContestUploadDTO contestUploadDTO = (ContestUploadDTO) session.getAttribute("contestData");
+
+        if (contestUploadDTO == null) {
+            return "redirect:/contest";  // 세션에 데이터가 없으면 처음으로 리다이렉트
+        }
+
+        // 세션 초기화 (필요시 유지할 수 있음)
+        session.invalidate();
+
+        return "contest/ContestPay2";  // 결제 성공 페이지로 이동
+    }
+//    결제 api 겟 포스트 알아서 하고
 
     @GetMapping("/contest/view")
     public String contestView(@RequestParam Long contestId, Model model) {
