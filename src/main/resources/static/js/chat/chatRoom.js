@@ -1,5 +1,6 @@
 
-
+const userId = document.getElementById("userId").value;
+console.log(userId);
 
 let MessageDTO = null;
 

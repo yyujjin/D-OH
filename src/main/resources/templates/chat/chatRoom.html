@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,7 +16,8 @@
       <!-- 채팅 창 -->
       <div class="chat-window">
         <div class="chat-header">
-          <div class="chat-title">공책</div>
+          <div class="chat-title">상대방 유저</div>
+          <input id="userId" type="hidden" th:value="${userId}">
         </div>
         <div class="chat-body" id="chatBody"></div>
         <div class="chat-footer">
