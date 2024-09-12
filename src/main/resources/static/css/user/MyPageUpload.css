@@ -1,0 +1,258 @@
+:root
+{
+    --main-color : #c1c0ff;
+    --sub-color : #ECFCE4;
+    --color-black : #000;
+    --dark-gray : #757575;
+    --line-gray: #D9D9D9;
+    --color-white : #fff;
+    
+    --font-size-32 : 32px;
+    --font-size-24 : 24px;
+    --font-size-20 : 20px;
+    --font-size-16 : 16px;
+    --font-size-14 : 14px;
+}
+
+/* main 영역 */
+main
+{
+    display: flex;
+    justify-content: center;
+}
+
+.mainWarap
+{
+    width: 1200px;
+}
+/* 콘테스트 정보 영역 */
+.contestWarap
+{
+    width: 100%;
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.day, .applyInfo
+{
+    display: flex;
+    align-items: center;
+    gap: 0 15px;
+}
+
+.day
+{
+    line-height: 10px;
+    font-size: var(--font-size-16);
+    margin-bottom: 10px;
+}
+.endDate
+{
+    background-color: var(--sub-color);
+    padding: 8px 15px;
+    border-radius: 50px;
+}
+
+.contitle
+{
+    font-size: var(--font-size-32);
+    font-weight: bold;
+}
+
+.info
+{
+    font-size: var(--font-size-16);
+}
+
+a
+{
+    color: var(--color-black);
+    text-decoration-line: none;
+}
+.briefing
+{
+    font-size: var(--font-size-20);
+    padding: 15px 20px;
+    border: 1px solid var(--line-gray);
+    border-radius: 6px;
+}
+
+/* 지원 입력 내용 부분 */
+
+/* .applyWarap */
+section
+{
+ display: flex;
+ width: 100%;
+ gap: 30px;
+ margin: 60px 0 90px 0;
+}
+
+.applyContent
+{
+    width: calc(80% - 15px);
+    /* border: 1px solid var(--line-gray); */
+}
+
+.applyWarap
+{
+    width: calc(20% - 15px);
+    /* border: 1px solid var(--line-gray); */
+}
+
+.applyContent input[type="text"]
+{
+    width: 100%;
+    height: 50px;
+    padding: 15px 20px;
+    font-size: var(--font-size-16);
+    box-sizing: border-box;
+    border-radius: 6px;
+}
+
+.contArea
+{
+    margin-top: 40px;
+    width: 100%;
+    height: 770px;
+    border: 1px solid var(--line-gray);
+    border-radius: 6px;
+}
+
+
+.applyInput
+{
+    width: 100%;
+    height: 130px;
+    border: 1px solid var(--line-gray);
+    border-radius: 6px;
+    display: flex;
+}
+
+/* 사이드 */
+.InputArea
+{
+    width: 50%;
+    height: 100%;
+    border-right: 1px solid var(--line-gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* cursor: pointer; */
+}
+
+.InputArea:last-child
+{
+    border-right: none;
+}
+
+.content
+{
+    cursor: pointer;
+}
+
+.Image
+{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+#image/*input 창 style 안 보이게 설정*/
+{
+    display: none;
+}
+
+.imageUpload/*해당 영역 선택시 파일 업로드 명시하도록 css 지정*/
+{
+    cursor: pointer;
+}
+.Image i
+{
+    font-size: 45px;
+}
+
+.inputText
+{
+    font-size: var(--font-size-14);
+}
+
+/* textarea css */
+textarea
+{
+    display: flex;
+    width: 100%;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    font-size: var(--font-size-14);
+    resize: none;
+}
+
+.temporary, .apply
+{
+    width: 100%;
+    height: 70px;
+    margin-top: 20px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.temporary
+{
+    background-color: var(--color-white);
+    border: 1px solid var(--line-gray);
+    font-size: var(--font-size-16);
+    /* font-weight: 600; */
+}
+
+.apply
+{
+    background-color: var(--color-black);
+    border: 1px solid var(--color-black);
+    color: var(--color-white);
+    font-size: var(--font-size-16);
+}
+
+.oc{
+    display: flex;
+    margin-top: 20px;
+    text-align: center;
+}
+.oc input[type=radio]{
+    display: none;
+}
+.oc input[type="radio"]:checked + label {
+    background-color: black; /* 선택된 탭 강조 */
+    color: white;
+}
+.oc .open{
+    background-color: white;
+    width: 100px;
+    border-radius: 5px;
+    border: 1px solid var(--line-gray);
+}
+.oc .close{
+    background-color: white;
+    margin-left: 20px;
+    width: 100px;
+    border-radius: 5px;
+    border: 1px solid var(--line-gray);
+}
+.back{
+    display: flex;
+    background-color: #c1c0ff;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid var(--line-gray);
+    font-size: var(--font-size-16);
+}
+.back .mypageback{
+    font-weight: bold;
+    align-content: center;
+}
+

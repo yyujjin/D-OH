@@ -34,8 +34,11 @@ dependencies {
 	// MyBatis 설정
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 
+	// AWS S3 의존성 추가
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'  // 추가된 부분
+
 	// Thymeleaf + Spring Security (선택사항, 사용시 활성화)
-//	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	// implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
 	// Lombok 설정
 	compileOnly 'org.projectlombok:lombok'
@@ -57,4 +60,8 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+	options.compilerArgs << '-parameters'
 }

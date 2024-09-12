@@ -1,13 +1,6 @@
-@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
-
-body {
-    font-family: 'NanumSquare', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f9fa;
-}
-
+/* 컨테이너가 페이지의 남은 공간을 차지하게 설정 */
 .container {
+    flex: 1; /* 이 부분을 추가하여 컨테이너가 남은 공간을 채우도록 설정 */
     max-width: 1100px;
     background-color: white;
     padding: 20px;
@@ -78,7 +71,7 @@ h1 {
     margin-top: 20px;
 }
 
-.buttons button {
+.buttons a {
     background-color: black;
     color: white;
     padding: 10px 20px;
@@ -87,7 +80,7 @@ h1 {
     cursor: pointer;
 }
 
-.buttons button:hover {
+.buttons a:hover {
     background-color: #333;
 }
 

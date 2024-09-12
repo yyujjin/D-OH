@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>register</title>
+    <link rel="stylesheet" href="/css/user/register.css" />
+    <script src="/js/user/register.js"></script>
+</head>
+<body>
+<div class="signup-container">
+    <form action="/register" method="post" enctype="multipart/form-data">
+    <img th:src="@{/img/fragments/logoGG.png}" alt="D'OH Logo" width="150px" height="75px">
+    <h2>이메일 가입하기</h2>
+    <label for="email">이메일 주소</label>
+    <div class="email-container">
+        <input type="text" id="email" name="userEmail" required>
+        <button type="button" id="auth-btn" class="auth-btn" onclick="show()">인증</button>
+        <button type="button" id="resend-btn" class="auth-btn">재전송</button>
+    </div>
+    <div id="verification-container">
+        <label for="verification-code">인증번호 입력</label>
+        <div class="email-container">
+            <input type="text" id="verification-code" required>
+            <button type="button" class="auth-btn">인증 완료</button>
+        </div>
+    </div>
+    <label for="password">비밀번호</label>
+    <input type="password" id="password" name="userPassword" required>
+    <label for="confirm-password">비밀번호 확인</label>
+    <input type="password" id="confirm-password" required>
+    <div class="note">
+        <div class="note-item">
+            <input type="checkbox" id="agreement" required>
+            <label for="agreement">D'OH 가입 약관에 모두 동의합니다.<a href="javascript:void(0)" onclick="showTerms()">확인하기</a></label>
+        </div>
+        <div class="note-item">
+            <label for=>D'OH 이용약관(필수),개인정보취급방침(필수),마케팅정보 수집동의(선택)</label>
+        </div>
+    </div>
+    <div class="actions">
+        <button type="button" class="return-btn" onclick="window.history.back()">이전</button>
+        <button id="join-btn" class="join-btn" type="submit">가입하기</button>
+    </div>
+    </form>
+</div>
+
+<!-- Terms overlay -->
+<div id="terms-overlay">
+    <div class="terms-content">
+        <h2>약관 확인하기</h2>
+        <h6>아래 약관에 동의하시고, 다음단계로 이동하세요!</h6>
+        <input type="checkbox" name="chk" class="filter01">
+        <label for=>전체 동의</label>
+        <hr>
+        <input type="checkbox" name="chk" class="filter01">
+        <span style="color: blue;">[필수]</span> 개인정보 수집 및 이용 동의
+        <a onclick="toggleContent('content1')" id="toggle-btn">펼치기</a>
+        <div id="content1" class="content">
+            제 1 장 환영합니다!
+            제 1 조 목적 및 정의
+            주식회사 D'OH(이하 ‘회사’)가 제공하는 서비스를 이용해 주셔서 감사합니다. 회사가 제공하는 유료서비스의 경우 여러분의 별도 서비스 약관에 동의한 때에 회사와 여러분 간의 유료서비스 이용계약이 성립합니다.
+            본 약관은 여러분이 통합서비스를 이용하는 데 필요한 권리, 의무 및 책임사항, 이용조건 및 절차 등 기본적인 사항을 규정하고 있으므로 조금만 시간을 내서 주의 깊게 읽어주시기 바랍니다.
+            D'OH 서비스: 회사가 제공하는 D'OH 브랜드를 사용하는 서비스(예: D'OH 서비스)
+            세부 하위 서비스: 개별 서비스를 구성하는 개별 서비스 내의 세부 하위 서비스를 의미하며, 예를 들어 각 개별 서비스 내의 유료서비스, D'OH 서비스 내의 콘테스트, 1:1 의뢰하기 서비스 등을 의미함
+            <br>
+            공고일자 : 2020년 11월 30일<br>
+            시행일자 : 2020년 12월 15일
+        </div>
+        <hr>
+        <input type="checkbox" name="chk" class="filter01">
+        <label>[선택]마케팅 정보 수신</label>
+        <hr>
+        <button id="confirm-btn" onclick="hideTerms()">확인 완료</button>
+    </div>
+</div>
+</body>
+</html>
