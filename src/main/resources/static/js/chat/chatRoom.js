@@ -32,7 +32,12 @@ function makeUser() {
 MessageDTO = makeUser();
 
 const stompClient = new StompJs.Client({
-    brokerURL: 'ws://localhost:8083/chat'
+    brokerURL: 'ws://localhost:8083/chat',
+
+    heartbeatIncoming: 10000, // 10초마다 서버에서 클라이언트로 heart-beat 받기
+    heartbeatOutgoing: 10000, // 10초마다 클라이언트에서 서버로 heart-beat 보내기
+
+    reconnectDelay: 5000, // 연결이 끊겼을 때 5초마다 재연결 시도
 });
 
 stompClient.onConnect = (frame) => {
