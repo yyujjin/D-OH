@@ -4,13 +4,14 @@ import com.DOH.DOH.dto.chat.ChatRoomDTO;
 import com.DOH.DOH.dto.chat.MessageDTO;
 import com.DOH.DOH.service.chat.ChatRoomService;
 import com.DOH.DOH.service.chat.MessageService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,30 +54,19 @@ public class ChatApiController {
 
     //채팅 메시지 전송
     @MessageMapping("/message")
-    @SendToUser("/queue/messages")
     // WebSocket을 통해 /app/message 경로로 메시지를 받음
-    public MessageDTO sendMessage(MessageDTO messageDTO, HttpSession httpSession) {
+    public MessageDTO sendMessage(MessageDTO messageDTO) throws JsonProcessingException {
 
-        String user = (String) httpSession.getAttribute("userId");
-        log.info("로그이ㅣㅣㅣㅣㄴ :{}",user);
-
-        messageDTO.setSender(user);
-        messageDTO.setReceiver("aaaa");
-        messagingTemplate.convertAndSendToUser(messageDTO.getReceiver(),"/queue/messages",messageDTO.getContent());
+        log.info("수신자 : {}", messageDTO.getReceiver());
+        log.info("보낸 메시지 : {}", messageDTO.getContent());
 
 
-        log.info("받은 메시지 :{}",messageDTO.getContent());
-        /*// 메시지를 DB에 저장
-        messageService.saveMessage(messageDto);*/
+        String messageAsJson = new ObjectMapper().writeValueAsString(messageDTO.getContent());
+        messagingTemplate.convertAndSend("/queue/messages/"+ messageDTO.getReceiver(), messageAsJson);
 
-        log.info("수신자 : {}",messageDTO.getReceiver());
-        // 메시지를 해당 수신자에게 전송 (WebSocket)
-
-
+        log.info("수신자 경로 : /queue/messages/" + messageDTO.getReceiver());
 
         return messageDTO;
 
     }
 }
-
-//자기 자신도 그 경로를 구독하고 있어서

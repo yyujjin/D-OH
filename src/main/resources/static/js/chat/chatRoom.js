@@ -44,18 +44,8 @@ stompClient.onConnect = (frame) => {
     //setConnected(true);
     console.log('Connected: ' + frame);
 
-
-    let userId;
-    if (window.location.href.includes("userA")) {
-        userId = "aaaa";
-    } else if (window.location.href.includes("userB")) {
-        userId = "bbbb";
-    }
-
-    stompClient.subscribe(`/user/queue/messages`, (message) => {
-    
-        const parsedMessage = JSON.parse(message.body).content;
-        console.log(JSON.parse(message.body));
+    stompClient.subscribe(`/queue/messages/${userId}`, (message) => {
+        const parsedMessage = JSON.parse(message.body);
         console.log(userId+'가 받은 메시지 : ' + parsedMessage)
         if(JSON.parse(message.body).sender==userId){
         addMessageToChat(MessageDTO.content,'sent')
