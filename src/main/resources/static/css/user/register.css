@@ -1,0 +1,228 @@
+/* .signup-wrapper으로 레이아웃 정렬 유지 */
+.signup-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7f7f7;
+    overflow: hidden;
+}
+
+.signup-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+    z-index: 1;
+}
+
+.signup-container h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #FFB400;
+}
+
+.signup-container h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.signup-container label {
+    display: block;
+    text-align: left;
+    margin: 10px 0 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+.email-container {
+    display: flex;
+    align-items: center;
+}
+
+.email-container input[type="email"] {
+    width: calc(100% - 80px);
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 14px;
+    height: 40px;
+}
+
+#verification-container input[type="text"] {
+    width: calc(100% - 80px);
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 14px;
+    height: 40px;
+}
+
+.signup-container input[type="text"],
+.signup-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.signup-container .auth-btn {
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 11px;
+    margin-left: 10px;
+    width: 70px;
+    height: 40px;
+}
+
+.auth-btn:hover {
+    background-color: #313131;
+}
+
+.signup-container .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.signup-container .actions button {
+    width: 48%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.signup-container .return-btn {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.signup-container .join-btn {
+    background-color: black;
+    color: white;
+}
+
+.join-btn:hover {
+    background-color: #313131;
+}
+
+.signup-container .note {
+    font-size: 12px;
+    text-align: left;
+    margin-top: 20px;
+    color: #888;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.note-item {
+    display: flex;
+    align-items: center;
+}
+
+.note a {
+    margin-left: 20px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.note-item input[type="checkbox"] {
+    width: 15px;
+    height: 16px;
+    margin-top: 9px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.note-item label {
+    vertical-align: middle;
+    line-height: 18px;
+}
+
+#verification-container {
+    display: none;
+}
+
+#resend-btn {
+    display: none;
+}
+
+/* 약관 동의 */
+#terms-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.terms-content {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    width: 400px;
+    text-align: left;
+}
+
+.terms-content h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.terms-content h6 {
+    color: gray;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.terms-content .content {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    height: 100px;
+    overflow-y: auto;
+}
+
+.terms-content button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.terms-content a {
+    cursor: pointer;
+    color: blue;
+    text-decoration: none;
+}
