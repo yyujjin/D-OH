@@ -7,7 +7,7 @@
     --dark-gray : #757575;
     --line-gray: #D9D9D9;
     --color-white : #fff;
-    
+
     --font-size-32: 32px;
     --font-size-24: 24px;
     --font-size-20: 20px;
@@ -30,30 +30,47 @@ main
 }
 
 /* banner 영역 */
-.banner
-{
-    height: 460px;
-    background-position: center;
-    background-size: 80%;
-    background-color: var(--line-gray);
-    border-radius: 6px;
+.banner {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    overflow: hidden;
 }
 
-.banner .bannerContent
-{
-    padding: 120px 0 240px 93px;
+.bannerContent {
+    display: none;
+    text-align: center;
+    padding: 10px;
+    background-color: #f4f4f4;
+    transition: opacity 0.5s ease-in-out;
 }
 
-.bannerTitle
-{
-    font-weight: 900;
-    font-size: var(--font-size-32);
-    margin-bottom: 20px;
+.bannerContent.active {
+    display: block;
+    opacity: 1;
 }
 
-.bannerText
-{
-    font-size: var(--font-size-24);
+.bannerTitle {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.bannerText {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+.banner-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.banner-controls button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
 }
 
 /* section 공통 */
@@ -86,7 +103,7 @@ main
 }
 
 .fa-solid
-{ 
+{
     font-size: var(--font-size-32);
     cursor: pointer;
 }
