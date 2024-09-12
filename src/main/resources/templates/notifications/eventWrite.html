@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/fragments/layout">
+      layout:decorate="~{/fragments/layout}">
 
 <head>
     <meta charset="UTF-8">
@@ -24,29 +24,38 @@
 
     <div class="container mt-5">
         <h1 class="text-center mb-4">이벤트 등록</h1>
-        <form th:action="@{/event/register}" method="post" enctype="multipart/form-data">
+        <form th:action="@{/event/admin/create}" method="post" enctype="multipart/form-data">
+            <!-- 이벤트 제목 -->
             <div class="mb-3">
-                <label for="title">이벤트 제목</label>
-                <input type="text" id="title" name="title" class="form-control" placeholder="이벤트 제목을 입력하세요" required>
+                <label for="eventTitle">이벤트 제목</label>
+                <input type="text" id="eventTitle" name="eventTitle" class="form-control" placeholder="이벤트 제목을 입력하세요" required>
             </div>
+
+            <!-- 날짜와 시간 (필드명 수정) -->
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="date">날짜</label>
-                    <input type="date" id="date" name="date" class="form-control" required>
+                    <input type="date" id="date" name="eventDate" class="form-control">
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="time">시간</label>
-                    <input type="time" id="time" name="time" class="form-control" required>
+                    <input type="time" id="time" name="eventTime" class="form-control">
                 </div>
             </div>
+
+            <!-- 이벤트 설명 -->
             <div class="mb-3">
-                <label for="content">이벤트 설명</label>
-                <textarea id="content" name="content" class="form-control" placeholder="이벤트 설명을 입력하세요" required></textarea>
+                <label for="eventContent">이벤트 설명</label>
+                <textarea id="eventContent" name="eventContent" class="form-control" placeholder="이벤트 설명을 입력하세요"></textarea>
             </div>
+
+            <!-- 이벤트 이미지 -->
             <div class="mb-3">
                 <label for="file">이벤트 이미지</label>
                 <input type="file" id="file" name="file" class="form-control">
             </div>
+
+            <!-- 버튼들 -->
             <div class="d-flex justify-content-between">
                 <a th:href="@{/event/list}" class="btn btn-secondary">목록보기</a>
                 <button type="submit" class="btn btn-primary">등록</button>
