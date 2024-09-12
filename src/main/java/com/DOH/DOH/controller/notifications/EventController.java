@@ -68,15 +68,17 @@ public class EventController {
     // 이벤트 등록
     @PostMapping("/admin/create")
     public String createEvent(@ModelAttribute EventDTO eventDTO, @RequestParam("file") MultipartFile file) throws IOException {
-        // 파일 업로드 로직 추가
+        // eventTitle이 제대로 넘어오는지 확인
+        log.info("Event Title: " + eventDTO.getEventTitle());
+
         if (!file.isEmpty()) {
-            String fileUrl = uploadFileToS3Bucket(file);
-            eventDTO.setEventImageUrl(fileUrl);  // S3에 저장된 이미지 URL을 DTO에 설정
-            eventDTO.setEventImageName(file.getOriginalFilename()); // 원본 파일명을 DTO에 설정
+            String fileUrl = uploadFileToS3Bucket(file);  // S3에 파일 업로드
+            eventDTO.setEventImageUrl(fileUrl);  // 업로드한 파일의 URL 설정
+            eventDTO.setEventImageName(file.getOriginalFilename());  // 원본 파일명 설정
         }
 
-        eventService.writeEvent(eventDTO);
-        return "redirect:/event/list";  // 작성 후 목록으로 리다이렉트
+        eventService.writeEvent(eventDTO);  // 이벤트 저장 처리
+        return "redirect:/event/list";  // 이벤트 목록으로 리다이렉트
     }
 
     // 이벤트 임시 저장
