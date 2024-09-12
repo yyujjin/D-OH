@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/user/login.css" />
+</head>
+<body>
+
+    <div class="login-container">
+        <form method="post" action="/login" enctype="multipart/form-data">
+        <div class="email">이메일</div>
+<!--        <input type="text" id="email" name="userEmail" required>-->
+        <input type="text" id="email" name="username" required>
+        <div class="password">비밀번호</div>
+        <input type="password" id="password" name="password" required>
+        <button id="loginButton" type="submit">로그인</button>
+        <div class="sns-login">
+            <p>SNS로 간편하게 시작하기</p>
+            <img th:src="@{/img/fragments/kakaoLogo.png}" alt="kakoTalk Logo" width="30px" height="30px">
+            <img th:src="@{/img/fragments/googleLogo.png}" alt="google Logo" width="30px" height="30px">
+            <img th:src="@{/img/fragments/naverLogo.png}" alt="naver Logo" width="30px" height="30px">
+        </div>
+        <div class="forgot-password">
+            아직 회원이 아니세요? <a th:href="@{/register}">회원가입 하기</a>
+        </div>
+        </form>
+    </div>
+
+</body>
+</html>

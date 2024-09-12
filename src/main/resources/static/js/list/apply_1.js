@@ -63,4 +63,6 @@ function check() {
 
         return false;
      }
+
+     location.href="/contest/application/write";
  } 
