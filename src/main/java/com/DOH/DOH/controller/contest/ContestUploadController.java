@@ -40,11 +40,11 @@ public class ContestUploadController {
     public String submitContest(@ModelAttribute ContestUploadDTO contestUploadDTO, HttpSession session) {
         // DTO 전체를 세션에 저장
         session.setAttribute("contestData", contestUploadDTO);
-        return "redirect:/contest1";  // 2단계로 이동
+        return "redirect:/contest/budget";  // 2단계로 이동
     }
 
     // 2단계: 상금 및 기간 설정 폼 보여주기
-    @GetMapping("/contest1")
+    @GetMapping("/contest/budget")
     public String showContestForm1(Model model, HttpSession session) {
         // 세션에 저장된 데이터를 모델에 추가하여 폼에 보여줌
         ContestUploadDTO contestUploadDTO = (ContestUploadDTO) session.getAttribute("contestData");
@@ -55,7 +55,7 @@ public class ContestUploadController {
     }
 
     // 2단계: 폼 데이터를 세션에 업데이트하고 최종 저장 단계로 이동
-    @PostMapping("/contest1")
+    @PostMapping("/contest/budget")
     public String submitContest1(@ModelAttribute ContestUploadDTO contestUploadDTO, HttpSession session) {
         // 세션에서 기존 DTO 불러오기
         ContestUploadDTO existingContestData = (ContestUploadDTO) session.getAttribute("contestData");
@@ -111,11 +111,11 @@ public class ContestUploadController {
         // 세션 초기화 (필요시 유지할 수 있음)
         session.invalidate();
 
-        return "contest/PaymentSuccess";  // 결제 성공 페이지로 이동
+        return "contest/ContestPay2";  // 결제 성공 페이지로 이동
     }
 //    결제 api 겟 포스트 알아서 하고
 
-    @GetMapping("/contestview")
+    @GetMapping("/contest/view")
     public String contestView(@RequestParam Long contestId, Model model) {
         // 서비스 계층을 통해 DB에서 콘테스트 데이터를 가져옴
         ContestUploadDTO contestUploadDTO = contestUploadService.findContestById(contestId);
