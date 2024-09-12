@@ -60,6 +60,8 @@ public class ChatApiController {
         log.info("수신자 : {}", messageDTO.getReceiver());
         log.info("보낸 메시지 : {}", messageDTO.getContent());
 
+        messageService.saveMessage(messageDTO);
+        //세션이 있다면 바로 구독 경로로 보내고 없다면 디비에 저장하는 로직 추가
 
         String messageAsJson = new ObjectMapper().writeValueAsString(messageDTO.getContent());
         messagingTemplate.convertAndSend("/queue/messages/"+ messageDTO.getReceiver(), messageAsJson);

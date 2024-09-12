@@ -14,5 +14,4 @@ public class MessageDTO {
     private String content; //메시지 내용
     private LocalDateTime timestamp; //메시지 전송 시간
     private boolean isRead; //메시지 읽음 여부
-
 }

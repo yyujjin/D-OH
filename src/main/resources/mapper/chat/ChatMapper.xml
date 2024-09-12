@@ -3,4 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0.3//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.DOH.DOH.mapper.chat.ChatMapper">
+
+    <insert id="saveMessage" parameterType="com.DOH.DOH.dto.chat.MessageDTO">
+        INSERT INTO DOH.chat VALUES (#{sender}, #{receiver}, #{content}, NOW(), #{isRead});
+    </insert>
+
 </mapper>
