@@ -5,6 +5,7 @@ import com.DOH.DOH.service.notifications.EventService;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -67,19 +68,34 @@ public class EventController {
 
     // 이벤트 등록
     @PostMapping("/admin/create")
-    public String createEvent(@ModelAttribute EventDTO eventDTO, @RequestParam("file") MultipartFile file) throws IOException {
-        // eventTitle이 제대로 넘어오는지 확인
-        log.info("Event Title: " + eventDTO.getEventTitle());
-
-        if (!file.isEmpty()) {
-            String fileUrl = uploadFileToS3Bucket(file);  // S3에 파일 업로드
-            eventDTO.setEventImageUrl(fileUrl);  // 업로드한 파일의 URL 설정
-            eventDTO.setEventImageName(file.getOriginalFilename());  // 원본 파일명 설정
+    public String createEvent(@ModelAttribute EventDTO eventDTO,
+                              @RequestParam("file") MultipartFile file,
+                              HttpSession session,
+                              Model model) throws IOException {
+        // 세션에서 로그인된 사용자의 userNum 가져오기
+        Integer loggedInUserNum = (Integer) session.getAttribute("userNum");
+        if (loggedInUserNum == null) {
+            throw new RuntimeException("로그인된 사용자가 없습니다.");
         }
 
-        eventService.writeEvent(eventDTO);  // 이벤트 저장 처리
-        return "redirect:/event/list";  // 이벤트 목록으로 리다이렉트
+        // userNum이 3이 아니면 등록을 차단
+        if (!loggedInUserNum.equals(3)) {
+            model.addAttribute("errorMessage", "이벤트 등록은 허용되지 않습니다.");
+            return "redirect:/event/list";  // 목록 페이지로 리다이렉트
+        }
+
+        // 파일 업로드 로직
+        if (!file.isEmpty()) {
+            String fileUrl = uploadFileToS3Bucket(file);
+            eventDTO.setEventImageUrl(fileUrl);
+            eventDTO.setEventImageName(file.getOriginalFilename());
+        }
+
+        eventDTO.setUserNum(loggedInUserNum);  // userNum을 DTO에 설정
+        eventService.writeEvent(eventDTO);
+        return "redirect:/event/list";
     }
+
 
     // 이벤트 임시 저장
     @PostMapping("/admin/save")
