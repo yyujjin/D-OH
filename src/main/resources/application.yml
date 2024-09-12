@@ -47,3 +47,6 @@ mybatis:
 # 서버 포트 설정
 server:
   port: 8083
+
+#30분 세션 유지
+server.servlet.session.timeout: 1800s

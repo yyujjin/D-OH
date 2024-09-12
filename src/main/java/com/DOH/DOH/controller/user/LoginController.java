@@ -3,6 +3,8 @@ package com.DOH.DOH.controller.user;
 import com.DOH.DOH.dto.user.LoginDTO;
 import com.DOH.DOH.service.user.LoginService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +25,7 @@ public class LoginController {
 
         this.loginService = loginService;
     }
+
     //로그인 페이지로 이동
     @GetMapping("/login")
     public String showLogin() {
@@ -30,13 +33,13 @@ public class LoginController {
         return "user/login";
     }
     //회원가입 페이지로 이동
-    @GetMapping("/register")
+    @GetMapping("/users/register")
     public String showRegisterForm(){
 
         return "user/register";
     }
 
-    @PostMapping("/register")
+    @PostMapping("/users/register")
     public String showRegister(@ModelAttribute LoginDTO loginDTO) {
 
         System.out.println(loginDTO);
