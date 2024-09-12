@@ -1,29 +1,26 @@
-
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/fragments/layout}">
 
-    <head>
-        <meta charset="UTF-8">
-        <title>이벤트 페이지</title>
+<head>
+    <meta charset="UTF-8">
+    <title>이벤트 페이지</title>
 
-        <!-- jQuery 추가 -->
-        <script src="https://code.jquery.com/jquery-3.6.4.js"
-        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-        
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery 추가 -->
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+            integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 
-        <!-- 커스텀 CSS 및 JS 추가 -->
-        <link rel="stylesheet" th:href="@{/css/notifications/eventList.css}">
-        <link rel="stylesheet" th:href="@{/css/fragments/header.css}">
-        <link rel="stylesheet" th:href="@{/css/fragments/footer.css}">
-        <script th:src="@{/js/notifications/eventList.js}"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    </head>
-    <th:block layout:fragment="content">
+    <!-- 커스텀 CSS 및 JS 추가 -->
+    <link rel="stylesheet" th:href="@{/css/notifications/eventList.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/footer.css}">
+    <script th:src="@{/js/notifications/eventList.js}"></script>
 
-    <!-- Header Fragment -->
-<!--    <header th:replace="~{fragments/header :: headerFragment}"></header>-->
+</head>
+<th:block layout:fragment="content">
 
     <!-- Main Content -->
     <div class="container mt-5">
@@ -34,106 +31,21 @@
 
         <div class="row row-cols-1 row-cols-md-4 g-4">
             <!-- 이벤트 카드 반복 -->
-            <div class="col">
-                <a th:href="@{/event/detail(eventNum=1)}" class="card-link">
+            <div class="col" th:each="event : ${eventList}">
+                <a th:href="@{/event/detail(eventNum=${event.eventNum})}" class="card-link">
                     <div class="card h-100">
-                        <img src="/images/event1.jpg" class="card-img-top" alt="이벤트 1">
+                        <img th:src="${event.eventImageUrl}" class="card-img-top"
+                             th:alt="${event.eventTitle} 이미지">
                         <div class="card-body">
-                            <h5 class="card-title">이벤트 1</h5>
-                            <p class="card-text">이벤트 1 설명입니다.</p>
+                            <h5 class="card-title" th:text="${event.eventTitle}">이벤트 제목</h5>
+                            <p class="card-text" th:text="${event.eventContent}">이벤트 설명입니다.</p>
                         </div>
                     </div>
                 </a>
             </div>
-
-            <div class="col">
-                <a th:href="@{/event/detail(eventNum=2)}" class="card-link">
-                    <div class="card h-100">
-                        <img src="/images/event2.jpg" class="card-img-top" alt="이벤트 2">
-                        <div class="card-body">
-                            <h5 class="card-title">이벤트 2</h5>
-                            <p class="card-text">이벤트 2 설명입니다.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col">
-                <a th:href="@{/event/detail(eventNum=3)}" class="card-link">
-                    <div class="card h-100">
-                        <img src="/images/event3.jpg" class="card-img-top" alt="이벤트 3">
-                        <div class="card-body">
-                            <h5 class="card-title">이벤트 3</h5>
-                            <p class="card-text">이벤트 3 설명입니다.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col">
-                <a th:href="@{/event/detail(eventNum=4)}" class="card-link">
-                    <div class="card h-100">
-                        <img src="/images/event4.jpg" class="card-img-top" alt="이벤트 4">
-                        <div class="card-body">
-                            <h5 class="card-title">이벤트 4</h5>
-                            <p class="card-text">이벤트 4 설명입니다.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col">
-                <a th:href="@{/event/detail(eventNum=5)}" class="card-link">
-                    <div class="card h-100">
-                        <img src="/images/event5.jpg" class="card-img-top" alt="이벤트 5">
-                        <div class="card-body">
-                            <h5 class="card-title">이벤트 5</h5>
-                            <p class="card-text">이벤트 5 설명입니다.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col">
-                <a th:href="@{/event/detail(eventNum=6)}" class="card-link">
-                    <div class="card h-100">
-                        <img src="/images/event6.jpg" class="card-img-top" alt="이벤트 6">
-                        <div class="card-body">
-                            <h5 class="card-title">이벤트 6</h5>
-                            <p class="card-text">이벤트 6 설명입니다.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col">
-                <a th:href="@{/event/detail(eventNum=7)}" class="card-link">
-                    <div class="card h-100">
-                        <img src="/images/event7.jpg" class="card-img-top" alt="이벤트 7">
-                        <div class="card-body">
-                            <h5 class="card-title">이벤트 7</h5>
-                            <p class="card-text">이벤트 7 설명입니다.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col">
-                <a th:href="@{/event/detail(eventNum=8)}" class="card-link">
-                    <div class="card h-100">
-                        <img src="/images/event8.jpg" class="card-img-top" alt="이벤트 8">
-                        <div class="card-body">
-                            <h5 class="card-title">이벤트 8</h5>
-                            <p class="card-text">이벤트 8 설명입니다.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
+            <!-- //이벤트 카드 반복 끝 -->
         </div>
     </div>
-
-    <!-- Footer Fragment -->
-<!--    <footer th:replace="~{fragments/footer :: footerFragment}"></footer>-->
 
 </th:block>
 
