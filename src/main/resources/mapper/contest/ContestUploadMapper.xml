@@ -21,4 +21,16 @@
         SELECT * FROM contest_Upload WHERE id = #{conNum}
     </select>
 
+    <!-- 오늘 날짜로 주문 카운트 조회 -->
+    <select id="findOrderCountByDate" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM orders
+        WHERE DATE(created_at) = #{formattedDate}
+    </select>
+
+    <!-- 새로운 주문 삽입 -->
+    <insert id="insertOrder">
+        INSERT INTO orders (order_number)
+        VALUES (#{orderNumber})
+    </insert>
 </mapper>

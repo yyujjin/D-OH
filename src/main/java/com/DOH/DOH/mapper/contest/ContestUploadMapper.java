@@ -18,4 +18,11 @@ public interface ContestUploadMapper {
     // 업종 목록 조회 (어노테이션 기반)
     @Select("SELECT DISTINCT conType FROM contest_contype")
     List<String> findconTypes();  // 업종 목록을 가져오는 메서드
+
+    // 오늘 날짜로 주문 카운트 조회 (orders 테이블에서)
+    Integer findOrderCountByDate(@Param("formattedDate") String formattedDate);
+
+    // 새로운 주문을 orders 테이블에 삽입
+    void insertOrder(@Param("orderNumber") String orderNumber);
 }
+

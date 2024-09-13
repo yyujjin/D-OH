@@ -12,4 +12,6 @@ public interface ContestUploadService {
     public ContestUploadDTO findContestById(Long contestId);
 
     List<String> getContestTypes(); // 업종 목록을 가져오는 메서드 추가
+
+    public String generateOrderNumber();
 }
