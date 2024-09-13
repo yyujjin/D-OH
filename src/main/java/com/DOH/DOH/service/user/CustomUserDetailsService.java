@@ -1,27 +1,27 @@
 package com.DOH.DOH.service.user;
 
 import com.DOH.DOH.dto.user.CustomUserDetails;
-import com.DOH.DOH.dto.user.LoginDTO;
-import com.DOH.DOH.mapper.user.LoginMapper;
+import com.DOH.DOH.dto.user.RegisterDTO;
+import com.DOH.DOH.mapper.user.RegisterMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private LoginMapper loginMapper;
+    private RegisterMapper registerMapper;
 
-    public CustomUserDetailsService(LoginMapper loginMapper) {
-        this.loginMapper = loginMapper;
+    public CustomUserDetailsService(RegisterMapper registerMapper) {
+
+        this.registerMapper = registerMapper;
     }
 
     @Override
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
 
-        LoginDTO data = loginMapper.getUserByUserEmail(userEmail);
+        RegisterDTO data = registerMapper.getUserByUserEmail(userEmail);
 
         if (data == null) {
             throw new UsernameNotFoundException("User not found with email: " + userEmail);

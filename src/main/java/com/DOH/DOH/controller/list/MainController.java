@@ -1,5 +1,6 @@
 package com.DOH.DOH.controller.list;
 
+import com.DOH.DOH.service.user.UserSessionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,22 +16,19 @@ import java.util.Iterator;
 @Controller
 public class MainController {
 
+    private final UserSessionService userSessionService;
+
+    public MainController(UserSessionService userSessionService){
+        this.userSessionService = userSessionService;
+    }
+
     @GetMapping("/")
     public String main(Model model){
 
-
-        String id = SecurityContextHolder.getContext().getAuthentication().getName();
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        //로그인 한 사용자의 role 값
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        Iterator<? extends GrantedAuthority> iter = authorities.iterator();
-        GrantedAuthority auth = iter.next();
-        String role = auth.getAuthority();
-
-        model.addAttribute("id", id);
-        model.addAttribute("role", role);
+        String userEmail = userSessionService.userEmail();
+        String userRole = userSessionService.userRole();
+        log.info("userEmail : "+userEmail);
+        log.info("userRole : "+userRole);
 
         return "list/main";
     }

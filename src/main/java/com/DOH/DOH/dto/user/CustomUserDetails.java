@@ -12,11 +12,11 @@ import java.util.Collection;
 public class CustomUserDetails implements UserDetails {
 
 //    private LoginDTO loginDTO;
-    private LoginDTO loginDTO;
+    private RegisterDTO registerDTO;
 
-    public CustomUserDetails(LoginDTO loginDTO){
+    public CustomUserDetails(RegisterDTO registerDTO){
 
-        this.loginDTO = loginDTO;
+        this.registerDTO = registerDTO;
     }
 
 
@@ -31,7 +31,7 @@ public class CustomUserDetails implements UserDetails {
             @Override
             public String getAuthority() {
 
-                return loginDTO.getRole();
+                return registerDTO.getRole();
             }
         });
         return collection;
@@ -39,31 +39,15 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return loginDTO.getUserPassword();
+
+        return registerDTO.getUserPassword();
     }
 
     @Override
     public String getUsername() {
-        return loginDTO.getUserEmail();
+
+        return registerDTO.getUserEmail();
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }
