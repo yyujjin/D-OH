@@ -1,17 +1,10 @@
 const userId = document.getElementById("userId").value;
 console.log(userId);
-
-let MessageDTO = null;
-
-function makeMessageDTO(sender,receiver,content) {
-    
-    let MessageDTO = {
-        sender : sender,
-        receiver : receiver,
-        content :content
-    }
-
-    return MessageDTO;
+    //받는 사람 cccc로 고정
+let MessageDTO = {
+    sender : userId,
+    receiver : "cccc",
+    content :null
 }
 
 const stompClient = new StompJs.Client({
