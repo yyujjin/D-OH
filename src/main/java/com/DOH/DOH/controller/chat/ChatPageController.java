@@ -1,5 +1,6 @@
 package com.DOH.DOH.controller.chat;
 
+import com.DOH.DOH.service.user.UserSessionService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/chat")
 public class ChatPageController {
 
-    @Autowired
-    HttpSession httpSession;
+    private final UserSessionService userSessionService;
+
+    public ChatPageController(UserSessionService userSessionService) {
+        this.userSessionService = userSessionService;
+    }
 
     @GetMapping("/start")
     public String startChatPage(){
@@ -25,22 +29,8 @@ public class ChatPageController {
 
     @GetMapping("/room")
     public String enterRoom(Model model){
-        model.addAttribute("userId",httpSession.getAttribute("userId"));
-        log.info("세션:{}",httpSession.getAttribute("userId"));
-        return "/chat/chatRoom";
-    }
-
-    @GetMapping("/login")
-    public String login() {
-        return "/chat/login";
-    }
-
-    @PostMapping("/login")
-    public String loginOK(HttpSession httpSession, @RequestParam String userId) {
-        httpSession.setAttribute("userId", userId);
-        String user = (String) httpSession.getAttribute("userId");
-        log.info("현재 로그인한 사용자의 아이디 : {}",user);
-
+        String userId = userSessionService.userEmail();
+        model.addAttribute("userId",userId);
         return "/chat/chatRoom";
     }
 }

@@ -34,9 +34,6 @@ public class ChatApiController {
         this.chatPageController = chatPageController;
     }
 
-@Autowired
-    HttpSession httpSession;
-
     //채팅방 입장
     @PostMapping("/room")
     public ResponseEntity createChatRoom(@RequestBody ChatRoomDTO chatRoomDTO){
