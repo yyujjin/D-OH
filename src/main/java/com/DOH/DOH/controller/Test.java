@@ -13,7 +13,7 @@ public class Test {
     @Autowired
     TestService testService;
 
-    @GetMapping("/")
+    @GetMapping("/01")
     public String index() {
         int id =1;
         log.info("가져온 이름 : {}",testService.test(1));
