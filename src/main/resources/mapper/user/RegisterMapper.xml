@@ -3,4 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0.3//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.DOH.DOH.mapper.user.RegisterMapper">
+    <insert id="userRegister" parameterType="com.DOH.DOH.dto.user.RegisterDTO">
+        INSERT INTO user_info (
+        userEmail, userPassword, role
+        ) VALUES (
+        #{userEmail}, #{userPassword}, #{role}
+        );
+    </insert>
+
+    <select id="getUserByUserEmail" resultType="com.DOH.DOH.dto.user.RegisterDTO">
+        SELECT userNum, userEmail, userPassword, role
+        FROM user_info
+        WHERE userEmail = #{userEmail};
+    </select>
 </mapper>
