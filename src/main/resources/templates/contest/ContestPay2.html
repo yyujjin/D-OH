@@ -5,7 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/contest/ContestPay2.css">
     <script src="/js/contest/ContestPay2.js"></script>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
     <title>Document</title>
+    <script>
+
+        // 서버 주소 (백엔드 서버의 주소로 설정)
+                IMP.init("imp54854523");
+
+                async function requestPay() {
+                    // 1. 서버에서 주문 번호를 먼저 생성 (POST 요청)
+                    let orderNumber;
+                    try {
+                        const response = await fetch('/contest/createOrder', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    const data = await response.json();
+                    orderNumber = data.orderNumber; // 서버에서 받은 주문 번호
+                } catch (error) {
+                    console.error('주문 번호 생성 중 오류 발생:', error);
+                    return alert('주문 번호 생성 중 오류가 발생했습니다.');
+                }
+
+                    // HTML에서 totalPrize 값을 가져오기
+                    const conCompanyName = document.getElementById('conCompanyName').value; // name
+
+                    const totalPrize = document.getElementById('totalPrizeValue').value; // amount
+                    const amount = totalPrize * 10000 + totalPrize * 2500;
+
+
+                    IMP.request_pay({
+                        pg: 'kakaopay',
+                        pay_method: "card",
+                        merchant_uid: orderNumber, // 주문 고유 번호
+                        name: conCompanyName+'님 의 콘테스트',
+                        amount: amount, // 계산된 금액을 사용
+                        buyer_email: "gildong@gmail.com",
+                        // buyer_name: "홍길동",
+                        // buyer_tel: "010-4242-4242",
+                        // buyer_addr: "서울특별시 강남구 신사동",
+                        // buyer_postcode: "01181",
+                      }, async (response) => {
+                        // 결제 성공 여부 확인
+                        if (response.error_code != null) {
+                            return alert(`결제 실패! 에러 내용: ${response.error_msg}`);
+                        }
+
+                        // 결제 성공 시 서버로 결제 정보 전송
+                        try {
+                            const notified = await fetch(`${SERVER_BASE_URL}/payment/complete`, {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                    imp_uid: response.imp_uid,       // 아임포트 고유번호
+                                    merchant_uid: response.merchant_uid, // 주문 고유 번호
+                                })
+                            });
+
+                            if (!notified.ok) {
+                                const errorResponse = await notified.json();
+                                return alert(`결제 정보 전송 중 오류 발생: ${errorResponse.message}`);
+                            }
+
+                            alert("결제가 성공적으로 완료되었습니다.");
+                        } catch (error) {
+                            console.error('결제 정보 전송 중 오류 발생:', error);
+                            alert("결제 정보 전송 중 오류가 발생했습니다.");
+                        }
+                    });
+                }
+    </script>
 </head>
 <body>
 
@@ -18,12 +87,16 @@
 <!--            문균호 시큐리티 완료 하면 값가져오기-->
 <!--            <p>이메일 <span id="displayEmail" th:text="${conCompany}"></span></p>-->
             <p>회사명 <span id="displaycompanyName" th:text="${conCompanyName}"></span></p>
+            <!-- 회사명을 히든 인풋으로 저장 -->
+            <input type="hidden" id="conCompanyName" th:value="${conCompanyName}">
 
         </div>
 
         <div class="payment-info">
             <h3>상금 설정</h3>
             <p>상금 <span id="totalPrize" th:text="${totalPrize * 10000}"></span> 원</p>
+            <!-- totalPrize 값을 히든 인풋으로 저장 -->
+            <input type="hidden" id="totalPrizeValue" th:value="${totalPrize}">
             <p>서비스 이용료 <span id="serviceFee" th:text="${totalPrize * 2500}"></span> 원</p>
         </div>
 
@@ -34,16 +107,11 @@
 
         <div class="btn-container">
             <a href="javascript:history.back()" class="btn btn-back">이전</a>
-            <a href="/contest/payment/submit" class="apibtn">결제하기</a>
+<!--            <button onclick="requestPay()" href="/contest/payment/submit" class="apibtn">결제하기</button>-->
+            <button type="button" onclick="requestPay()" class="apibtn">결제하기</button>
         </div>
 
-<!--        <div>-->
-<!--            <button>테스트</button>-->
-<!--            <script src="https://cdn.portone.io/v2/browser-sdk.js"></script>-->
-<!--            <script src="/ContestPay2.js"></script>-->
-<!--        </div>-->
     </form>
 </div>
-
 </body>
 </html>
