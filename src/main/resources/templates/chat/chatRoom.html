@@ -16,8 +16,8 @@
       <!-- 채팅 창 -->
       <div class="chat-window">
         <div class="chat-header">
-          <div class="chat-title">상대방 유저</div>
-          <input id="userId" type="hidden" th:value="${userId}">
+          <div class="chat-title" th:text="${receiver}" id="receiver">상대방 유저</div>
+          <input id="sender" type="hidden" th:value="${sender}">
         </div>
         <div class="chat-body" id="chatBody"></div>
         <div class="chat-footer">

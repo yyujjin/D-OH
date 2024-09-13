@@ -23,11 +23,14 @@ public class ChatPageController {
     }
 
     @GetMapping("/chat")
-    public String enterRoom(Model model, @RequestParam String creator){
+    //그냥 채팅 방 자체가 열려야 할 듯
+    public String enterRoom(Model model, @RequestParam String receiver){
         String userId = userSessionService.userEmail();
 
-        model.addAttribute("userId",userId);
-        model.addAttribute("creator",creator);
+        //로그인한 본인 
+        model.addAttribute("sender",userId);
+        //메시지를 받는 사람
+        model.addAttribute("receiver",receiver);
         return "/chat/chatRoom";
     }
 }

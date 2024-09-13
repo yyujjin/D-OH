@@ -1,9 +1,10 @@
-const userId = document.getElementById("userId").value;
-console.log(userId);
-    //받는 사람 cccc로 고정
+const sender = document.getElementById("sender").value;
+console.log("메시지 보내는 사람 : ",sender);
+const receiver = document.getElementById("receiver").textContent;
+console.log("메시지 받는 사람 : ",receiver)
 let MessageDTO = {
-    sender : userId,
-    receiver : "cccc",
+    sender : sender,
+    receiver : receiver,
     content :null
 }
 
@@ -20,9 +21,9 @@ const stompClient = new StompJs.Client({
 stompClient.onConnect = (frame) => {
     console.log('Connected: ' + frame);
 
-    stompClient.subscribe(`/queue/messages/${userId}`, (message) => {
+    stompClient.subscribe(`/queue/messages/${sender}`, (message) => {
         const parsedMessage = JSON.parse(message.body);
-        console.log(userId+'가 받은 메시지 : ' + parsedMessage)
+        console.log(sender+'가 받은 메시지 : ' + parsedMessage)
         addMessageToChat(parsedMessage,'received');
     });
 };
