@@ -81,7 +81,6 @@ html {
 .nav-link:active {
     color: rgb(193, 192, 255); /* 클릭 후 색상 유지 */
 }
-
 /* 오른쪽 로그인/회원가입 링크 */
 .navbar-right {
     display: flex;
@@ -92,8 +91,26 @@ html {
 .login-links {
     display: flex;
     align-items: center;
+    flex-direction: row; /* 가로로 나열 */
 }
 
+.login-links .nav-link {
+    margin-left: 8px;
+}
+
+/* 관리자 페이지/내 페이지에 따른 구분 스타일 */
+.admin-link {
+    color: #ffcc00; /* 관리자 링크 색상 */
+    margin-left: 8px;
+    font-weight: bold;
+}
+
+.user-link {
+    color: #ffffff; /* 일반 사용자 링크 색상 */
+    margin-left: 8px;
+}
+
+/* 로그인/회원가입 링크 */
 .login-links .nav-link {
     margin-left: 8px;
 }

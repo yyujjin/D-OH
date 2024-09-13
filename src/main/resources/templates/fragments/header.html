@@ -6,7 +6,7 @@
 <header class="header">
     <nav class="navbar">
         <div class="navbar-left">
-            <a class="navbar-brand" href="/main">
+            <a class="navbar-brand" href="/">
                 <img th:src="@{/img/fragments/logoG.png}" alt="Logo" style="width: 150px; height: 65px;">
             </a>
             <div class="search-bar">
@@ -25,10 +25,27 @@
         </div>
         <div class="navbar-right">
             <div class="login-links">
-                <a class="nav-link" th:href="@{/users/login}">로그인</a>
-                <a class="nav-link" th:href="@{/users/register}">회원가입</a>
+                <!-- 로그인하지 않은 경우 -->
+                <div th:if="${userEmail == null}" style="display: flex; align-items: center;">
+                    <!-- 로그인 링크 -->
+                    <a class="nav-link" th:href="@{/users/login}">로그인</a>
+                    <!-- 회원가입 링크 -->
+                    <a class="nav-link" th:href="@{/users/register}">회원가입</a>
+                </div>
+
+                <!-- 로그인한 사용자일 경우 -->
+                <div th:if="${userEmail != null}" style="display: flex; align-items: center;">
+                    <!-- 관리자일 경우 (userRole이 'ROLE_ADMIN'인 경우) -->
+                    <a class="nav-link" th:if="${userRole == 'ROLE_ADMIN'}" th:href="@{/admin/dashboard}">어둠의 마왕</a>
+                    <!-- 일반 사용자일 경우 (userRole이 'ROLE_USER'인 경우) -->
+                    <a class="nav-link" th:if="${userRole == 'ROLE_USER'}" th:href="@{/users/myPage}">마이 페이지</a>
+                    <!-- 로그아웃 링크 (모든 로그인된 사용자에게 표시) -->
+                    <a class="nav-link" th:href="@{/users/logout}">로그아웃</a>
+                </div>
             </div>
         </div>
+
+
     </nav>
 </header>
     </th:block>
