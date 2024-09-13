@@ -63,7 +63,7 @@
                                         <div class="contestHost" th:text="${list.conCompanyName}">헬스마켓</div>
                                         <div class="hit">
                                             <i class="bi bi-hand-index"></i>
-                                            <span >363</span>
+                                            <span th:text="${list.conHit}">363</span>
                                         </div>
                                     </div>
                                 </div><!--listArea-->
@@ -100,16 +100,16 @@
 
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
-                          <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
+                          <li class="page-item" th:if="${pageMaker.prev}">
+                            <a class="page-link" th:href="@{/contest/list(page=${pageMaker.startPage - 1}, orderType=${param.orderType})}" aria-label="Previous">
                               <span aria-hidden="true">&laquo;</span>
                             </a>
                           </li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
+                          <li class="page-item" th:each="i : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}">
+                              <a class="page-link" th:text="${i}" th:href="@{/contest/list(page=${i}, orderType=${param.orderType})}">3</a>
+                          </li>
+                          <li class="page-item" th:if="${pageMaker.next}">
+                            <a class="page-link" th:href="@{/contest/list(page=${pageMaker.endPage + 1}, orderType=${param.orderType})}" aria-label="Next">
                               <span aria-hidden="true">&raquo;</span>
                             </a>
                           </li>
