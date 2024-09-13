@@ -27,10 +27,11 @@ public class securityConfig {
                 .authorizeHttpRequests((auth)-> auth
                         .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
                         .requestMatchers("/","/users/login","/users/register").permitAll()
-                        .requestMatchers("/notice/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/my/**").hasAnyRole("ADMIN", "USER")
-                        //나머지 모든 요청은 인증된 사용자만 접근 가능
-                        .anyRequest().authenticated()
+                        .requestMatchers("/notice/admin/**","/event/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/users/**").hasRole("USER")
+//                        .requestMatchers("/my/**").hasAnyRole("ADMIN", "USER")
+                        //나머지 모든 요청은
+                        .anyRequest().permitAll()
                 );
         http
                 .formLogin((auth)-> auth.loginPage("/users/login")
