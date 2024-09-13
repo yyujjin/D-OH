@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
-@RequestMapping("/chat")
+@RequestMapping("/users")
 public class ChatPageController {
 
     private final UserSessionService userSessionService;
@@ -22,15 +22,12 @@ public class ChatPageController {
         this.userSessionService = userSessionService;
     }
 
-    @GetMapping("/start")
-    public String startChatPage(){
-        return "/chat/start-chat";
-    }
-
-    @GetMapping("/room")
-    public String enterRoom(Model model){
+    @GetMapping("/chat")
+    public String enterRoom(Model model, @RequestParam String creator){
         String userId = userSessionService.userEmail();
+
         model.addAttribute("userId",userId);
+        model.addAttribute("creator",creator);
         return "/chat/chatRoom";
     }
 }
