@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/fragments/layout">
+      layout:decorate="~{/fragments/layout}">
 
 <head>
     <meta charset="UTF-8">
@@ -18,18 +18,36 @@
     <link rel="stylesheet" th:href="@{/css/fragments/header.css}">
     <link rel="stylesheet" th:href="@{/css/fragments/footer.css}">
     <script th:src="@{/js/list/main.js}"></script>
-
+    <!--swiper-->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <th:block layout:fragment="content">
+
     <main>
-        <div class="mainWarap">
-            <div class="banner">
-                <div class="bannerContent">
-                    <div class="bannerTitle">D'OH!!</div>
-                    <div class="bannerText">감탄할만한 기발한 네이밍 센스 여기 다 있다!</div>
+        <div class="mainWrap">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img th:src="@{/img/banner/한가위.png}" alt="Slide 1">
+                    </div>
+                    <div class="swiper-slide">
+                        <img th:src="@{/img/banner/콘테스트.png}" alt="Slide 2">
+                    </div>
+                    <div class="swiper-slide">
+                        <img th:src="@{/img/banner/채팅.png}" alt="Slide 3">
+                    </div>
+<!--                    <div class="swiper-slide">-->
+<!--                        <img th:src="@{/img/banner/또우광고.png}" alt="Slide 4">-->
+<!--                    </div>-->
                 </div>
-            </div><!--banner 끝-->
+
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+            </div>
 
             <div class="section A">
                 <div class="title">요즘 인기 있는 콘테스트</div>
