@@ -1,4 +1,6 @@
-        .Contestview {
+
+
+        .Contestpayment {
             max-width: 600px;
             margin: auto;
             background: white;
@@ -6,14 +8,14 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .Contestview h1 {
+        .Contestpayment h1 {
             font-size: 1.75em;
             margin-bottom: 50px;
             color: #333;
             display: flex;
             align-items: center;
         }
-        .Contestview h1::before {
+        .Contestpayment h1::before {
             content: "👉";
             margin-right: 10px;
             font-size: 1.5em;
@@ -34,5 +36,16 @@
             border-radius: 5px;
         }
         .btn:hover {
+            background-color: #0056b3;
+        }
+        .apibtn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .apibtn:hover {
             background-color: #0056b3;
         }

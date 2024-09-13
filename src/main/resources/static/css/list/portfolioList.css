@@ -1,0 +1,137 @@
+    :root
+    {
+        --main-color : #c1c0ff;
+        --sub-color : #ECFCE4;
+        --color-black : #000;
+        --dark-gray : #757575;
+        --line-gray: #D9D9D9;
+        --color-white : #fff;
+        
+        --font-size-32 : 32px;
+        --font-size-24 : 24px;
+        --font-size-20 : 20px;
+        --font-size-16 : 16px;
+        --font-size-14 : 14px;
+
+    }
+
+    a
+    {
+        color: var(--color-black);
+        text-decoration: none;
+    }
+
+
+    /* main 영역 */
+    main
+    {
+        display: flex;
+        justify-content: center;
+    }
+
+    .mainWrap
+    {
+        display: flex;
+        flex-direction: column;/* 요소들을 세로로 정렬 */
+        /* min-width: 1200px; */
+        max-width: 1200px;
+        width: 100%;
+        margin: 90px 0;
+    }
+
+    .filterWrap
+    {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .filter.left
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        list-style-type: none;/*li 태그 점 없애기*/
+        padding-left: 0;
+    }
+
+    input[type="checkbox"]
+    { 
+        appearance: none; /* 기본 브라우저 스타일 제거 */
+        -webkit-appearance: none; /* WebKit 기반 브라우저에서 기본 스타일 제거 */
+        outline: none;
+    } 
+
+    button
+    {
+        border: 1px solid var(--line-gray);
+        border-radius: 6px;
+        background: var(--color-white);
+        padding: 5px 10px;
+    }
+
+    /* section */
+
+    section
+    {
+        /* display: flex; */
+        /* justify-content: space-between; */
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        width: 100%;
+        gap: 20px;
+        /* flex-wrap: wrap; */
+        margin: 20px 0;
+        box-sizing: border-box; /* 박스 크기에 패딩과 보더 포함 */
+    }
+
+    .cardList
+    {
+        /* width: clac(25% - 20px); */
+        height: 300px;
+        border: 1px solid var(--line-gray);
+        border-radius: 6px;
+        display: block;
+        transition: all 0.5s;
+        &:hover
+        {
+            transform: scale(1.05);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.25);
+        }
+    }
+
+    .cardList .img
+    {
+        width: 100%;
+        height: 200px;
+        background-color: var(--sub-color);
+    }
+
+    .portfolioSummary
+    {
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .portfolioSummary .info
+    {
+
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .portfolioSummary *
+    {
+        font-size: var(--font-size-14);
+        font-weight: 300;
+        margin-bottom: 0;
+    }
+
+    .portfolioSummary .title
+    {
+        font-size: var(--font-size-16);
+        font-weight: 900;
+    }
