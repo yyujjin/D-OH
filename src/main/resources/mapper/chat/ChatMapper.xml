@@ -13,8 +13,7 @@
      SELECT *
      FROM chat
      WHERE receiver = #{receiver} AND isRead = 0
-     GROUP BY sender
-     ORDER BY MAX(timestamp) DESC;
+     ORDER BY sender, timestamp DESC;
  </select>
 
 </mapper>
