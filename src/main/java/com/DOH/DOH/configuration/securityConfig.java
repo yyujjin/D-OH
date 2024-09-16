@@ -51,7 +51,7 @@ public class securityConfig {
                 )
                 .csrf((auth) -> auth
                         // 로그인, 회원가입, 로그아웃 시 CSRF 검증 제외
-                        .ignoringRequestMatchers("/users/login", "/users/register", "/logout")
+                        .ignoringRequestMatchers("/users/login", "/users/register", "user/logout")
                 );
 
         return http.build();

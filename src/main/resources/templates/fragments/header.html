@@ -36,16 +36,17 @@
                     <div th:if="${userEmail != null && userEmail != 'anonymousUser'}">
                         <!-- 관리자일 경우 -->
                         <div th:if="${userRole != null && userRole.equals('ROLE_ADMIN')}">
-                            <a class="nav-link">${userEmail}</a> <!-- 관리자 이메일 표시 -->
+                            <a class="nav-link">[[${userEmail}]]</a> <!-- 관리자 이메일 표시 -->
                         </div>
 
                         <!-- 일반 사용자일 경우 -->
                         <div th:if="${userRole != null && userRole.equals('ROLE_USER')}">
-                            <a class="nav-link" th:href="@{/mypage}">${userEmail}</a> <!-- 일반 사용자 이메일 표시 -->
+                            <a class="nav-link" th:href="@{/users/mypage}">[[${userEmail}]]</a> <!-- 일반 사용자 이메일 표시 -->
                         </div>
 
                         <!-- 로그아웃 링크 (모든 로그인된 사용자에게 표시) -->
-                        <a class="nav-link" th:href="@{/logout}">로그아웃</a>
+                        <a class="nav-link" th:href="@{/users/logout}">로그아웃</a>
+<!--                        <a class="nav-link" th:href="@{/}">로그아웃</a>-->
                     </div>
                 </div>
             </div>
