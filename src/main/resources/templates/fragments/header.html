@@ -47,11 +47,13 @@
                         <div th:if="${userRole != null && userRole == 'ROLE_USER'}" class="link-item">
                             <a class="nav-link" th:href="@{/users/mypage}" th:text="${userEmail}"></a> <!-- 일반 사용자 이메일 표시 -->
                         </div>
-
-                        <!-- 로그아웃 링크 (모든 로그인된 사용자에게 표시) -->
+                        <!-- 로그아웃 폼 (POST 방식으로 처리) -->
                         <div class="link-item">
-                            <a class="nav-link" th:href="@{/users/logout}">로그아웃</a>
+                            <form id="logoutForm" action="/logout" method="POST" style="display:inline;">
+                                <button type="submit" class="nav-link" style="background:none; border:none; cursor:pointer; padding:0;">로그아웃</button>
+                            </form>
                         </div>
+
                     </div>
                 </div>
             </div>
