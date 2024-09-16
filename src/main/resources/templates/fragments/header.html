@@ -1,52 +1,57 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
-    <th:block th:fragment="headerFragment">
-    <!--<header class="header" th:fragment="headerFragment">-->
-<header class="header">
-    <nav class="navbar">
-        <div class="navbar-left">
-            <a class="navbar-brand" href="/">
-                <img th:src="@{/img/fragments/logoG.png}" alt="Logo" style="width: 150px; height: 65px;">
-            </a>
-            <div class="search-bar">
-                <input type="text" placeholder="검색">
-                <button type="submit">
-                    <img src="https://img.icons8.com/ios-filled/50/000000/search.png" alt="search" width="20" />
-                </button>
-            </div>
-        </div>
-        <div class="nav-center">
-            <a class="nav-link" th:href="@{/contest/list}">공모전</a>
-            <a class="nav-link" th:href="@{/contest}">디자인 의뢰</a>
-            <a class="nav-link" th:href="@{/portfolio/list}">포트폴리오</a>
-            <a class="nav-link" th:href="@{/event/list}">이벤트</a>
-            <a class="nav-link" th:href="@{/notice/list}">공지사항</a>
-        </div>
-        <div class="navbar-right">
-            <div class="login-links">
-                <!-- 로그인하지 않은 경우 -->
-                <div th:if="${userEmail == null}" style="display: flex; align-items: center;">
-                    <!-- 로그인 링크 -->
-                    <a class="nav-link" th:href="@{/users/login}">로그인</a>
-                    <!-- 회원가입 링크 -->
-                    <a class="nav-link" th:href="@{/users/register}">회원가입</a>
-                </div>
-
-                <!-- 로그인한 사용자일 경우 -->
-                <div th:if="${userEmail != null}" style="display: flex; align-items: center;">
-                    <!-- 관리자일 경우 (userRole이 'ROLE_ADMIN'인 경우) -->
-                    <a class="nav-link" th:if="${userRole == 'ROLE_ADMIN'}" th:href="@{/admin/dashboard}">어둠의 마왕</a>
-                    <!-- 일반 사용자일 경우 (userRole이 'ROLE_USER'인 경우) -->
-                    <a class="nav-link" th:if="${userRole == 'ROLE_USER'}" th:href="@{/users/myPage}">마이 페이지</a>
-                    <!-- 로그아웃 링크 (모든 로그인된 사용자에게 표시) -->
-                    <a class="nav-link" th:href="@{/users/logout}">로그아웃</a>
+<th:block th:fragment="headerFragment">
+    <header class="header">
+        <nav class="navbar">
+            <div class="navbar-left">
+                <a class="navbar-brand" th:href="@{/}">
+                    <img th:src="@{/img/fragments/logoG.png}" alt="Logo" style="width: 150px; height: 65px;">
+                </a>
+                <div class="search-bar">
+                    <input type="text" placeholder="검색">
+                    <button type="submit">
+                        <img src="https://img.icons8.com/ios-filled/50/000000/search.png" alt="search" width="20" />
+                    </button>
                 </div>
             </div>
-        </div>
 
+            <div class="nav-center">
+                <a class="nav-link" th:href="@{/contest/list}">공모전</a>
+                <a class="nav-link" th:href="@{/contest}">디자인 의뢰</a>
+                <a class="nav-link" th:href="@{/portfolio/list}">포트폴리오</a>
+                <a class="nav-link" th:href="@{/event/list}">이벤트</a>
+                <a class="nav-link" th:href="@{/notice/list}">공지사항</a>
+            </div>
 
-    </nav>
-</header>
-    </th:block>
+            <div class="navbar-right">
+                <div class="login-links">
+                    <!-- 로그인하지 않은 경우 -->
+                    <div th:if="${userEmail == null or userEmail == 'anonymousUser'}">
+                        <a class="nav-link" th:href="@{/users/login}">로그인</a>
+                        <a class="nav-link" th:href="@{/users/register}">회원가입</a>
+                    </div>
+
+                    <!-- 로그인한 사용자일 경우 -->
+                    <div th:if="${userEmail != null && userEmail != 'anonymousUser'}">
+                        <!-- 관리자일 경우 -->
+                        <div th:if="${userRole != null && userRole.equals('ROLE_ADMIN')}">
+                            <a class="nav-link">${userEmail}</a> <!-- 관리자 이메일 표시 -->
+                        </div>
+
+                        <!-- 일반 사용자일 경우 -->
+                        <div th:if="${userRole != null && userRole.equals('ROLE_USER')}">
+                            <a class="nav-link" th:href="@{/mypage}">${userEmail}</a> <!-- 일반 사용자 이메일 표시 -->
+                        </div>
+
+                        <!-- 로그아웃 링크 (모든 로그인된 사용자에게 표시) -->
+                        <a class="nav-link" th:href="@{/logout}">로그아웃</a>
+                    </div>
+                </div>
+            </div>
+
+        </nav>
+    </header>
+</th:block>
+
 </html>
