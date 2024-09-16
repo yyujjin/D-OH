@@ -5,7 +5,16 @@
 <mapper namespace="com.DOH.DOH.mapper.chat.ChatMapper">
 
     <insert id="saveMessage" parameterType="com.DOH.DOH.dto.chat.MessageDTO">
-        INSERT INTO DOH.chat VALUES (#{sender}, #{receiver}, #{content}, NOW(), #{isRead});
+        INSERT INTO DOH.chat (sender, receiver, content, isRead)
+        VALUES (#{sender}, #{receiver}, #{content}, #{isRead});
     </insert>
+
+ <select id="getMessages" parameterType="String" resultType="com.DOH.DOH.dto.chat.MessageDTO">
+     SELECT *
+     FROM chat
+     WHERE receiver = #{receiver} AND isRead = 0
+     GROUP BY sender
+     ORDER BY MAX(timestamp) DESC;
+ </select>
 
 </mapper>
