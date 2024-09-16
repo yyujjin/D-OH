@@ -1,77 +1,100 @@
-
-:root
-{
-    --main-color : #c1c0ff;
-    --sub-color : #ECFCE4;
-    --color-black : #000;
-    --dark-gray : #757575;
+:root {
+    --main-color: #c1c0ff;
+    --sub-color: #ECFCE4;
+    --color-black: #000;
+    --dark-gray: #757575;
     --line-gray: #D9D9D9;
-    --color-white : #fff;
-    
+    --color-white: #fff;
+
     --font-size-32: 32px;
     --font-size-24: 24px;
     --font-size-20: 20px;
     --font-size-16: 16px;
     --font-size-14: 14px;
-
 }
 
-/* main 영역 */
-main
-{
-    margin-top: 90px;
+main {
+    /*margin-top: 90px;*/
     display: flex;
     justify-content: center;
 }
 
-.mainWarap
-{
+.mainWrap {
     width: 1200px;
 }
 
-/* banner 영역 */
-.banner
-{
-    height: 460px;
-    background-position: center;
-    background-size: 80%;
-    background-color: var(--line-gray);
-    border-radius: 6px;
+.swiper {
+    width: 1200px;
+    height: 464px;
 }
 
-.banner .bannerContent
-{
-    padding: 120px 0 240px 93px;
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*border: solid 1px black;*/
 }
 
-.bannerTitle
-{
-    font-weight: 900;
-    font-size: var(--font-size-32);
-    margin-bottom: 20px;
+.swiper-slide img {
+    display: block;
+    width: 1200px;
+    height: 464px;
+    object-fit: cover;
+    margin: auto; /* 추가: 이미지를 가운데 정렬 */
 }
 
-.bannerText
-{
-    font-size: var(--font-size-24);
+/* 네비게이션 버튼 커스터마이징 */
+
+.swiper-button-next::after, .swiper-button-prev::after {
+    color: black; /* 화살표 색상 */
+    font-size: 20px; /* 화살표 크기 조정 (필요 시) */
 }
 
-/* section 공통 */
-.section
-{
-    margin: 60px 0 90px 0;
+.swiper-button-next, .swiper-button-prev {
+    /*color: #757575;  화살표 색상 */
+    width: 50px; /* 버튼 너비 */
+    height: 50px; /* 버튼 높이 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* section A */
-.section .title
-{
+.swiper-button-next:hover, .swiper-button-prev:hover {
+ color: #757575; /* 화살표 색상 */
+}
+
+/* 페이지네이션 기본 스타일 (비활성화된 상태) */
+.swiper-pagination-bullet {
+    background-color: #757575 !important; /* 기본 회색 */
+    opacity: 1 !important; /* 불릿의 불투명도 */
+    width: 10px !important; /* 불릿 너비 */
+    height: 10px !important; /* 불릿 높이 */
+    margin: 0 4px !important; /* 불릿 사이의 간격 */
+    border-radius: 50% !important; /* 불릿을 원형으로 */
+}
+
+/* 활성화된 불릿 스타일 */
+.swiper-pagination-bullet-active {
+    background-color: #000000 !important; /* 검정색 */
+    width: 12px !important; /* 크기를 조금 더 크게 */
+    height: 12px !important;
+}
+
+.section {
+    /*margin: 60px 0 90px 0;*/
+    margin: 60px 0 0;
+}
+
+.section .title {
     font-size: var(--font-size-24);
     font-weight: bold;
     margin-bottom: 25px;
 }
 
-.cardConWarap
-{
+.cardConWarap {
     display: flex;
     gap: 20px;
     overflow: hidden;
@@ -79,31 +102,26 @@ main
     position: relative;
 }
 
-.cardConWarap .bar
-{
+.cardConWarap .bar {
     display: flex;
     align-items: center;
 }
 
-.fa-solid
-{ 
+.fa-solid {
     font-size: var(--font-size-32);
     cursor: pointer;
 }
 
-.cardList
-{
-    min-width: 200px; /* 카드의 최소 너비를 설정하세요 */
-    margin-right: 10px; /* 카드 사이의 간격을 설정하세요 */
-&:hover
-    .cardImage{
-        box-shadow: 0 5px 10px rgba(0,0,0,0.25);
-        /* transition: all; */
-    }
+.cardList {
+    min-width: 200px;
+    margin-right: 10px;
 }
 
-.cardConWarap .cardImage
-{
+.cardList:hover .cardImage {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+.cardConWarap .cardImage {
     width: 260px;
     height: 300px;
     border: 1px solid var(--line-gray);
@@ -111,16 +129,12 @@ main
     margin-bottom: 10px;
 }
 
-/*a 태그 링크 적용 색 없애기 + 밑줄 없애기*/
-a
-{
+a {
     color: var(--color-black);
     text-decoration-line: none;
 }
 
-
-.endDate
-{
+.endDate {
     background: var(--sub-color);
     width: 64px;
     font-size: var(--font-size-14);
@@ -130,114 +144,93 @@ a
     margin-bottom: 8px;
 }
 
-.conTitle
-{
+.conTitle {
     font-size: var(--font-size-16);
     font-weight: 700;
     margin-bottom: 5px;
 }
 
-
-.conSub
-{
+.conSub {
     display: flex;
     gap: 15px;
     align-items: center;
 }
 
-.context
-{
+.context {
     font-size: var(--font-size-14);
 }
 
-.context.gray
-{
+.context.gray {
     color: var(--dark-gray);
 }
-.conIcon
-{
+
+.conIcon {
     gap: 5px;
 }
 
-/* section B */
-.section.B
-{
+.section.B {
     border: 1px solid var(--line-gray);
     border-radius: 6px;
     padding: 50px;
 }
 
-.tabTitle
-{
+.tabTitle {
     display: flex;
     justify-content: space-around;
 }
 
-.tabTitle .title
-{
+.tabTitle .title {
     margin-bottom: 35px;
     color: var(--dark-gray);
     cursor: pointer;
-
 }
 
-.tabTitle .title.active
-{
+.tabTitle .title.active {
     color: var(--color-black);
 }
 
-.tabContent
-{
+.tabContent {
     display: none;
 }
 
-.tabContent.active
-{
+.tabContent.active {
     display: block;
 }
 
-.tabContent .list
-{
+.tabContent .list {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 87px;
-    /* border: 1px solid var(--dark-gray); */
     padding: 30px;
-    /* padding: 20px; */
     box-sizing: border-box;
 }
 
-.tabContent .list:hover
-{
+.tabContent .list:hover {
     border: 1px solid var(--line-gray);
     border-radius: 6px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
 }
 
-.listContent .conTitle
-{
+.listContent .conTitle {
     font-size: var(--font-size-20);
 }
 
-.listValue
-{
+.listValue {
     display: flex;
     gap: 10px;
     align-items: center;
 }
 
-.listContent .listValue > *
-{
+.listContent .listValue > * {
     line-height: 10px;
 }
 
 .listContent .listValue > *,
-.importData .price
-{
+.importData .price {
     font-size: var(--font-size-14);
 }
-.importData .endDate
-{
+
+.importData .endDate {
     margin-bottom: 0;
 }
