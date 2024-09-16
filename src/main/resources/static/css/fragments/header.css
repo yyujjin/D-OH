@@ -81,6 +81,7 @@ html {
 .nav-link:active {
     color: rgb(193, 192, 255); /* 클릭 후 색상 유지 */
 }
+
 /* 오른쪽 로그인/회원가입 링크 */
 .navbar-right {
     display: flex;
@@ -88,29 +89,32 @@ html {
     justify-content: flex-end;
 }
 
-.login-links {
+/* 로그인/회원가입 컨테이너 */
+.login-container {
     display: flex;
     align-items: center;
-    flex-direction: row; /* 가로로 나열 */
+    justify-content: flex-end;
 }
 
-.login-links .nav-link {
-    margin-left: 8px;
+/* 각 링크 아이템 */
+.login-links {
+    display: flex; /* 가로로 나란히 배치 */
+    align-items: center;
+    justify-content: flex-end;
 }
 
-/* 관리자 페이지/내 페이지에 따른 구분 스타일 */
-.admin-link {
-    color: #ffcc00; /* 관리자 링크 색상 */
-    margin-left: 8px;
+.link-item {
+    margin-left: 16px; /* 각 링크 간격 */
+}
+
+.link-item .nav-link {
+    color: white;
+    font-size: 15px;
     font-weight: bold;
+    transition: color 0.3s ease, transform 0.3s ease; /* hover 애니메이션 */
 }
 
-.user-link {
-    color: #ffffff; /* 일반 사용자 링크 색상 */
-    margin-left: 8px;
-}
-
-/* 로그인/회원가입 링크 */
-.login-links .nav-link {
-    margin-left: 8px;
+.link-item .nav-link:hover {
+    color: rgb(193, 192, 255); /* hover 시 색상 변경 */
+    transform: scale(1.1); /* hover 시 확대 효과 */
 }
