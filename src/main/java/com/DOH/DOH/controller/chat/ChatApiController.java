@@ -1,21 +1,18 @@
 package com.DOH.DOH.controller.chat;
 
-import com.DOH.DOH.dto.chat.ChatRoomDTO;
 import com.DOH.DOH.dto.chat.MessageDTO;
 import com.DOH.DOH.service.chat.ChatRoomService;
 import com.DOH.DOH.service.chat.MessageService;
+import com.DOH.DOH.service.user.UserSessionService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -26,12 +23,14 @@ public class ChatApiController {
     private final ChatRoomService chatRoomService;
     private final MessageService messageService;
     private final ChatPageController chatPageController;
+    private final UserSessionService userSessionService;
 
-    public ChatApiController(SimpMessagingTemplate messagingTemplate, ChatRoomService chatRoomService, MessageService messageService, ChatPageController chatPageController) {
+    public ChatApiController(SimpMessagingTemplate messagingTemplate, ChatRoomService chatRoomService, MessageService messageService, ChatPageController chatPageController, UserSessionService userSessionService) {
         this.messagingTemplate = messagingTemplate;
         this.chatRoomService = chatRoomService;
         this.messageService = messageService;
         this.chatPageController = chatPageController;
+        this.userSessionService = userSessionService;
     }
 
     //채팅 메시지 전송
@@ -52,5 +51,28 @@ public class ChatApiController {
 
         return messageDTO;
 
+    }
+
+    @GetMapping("/messages/check")
+    public Map<String,List<MessageDTO>> getMessages() {
+        String userId = userSessionService.userEmail();
+        log.info("가져와진 메시지"+messageService.getUnreadMessages(userId));
+
+        if ("anonymousUser".equals(userId)) {
+            // 빈 리스트 반환 또는 상태 코드를 명확하게 설정하는 것이 좋음
+            return Collections.emptyMap(); // 빈 리스트 반환
+        }
+
+        List<MessageDTO>getUnreadMessages = messageService.getUnreadMessages(userId);
+
+        return  messageService.groupMessagesBySender(getUnreadMessages);
+    }
+
+    @GetMapping("/isLoggedIn")
+    public boolean isLoggedIn() {
+        if ("anonymousUser".equals(userSessionService.userEmail())) {
+            return false;
+        }
+        return true;
     }
 }
