@@ -40,12 +40,12 @@
                     <div th:if="${userEmail != null && userEmail != 'anonymousUser'}" class="login-links">
                         <!-- 관리자일 경우 -->
                         <div th:if="${userRole != null && userRole == 'ROLE_ADMIN'}" class="link-item">
-                            <a class="nav-link" th:text="${session.userEmail}"></a> <!-- 관리자 이메일 표시 -->
+                            <a class="nav-link" th:text="${userEmail}"></a> <!-- 관리자 이메일 표시 -->
                         </div>
 
                         <!-- 일반 사용자일 경우 -->
                         <div th:if="${userRole != null && userRole == 'ROLE_USER'}" class="link-item">
-                            <a class="nav-link" th:href="@{/users/mypage}" th:text="${session.userEmail}"></a> <!-- 일반 사용자 이메일 표시 -->
+                            <a class="nav-link" th:href="@{/users/mypage}" th:text="${userEmail}"></a> <!-- 일반 사용자 이메일 표시 -->
                         </div>
                         <!-- 로그아웃 폼 (POST 방식으로 처리) -->
                         <div class="link-item">
