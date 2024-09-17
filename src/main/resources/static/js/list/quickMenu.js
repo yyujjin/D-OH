@@ -67,6 +67,7 @@ function updateChatList() {
     console.log("현재 key에 해당하는 값:", data[key]);
 
     var chatHtml = `
+    <a href="/users/chat?receiver=${key}">
         <div class="wrap">
           <div class="chatImg"></div>
           <div class="infoWrap">
@@ -81,6 +82,7 @@ function updateChatList() {
             </div>
           </div>
         </div>
+        </a>
       `;
     txt.append(chatHtml);
   });
