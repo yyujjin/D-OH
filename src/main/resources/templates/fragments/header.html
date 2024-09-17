@@ -27,7 +27,7 @@
             <div class="navbar-right">
                 <div class="login-container">
                     <!-- 로그인하지 않은 경우 -->
-                    <div th:if="${userEmail == null or userEmail == 'anonymousUser'}" class="login-links">
+                    <div th:if="${userEmail == 'anonymousUser'}" class="login-links">
                         <div class="link-item">
                             <a class="nav-link" th:href="@{/users/login}">로그인</a>
                         </div>
@@ -37,23 +37,23 @@
                     </div>
 
                     <!-- 로그인한 사용자일 경우 -->
-                    <div th:if="${userEmail != null && userEmail != 'anonymousUser'}" class="login-links">
+                    <div th:if="${userEmail != 'anonymousUser'}" class="login-links">
                         <!-- 관리자일 경우 -->
-                        <div th:if="${userRole != null && userRole == 'ROLE_ADMIN'}" class="link-item">
-                            <a class="nav-link" th:text="${userEmail}"></a> <!-- 관리자 이메일 표시 -->
+                        <div th:if="${userRole == 'ROLE_ADMIN'}" class="link-item">
+                            <a class="nav-link" th:text="${userEmail}">관리자 이메일</a>
                         </div>
 
                         <!-- 일반 사용자일 경우 -->
-                        <div th:if="${userRole != null && userRole == 'ROLE_USER'}" class="link-item">
-                            <a class="nav-link" th:href="@{/users/mypage}" th:text="${userEmail}"></a> <!-- 일반 사용자 이메일 표시 -->
+                        <div th:if="${userRole == 'ROLE_USER'}" class="link-item">
+                            <a class="nav-link" th:href="@{/users/mypage}" th:text="${userEmail}">사용자 이메일</a>
                         </div>
-                        <!-- 로그아웃 폼 (POST 방식으로 처리) -->
+
+                        <!-- 로그아웃 버튼 -->
                         <div class="link-item">
                             <form id="logoutForm" action="/logout" method="POST" style="display:inline;">
                                 <button type="submit" class="nav-link" style="background:none; border:none; cursor:pointer; padding:0;">로그아웃</button>
                             </form>
                         </div>
-
                     </div>
                 </div>
             </div>

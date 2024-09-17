@@ -2,41 +2,36 @@ package com.DOH.DOH.controller.notifications;
 
 import com.DOH.DOH.dto.notifications.NoticeDTO;
 import com.DOH.DOH.service.notifications.NoticeService;
-import com.DOH.DOH.service.user.UserSessionService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("notice")
 public class NoticeController {
 
     private final NoticeService noticeService;
-    private final UserSessionService userSessionService;
 
-    public NoticeController(NoticeService noticeService, UserSessionService userSessionService) {
+    public NoticeController(NoticeService noticeService) {
         this.noticeService = noticeService;
-        this.userSessionService = userSessionService;
     }
 
-    // 모든 메서드에서 userEmail을 Model에 추가
+    // 공통적으로 userEmail과 userRole을 Model에 추가하는 메서드
     @ModelAttribute
-    public void addUserEmailToModel(Model model) {
-        String userEmail = userSessionService.userEmail();
-        String userRole = userSessionService.userRole();
+    public void addUserDetails(Model model, Principal principal) {
+        String userEmail = principal != null ? principal.getName() : "anonymousUser";
+        String userRole = "ROLE_ANONYMOUS";
 
-        // 백업 로직: SecurityContextHolder에서 값을 가져옴
-        if (userEmail == null || userEmail.isEmpty()) {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            if (auth != null && auth.isAuthenticated()) {
-                userEmail = auth.getName(); // 사용자 이메일
-                userRole = auth.getAuthorities().iterator().next().getAuthority(); // 사용자 역할
-            }
+        // Spring Security에서 현재 사용자 역할 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            userRole = authentication.getAuthorities().iterator().next().getAuthority();
         }
 
-        // 사용자 이메일과 역할을 모델에 추가
         model.addAttribute("userEmail", userEmail);
         model.addAttribute("userRole", userRole);
     }
@@ -62,36 +57,5 @@ public class NoticeController {
         model.addAttribute("notice", notice);
 
         return "notifications/noticeDetail";
-    }
-
-    // 공지사항 작성 페이지
-    @GetMapping("/admin/write")
-    public String noticeWrite(Model model) {
-        model.addAttribute("currentDate", new java.util.Date());
-        return "notifications/noticeWrite";
-    }
-
-    // 공지사항 등록 처리
-    @PostMapping("/admin/register")
-    public String registerNotice(@ModelAttribute NoticeDTO noticeDTO) {
-        // 공지사항 저장 처리
-        noticeService.saveNotice(noticeDTO);
-
-        return "redirect:/notice/list";
-    }
-
-    // 공지사항 임시 저장
-    @PostMapping("/admin/save")
-    public String saveNotice(@ModelAttribute NoticeDTO noticeDTO) {
-        noticeService.saveNotice(noticeDTO);
-
-        return "redirect:/notice/list";
-    }
-
-    // 공지사항 삭제
-    @PostMapping("/admin/delete")
-    public String deleteNotice(@RequestParam("noticeNum") int noticeNum) {
-        noticeService.deleteNotice(noticeNum);
-        return "redirect:/notice/list";
     }
 }
