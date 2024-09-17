@@ -1,8 +1,12 @@
+var data = [];
+
 function chatting() {
   var chat = $(".chat");
   var cnt = $("#cnt").val();
+  var cnt = data.length === 0 ? 0 : 1;
   var ids = cnt == 0 ? "None" : "On";
   var txt = $("#txt" + ids);
+
   if (txt.hasClass("show")) {
     txt.removeClass("show");
     chat.removeClass("active");
@@ -15,6 +19,7 @@ function chatting() {
 function scrollTop() {
   $(window).scrollTop(0);
 }
+
 //페이지 로드 될 때마다 로그인 확인
 window.onload = function () {
   checkLoginStatus().then(function (isLoggedIn) {
@@ -24,8 +29,9 @@ window.onload = function () {
         $.ajax({
           url: "/chat/messages/check",
           method: "GET",
-          success: function (data) {
-            console.log(data);
+          success: function (messages) {
+            console.log(messages);
+            data = messages;
           },
         });
       }, 5000); // 5초마다 새로운 메시지 확인
