@@ -25,13 +25,13 @@ public class securityConfig {
         http
                 //특정한 경로에 요청을 허용, 거부
                 .authorizeHttpRequests((auth)-> auth
-                        .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                        .requestMatchers("/","/users/login","/users/register").permitAll()
-                        .requestMatchers("/notice/admin/**","/event/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/users/**").hasRole("USER")
+                                .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                                .requestMatchers("/","/users/login","/users/register").permitAll()
+                                .requestMatchers("/notice/admin/**","/event/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/users/**").hasRole("USER")
 //                        .requestMatchers("/my/**").hasAnyRole("ADMIN", "USER")
-                        //나머지 모든 요청은
-                        .anyRequest().permitAll()
+                                //나머지 모든 요청은
+                                .anyRequest().permitAll()
                 );
         http
                 .formLogin((auth)-> auth.loginPage("/users/login")

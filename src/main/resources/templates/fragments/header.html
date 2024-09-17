@@ -1,35 +1,64 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
-    <th:block th:fragment="headerFragment">
-    <!--<header class="header" th:fragment="headerFragment">-->
-<header class="header">
-    <nav class="navbar">
-        <div class="navbar-left">
-            <a class="navbar-brand" href="/main">
-                <img th:src="@{/img/fragments/logoG.png}" alt="Logo" style="width: 150px; height: 65px;">
-            </a>
-            <div class="search-bar">
-                <input type="text" placeholder="검색">
-                <button type="submit">
-                    <img src="https://img.icons8.com/ios-filled/50/000000/search.png" alt="search" width="20" />
-                </button>
+<th:block th:fragment="headerFragment">
+    <header class="header">
+        <nav class="navbar">
+            <div class="navbar-left">
+                <a class="navbar-brand" th:href="@{/}">
+                    <img th:src="@{/img/fragments/logoG.png}" alt="Logo" style="width: 150px; height: 65px;">
+                </a>
+                <div class="search-bar">
+                    <input type="text" placeholder="검색">
+                    <button type="submit">
+                        <img src="https://img.icons8.com/ios-filled/50/000000/search.png" alt="search" width="20" />
+                    </button>
+                </div>
             </div>
-        </div>
-        <div class="nav-center">
-            <a class="nav-link" th:href="@{/contest/list}">공모전</a>
-            <a class="nav-link" th:href="@{/contest}">디자인 의뢰</a>
-            <a class="nav-link" th:href="@{/portfolio/list}">포트폴리오</a>
-            <a class="nav-link" th:href="@{/event/list}">이벤트</a>
-            <a class="nav-link" th:href="@{/notice/list}">공지사항</a>
-        </div>
-        <div class="navbar-right">
-            <div class="login-links">
-                <a class="nav-link" th:href="@{/users/login}">로그인</a>
-                <a class="nav-link" th:href="@{/users/register}">회원가입</a>
+
+            <div class="nav-center">
+                <a class="nav-link" th:href="@{/contest/list}">공모전</a>
+                <a class="nav-link" th:href="@{/contest}">디자인 의뢰</a>
+                <a class="nav-link" th:href="@{/portfolio/list}">포트폴리오</a>
+                <a class="nav-link" th:href="@{/event/list}">이벤트</a>
+                <a class="nav-link" th:href="@{/notice/list}">공지사항</a>
             </div>
-        </div>
-    </nav>
-</header>
-    </th:block>
+
+            <div class="navbar-right">
+                <div class="login-container">
+                    <!-- 로그인하지 않은 경우 -->
+                    <div th:if="${userEmail == 'anonymousUser'}" class="login-links">
+                        <div class="link-item">
+                            <a class="nav-link" th:href="@{/users/login}">로그인</a>
+                        </div>
+                        <div class="link-item">
+                            <a class="nav-link" th:href="@{/users/register}">회원가입</a>
+                        </div>
+                    </div>
+
+                    <!-- 로그인한 사용자일 경우 -->
+                    <div th:if="${userEmail != 'anonymousUser'}" class="login-links">
+                        <!-- 관리자일 경우 -->
+                        <div th:if="${userRole == 'ROLE_ADMIN'}" class="link-item">
+                            <a class="nav-link" th:text="${userEmail}">관리자 이메일</a>
+                        </div>
+
+                        <!-- 일반 사용자일 경우 -->
+                        <div th:if="${userRole == 'ROLE_USER'}" class="link-item">
+                            <a class="nav-link" th:href="@{/users/mypage}" th:text="${userEmail}">사용자 이메일</a>
+                        </div>
+
+                        <!-- 로그아웃 버튼 -->
+                        <div class="link-item">
+                            <form id="logoutForm" action="/logout" method="POST" style="display:inline;">
+                                <button type="submit" class="nav-link" style="background:none; border:none; cursor:pointer; padding:0;">로그아웃</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+</th:block>
+
 </html>
