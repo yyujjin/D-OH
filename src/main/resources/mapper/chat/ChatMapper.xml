@@ -9,11 +9,11 @@
         VALUES (#{sender}, #{receiver}, #{content}, #{isRead});
     </insert>
 
- <select id="getMessages" parameterType="String" resultType="com.DOH.DOH.dto.chat.MessageDTO">
-     SELECT *
-     FROM chat
-     WHERE receiver = #{receiver} AND isRead = 0
-     ORDER BY sender, timestamp DESC;
- </select>
+     <select id="getMessages" parameterType="String" resultType="com.DOH.DOH.dto.chat.MessageDTO">
+         SELECT *
+         FROM chat
+         WHERE receiver = #{receiver} AND isRead = 0
+         ORDER BY sender, timestamp DESC;
+     </select>
 
 </mapper>

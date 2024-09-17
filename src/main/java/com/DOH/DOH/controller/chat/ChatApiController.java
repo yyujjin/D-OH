@@ -1,7 +1,6 @@
 package com.DOH.DOH.controller.chat;
 
 import com.DOH.DOH.dto.chat.MessageDTO;
-import com.DOH.DOH.service.chat.ChatRoomService;
 import com.DOH.DOH.service.chat.MessageService;
 import com.DOH.DOH.service.user.UserSessionService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,14 +19,12 @@ import java.util.Map;
 public class ChatApiController {
 
     private final SimpMessagingTemplate messagingTemplate;
-    private final ChatRoomService chatRoomService;
     private final MessageService messageService;
     private final ChatPageController chatPageController;
     private final UserSessionService userSessionService;
 
-    public ChatApiController(SimpMessagingTemplate messagingTemplate, ChatRoomService chatRoomService, MessageService messageService, ChatPageController chatPageController, UserSessionService userSessionService) {
+    public ChatApiController(SimpMessagingTemplate messagingTemplate, MessageService messageService, ChatPageController chatPageController, UserSessionService userSessionService) {
         this.messagingTemplate = messagingTemplate;
-        this.chatRoomService = chatRoomService;
         this.messageService = messageService;
         this.chatPageController = chatPageController;
         this.userSessionService = userSessionService;
