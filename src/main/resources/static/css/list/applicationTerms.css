@@ -203,11 +203,3 @@ section
     white-space: pre-line; /* 줄바꿈과 연속 공백을 유지 */
     font-size: var(--font-size-14);
 }
-
-
-/* footer 영역 */
-footer
-{
-    height: 322px;
-    border-top: 1px solid var(--line-gray);
-}
