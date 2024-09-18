@@ -59,7 +59,7 @@ function check() {
     var checkAll = document.querySelector("#checkAll");
     if(!checkAll.checked)
     {
-        alert("약관에 동의해야 지원이 가능합니다.");
+        alert("약관에 모두 동의해야 콘테스트 참여가 가능합니다.");
 
         return false;
      }
