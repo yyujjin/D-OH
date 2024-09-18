@@ -118,3 +118,41 @@ html {
     color: rgb(193, 192, 255); /* hover 시 색상 변경 */
     transform: scale(1.1); /* hover 시 확대 효과 */
 }
+
+/* 알림 아이콘 스타일 */
+.fa-regular.fa-bell {
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.fa-regular.fa-bell:hover {
+    color: rgb(193, 192, 255);
+    transform: scale(1.1);
+}
+
+/* 알림 배지 스타일 */
+.notification-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: rgb(193, 192, 255);
+    color: white;
+    padding: 2px 6px;
+    font-size: 12px;
+    border-radius: 50%;
+}
+
+/* 로그아웃 버튼 스타일 */
+#logoutForm button {
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+#logoutForm button:hover {
+    color: rgb(193, 192, 255);
+    transform: scale(1.1);
+}
