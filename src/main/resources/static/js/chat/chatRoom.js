@@ -2,12 +2,28 @@ const sender = document.getElementById("sender").value;
 console.log("메시지 보내는 사람 : ", sender);
 const receiver = document.getElementById("receiver").textContent;
 console.log("메시지 받는 사람 : ", receiver);
+const sendButton = document
+  .getElementById("sendButton")
+  .addEventListener("click", sendMesssage);
+
+// 엔터키로 메시지 전송 가능하도록 설정
+document
+  .getElementById("chatInput")
+  .addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      // 엔터키를 눌렀을 때
+      event.preventDefault(); // 엔터키로 줄바꿈이 안되도록 기본 동작 방지
+      sendMesssage(); // 메시지 전송 함수 호출
+    }
+  });
+
 let MessageDTO = {
   sender: sender,
   receiver: receiver,
   content: null,
 };
 
+//heartbeat 설정
 const stompClient = new StompJs.Client({
   brokerURL: "ws://localhost:8083/chat",
 
@@ -17,6 +33,19 @@ const stompClient = new StompJs.Client({
   reconnectDelay: 5000,
 });
 
+//메시지 보내기
+function sendMesssage() {
+  const chatInput = document.getElementById("chatInput");
+  MessageDTO.content = chatInput.value;
+  stompClient.publish({
+    destination: "/app/message",
+    body: JSON.stringify(MessageDTO),
+  });
+  addMessageToChat(MessageDTO.content, "sent");
+  chatInput.value = "";
+}
+
+//메시지 받기
 stompClient.onConnect = (frame) => {
   console.log("Connected: " + frame);
 
@@ -36,36 +65,25 @@ stompClient.onStompError = (frame) => {
   console.error("Additional details: " + frame.body);
 };
 
+//웹소켓 연결
 function connect() {
   stompClient.activate();
 }
 
+//웹소켓 연결 끊기
 function disconnect() {
   stompClient.deactivate();
   setConnected(false);
   console.log("Disconnected");
 }
 
-function sendMesssage() {
-  const chatInput = document.getElementById("chatInput");
-  MessageDTO.content = chatInput.value;
-  stompClient.publish({
-    destination: "/app/message",
-    body: JSON.stringify(MessageDTO),
-  });
-  addMessageToChat(MessageDTO.content, "sent");
-}
-
-// 페이지 로드 시 웹소켓 연결 자동 시작
+// 페이지 로드 시
 window.onload = function () {
   connect();
   getAllMessages();
 };
 
-const sendButton = document
-  .getElementById("sendButton")
-  .addEventListener("click", sendMesssage);
-
+//메시지 버블 생성
 function addMessageToChat(content, messageType) {
   const chatBody = document.getElementById("chatBody");
 
