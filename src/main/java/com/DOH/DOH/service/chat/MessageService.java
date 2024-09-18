@@ -2,6 +2,7 @@ package com.DOH.DOH.service.chat;
 
 import com.DOH.DOH.dto.chat.MessageDTO;
 import com.DOH.DOH.mapper.chat.ChatMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class MessageService {
 
@@ -35,6 +37,7 @@ public class MessageService {
 
     //전체 메시지 가져오기
     public List<MessageDTO> allMessages (MessageDTO messageDTO){
+        log.info("가져온 메시지 : "+chatMapper.allMessages(messageDTO));
         return chatMapper.allMessages(messageDTO);
     }
 
@@ -48,10 +51,13 @@ public class MessageService {
             //sender은 자기 자신으로 설정해뒀음 JS에
             if (message.getSender().equals(userId)) {
                 senderMessageList.add(message);
-            } else if (message.getReceiver().equals(messageDTO.getReceiver())) {
+            } else {
                 receiverMessageList.add(message);
             }
         }
+
+        log.info("sned메시지 "+ senderMessageList);
+        log.info("recieve메시지" + receiverMessageList);
 
         // 두 리스트를 Map에 담아 반환
         Map<String, List<MessageDTO>> result = new HashMap<>();
