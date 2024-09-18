@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/fragments/layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- Iamport 추가 -->
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
     <script>
 
@@ -52,9 +52,10 @@
                 }
     </script>
 </head>
-<body>
+<th:block layout:fragment="content">
 <div>
     <button onclick="requestPay()">결제하기</button>
 </div>
-</body>
+</th:block>
+
 </html>

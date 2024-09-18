@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/fragments/layout}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/contest/ContestUpload.css">
-    <script src="/js/contest/ContestUpload.js"></script>
     <title>Contest Upload Form</title>
+    <link rel="stylesheet" th:href="@{/css/contest/ContestUpload.css}">
+    <script th:src="@{/js/contest/ContestUpload.js}"></script>
 </head>
-<body>
+<th:block layout:fragment="content">
 <div class="Contestupload">
     <h1>어떤 작품이 필요하세요?</h1>
     <form action="/contest" method="post" enctype="multipart/form-data">
@@ -37,5 +36,6 @@
         <button type="submit" class="btn">다음</button>
     </form>
 </div>
-</body>
+</th:block>
+
 </html>

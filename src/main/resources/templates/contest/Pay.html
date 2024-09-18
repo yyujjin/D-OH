@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/fragments/layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <!--    <script src="/js/contest/Pay.js"></script>-->
+    <!-- Iamport 추가 -->
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
+    <!--    <script src="/js/contest/Pay.js"></script>-->
+
 <!--    <script src="https://cdn.portone.io/v2/browser-sdk.js"></script>-->
     <script>
 
@@ -32,12 +34,12 @@
         }
     </script>
 </head>
-<body>
+<th:block layout:fragment="content">
 <div>
     <!--    <form action="/paytest" method="get" enctype="multipart/form-data">-->
     <!--        <button>테스트</button>-->
     <!--    </form>-->
     <button onclick="requestPay()">결제하기</button>
 </div>
-</body>
+</th:block>
 </html>
