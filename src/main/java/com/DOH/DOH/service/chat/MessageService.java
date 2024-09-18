@@ -39,14 +39,14 @@ public class MessageService {
     }
 
     //sender, receiver로 메시지 분류 해서 프론트로 내보내기
-    public Map<String, List<MessageDTO>> filterMessagesBySenderAndReceiver(MessageDTO messageDTO) {
+    public Map<String, List<MessageDTO>> filterMessagesBySenderAndReceiver(String userId,MessageDTO messageDTO) {
         List<MessageDTO> senderMessageList = new ArrayList<>();
         List<MessageDTO> receiverMessageList = new ArrayList<>();
 
         // 메시지 리스트 순회하면서 sender와 receiver로 구분
         for (MessageDTO message : allMessages(messageDTO)) {
             //sender은 자기 자신으로 설정해뒀음 JS에
-            if (message.getSender().equals(messageDTO.getSender())) {
+            if (message.getSender().equals(userId)) {
                 senderMessageList.add(message);
             } else if (message.getReceiver().equals(messageDTO.getReceiver())) {
                 receiverMessageList.add(message);

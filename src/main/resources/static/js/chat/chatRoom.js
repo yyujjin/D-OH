@@ -58,8 +58,9 @@ function sendMesssage() {
 }
 
 // 페이지 로드 시 웹소켓 연결 자동 시작
-window.onload = function() {
-    connect();
+window.onload = function () {
+  connect();
+  getAllMessages();
 };
 
 const sendButton = document.getElementById("sendButton").addEventListener("click",sendMesssage);
@@ -80,4 +81,23 @@ function addMessageToChat(content, messageType) {
     chatBody.appendChild(messageDiv);
 
     chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+//전체 메시지 가져오기
+function getAllMessages() {
+  $.ajax({
+    url: `/chat/messages/${sender}`,
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(MessageDTO),
+    success: function (data) {
+      const sentMessages = data.sentMessages;
+      const receivedMessages = data.receivedMessages;
+
+      console.log(sentMessages, receivedMessages);
+    },
+    error: function (xhr, status, error) {
+      console.error("Error fetching messages: ", error);
+    },
+  });
 }

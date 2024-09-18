@@ -6,6 +6,7 @@ import com.DOH.DOH.service.user.UserSessionService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -71,5 +72,15 @@ public class ChatApiController {
             return false;
         }
         return true;
+    }
+
+    @PostMapping("/messages/{userId}")
+    public ResponseEntity<Map<String, List<MessageDTO>>> getAllMessages(
+            @PathVariable String userId,
+            @RequestBody MessageDTO messageDTO) {
+
+        Map<String, List<MessageDTO>> messages = messageService.filterMessagesBySenderAndReceiver(userId, messageDTO);
+
+        return ResponseEntity.ok(messages);
     }
 }
