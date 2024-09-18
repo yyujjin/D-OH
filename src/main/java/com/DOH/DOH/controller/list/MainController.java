@@ -32,4 +32,9 @@ public class MainController {
 
         return "list/main";
     }
+
+    @GetMapping("testSidebar")
+    public String testSidebar() {
+        return "/fragments/quickMenu";
+    }
 }
