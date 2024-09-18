@@ -7,7 +7,7 @@
     <select id="getContestList" resultType="com.DOH.DOH.dto.list.ContestListDTO">
         SELECT row_number() over(order by id desc) as rownum, id, conType, conTitle,
                 (conFirstPrice * conFirstPeople + conSecondPrice * conSecondPeople
-                + conThirdPrice * conThirdPeople) as totalPricee,
+                + conThirdPrice * conThirdPeople) as totalPrice,
                 date_format(conEndDate, '%y.%m.%d') as conEndDate,
                 (datediff(conEndDate, now())) as endDate, conCompanyName
             FROM contest_Upload

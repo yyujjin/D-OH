@@ -3,6 +3,7 @@ package com.DOH.DOH.controller.list;
 import com.DOH.DOH.dto.list.ContestListDTO;
 import com.DOH.DOH.dto.list.PagingDTO;
 import com.DOH.DOH.service.list.ContestListService;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,9 @@ public class ContestListController {
     }
 
     @GetMapping("/application/terms")
-    public String applictionTerms(){
+    public String applictionTerms(HttpSession session){
+        String email= (String) session.getAttribute("userEmail");
+        log.info("email 체크!! -> "+email);
         return "list/applicationTerms";
     }
 
