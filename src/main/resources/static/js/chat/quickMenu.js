@@ -1,19 +1,17 @@
-
 function chatting() {
     var chat = $(".chat");
     var cnt = $("#cnt").val();
     var ids = cnt == 0 ? 'None':'On';
-    var txt = $("#txt"+ids);
-    if(txt.hasClass("show")){
+    var txt = $("#txt" + ids);
+    if (txt.hasClass("show")) {
         txt.removeClass("show");
-        chat.removeClass("active") 
-    }else{
+        chat.removeClass("active");
+    } else {
         txt.addClass("show");
         chat.addClass("active");
     }
 }
 
-function scrollTop(){
-    $(window).scrollTop(0);
-
+function scrollTop() {
+    $(window).animate({ scrollTop: 0 }, 'slow'); // 올바른 선택자 사용
 }
