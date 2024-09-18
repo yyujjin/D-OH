@@ -22,11 +22,16 @@ public class MessageService {
     }
 
     //메시지 불러오기
-    public List<MessageDTO>getUnreadMessages(String receiver){return chatMapper.getMessages(receiver);}
+    public List<MessageDTO>getUnreadMessages(String receiver){return chatMapper.getUnreadMessages(receiver);}
 
     //메시지 sender별 분류 후 그룹 화
     public Map<String,List<MessageDTO>> groupMessagesBySender (List<MessageDTO> unreadMessagesList) {
        return unreadMessagesList.stream()
                 .collect(Collectors.groupingBy(MessageDTO::getSender));
+    }
+
+    //전체 메시지 가져오기
+    public List<MessageDTO> allMessages (MessageDTO messageDTO){
+        return chatMapper.allMessages(messageDTO);
     }
 }

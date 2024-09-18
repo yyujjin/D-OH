@@ -9,11 +9,18 @@
         VALUES (#{sender}, #{receiver}, #{content}, #{isRead});
     </insert>
 
-     <select id="getMessages" parameterType="String" resultType="com.DOH.DOH.dto.chat.MessageDTO">
+     <select id="getUnreadMessages" parameterType="String" resultType="com.DOH.DOH.dto.chat.MessageDTO">
          SELECT *
          FROM chat
          WHERE receiver = #{receiver} AND isRead = 0
          ORDER BY sender, timestamp DESC;
      </select>
+
+    <select id="allMessages" parameterType="com.DOH.DOH.dto.chat.MessageDTO" resultType="com.DOH.DOH.dto.chat.MessageDTO">
+        SELECT *
+        FROM chat
+        WHERE (sender = #{sender} AND receiver = #{receiver})
+        OR (sender = #{receiver} AND receiver = #{sender});
+    </select>
 
 </mapper>

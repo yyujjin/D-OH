@@ -11,7 +11,10 @@ public interface ChatMapper {
     //메시지 저장
     void saveMessage(MessageDTO messageDTO);
 
-    //메시지 불러오기
-    List<MessageDTO>getMessages(String receiver);
+    //안읽은 메시지 불러오기
+    List<MessageDTO> getUnreadMessages(String receiver);
+
+    //저장된 전체 메시지 불러오기
+    List<MessageDTO>allMessages(MessageDTO messageDTO);
 
 }
