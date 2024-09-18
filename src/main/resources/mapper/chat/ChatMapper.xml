@@ -23,4 +23,10 @@
         OR (sender = #{receiver} AND receiver = #{sender});
     </select>
 
+    <update id="setMessageAsRead" parameterType="com.DOH.DOH.dto.chat.MessageDTO">
+        UPDATE chat
+        SET isRead = true
+        WHERE (sender = #{sender} AND receiver = #{receiver})
+        OR (sender = #{receiver} AND receiver = #{sender});
+    </update>
 </mapper>

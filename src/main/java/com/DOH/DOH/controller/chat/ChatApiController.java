@@ -80,6 +80,8 @@ public class ChatApiController {
             @RequestBody MessageDTO messageDTO) {
 
         Map<String, List<MessageDTO>> messages = messageService.filterMessagesBySenderAndReceiver(userId, messageDTO);
+        //메시지 읽음 처리
+        messageService.setMessageAsRead(messageDTO);
 
         return ResponseEntity.ok(messages);
     }

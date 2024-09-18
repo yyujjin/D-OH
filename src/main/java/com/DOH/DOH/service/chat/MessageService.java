@@ -66,4 +66,8 @@ public class MessageService {
 
         return result;
     }
+    //메시지 읽음 처리
+    public void setMessageAsRead(MessageDTO messageDTO) {
+        chatMapper.setMessageAsRead(messageDTO);
+    }
 }
