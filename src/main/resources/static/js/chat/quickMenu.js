@@ -13,5 +13,5 @@ function chatting() {
 }
 
 function scrollTop() {
-    $(window).animate({ scrollTop: 0 }, 'slow'); // 올바른 선택자 사용
-}
+    $(window).animate({ scrollTop: 0 }, 'slow');
+    }
