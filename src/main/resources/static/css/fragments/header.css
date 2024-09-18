@@ -123,7 +123,7 @@ html {
 .fa-regular.fa-bell {
     color: white;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 15px;
     transition: color 0.3s ease, transform 0.3s ease;
 }
 

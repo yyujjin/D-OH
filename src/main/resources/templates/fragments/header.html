@@ -41,10 +41,6 @@
 
                     <!-- 로그인한 사용자일 경우 -->
                     <div th:if="${userEmail != 'anonymousUser'}" class="login-links">
-                        <!-- 이메일 표시 -->
-                        <div class="link-item">
-                            <a class="nav-link" th:text="${userEmail}"></a>
-                        </div>
 
                         <!-- 알림 아이콘 (관리자가 아닌 경우만) -->
                         <div th:if="${userRole != 'ROLE_ADMIN'}" class="link-item">
@@ -57,6 +53,11 @@
                                 <span class="notification-badge">N</span>
                             </div>
                         </div>
+                        <!-- 이메일 표시 -->
+                        <div class="link-item">
+                            <a class="nav-link" th:text="${userEmail}"></a>
+                        </div>
+
 
                         <!-- 로그아웃 버튼 -->
                         <div class="link-item">
