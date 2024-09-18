@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <!-- Font Awesome CDN 추가 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-</head>
+
 <th:block th:fragment="headerFragment">
     <header class="header">
         <nav class="navbar">
@@ -41,21 +38,14 @@
 
                     <!-- 로그인한 사용자일 경우 -->
                     <div th:if="${userEmail != 'anonymousUser'}" class="login-links">
-                        <!-- 이메일 표시 -->
-                        <div class="link-item">
-                            <a class="nav-link" th:text="${userEmail}"></a>
+                        <!-- 관리자일 경우 -->
+                        <div th:if="${userRole == 'ROLE_ADMIN'}" class="link-item">
+                            <a class="nav-link" th:text="${userEmail}">관리자 이메일</a>
                         </div>
 
-                        <!-- 알림 아이콘 (관리자가 아닌 경우만) -->
-                        <div th:if="${userRole != 'ROLE_ADMIN'}" class="link-item">
-                            <!-- 알림 아이콘 -->
-                            <div th:if="true">
-                                <i class="fa-regular fa-bell"></i> <!-- 알림 없음 -->
-                            </div>
-                            <div th:if="false" style="position: relative;">
-                                <i class="fa-regular fa-bell" style="position: relative;"></i> <!-- 알림 있음 -->
-                                <span class="notification-badge">N</span>
-                            </div>
+                        <!-- 일반 사용자일 경우 -->
+                        <div th:if="${userRole == 'ROLE_USER'}" class="link-item">
+                            <a class="nav-link" th:href="@{/users/mypage}" th:text="${userEmail}">사용자 이메일</a>
                         </div>
 
                         <!-- 로그아웃 버튼 -->
@@ -70,4 +60,5 @@
         </nav>
     </header>
 </th:block>
+
 </html>
