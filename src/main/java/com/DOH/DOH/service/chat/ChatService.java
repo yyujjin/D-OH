@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class MessageService {
+public class ChatService {
 
     private final ChatMapper chatMapper;
 
-    public MessageService(ChatMapper chatMapper) {
+    public ChatService(ChatMapper chatMapper) {
         this.chatMapper = chatMapper;
     }
 
@@ -26,19 +26,19 @@ public class MessageService {
         chatMapper.saveMessage(messageDto);
     }
 
-    //메시지 불러오기
+    //안 읽은 메시지 불러오기
     public List<MessageDTO>getUnreadMessages(String receiver){return chatMapper.getUnreadMessages(receiver);}
 
-    //메시지 sender별 분류 후 그룹 화
+    //메시지 sender별 분류 후 그룹화
     public Map<String,List<MessageDTO>> groupMessagesBySender (List<MessageDTO> unreadMessagesList) {
        return unreadMessagesList.stream()
                 .collect(Collectors.groupingBy(MessageDTO::getSender));
     }
 
     //전체 메시지 가져오기
-    public List<MessageDTO> allMessages (MessageDTO messageDTO){
-        log.info("가져온 메시지 : "+chatMapper.allMessages(messageDTO));
-        return chatMapper.allMessages(messageDTO);
+    public List<MessageDTO> getAllMessages(MessageDTO messageDTO){
+        log.info("가져온 메시지 : "+chatMapper.getAllMessages(messageDTO));
+        return chatMapper.getAllMessages(messageDTO);
     }
 
     //sender, receiver로 메시지 분류 해서 프론트로 내보내기
@@ -47,7 +47,7 @@ public class MessageService {
         List<MessageDTO> receiverMessageList = new ArrayList<>();
 
         // 메시지 리스트 순회하면서 sender와 receiver로 구분
-        for (MessageDTO message : allMessages(messageDTO)) {
+        for (MessageDTO message : getAllMessages(messageDTO)) {
             //sender은 자기 자신으로 설정해뒀음 JS에
             if (message.getSender().equals(userId)) {
                 senderMessageList.add(message);

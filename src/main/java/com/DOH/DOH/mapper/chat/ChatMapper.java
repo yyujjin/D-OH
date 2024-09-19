@@ -15,7 +15,7 @@ public interface ChatMapper {
     List<MessageDTO> getUnreadMessages(String receiver);
 
     //저장된 전체 메시지 불러오기
-    List<MessageDTO>allMessages(MessageDTO messageDTO);
+    List<MessageDTO> getAllMessages(MessageDTO messageDTO);
 
     //메시지 읽음으로 처리
     void setMessageAsRead (MessageDTO messageDTO);

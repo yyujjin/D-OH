@@ -1,7 +1,7 @@
 package com.DOH.DOH.controller.chat;
 
 import com.DOH.DOH.dto.chat.MessageDTO;
-import com.DOH.DOH.service.chat.MessageService;
+import com.DOH.DOH.service.chat.ChatService;
 import com.DOH.DOH.service.user.UserSessionService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,13 +20,13 @@ import java.util.Map;
 public class ChatApiController {
 
     private final SimpMessagingTemplate messagingTemplate;
-    private final MessageService messageService;
+    private final ChatService chatService;
     private final ChatPageController chatPageController;
     private final UserSessionService userSessionService;
 
-    public ChatApiController(SimpMessagingTemplate messagingTemplate, MessageService messageService, ChatPageController chatPageController, UserSessionService userSessionService) {
+    public ChatApiController(SimpMessagingTemplate messagingTemplate, ChatService chatService, ChatPageController chatPageController, UserSessionService userSessionService) {
         this.messagingTemplate = messagingTemplate;
-        this.messageService = messageService;
+        this.chatService = chatService;
         this.chatPageController = chatPageController;
         this.userSessionService = userSessionService;
     }
@@ -39,7 +39,7 @@ public class ChatApiController {
         log.info("수신자 : {}", messageDTO.getReceiver());
         log.info("보낸 메시지 : {}", messageDTO.getContent());
 
-        messageService.saveMessage(messageDTO);
+        chatService.saveMessage(messageDTO);
         //세션이 있다면 바로 구독 경로로 보내고 없다면 디비에 저장하는 로직 추가
 
         String messageAsJson = new ObjectMapper().writeValueAsString(messageDTO.getContent());
@@ -53,18 +53,18 @@ public class ChatApiController {
 
     //읽지 않은 메시지 조회
     @GetMapping("/messages/unread")
-    public Map<String,List<MessageDTO>> getMessages() {
+    public Map<String,List<MessageDTO>> getUnreadMessages() {
         String userId = userSessionService.userEmail();
-        log.info("가져와진 메시지"+messageService.getUnreadMessages(userId));
+        log.info("가져와진 메시지"+ chatService.getUnreadMessages(userId));
 
         if ("anonymousUser".equals(userId)) {
             // 빈 리스트 반환 또는 상태 코드를 명확하게 설정하는 것이 좋음
             return Collections.emptyMap(); // 빈 리스트 반환
         }
 
-        List<MessageDTO>getUnreadMessages = messageService.getUnreadMessages(userId);
+        List<MessageDTO>getUnreadMessages = chatService.getUnreadMessages(userId);
 
-        return  messageService.groupMessagesBySender(getUnreadMessages);
+        return  chatService.groupMessagesBySender(getUnreadMessages);
     }
 
     // 로그인 상태 확인
@@ -78,13 +78,13 @@ public class ChatApiController {
 
     // 특정 사용자와의 메시지 조회
     @PostMapping("/messages/{userId}")
-    public ResponseEntity<Map<String, List<MessageDTO>>> getAllMessages(
+    public ResponseEntity<Map<String, List<MessageDTO>>> getMessagesByUserId(
             @PathVariable String userId,
             @RequestBody MessageDTO messageDTO) {
 
-        Map<String, List<MessageDTO>> messages = messageService.filterMessagesBySenderAndReceiver(userId, messageDTO);
+        Map<String, List<MessageDTO>> messages = chatService.filterMessagesBySenderAndReceiver(userId, messageDTO);
         //메시지 읽음 처리
-        messageService.setMessageAsRead(messageDTO);
+        chatService.setMessageAsRead(messageDTO);
 
         return ResponseEntity.ok(messages);
     }

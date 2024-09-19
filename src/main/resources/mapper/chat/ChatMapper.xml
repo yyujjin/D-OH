@@ -16,7 +16,7 @@
          ORDER BY sender, timestamp DESC;
      </select>
 
-    <select id="allMessages" parameterType="com.DOH.DOH.dto.chat.MessageDTO" resultType="com.DOH.DOH.dto.chat.MessageDTO">
+    <select id="getAllMessages" parameterType="com.DOH.DOH.dto.chat.MessageDTO" resultType="com.DOH.DOH.dto.chat.MessageDTO">
         SELECT *
         FROM chat
         WHERE (sender = #{sender} AND receiver = #{receiver})
