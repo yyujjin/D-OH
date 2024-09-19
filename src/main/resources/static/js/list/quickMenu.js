@@ -10,6 +10,13 @@ function chatting() {
 
   var ids = cnt == 0 ? "None" : "On";
 
+
+if (cnt === 1) {
+  $(".notification-badge").show(); // 알림 배지를 보이기
+} else {
+  $(".notification-badge").hide(); // 알림 배지를 숨기기
+}
+
   //data가 빈배열이 아닐 때
   if (ids == "On") {
     updateChatList();
@@ -87,3 +94,4 @@ function updateChatList() {
     txt.append(chatHtml);
   });
 }
+
