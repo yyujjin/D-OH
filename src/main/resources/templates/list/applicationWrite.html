@@ -42,9 +42,9 @@
             
             
             <section>
-                <form>
+                <form action="/upload" method="post">
                     <div class="applyContent">
-                        <input type="text" placeholder="제목을 입력해주세요." class="bers">
+                        <input type="text" placeholder="제목을 입력해주세요." required>
                         <div class="contArea">
                             <div class="imgArea"></div>
                             <div class="textArea"></div>
@@ -55,6 +55,7 @@
                     <div class="applyWarap">
                         <div div class="applyInput">
                             <div class="InputArea">
+<!--                                <label for="image" class="imageUpload" onclick="imgUpload()">-->
                                 <label for="image" class="imageUpload">
                                     <div class="content">
                                         <span class="Image">
@@ -66,7 +67,7 @@
                                 <input type="file" name="" id="image" multiple>
                             </div>
                             <div class="InputArea">
-                                <div class="content text">
+                                <div class="content text" onclick="addText()">
                                     <span class="Image">
                                         <i class="fa-regular fa-pen-to-square"></i>
                                     </span>

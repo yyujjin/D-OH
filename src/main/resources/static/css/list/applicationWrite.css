@@ -84,15 +84,11 @@ a
 }
 
 /* 지원 입력 내용 부분 */
-
-/* .applyWarap */
-/* section */
 form
 {
  display: flex;
  width: 100%;
  gap: 30px;
- /* margin-bottom: 90px; */
  margin: 60px 0 90px 0;
 }
 
@@ -105,6 +101,12 @@ form
 .applyWarap
 {
     width: calc(20% - 15px);
+}
+/*이미지 추가시 해당 이미지의 사이즈를 조절*/
+.previewImage {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
 }
 
 input[type="text"]
@@ -121,7 +123,7 @@ input[type="text"]
 {
     margin-top: 40px;
     width: 100%;
-    height: 770px;
+    min-height: 770px;
     border: 1px solid var(--line-gray);
     border-radius: 6px;
 }
@@ -176,7 +178,7 @@ input[type="text"]
 }
 .Image i
 {
-    font-size: 45px;
+    font-size: 40px;
 }
 
 .inputText
