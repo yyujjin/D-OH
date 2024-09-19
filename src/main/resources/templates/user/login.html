@@ -8,10 +8,10 @@
 </head>
 <body>
 
-    <div class="login-container">
-        <form method="post" action="/users/login" enctype="multipart/form-data">
+<div class="login-container">
+    <form method="post" action="/users/login" enctype="multipart/form-data">
         <div class="email">이메일</div>
-<!--        <input type="text" id="email" name="userEmail" required>-->
+        <!--        <input type="text" id="email" name="userEmail" required>-->
         <input type="text" id="email" name="username" required>
         <div class="password">비밀번호</div>
         <input type="password" id="password" name="password" required>
@@ -25,8 +25,8 @@
         <div class="forgot-password">
             아직 회원이 아니세요? <a th:href="@{/users/register}">회원가입 하기</a>
         </div>
-        </form>
-    </div>
+    </form>
+</div>
 
 </body>
 </html>

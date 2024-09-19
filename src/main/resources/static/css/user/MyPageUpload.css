@@ -120,6 +120,9 @@ section
     border: 1px solid var(--line-gray);
     border-radius: 6px;
 }
+.conArea #image-preview-box{
+
+}
 
 
 .applyInput

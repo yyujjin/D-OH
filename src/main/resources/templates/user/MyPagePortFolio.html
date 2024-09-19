@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/fragments/layout">
+      layout:decorate="~{/fragments/layout}">
 
 <head>
     <meta charset="UTF-8">
@@ -29,29 +29,35 @@
         <div class="sidebar">
             <img th:src="@{/img/quokka.jpg}" alt="quokka"><br>
             <div class="username">
-                쿼카
+                <p th:if="${profile != null and profile.userNickName != null}" th:text="${profile.userNickName}"></p>
+                <p th:if="${profile == null or profile.userNickName == null}" th:text="${profile.userEmail}"></p>
             </div>
             <div>
-                https://naver.com/
-            </div><br>
-            <a href="/profileWrite" class="edit-profile">프로필 수정하기</a>
+                <p th:if="${profile != null and profile.myPageUrl != null}" th:text="${profile.myPageUrl}"></p>
+                <p th:if="${profile == null or profile.myPageUrl == null}">정보 없음</p>
+            </div>
+            <a href="/users/mypage/profile/write" class="edit-profile">프로필 수정하기</a>
             <div class="activity">
                 <div class="section-title">
                     <h6>라우드 활동</h6>
                 </div>
-                <span>평균 응답시간: 정보 없음</span>
-                <span>연락 가능시간: 정보 없음</span>
+                <div>
+                    연락 가능 시간: <p th:if="${profile != null and profile.messageStart != null}" th:text="${profile.messageStart}"></p>~
+                    <p th:if="${profile == null or profile.messageStart == null}">정보 없음</p>
+                    <p th:if="${profile != null and profile.messageEnd != null}" th:text="${profile.messageEnd}"></p>
+                    <p th:if="${profile == null or profile.messageEnd == null}">정보 없음</p>
+                </div>
             </div>
         </div> <!-- sidebar end -->
         <div class="button-class">
             <div class="profilesetting">
-                <a href="/mypage" class="underline">프로필 설정</a>
+                <a href="/users/mypage" class="underline">프로필 설정</a>
             </div>
             <div class="portfolio">
-                <a href=/portfolio class="underline">포트폴리오</a>
+                <a href=/users/mypage/portfolio class="underline">포트폴리오</a>
             </div>
             <div class="upload">
-                <a href="/upload" class="underline">작품 업로드하기</a>
+                <a href="/users/mypage/upload" class="underline">작품 업로드하기</a>
             </div>
         </div> <!-- button-class end -->
             <div class="portfolio-header">

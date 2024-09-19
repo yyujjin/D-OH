@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/fragments/layout">
+      layout:decorate="~{/fragments/layout}">
 
 <head>
     <meta charset="UTF-8">
@@ -22,6 +22,7 @@
 
 </head>
 <th:block layout:fragment="content">
+    <form method="post" action="/mypage/upload" enctype="multipart/form-data">
     <main>
         <div class="mainWarap">
             <div class="contestWarap">
@@ -34,27 +35,29 @@
                     </div>
                 </div> <!--contestInfo-->
             </div><!--contestWarap-->
-            
+
             <section>
                 <div class="applyContent">
-                    <input type="text" placeholder="제목을 입력해주세요.">
-                    <div class="contArea"></div>
+                    <label>
+                        <input type="text" placeholder="제목을 입력해주세요." name="title">
+                    </label>
+                    <div class="contArea"><div id="image-preview-box"></div></div>
                 </div>
                 <div class="applyWarap">
                     <div class="applyInput">
                         <div class="InputArea">
                             <label for="image" class="imageUpload">
-                                <div class="content">
+                                <div class="content" name="content">
                                     <span class="Image">
                                         <i class="fa-regular fa-image"></i>
                                     </span>
                                     <div class="inputText">이미지 추가</div>
                                 </div>
                             </label>
-                            <input type="file" name="" id="image" multiple>
+                            <input type="file" name="personalWork" id="image" multiple onchange="previewImage(event)">
                         </div>
                         <div class="InputArea">
-                            <div class="contentText">
+                            <div class="content text">
                                 <span class="Image">
                                     <i class="fa-regular fa-pen-to-square"></i>
                                 </span>
@@ -63,7 +66,7 @@
                         </div>
                     </div><!--applyInput-->
                     <button type="button" class="temporary">임시 저장</button>
-                    <button type="submit" class="apply">등록하기</button>
+                    <button type="submit" class="apply">개인 작품 등록하기</button>
                 <div class="oc">
                     <input type="radio" id="open" name="oc">
                     <label for="open" class="open">공개</label>
@@ -77,7 +80,7 @@
             </section>
         </div>
     </main>
-
+    </form>
 </th:block>
 
 </html>
