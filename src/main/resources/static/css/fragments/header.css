@@ -89,11 +89,70 @@ html {
     justify-content: flex-end;
 }
 
-.login-links {
+/* 로그인/회원가입 컨테이너 */
+.login-container {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
 }
 
-.login-links .nav-link {
-    margin-left: 8px;
+/* 각 링크 아이템 */
+.login-links {
+    display: flex; /* 가로로 나란히 배치 */
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.link-item {
+    margin-left: 16px; /* 각 링크 간격 */
+}
+
+.link-item .nav-link {
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    transition: color 0.3s ease, transform 0.3s ease; /* hover 애니메이션 */
+}
+
+.link-item .nav-link:hover {
+    color: rgb(193, 192, 255); /* hover 시 색상 변경 */
+    transform: scale(1.1); /* hover 시 확대 효과 */
+}
+
+/* 알림 아이콘 스타일 */
+.fa-regular.fa-bell {
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.fa-regular.fa-bell:hover {
+    color: rgb(193, 192, 255);
+    transform: scale(1.1);
+}
+
+/* 알림 배지 스타일 */
+.notification-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: rgb(193, 192, 255);
+    color: white;
+    padding: 2px 6px;
+    font-size: 12px;
+    border-radius: 50%;
+}
+
+/* 로그아웃 버튼 스타일 */
+#logoutForm button {
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+#logoutForm button:hover {
+    color: rgb(193, 192, 255);
+    transform: scale(1.1);
 }
