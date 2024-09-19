@@ -19,6 +19,7 @@
         <div class="chat-header">
           <div class="chat-title" th:text="${receiver}" id="receiver">상대방 유저</div>
           <input id="sender" type="hidden" th:value="${sender}">
+          <button class="exit-button" id="exitButton"> 채팅 종료하기</button>
         </div>
         <div class="chat-body" id="chatBody"></div>
         <div class="chat-footer">

@@ -148,3 +148,19 @@ function displayMessages(messages) {
     }
   });
 }
+
+//채팅 종료 버튼
+document.getElementById('exitButton').addEventListener('click', function() {
+  if(confirm("채팅을 종료하고 데이터를 삭제하시겠습니까?")){
+    $.ajax({
+      url: `/api/users/chat/messages/${sender}`,
+      type: "DELETE",
+      success: function () {
+        window.location.href = '/';
+      },
+      error: function (error) {
+        console.error("Error fetching messages: ", error);
+      },
+    });
+  }
+});
