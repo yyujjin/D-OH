@@ -46,10 +46,6 @@ public class NoticeController {
             @RequestParam(value = "pageNum", required = false, defaultValue = "1") String pageNum,
             Model model) {
 
-        // 현재 로그인한 사용자의 이메일 가져오기
-        String userEmail = userSessionService.userEmail();
-        model.addAttribute("userEmail", userEmail);
-
         // 페이지 번호 처리
         int page = Integer.parseInt(pageNum);  // pageNum을 int로 변환
 
@@ -59,7 +55,7 @@ public class NoticeController {
         model.addAttribute("currentPage", page);
 
         // 해당 페이지의 공지사항 목록 가져오기
-        List<NoticeDTO> noticeList = noticeService.getNoticeList(page);
+        List<NoticeDTO> noticeList = noticeService.getNoticeList(Integer.parseInt(pageNum));
         model.addAttribute("noticeList", noticeList);  // 공지사항 목록을 모델에 추가
 
         // 뷰 리턴
