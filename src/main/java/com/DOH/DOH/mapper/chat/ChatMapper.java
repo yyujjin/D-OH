@@ -20,4 +20,7 @@ public interface ChatMapper {
     //메시지 읽음으로 처리
     void setMessageAsRead (MessageDTO messageDTO);
 
+    //메시지 삭제
+    void deleteMessages(MessageDTO messageDTO);
+
 }

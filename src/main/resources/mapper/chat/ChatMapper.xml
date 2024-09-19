@@ -9,7 +9,7 @@
         VALUES (#{sender}, #{receiver}, #{content}, #{isRead});
     </insert>
 
-     <select id="getUnreadMessages" parameterType="String" resultType="com.DOH.DOH.dto.chat.MessageDTO">
+    <select id="getUnreadMessages" parameterType="String" resultType="com.DOH.DOH.dto.chat.MessageDTO">
          SELECT *
          FROM chat
          WHERE receiver = #{receiver} AND isRead = 0
@@ -26,6 +26,13 @@
     <update id="setMessageAsRead" parameterType="com.DOH.DOH.dto.chat.MessageDTO">
         UPDATE chat
         SET isRead = true
+        WHERE (sender = #{sender} AND receiver = #{receiver})
+        OR (sender = #{receiver} AND receiver = #{sender});
+    </update>
+
+    <update id="deleteMessages" parameterType="com.DOH.DOH.dto.chat.MessageDTO">
+        UPDATE chat
+        SET isDeleted = true
         WHERE (sender = #{sender} AND receiver = #{receiver})
         OR (sender = #{receiver} AND receiver = #{sender});
     </update>

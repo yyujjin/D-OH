@@ -153,9 +153,11 @@ function displayMessages(messages) {
 document.getElementById('exitButton').addEventListener('click', function() {
   if(confirm("채팅을 종료하고 데이터를 삭제하시겠습니까?")){
     $.ajax({
-      url: `/api/users/chat/messages/${sender}`,
-      type: "DELETE",
-      success: function () {
+      url: `/api/users/chat/messages/delete`,
+      type: "PATCH",
+      data: JSON.stringify(MessageDTO),
+      contentType: 'application/json', 
+      success: function (response) {
         window.location.href = '/';
       },
       error: function (error) {

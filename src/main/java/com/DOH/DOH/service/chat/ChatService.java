@@ -70,4 +70,7 @@ public class ChatService {
     public void setMessageAsRead(MessageDTO messageDTO) {
         chatMapper.setMessageAsRead(messageDTO);
     }
+
+    //메시지 삭제
+    public void deleteMessages(MessageDTO messageDTO) {chatMapper.deleteMessages(messageDTO);}
 }

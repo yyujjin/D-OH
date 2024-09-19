@@ -88,4 +88,10 @@ public class ChatApiController {
 
         return ResponseEntity.ok(messages);
     }
+
+    @PatchMapping("/messages/delete")
+    public ResponseEntity deleteMessages(@RequestBody MessageDTO messageDTO) {
+        chatService.deleteMessages(messageDTO);
+        return ResponseEntity.ok().build();
+    }
 }
