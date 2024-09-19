@@ -1,5 +1,6 @@
 package com.DOH.DOH.service.list;
 
+import com.DOH.DOH.dto.list.ApplyDTO;
 import com.DOH.DOH.dto.list.ContestListDTO;
 import com.DOH.DOH.dto.list.PagingDTO;
 import com.DOH.DOH.mapper.list.ContestListMapper;
@@ -31,4 +32,9 @@ public class ContestListServiceImpl implements ContestListService {
 
         return contestListMapper.getTotalCount();
     } // 전체 게시물 수를 조회하는 메서드
+
+    public void saveContestApply(ApplyDTO dto){
+        ContestListMapper contestListMapper = sqlSession.getMapper(ContestListMapper.class);
+        contestListMapper.saveContestApply(dto);
+    }
 }

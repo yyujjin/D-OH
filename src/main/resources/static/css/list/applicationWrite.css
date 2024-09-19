@@ -119,6 +119,13 @@ input[type="text"]
     border-radius: 6px;
 }
 
+.imgArea
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .contArea
 {
     margin-top: 40px;
