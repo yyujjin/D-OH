@@ -7,10 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -85,18 +82,20 @@ public class NoticeController {
         return "notifications/noticeDetail";
     }
 
-    //공지사항 등록
-    @GetMapping("/admin/register")
+    // 공지사항 등록
+    @PostMapping("/admin/register")
     public String noticeRegister(NoticeDTO noticeDTO, Model model) {
         // 현재 로그인한 사용자의 이메일 가져오기
         String userEmail = userSessionService.userEmail();
         model.addAttribute("userEmail", userEmail);
 
+        // 공지사항 등록 서비스 호출
         noticeService.noticeRegister(noticeDTO, model);
 
-        model.addAttribute("page", "notice/detail");
+        // 공지사항 목록 페이지로 이동
         return "notifications/noticeList";
     }
+
 
     //공지사항 작성
     @GetMapping("/admin/write")
