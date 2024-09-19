@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/fragments/layout}">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/contest/ContestView.css">
-    <script src="/js/contest/ContestView.js"></script>
-    <title>Contest View</title>
+    <link rel="stylesheet" th:href="@{/css/contest/ContestView.css}">
+    <script th:src="@{/js/contest/ContestView.js}"></script>
 </head>
-<body>
-
+<th:block layout:fragment="content">
 <div class="Contestview">
     <form action="/contest/view" method="post" enctype="multipart/form-data">
         <div class="Contestviewheader">
@@ -72,6 +70,5 @@
         <a href="#" class="button">콘테스트 참여하기</a>
     </div>
 </div>
-
-</body>
+</th:block>
 </html>

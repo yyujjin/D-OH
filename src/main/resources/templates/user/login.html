@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/css/user/login.css" />
+    <link rel="stylesheet" href="/css/user/login.css"/>
 </head>
 <body>
-
-<div class="login-container">
-    <form method="post" action="/users/login" enctype="multipart/form-data">
+    <div class="login-container">
+        <a th:href="@{/}">
+            <img th:src="@{/img/fragments/logoGG.png}" alt="D'OH Logo" width="150px" height="75px">
+        </a>
+        <form method="post" action="/users/login" enctype="multipart/form-data">
         <div class="email">이메일</div>
         <!--        <input type="text" id="email" name="userEmail" required>-->
         <input type="text" id="email" name="username" required>

@@ -1,19 +1,16 @@
-<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/fragments/layout}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/contest/ContestUpload1.css">
-    <script src="/js/contest/ContestUpload1.js"></script>
-    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/contest/ContestUpload1.css}">
+    <script th:src="@{/js/contest/ContestUpload1.js}"></script>
 </head>
-
-<body>
+<th:block layout:fragment="content">
 <div class="Contestupload1">
     <h1>예산은 어떻게 되나요?</h1>
     <form action="/contest/budget" method="post" enctype="multipart/form-data">
         <h3>콘테스트 제목</h3>
         <div class="contest-title">
-            <input type="text" id="conTitle" name="conTitle" placeholder="콘테스트 제목을 입력해 주세요." value="" maxlength="40" required>
+            <input class="companttype" type="text" id="conTitle" name="conTitle" placeholder="콘테스트 제목을 입력해 주세요." value="" maxlength="40" required>
         </div>
 
         <h3>상금 설정</h3>
@@ -26,11 +23,11 @@
                     <span>🏆 1등</span>
                 </div>
                 <div class="winners">
-                    <input type="number" id="conFirstPeople" name="conFirstPeople" min="1" value="1" required>
+                    <input class="companttype" type="number" id="conFirstPeople" name="conFirstPeople" min="1" value="1" required>
                 </div>
                 <span class="label-text">명</span>
                 <div class="prize">
-                    <input type="number" id="conFirstPrice" name="conFirstPrice" min="0" step="5" value="35" required>
+                    <input class="companttype" type="number" id="conFirstPrice" name="conFirstPrice" min="0" step="5" value="35" required>
                 </div>
                 <span class="label-text">만원</span>
                 <div class="remove-btn-container"></div>
@@ -52,11 +49,11 @@
             <div class="flex-container">
                 <div>
                     <label for="conStartDate">시작 날짜</label>
-                    <input type="date" id="conStartDate" name="conStartDate" required onchange="setEndDate()">
+                    <input class="companttype" type="date" id="conStartDate" name="conStartDate" required onchange="setEndDate()">
                 </div>
                 <div>
                     <label for="conEndDate">종료 날짜</label>
-                    <input type="date" id="conEndDate" name="conEndDate" required>
+                    <input class="companttype" type="date" id="conEndDate" name="conEndDate" required>
                 </div>
             </div>
         </div>
@@ -67,5 +64,6 @@
         </div>
     </form>
 </div>
-</body>
+</th:block>
+
 </html>
