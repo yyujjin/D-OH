@@ -30,8 +30,16 @@ public class UserSessionService {
     public String nickName() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetails userDetail = (CustomUserDetails) authentication.getPrincipal();
-        return userDetail.getNickName();
+        Object principal = authentication.getPrincipal();
+
+        if (principal instanceof CustomUserDetails) {
+            CustomUserDetails userDetails = (CustomUserDetails) principal;
+            String userNickName = userDetails.getNickName();
+            return userNickName;
+        } else {
+            // 익명 사용자 또는 인증되지 않은 사용자일 경우
+            return "Anonymous";
+        }
     }
 
 }
