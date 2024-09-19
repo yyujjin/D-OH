@@ -22,8 +22,8 @@ public class ChatPageController {
         this.userSessionService = userSessionService;
     }
 
+    //채팅방 입장
     @GetMapping("/chat")
-    //그냥 채팅 방 자체가 열려야 할 듯
     public String enterRoom(Model model, @RequestParam String receiver){
         String userId = userSessionService.userEmail();
 
