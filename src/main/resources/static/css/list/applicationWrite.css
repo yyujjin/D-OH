@@ -86,7 +86,8 @@ a
 /* 지원 입력 내용 부분 */
 
 /* .applyWarap */
-section
+/* section */
+form
 {
  display: flex;
  width: 100%;
@@ -94,6 +95,7 @@ section
  /* margin-bottom: 90px; */
  margin: 60px 0 90px 0;
 }
+
 
 .applyContent
 {
