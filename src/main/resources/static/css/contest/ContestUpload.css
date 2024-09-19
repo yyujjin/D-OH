@@ -1,6 +1,6 @@
 
         .Contestupload {
-            max-width: 600px;
+            width: 1000px;
             margin: auto;
             background: white;
             padding: 20px;
@@ -25,8 +25,7 @@
             margin: 15px 0 5px;
             font-weight: bold;
         }
-        input[type="text"],
-        input[type="file"],
+        .companytype,
         textarea,
         select {
             width: 100%;
@@ -40,12 +39,12 @@
             display: block;
             width: 100%;
             padding: 10px;
-            background-color: #007bff;
+            background-color: black;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
         .btn:hover {
-            background-color: #0056b3;
+            background-color: rgb(193, 192, 255);
         }
