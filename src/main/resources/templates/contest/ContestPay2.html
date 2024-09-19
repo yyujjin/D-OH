@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head xmlns:th="http://www.w3.org/1999/xhtml">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/contest/ContestPay2.css">
-    <script src="/js/contest/ContestPay2.js"></script>
-    <title>Document</title>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/fragments/layout}">
+<head>
+    <link rel="stylesheet" th:href="@{/css/contest/ContestPay2.css}">
+    <script th:src="@{/js/contest/ContestPay2.js}"></script>
 </head>
-<body>
 
+<th:block layout:fragment="content">
 <div class="Contestpayment">
     <form action="/contest/payment/submit" method="post" enctype="multipart/form-data">
         <h1>결제 정보를 확인해주세요.</h1>
@@ -45,5 +43,6 @@
     </form>
 </div>
 
-</body>
+</th:block>
+
 </html>

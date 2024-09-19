@@ -14,7 +14,6 @@
 }
 
 main {
-    /*margin-top: 90px;*/
     display: flex;
     justify-content: center;
 }
@@ -35,7 +34,6 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    /*border: solid 1px black;*/
 }
 
 .swiper-slide img {
@@ -43,30 +41,29 @@ main {
     width: 1200px;
     height: 464px;
     object-fit: cover;
-    margin: auto; /* 추가: 이미지를 가운데 정렬 */
+    margin: auto;
 }
 
-/* 네비게이션 버튼 커스터마이징 */
-
-.swiper-button-next::after, .swiper-button-prev::after {
-    color: black; /* 화살표 색상 */
-    font-size: 20px; /* 화살표 크기 조정 (필요 시) */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    color: black;
+    font-size: 20px;
 }
 
-.swiper-button-next, .swiper-button-prev {
-    /*color: #757575;  화살표 색상 */
-    width: 50px; /* 버튼 너비 */
-    height: 50px; /* 버튼 높이 */
+.swiper-button-next,
+.swiper-button-prev {
+    width: 50px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.swiper-button-next:hover, .swiper-button-prev:hover {
- color: #757575; /* 화살표 색상 */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    color: #757575;
 }
 
-/* 페이지네이션 기본 스타일 (비활성화된 상태) */
 .swiper-pagination-bullet {
     background-color: #757575 !important; /* 기본 회색 */
     opacity: 1 !important; /* 불릿의 불투명도 */
@@ -76,15 +73,13 @@ main {
     border-radius: 50% !important; /* 불릿을 원형으로 */
 }
 
-/* 활성화된 불릿 스타일 */
 .swiper-pagination-bullet-active {
-    background-color: #000000 !important; /* 검정색 */
-    width: 12px !important; /* 크기를 조금 더 크게 */
+    background-color: #000 !important;
+    width: 12px !important;
     height: 12px !important;
 }
 
 .section {
-    /*margin: 60px 0 90px 0;*/
     margin: 60px 0 0;
 }
 
@@ -128,6 +123,9 @@ main {
     border-radius: 6px;
     margin-bottom: 10px;
 }
+.conIcon {
+    gap: 5px;
+}
 
 a {
     color: var(--color-black);
@@ -162,10 +160,6 @@ a {
 
 .context.gray {
     color: var(--dark-gray);
-}
-
-.conIcon {
-    gap: 5px;
 }
 
 .section.B {
@@ -227,7 +221,6 @@ a {
 }
 
 .listContent .listValue > *,
-.importData .price {
     font-size: var(--font-size-14);
 }
 
