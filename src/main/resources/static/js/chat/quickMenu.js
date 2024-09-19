@@ -12,8 +12,8 @@ function chatting() {
     }
 }
 
-function scrollTop() {
+function scroll() {
 //    $(window).animate({ scrollTop: 0 }, 'slow');
-    $(window).scroll(0);
+    $(window).scrollTop(0);
 }
 
