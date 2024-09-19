@@ -65,11 +65,12 @@ main {
 }
 
 .swiper-pagination-bullet {
-    background-color: #757575 !important;
-    width: 10px !important;
-    height: 10px !important;
-    margin: 0 4px !important;
-    border-radius: 50% !important;
+    background-color: #757575 !important; /* 기본 회색 */
+    opacity: 1 !important; /* 불릿의 불투명도 */
+    width: 10px !important; /* 불릿 너비 */
+    height: 10px !important; /* 불릿 높이 */
+    margin: 0 4px !important; /* 불릿 사이의 간격 */
+    border-radius: 50% !important; /* 불릿을 원형으로 */
 }
 
 .swiper-pagination-bullet-active {
@@ -115,12 +116,15 @@ main {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
 }
 
-.cardImage {
+.cardConWarap .cardImage {
     width: 260px;
     height: 300px;
     border: 1px solid var(--line-gray);
     border-radius: 6px;
     margin-bottom: 10px;
+}
+.conIcon {
+    gap: 5px;
 }
 
 a {
@@ -216,7 +220,7 @@ a {
     line-height: 10px;
 }
 
-.importData .price {
+.listContent .listValue > *,
     font-size: var(--font-size-14);
 }
 

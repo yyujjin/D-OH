@@ -13,6 +13,7 @@ function chatting() {
 }
 
 function scrollTop() {
-    $(window).animate({ scrollTop: 0 }, 'slow');
+//    $(window).animate({ scrollTop: 0 }, 'slow');
+    $(window).scroll(0);
 }
 
