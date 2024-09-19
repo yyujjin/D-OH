@@ -1,9 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <!-- Font Awesome CDN 추가 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-</head>
 <th:block th:fragment="headerFragment">
     <header class="header">
         <nav class="navbar">
@@ -53,11 +49,16 @@
                                 <span class="notification-badge">N</span>
                             </div>
                         </div>
-                        <!-- 이메일 표시 -->
-                        <div class="link-item">
-                            <a class="nav-link" th:text="${userEmail}"></a>
+
+                        <!-- 관리자가 아닌 경우에만 이메일을 마이페이지 링크로 감싸기 -->
+                        <div th:if="${userRole != 'ROLE_ADMIN'}" class="link-item">
+                            <a class="nav-link" th:href="@{/mypage}" th:text="${userEmail}"></a>
                         </div>
 
+                        <!-- 관리자인 경우 이메일만 표시 -->
+                        <div th:if="${userRole == 'ROLE_ADMIN'}" class="link-item">
+                            <span class="nav-link" th:text="${userEmail}"></span>
+                        </div>
 
                         <!-- 로그아웃 버튼 -->
                         <div class="link-item">

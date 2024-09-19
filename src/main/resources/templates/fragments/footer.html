@@ -2,12 +2,57 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:fragment="footerFragment">
+    <div class="quickMenu">
+        <ul>
+            <li class="list chat" onclick="chatting()">
+                <span class="icon">
+                    <i class="fa-regular fa-comment-dots"></i>
+                </span>
+                <input type="hidden" id="cnt" value="0">
+                <div class="text" id="txtNone">
+                    <div class="wrap">
+                        진행중인 채팅이 없습니다.
+                    </div>
+                </div>
+                <div class="text" id="txtOn">
+                    <div class="wrap">
+                        <div class="chatImg"></div>
+                        <div class="infoWrap">
+                            <div class="content">
+                                <div class="name">새침한 차혜영</div>
+                                <div class="day"><span>1</span>일 전</div>
+                            </div>
+                            <div class="info">
+                                <div class="introduce">밥을 먹으면 행복카다. 밥을...</div>
+                                <div class="num">
+                                    <span>1</span>
+                                </div>
+                            </div>
+                        </div><!--infoWrap-->
+                    </div><!--wrap-->
+                </div>
+            </li>
+            <li class="list">
+                <a th:href="@{/mypage}">
+                    <span class="icon">
+                        <i class="fa-solid fa-user-pen"></i>
+                    </span>
+                </a>
+            </li>
+            <li class="list scrollTop" onclick="scrollToTop()">
+                <span class="icon">
+                    <i class="fa-solid fa-arrow-up"></i>
+                </span>
+            </li>
+        </ul>
+    </div>
+
     <footer class="footer">
         <div class="contact-info">
-            주소: 부산 부산진구 중앙대로 749<br>
-            대표전화: 051-295-4863 (평일 09시-18시)<br>
-            대표: 임하진<br>
-            임원: 문균호, 한도훈, 조해욱, 차혜영, 박유진
+            주소 : 부산 부산진구 중앙대로 749<br>
+            대표전화 : 051-295-4863 (평일 09시-18시)<br>
+            대표 : 임하진<br>
+            임원 : 문균호, 한도훈, 조해욱, 차혜영, 박유진
         </div>
         <div class="links">
             <a href="#">이용안내</a>
@@ -18,6 +63,7 @@
             &copy; The Government of the Republic of Korea. All rights reserved.
         </div>
     </footer>
+
 </th:block>
 
 </html>
