@@ -6,12 +6,12 @@ function chatting() {
   var cnt = $("#cnt").val(); //id가 cnt인 value를 가지고 온다.
 
   // data가 빈 배열이면 cnt 값을 0으로 설정, 그렇지 않으면 1로 설정
-  var cnt = data.length === 0 ? 0 : 1;
+  var cnt = Object.keys(data).length === 0 ? 0 : 1;
 
-  var ids = cnt == 0 ? "None" : "On";
+  var ids = cnt === 0 ? "None" : "On";
 
 
-if (cnt === 1) {
+if (ids === "On") {
   $(".notification-badge").show(); // 알림 배지를 보이기
 } else {
   $(".notification-badge").hide(); // 알림 배지를 숨기기
@@ -47,8 +47,8 @@ window.onload = function () {
           method: "GET",
           success: function (messages) {
             console.log(messages);
-            data = messages;
-            //값을 전역변수 data에 저장함
+            data = messages;//값을 전역변수 data에 저장함
+            chatting();
           },
         });
       }, 5000); // 5초마다 새로운 메시지 확인
