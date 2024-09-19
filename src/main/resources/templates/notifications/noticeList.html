@@ -37,10 +37,11 @@
             <tr th:each="notice : ${noticeList}" th:id="'content-row-' + ${notice.noticeNum}" class="content-row"
                 style="display: none;">
                 <td colspan="2">
+                    <!-- 공지사항 내용 (모든 사용자에게 보임) -->
                     <div th:text="${notice.noticeContent}"></div> <!-- 공지사항 내용 -->
-                    <div class="buttons">
-                        <a th:href="@{/notice/edit(noticeNum=${notice.noticeNum})}"
-                           class="btn btn-primary btn-sm">수정</a>
+                    <!-- 수정 및 삭제 버튼 (userEmail이 'admin'일 때만 보임) -->
+                    <div class="buttons" th:if="${userEmail == 'admin'}">
+                        <a th:href="@{/notice/edit(noticeNum=${notice.noticeNum})}" class="btn btn-primary btn-sm">수정</a>
                         <form th:action="@{/notice/delete(noticeNum=${notice.noticeNum})}" method="post" style="display: inline;">
                             <button type="submit" class="btn btn-danger btn-sm">삭제</button>
                         </form>
@@ -71,8 +72,8 @@
             </ul>
         </nav>
 
-        <!-- 등록 버튼 -->
-        <div class="buttons">
+        <!-- 등록 버튼 (userEmail이 admin일 때만 보임) -->
+        <div class="buttons" th:if="${userEmail == 'admin'}">
             <a th:href="@{/notice/admin/write}" class="btn">등록</a>
         </div>
     </div>
