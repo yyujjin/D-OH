@@ -5,14 +5,14 @@
 <mapper namespace="com.DOH.DOH.mapper.user.RegisterMapper">
     <insert id="userRegister" parameterType="com.DOH.DOH.dto.user.RegisterDTO">
         INSERT INTO user_info (
-        userEmail, userPassword, role
+        userEmail, userPassword, nickName, role
         ) VALUES (
-        #{userEmail}, #{userPassword}, #{role}
+        #{userEmail}, #{userPassword}, #{nickName}, #{role}
         );
     </insert>
 
     <select id="getUserByUserEmail" resultType="com.DOH.DOH.dto.user.RegisterDTO">
-        SELECT userNum, userEmail, userPassword, role
+        SELECT userNum, userEmail, userPassword, nickName, role
         FROM user_info
         WHERE userEmail = #{userEmail};
     </select>
