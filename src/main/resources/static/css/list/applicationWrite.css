@@ -98,13 +98,11 @@ section
 .applyContent
 {
     width: calc(80% - 15px);
-    /* border: 1px solid var(--line-gray); */
 }
 
 .applyWarap
 {
     width: calc(20% - 15px);
-    /* border: 1px solid var(--line-gray); */
 }
 
 input[type="text"]
@@ -192,7 +190,9 @@ textarea
     padding: 10px 20px;
     box-sizing: border-box;
     font-size: var(--font-size-14);
+    height: auto;
     resize: none;
+    overflow-y: hidden;
 }
 
 button
