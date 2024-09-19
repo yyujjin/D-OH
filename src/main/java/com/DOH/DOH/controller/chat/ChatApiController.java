@@ -16,7 +16,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/chat")
+@RequestMapping("/api/users/chat")
 public class ChatApiController {
 
     private final SimpMessagingTemplate messagingTemplate;
@@ -32,7 +32,7 @@ public class ChatApiController {
     }
 
     //채팅 메시지 전송
-    @MessageMapping("/message")
+    @MessageMapping("/messages")
     // WebSocket을 통해 /app/message 경로로 메시지를 받음
     public MessageDTO sendMessage(MessageDTO messageDTO) throws JsonProcessingException {
 
@@ -51,7 +51,8 @@ public class ChatApiController {
 
     }
 
-    @GetMapping("/messages/check")
+    //읽지 않은 메시지 조회
+    @GetMapping("/messages/unread")
     public Map<String,List<MessageDTO>> getMessages() {
         String userId = userSessionService.userEmail();
         log.info("가져와진 메시지"+messageService.getUnreadMessages(userId));
@@ -66,6 +67,7 @@ public class ChatApiController {
         return  messageService.groupMessagesBySender(getUnreadMessages);
     }
 
+    // 로그인 상태 확인
     @GetMapping("/isLoggedIn")
     public boolean isLoggedIn() {
         if ("anonymousUser".equals(userSessionService.userEmail())) {
@@ -74,6 +76,7 @@ public class ChatApiController {
         return true;
     }
 
+    // 특정 사용자와의 메시지 조회
     @PostMapping("/messages/{userId}")
     public ResponseEntity<Map<String, List<MessageDTO>>> getAllMessages(
             @PathVariable String userId,

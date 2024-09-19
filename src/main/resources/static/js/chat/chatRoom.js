@@ -38,7 +38,7 @@ function sendMesssage() {
   const chatInput = document.getElementById("chatInput");
   MessageDTO.content = chatInput.value;
   stompClient.publish({
-    destination: "/app/message",
+    destination: "/app/messages",
     body: JSON.stringify(MessageDTO),
   });
   addMessageToChat(MessageDTO.content, "sent");
@@ -101,10 +101,10 @@ function addMessageToChat(content, messageType) {
   chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-//전체 메시지 가져오기
+// 특정 사용자와의 메시지 조회
 function getAllMessages() {
   $.ajax({
-    url: `/chat/messages/${sender}`,
+    url: `/api/users/chat/messages/${sender}`,
     type: "POST",
     contentType: "application/json",
     data: JSON.stringify(MessageDTO),

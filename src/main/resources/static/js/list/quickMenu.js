@@ -36,7 +36,7 @@ window.onload = function () {
       // 로그인이 되어 있을 때만 메시지 확인 로직을 실행
       setInterval(function () {
         $.ajax({
-          url: "/chat/messages/check",
+          url: "/api/users/chat/messages/unread",
           method: "GET",
           success: function (messages) {
             console.log(messages);
@@ -52,7 +52,7 @@ window.onload = function () {
 // 로그인 여부를 확인하는 함수 (AJAX로 서버에 요청)
 function checkLoginStatus() {
   return $.ajax({
-    url: "/chat/isLoggedIn",
+    url: "/api/users/chat/isLoggedIn",
     method: "GET",
   });
 }
