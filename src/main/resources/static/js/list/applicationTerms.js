@@ -1,4 +1,4 @@
-$(document).ready(function() {
+//$(document).ready(function() {
     // 아이디어 업로드 체크리스트
     $('#check\\ A').change(function() {
         if($(this).is(':checked')) {
@@ -50,7 +50,7 @@ $(document).ready(function() {
             $('.popUP.C').slideUp();
         }
     });
-});//end of document ready
+//});//end of document ready
 
 //유효성 검사
 function check() {

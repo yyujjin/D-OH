@@ -30,7 +30,7 @@ $(document).ready(function () {
 
         // AJAX를 이용한 서버로 파일 전송
         $.ajax({
-            url: "/upload", // 업로드할 엔드포인트
+            url: "/contest/application/upload", // 업로드할 엔드포인트
             type: "POST",
             data: formData,
             processData: false,

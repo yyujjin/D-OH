@@ -18,9 +18,12 @@ public class ContestListServiceImpl implements ContestListService {
     @Autowired
     private SqlSession sqlSession;
 
+    @Autowired
+    ContestListMapper contestListMapper;
+
     @Override
     public ArrayList<ContestListDTO> getContestList(PagingDTO dto) {
-        ContestListMapper contestListMapper = sqlSession.getMapper(ContestListMapper.class);
+//        ContestListMapper contestListMapper = sqlSession.getMapper(ContestListMapper.class);
         int offset = (dto.getCurrentPage() - 1) * dto.getPageSize();  // 페이징 offset 계산
         int pageSize = dto.getPageSize();
 
@@ -28,13 +31,13 @@ public class ContestListServiceImpl implements ContestListService {
     }
 
     public int getTotalCount(){
-        ContestListMapper contestListMapper = sqlSession.getMapper(ContestListMapper.class);
+//        ContestListMapper contestListMapper = sqlSession.getMapper(ContestListMapper.class);
 
         return contestListMapper.getTotalCount();
     } // 전체 게시물 수를 조회하는 메서드
 
     public void saveContestApply(ApplyDTO dto){
-        ContestListMapper contestListMapper = sqlSession.getMapper(ContestListMapper.class);
+      // ContestListMapper contestListMapper = sqlSession.getMapper(ContestListMapper.class);
         contestListMapper.saveContestApply(dto);
     }
 }

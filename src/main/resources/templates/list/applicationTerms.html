@@ -57,7 +57,7 @@
                                     <input type="checkbox" name="" id="checkAll">
                                     <label for="checkAll">약관에 전부 동의합니다.</label>
                                 </div>
-                                <div class="check">2024년 8월 15일 기준</div>
+                                <div class="check date">2024년 8월 15일 기준</div>
                             </div><!--약관 전체 동의-->
                             
                             
@@ -414,7 +414,7 @@
                         <div class="agreeButton">
                             <h5 class="agree">콘테스트 참여 약관을 모두 확인하였으며, 해당 내용에 모두 동의합니다.</h5>
                             <div class="buttonWrap">
-                                <button type="submit" onclick="check()">
+                                <button type="submit" th:onclick="check()">
                                     <i class="fa-solid fa-check"></i> 동의함
                                 </button>
                             </div>
