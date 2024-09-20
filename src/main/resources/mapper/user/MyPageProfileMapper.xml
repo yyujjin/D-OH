@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0.3//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.DOH.DOH.mapper.user.MyPageProfileMapper">
+    <select id="findByUserEmail" resultType="com.DOH.DOH.dto.user.MyPageProfileDTO">
+        SELECT userEmail, userNickName, profileOneLiner, profileIntroduce, myPageUrl,
+               commissionStatus, mittingLocation, messageStart, messageEnd FROM profile_user_info WHERE userEmail=#{userEmail}
+    </select>
+    <insert id="insert" parameterType="com.DOH.DOH.dto.user.MyPageProfileDTO">
+        INSERT INTO profile_user_info(userNickName, profileOneLiner, profileIntroduce, myPageUrl,
+            commissionStatus, mittingLocation, messageStart, messageEnd)
+        VALUES
+            (#{userNickName}, #{profileOneLiner}, #{profileIntroduce}, #{myPageUrl},
+             #{commissionStatus}, #{mittingLocation}, #{messageStart}, #{messageEnd})
+    </insert>
+</mapper>
