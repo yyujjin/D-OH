@@ -18,8 +18,9 @@ public class NoticeServiceImpl implements NoticeService {
     private NoticeMapper noticeMapper;
 
     /**
-     * 공지사항 목록을 가져와서 모델에 추가하는 메서드
+     * 공지사항 목록을 가져오는 메서드
      * @param page 현재 페이지 번호 (페이징 처리용)
+     * @return 공지사항 목록
      */
     @Override
     public List<NoticeDTO> getNoticeList(int page) {
@@ -37,10 +38,8 @@ public class NoticeServiceImpl implements NoticeService {
             noticeList = new ArrayList<>();
         }
 
-        // 공지사항 목록 반환
         return noticeList;
     }
-
 
     /**
      * 전체 공지사항 수를 기반으로 총 페이지 수를 계산하는 메서드
@@ -53,26 +52,27 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     /**
-     * 새로운 공지사항을 작성하는 메서드 (임시 저장 여부에 따라 저장 방식이 달라짐)
+     * 공지사항 번호로 공지사항을 조회하는 메서드
+     * @param noticeNum 공지사항 번호
+     * @return 공지사항 DTO 객체
+     */
+    @Override
+    public NoticeDTO getNoticeById(Long noticeNum) {
+        return noticeMapper.selectNoticeById(noticeNum);
+    }
+
+    /**
+     * 새로운 공지사항을 작성하는 메서드
      * @param noticeDTO 공지사항 DTO 객체 (제목, 내용, 작성자 등)
      */
     @Override
-    public void noticeRegister(NoticeDTO noticeDTO, Model model) {
+    public void noticeRegister(NoticeDTO noticeDTO, Model model){
         // 공지사항 제목이 빈 값이 아닐 경우 설정 (필요 시에만)
         if (noticeDTO.getNoticeTitle() == null || noticeDTO.getNoticeTitle().isEmpty()) {
-            noticeDTO.setNoticeTitle("제목 없음"); // 기본 제목 설정 예시
+            noticeDTO.setNoticeTitle("제목 없음"); // 기본 제목 설정
         }
 
-        // 공지사항이 임시 저장인지 확인
-        if (noticeDTO.isNoticeTempSave()) {
-            // 임시 저장 로직
-            noticeMapper.insertNotice(noticeDTO);
-            model.addAttribute("message", "공지사항이 임시 저장되었습니다.");
-        } else {
-            // 일반 저장 로직
-            noticeMapper.insertNotice(noticeDTO);
-            model.addAttribute("message", "공지사항이 등록되었습니다.");
-        }
+        noticeMapper.insertNotice(noticeDTO); // 공지사항 저장
     }
 
     /**
@@ -87,10 +87,10 @@ public class NoticeServiceImpl implements NoticeService {
 
     /**
      * 기존 공지사항을 수정하는 메서드
-     * @param notice 수정된 공지사항 DTO 객체
+     * @param noticeDTO 수정된 공지사항 DTO 객체
      */
     @Override
-    public void updateNotice(NoticeDTO noticeDTO) {
+    public void noticeUpdate(NoticeDTO noticeDTO, Model model){
         noticeMapper.updateNotice(noticeDTO);
     }
 
@@ -99,7 +99,7 @@ public class NoticeServiceImpl implements NoticeService {
      * @param noticeNum 삭제할 공지사항 번호
      */
     @Override
-    public void deleteNotice(int noticeNum) {
+    public void deleteNotice(Long noticeNum) {
         noticeMapper.deleteNotice(noticeNum);
     }
 }

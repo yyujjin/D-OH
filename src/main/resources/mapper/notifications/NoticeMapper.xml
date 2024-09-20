@@ -6,7 +6,7 @@
 
     <!-- 공지사항 작성 (insert) -->
     <insert id="insertNotice">
-        <selectKey keyProperty="noticeNum" resultType="int" order="BEFORE">
+        <selectKey keyProperty="noticeNum" resultType="long" order="BEFORE">
             SELECT IFNULL(MAX(noticeNum), 0) + 1 FROM notice
         </selectKey>
         INSERT INTO notice (
@@ -15,6 +15,15 @@
         #{noticeNum}, #{noticeTitle}, #{noticeContent}, NOW(), #{userNum}, #{noticeTempSave}
         )
     </insert>
+
+    <select id="selectNoticeById" resultType="com.DOH.DOH.dto.notifications.NoticeDTO">
+        SELECT
+        noticeNum, noticeTitle, noticeContent, noticeCreateTime, userNum, noticeTempSave
+        FROM
+        notice
+        WHERE
+        noticeNum = #{noticeNum}
+    </select>
 
     <!-- 공지사항 수정 -->
     <update id="updateNotice">

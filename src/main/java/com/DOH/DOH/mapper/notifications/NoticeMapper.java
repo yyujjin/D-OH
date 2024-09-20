@@ -26,10 +26,17 @@ public interface NoticeMapper {
     List<NoticeDTO> getTempNoticeList(@Param("offset") int offset, @Param("limit") int limit);
 
     /**
-     * 새로운 공지사항을 작성하는 메서드 (임시 저장 포함)
+     * 새로운 공지사항을 작성하는 메서드
      * @param notice 공지사항 DTO 객체
      */
     void insertNotice(NoticeDTO notice);
+
+    /**
+     * 공지사항 번호로 공지사항을 조회하는 메서드
+     * @param noticeNum 조회할 공지사항 번호
+     * @return 조회된 공지사항 DTO
+     */
+    NoticeDTO selectNoticeById(@Param("noticeNum") Long noticeNum);
 
     /**
      * 공지사항 수정 메서드
@@ -41,17 +48,17 @@ public interface NoticeMapper {
      * 공지사항 삭제 메서드
      * @param noticeNum 삭제할 공지사항 번호
      */
-    void deleteNotice(@Param("noticeNum") int noticeNum);
+    void deleteNotice(@Param("noticeNum") Long noticeNum);
 
     /**
-     * 전체 공지사항 수를 가져오는 메서드 (페이지 계산을 위해 사용)
-     * @return 전체 공지사항 수
+     * 정식 저장된 공지사항의 총 개수를 가져오는 메서드
+     * @return 정식 저장된 공지사항 총 개수
      */
     int getTotalNotices();
 
     /**
-     * 전체 임시 저장된 공지사항 수를 가져오는 메서드 (페이지 계산을 위해 사용)
-     * @return 전체 임시 저장된 공지사항 수
+     * 임시 저장된 공지사항의 총 개수를 가져오는 메서드
+     * @return 임시 저장된 공지사항 총 개수
      */
     int getTotalTempNotices();
 }

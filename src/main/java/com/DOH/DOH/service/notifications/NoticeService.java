@@ -13,6 +13,8 @@ public interface NoticeService {
     // 전체 페이지 수 계산 메서드 (페이지네이션)
     int getTotalPages();
 
+    NoticeDTO getNoticeById(Long noticeNum);  // 공지사항 번호로 공지사항을 조회하는 메서드
+
     // 공지사항 정식 저장
     void noticeRegister(NoticeDTO noticeDTO, Model model);
 
@@ -20,8 +22,8 @@ public interface NoticeService {
     void saveTempNotice(NoticeDTO noticeDTO);
 
     // 공지사항 수정
-    void updateNotice(NoticeDTO noticeDTO);
+    void noticeUpdate(NoticeDTO noticeDTO, Model model);
 
     // 공지사항 삭제
-    void deleteNotice(int noticeNum);
+    void deleteNotice(Long noticeNum);
 }
