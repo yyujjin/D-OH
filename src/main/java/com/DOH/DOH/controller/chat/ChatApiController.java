@@ -36,16 +36,11 @@ public class ChatApiController {
     // WebSocket을 통해 /app/message 경로로 메시지를 받음
     public MessageDTO sendMessage(MessageDTO messageDTO) throws JsonProcessingException {
 
-        log.info("수신자 : {}", messageDTO.getReceiver());
-        log.info("보낸 메시지 : {}", messageDTO.getContent());
-
         chatService.saveMessage(messageDTO);
         //세션이 있다면 바로 구독 경로로 보내고 없다면 디비에 저장하는 로직 추가
 
         String messageAsJson = new ObjectMapper().writeValueAsString(messageDTO.getContent());
         messagingTemplate.convertAndSend("/queue/messages/"+ messageDTO.getReceiver(), messageAsJson);
-
-        log.info("수신자 경로 : /queue/messages/" + messageDTO.getReceiver());
 
         return messageDTO;
 
@@ -55,7 +50,6 @@ public class ChatApiController {
     @GetMapping("/messages/unread")
     public Map<String,List<MessageDTO>> getUnreadMessages() {
         String userId = userSessionService.userEmail();
-        log.info("가져와진 메시지"+ chatService.getUnreadMessages(userId));
 
         if ("anonymousUser".equals(userId)) {
             // 빈 리스트 반환 또는 상태 코드를 명확하게 설정하는 것이 좋음
