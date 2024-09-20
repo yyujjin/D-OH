@@ -49,14 +49,29 @@ public class ChatApiController {
     //읽지 않은 메시지 조회
     @GetMapping("/messages/unread")
     public Map<String,List<MessageDTO>> getUnreadMessages() {
-        String userId = userSessionService.userEmail();
+        String  userNickName = userSessionService.nickName();
 
-        if ("anonymousUser".equals(userId)) {
+        if ("anonymousUser".equals( userNickName)) {
             // 빈 리스트 반환 또는 상태 코드를 명확하게 설정하는 것이 좋음
             return Collections.emptyMap(); // 빈 리스트 반환
         }
 
-        List<MessageDTO>getUnreadMessages = chatService.getUnreadMessages(userId);
+        List<MessageDTO>getUnreadMessages = chatService.getUnreadMessages(userNickName);
+
+        return  chatService.groupMessagesBySender(getUnreadMessages);
+    }
+
+    //전체 메시지 가져오기
+    @GetMapping("/messages")
+    public Map<String,List<MessageDTO>> getAllMessages() {
+        String  userNickName = userSessionService.nickName();
+
+        if ("anonymousUser".equals( userNickName)) {
+            // 빈 리스트 반환 또는 상태 코드를 명확하게 설정하는 것이 좋음
+            return Collections.emptyMap(); // 빈 리스트 반환
+        }
+
+        List<MessageDTO>getUnreadMessages = chatService.getUnreadMessages(userNickName);
 
         return  chatService.groupMessagesBySender(getUnreadMessages);
     }
@@ -71,12 +86,12 @@ public class ChatApiController {
     }
 
     // 특정 사용자와의 메시지 조회
-    @PostMapping("/messages/{userId}")
+    @PostMapping("/messages/{userNickName}")
     public ResponseEntity<Map<String, List<MessageDTO>>> getMessagesByUserId(
-            @PathVariable String userId,
+            @PathVariable String userNickName,
             @RequestBody MessageDTO messageDTO) {
 
-        Map<String, List<MessageDTO>> messages = chatService.filterMessagesBySenderAndReceiver(userId, messageDTO);
+        Map<String, List<MessageDTO>> messages = chatService.filterMessagesBySenderAndReceiver( userNickName, messageDTO);
         //메시지 읽음 처리
         chatService.setMessageAsRead(messageDTO);
 
