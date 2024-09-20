@@ -30,7 +30,8 @@
                     <div class="contestWrap">
 
                         <div class="listValue" th:each="list : ${contestList}">
-                            <a href="#" th:href="@{/contest/view(contestId=${list.id})}">
+                            <input type="hidden" id="contestId" th:value="${list.id}">
+                            <a href="#" th:onclick="hitUp(this)">
                             <div class="listArea">
                                 <div class="content A">
                                     <div class="endDate"><span th:text="${list.endDate}">8</span>일 남음</div>

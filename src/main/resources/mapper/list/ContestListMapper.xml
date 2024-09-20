@@ -37,4 +37,8 @@
         insert into apply_contest(conNum, userNum, applyTitle, applyContent, applyDate)
         values(#{conNum}, #{userNum}, #{applyTitle}, #{applyContent}, curdate())
     </insert>
+
+    <update id="hitUp">
+        update contest_Upload set conHit = ifnull(conHit, 0) +1 where id = #{contestId}
+    </update>
 </mapper>
