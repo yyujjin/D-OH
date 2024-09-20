@@ -3,13 +3,13 @@ package com.DOH.DOH.controller.notifications;
 import com.DOH.DOH.dto.notifications.NoticeDTO;
 import com.DOH.DOH.service.notifications.NoticeService;
 import com.DOH.DOH.service.user.UserSessionService;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -22,22 +22,6 @@ public class NoticeController {
     public NoticeController(NoticeService noticeService, UserSessionService userSessionService) {
         this.noticeService = noticeService;
         this.userSessionService = userSessionService;
-    }
-
-    // 공통적으로 userEmail과 userRole을 Model에 추가하는 메서드
-    @ModelAttribute
-    public void addUserDetails(Model model, Principal principal) {
-        String userEmail = principal != null ? principal.getName() : "anonymousUser";
-        String userRole = "ROLE_ANONYMOUS";
-
-        // Spring Security에서 현재 사용자 역할 가져오기
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            userRole = authentication.getAuthorities().iterator().next().getAuthority();
-        }
-
-        model.addAttribute("userEmail", userEmail);
-        model.addAttribute("userRole", userRole);
     }
 
     // 공지사항 목록 페이지
@@ -62,22 +46,6 @@ public class NoticeController {
         return "notifications/noticeList";  // templates/notifications/list.html 템플릿을 사용
     }
 
-    // 공지사항 상세 조회
-    @GetMapping("/detail")
-    public String noticeDetail(@RequestParam(name = "noticeNum", defaultValue = "0") int noticeNum, Model model) {
-        // 현재 로그인한 사용자의 이메일 가져오기
-        String userEmail = userSessionService.userEmail();
-        model.addAttribute("userEmail", userEmail);
-
-        if (noticeNum <= 0) {
-            return "redirect:/notice/list";  // 목록 페이지로 리다이렉트
-        }
-        NoticeDTO notice = noticeService.getNoticeDetail(noticeNum);
-        model.addAttribute("notice", notice);
-
-        return "notifications/noticeDetail";
-    }
-
     // 공지사항 등록
     @PostMapping("/admin/register")
     public String noticeRegister(NoticeDTO noticeDTO, Model model) {
@@ -92,8 +60,7 @@ public class NoticeController {
         return "notifications/noticeList";
     }
 
-
-    //공지사항 작성
+    //공지사항 작성 & 수정
     @GetMapping("/admin/write")
     public String noticeWrite(Model model) {
         String userEmail = userSessionService.userEmail();
@@ -101,4 +68,6 @@ public class NoticeController {
 
         return "notifications/noticeWrite";
     }
+
+
 }
