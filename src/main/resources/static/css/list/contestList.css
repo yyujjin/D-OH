@@ -94,7 +94,7 @@ section
 }
 
 /* 공모전 리스트 영역 */
-.listValue
+.listValue a
 {
     width: 100%;
     height: 115px;

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+//$(document).ready(function() {
     // 아이디어 업로드 체크리스트
     $('#check\\ A').change(function() {
         if($(this).is(':checked')) {
@@ -50,7 +50,7 @@ $(document).ready(function() {
             $('.popUP.C').slideUp();
         }
     });
-});//end of document ready
+//});//end of document ready
 
 //유효성 검사
 function check() {
@@ -59,7 +59,7 @@ function check() {
     var checkAll = document.querySelector("#checkAll");
     if(!checkAll.checked)
     {
-        alert("약관에 동의해야 지원이 가능합니다.");
+        alert("약관에 모두 동의해야 콘테스트 참여가 가능합니다.");
 
         return false;
      }
