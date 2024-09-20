@@ -40,4 +40,8 @@ public class ContestListServiceImpl implements ContestListService {
       // ContestListMapper contestListMapper = sqlSession.getMapper(ContestListMapper.class);
         contestListMapper.saveContestApply(dto);
     }
+
+    public void hitUp(int contestId) {//조회수 증가 메서드
+        contestListMapper.hitUp(contestId);
+    }
 }

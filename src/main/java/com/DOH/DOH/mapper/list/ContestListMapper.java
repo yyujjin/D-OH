@@ -15,4 +15,5 @@ public interface ContestListMapper {
 
     public int getTotalCount(); // 전체 게시물 수를 조회하는 메서드
     public void saveContestApply(ApplyDTO dto);
+    void hitUp(int contestId);
 }
