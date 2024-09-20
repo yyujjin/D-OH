@@ -1,24 +1,24 @@
 $(document).ready(function() {
     // 공지사항 등록 폼의 유효성 검사
     $('#noticeForm').on('submit', function(event) {
-        var title = $('#title').val().trim();
+        var title = $('#noticeTitle').val().trim();  // title -> noticeTitle로 수정
         var content = $('#content').val().trim();
-        
+
         // 제목 유효성 검사
         if (title === '') {
             alert('제목을 입력하세요.');
-            $('#title').focus();
+            $('#noticeTitle').focus();  // title -> noticeTitle로 수정
             event.preventDefault();
             return false;
         }
-        
-        // 내용 유효성 검사
-        // if (content === '') {
-        //     alert('내용을 입력하세요.');
-        //     $('#content').focus();
-        //     event.preventDefault();
-        //     return false;
-        // }
+
+        // 내용 유효성 검사 (주석을 해제해도 됨)
+        if (content === '') {
+            alert('내용을 입력하세요.');
+            $('#content').focus();
+            event.preventDefault();
+            return false;
+        }
     });
 
     // 임시 저장 버튼 클릭 시 처리

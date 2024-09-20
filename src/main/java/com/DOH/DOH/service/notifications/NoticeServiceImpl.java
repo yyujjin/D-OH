@@ -53,16 +53,6 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     /**
-     * 공지사항 상세 정보를 가져오는 메서드
-     * @param noticeNum 공지사항 번호
-     * @return 공지사항 DTO 객체
-     */
-    @Override
-    public NoticeDTO getNoticeDetail(int noticeNum) {
-        return noticeMapper.getNoticeDetail(noticeNum);
-    }
-
-    /**
      * 새로운 공지사항을 작성하는 메서드 (임시 저장 여부에 따라 저장 방식이 달라짐)
      * @param noticeDTO 공지사항 DTO 객체 (제목, 내용, 작성자 등)
      */

@@ -13,9 +13,6 @@ public interface NoticeService {
     // 전체 페이지 수 계산 메서드 (페이지네이션)
     int getTotalPages();
 
-    // 공지사항 상세 조회
-    NoticeDTO getNoticeDetail(int noticeNum);
-
     // 공지사항 정식 저장
     void noticeRegister(NoticeDTO noticeDTO, Model model);
 

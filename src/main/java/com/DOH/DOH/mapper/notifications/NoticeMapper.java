@@ -26,13 +26,6 @@ public interface NoticeMapper {
     List<NoticeDTO> getTempNoticeList(@Param("offset") int offset, @Param("limit") int limit);
 
     /**
-     * 공지사항 상세 정보를 가져오는 메서드
-     * @param noticeNum 공지사항 번호
-     * @return 공지사항 DTO 객체
-     */
-    NoticeDTO getNoticeDetail(@Param("noticeNum") int noticeNum);
-
-    /**
      * 새로운 공지사항을 작성하는 메서드 (임시 저장 포함)
      * @param notice 공지사항 DTO 객체
      */

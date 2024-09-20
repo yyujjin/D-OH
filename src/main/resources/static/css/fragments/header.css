@@ -42,7 +42,7 @@ html {
     height: 40px;
 }
 
-.search-bar input {
+.header-search-bar {
     border: none;
     outline: none;
     height: 30px;

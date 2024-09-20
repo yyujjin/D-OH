@@ -60,7 +60,7 @@ public class NoticeController {
         return "notifications/noticeList";
     }
 
-    //공지사항 작성 & 수정
+    //공지사항 작성
     @GetMapping("/admin/write")
     public String noticeWrite(Model model) {
         String userEmail = userSessionService.userEmail();
@@ -68,6 +68,4 @@ public class NoticeController {
 
         return "notifications/noticeWrite";
     }
-
-
 }
