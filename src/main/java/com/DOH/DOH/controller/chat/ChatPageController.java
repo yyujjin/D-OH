@@ -25,10 +25,10 @@ public class ChatPageController {
     //채팅방 입장
     @GetMapping("/chat")
     public String enterRoom(Model model, @RequestParam String receiver){
-        String userId = userSessionService.userEmail();
+        String userNickName = userSessionService.nickName();
 
         //로그인한 본인 
-        model.addAttribute("sender",userId);
+        model.addAttribute("sender",userNickName);
         //메시지를 받는 사람
         model.addAttribute("receiver",receiver);
         return "/chat/chatRoom";
