@@ -19,8 +19,8 @@
     <select id="getAllMessages" parameterType="com.DOH.DOH.dto.chat.MessageDTO" resultType="com.DOH.DOH.dto.chat.MessageDTO">
         SELECT *
         FROM chat
-        WHERE (sender = #{sender} AND receiver = #{receiver})
-        OR (sender = #{receiver} AND receiver = #{sender});
+        WHERE (sender = #{sender} AND receiver = #{receiver} AND isSenderDeleted = FALSE)
+        OR (sender = #{receiver} AND receiver = #{sender}  AND isReceivedDeleted = FALSE);
     </select>
 
     <update id="setMessageAsRead" parameterType="com.DOH.DOH.dto.chat.MessageDTO">
@@ -32,8 +32,17 @@
 
     <update id="deleteMessages" parameterType="com.DOH.DOH.dto.chat.MessageDTO">
         UPDATE chat
-        SET isDeleted = true
-        WHERE (sender = #{sender} AND receiver = #{receiver})
+        SET
+        isSenderDeleted = CASE
+        WHEN sender = #{sender} AND receiver = #{receiver} THEN true
+        ELSE isSenderDeleted
+        END,
+        isReceivedDeleted = CASE
+        WHEN sender = #{receiver} AND receiver = #{sender} THEN true
+        ELSE isReceivedDeleted
+        END
+        WHERE
+        (sender = #{sender} AND receiver = #{receiver})
         OR (sender = #{receiver} AND receiver = #{sender});
     </update>
 </mapper>
