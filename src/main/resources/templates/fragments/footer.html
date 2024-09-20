@@ -9,13 +9,16 @@
                     <i class="fa-regular fa-comment-dots"></i>
                     <span class="notification-badge" style="display: none;">N</span> <!-- 알림 배지 -->
                 </span>
-                </span>
-                <input type="hidden" id="cnt" value="0">
+                <input type="hidden" id="cnt" value="0"> <!-- 진행중인 채팅 여부 값 -->
+
+                <!-- 채팅이 없는 경우 -->
                 <div class="text" id="txtNone">
                     <div class="wrap">
                         진행중인 채팅이 없습니다.
                     </div>
                 </div>
+
+                <!-- 채팅이 있는 경우 -->
                 <div class="text" id="txtOn">
                     <div class="wrap">
                         <div class="chatImg"></div>
@@ -27,20 +30,24 @@
                             <div class="info">
                                 <div class="introduce">밥을 먹으면 행복카다. 밥을...</div>
                                 <div class="num">
-                                    <span>1</span>
+                                    <span>1</span> <!-- 채팅 메시지 수 -->
                                 </div>
                             </div>
-                        </div><!--infoWrap-->
-                    </div><!--wrap-->
+                        </div> <!-- infoWrap -->
+                    </div> <!-- wrap -->
                 </div>
             </li>
+
+            <!-- 마이페이지 이동 버튼 -->
             <li class="list">
-                <a th:href="@{/mypage}">
+                <a th:href="@{/users/mypage}">
                     <span class="icon">
                         <i class="fa-solid fa-user-pen"></i>
                     </span>
                 </a>
             </li>
+
+            <!-- 상단으로 스크롤 버튼 -->
             <li class="list scrollTop" onclick="scrollToTop()">
                 <span class="icon">
                     <i class="fa-solid fa-arrow-up"></i>
@@ -49,6 +56,7 @@
         </ul>
     </div>
 
+    <!-- 푸터 섹션 -->
     <footer class="footer">
         <div class="contact-info">
             주소 : 부산 부산진구 중앙대로 749<br>
@@ -65,7 +73,6 @@
             &copy; The Government of the Republic of Korea. All rights reserved.
         </div>
     </footer>
-
 </th:block>
 
 </html>

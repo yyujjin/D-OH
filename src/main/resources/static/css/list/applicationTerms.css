@@ -86,21 +86,14 @@ a
 /* section */
 section
 {
-    /* display: flex;
-    justify-content: center; */
     margin-bottom: 90px;
 }
 
-/* .sectionWrap
-{
-    display: flex;
-    justify-content: center;
-
-} */
 .titleWrap
 {
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 .sectionBri .title
@@ -119,11 +112,8 @@ section
 
 /* 약관 동의 항목 */
 .contentWrap
-/* .contentWrap */
 {
     width: 100%;
-    /* width: 80%; */
-    /* display: block; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -166,9 +156,13 @@ section
 }
 
 /* 콘테스트 이용약관 동의 버튼 영역 */
+.agreeButton
+{
+    margin-top:40px;
+}
+
 .agree
 {
-    /* font-weight: 500; */
     color: var(--color-black);
     margin-bottom: 15px;
 }
@@ -190,6 +184,12 @@ section
     border-radius: 6px;
     background-color: var(--line-gray);
     cursor: pointer;
+    &:hover
+    {
+        color: var(--color-white);
+        background: var(--main-color);
+        border: 1px solid var(--main-color);
+    }
 }
 
 /* 이용 약관 부분 */
@@ -202,12 +202,7 @@ section
     line-height: 1.6; /* 줄 간격 조정 */
     white-space: pre-line; /* 줄바꿈과 연속 공백을 유지 */
     font-size: var(--font-size-14);
+    overflow: scroll;
+    height: 200px;
 }
 
-
-/* footer 영역 */
-footer
-{
-    height: 322px;
-    border-top: 1px solid var(--line-gray);
-}
