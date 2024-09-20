@@ -36,9 +36,4 @@ public class MainController {
 
         return "list/main"; // 해당 템플릿 파일로 리턴
     }
-
-    @GetMapping("testSidebar")
-    public String testSidebar() {
-        return "/fragments/quickMenu";
-    }
 }
