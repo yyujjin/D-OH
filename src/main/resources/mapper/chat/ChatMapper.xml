@@ -3,4 +3,46 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0.3//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.DOH.DOH.mapper.chat.ChatMapper">
+
+    <insert id="saveMessage" parameterType="com.DOH.DOH.dto.chat.MessageDTO">
+        INSERT INTO DOH.chat (sender, receiver, content, isRead)
+        VALUES (#{sender}, #{receiver}, #{content}, #{isRead});
+    </insert>
+
+    <select id="getUnreadMessages" parameterType="String" resultType="com.DOH.DOH.dto.chat.MessageDTO">
+         SELECT *
+         FROM chat
+         WHERE receiver = #{receiver} AND isRead = 0
+         ORDER BY sender, timestamp DESC;
+     </select>
+
+    <select id="getAllMessages" parameterType="com.DOH.DOH.dto.chat.MessageDTO" resultType="com.DOH.DOH.dto.chat.MessageDTO">
+        SELECT *
+        FROM chat
+        WHERE (sender = #{sender} AND receiver = #{receiver} AND isSenderDeleted = FALSE)
+        OR (sender = #{receiver} AND receiver = #{sender}  AND isReceivedDeleted = FALSE);
+    </select>
+
+    <update id="setMessageAsRead" parameterType="com.DOH.DOH.dto.chat.MessageDTO">
+        UPDATE chat
+        SET isRead = true
+        WHERE (sender = #{sender} AND receiver = #{receiver})
+        OR (sender = #{receiver} AND receiver = #{sender});
+    </update>
+
+    <update id="deleteMessages" parameterType="com.DOH.DOH.dto.chat.MessageDTO">
+        UPDATE chat
+        SET
+        isSenderDeleted = CASE
+        WHEN sender = #{sender} AND receiver = #{receiver} THEN true
+        ELSE isSenderDeleted
+        END,
+        isReceivedDeleted = CASE
+        WHEN sender = #{receiver} AND receiver = #{sender} THEN true
+        ELSE isReceivedDeleted
+        END
+        WHERE
+        (sender = #{sender} AND receiver = #{receiver})
+        OR (sender = #{receiver} AND receiver = #{sender});
+    </update>
 </mapper>
