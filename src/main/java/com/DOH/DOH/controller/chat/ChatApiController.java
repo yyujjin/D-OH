@@ -63,17 +63,9 @@ public class ChatApiController {
 
     //전체 메시지 가져오기
     @GetMapping("/messages")
-    public Map<String,List<MessageDTO>> getAllMessages() {
-        String  userNickName = userSessionService.nickName();
+    public List<MessageDTO> getAllMessages(@RequestBody MessageDTO messageDTO) {
 
-        if ("anonymousUser".equals( userNickName)) {
-            // 빈 리스트 반환 또는 상태 코드를 명확하게 설정하는 것이 좋음
-            return Collections.emptyMap(); // 빈 리스트 반환
-        }
-
-        List<MessageDTO>getUnreadMessages = chatService.getUnreadMessages(userNickName);
-
-        return  chatService.groupMessagesBySender(getUnreadMessages);
+        return  chatService.getAllMessages(messageDTO);
     }
 
     // 로그인 상태 확인

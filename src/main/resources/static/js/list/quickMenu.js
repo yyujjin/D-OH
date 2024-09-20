@@ -4,6 +4,7 @@ var cnt = $("#cnt").val(); //id가 cnt인 value를 가지고 온다.
 
 //처음 실행 시 안읽은 메시지 가져오기
 getUnreadMessages();
+getAllMessages();
 
 //채팅 아이콘 눌렀을 때 실행 됨 
 function clickChatIcon() {
@@ -48,11 +49,26 @@ function getUnreadMessages(){
   });
 }
 
+//메시지 가져오기
+function getAllMessages() {
+  $.ajax({
+    url: "/api/users/chat/messages",
+    method: "GET",
+    success: function (messages) {
+      console.log(messages);
+      data = messages;
+      updateChatList();
+    },
+  });
+}
+
+
 checkLoginStatus().then(function (isLoggedIn) {
   if (isLoggedIn) {
     // 로그인이 되어 있을 때만 메시지 확인 로직을 실행
     setInterval(function () {
       getUnreadMessages(); //메시지 있는지 확인해서 아이콘 띄우기
+      getAllMessages();
     }, 5000); // 5초마다 새로운 메시지 확인
   }
 });
