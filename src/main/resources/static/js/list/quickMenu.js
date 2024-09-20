@@ -27,16 +27,16 @@ function scrollToTop() {
 }
 
 // WebSocket 연결 및 메시지 수신 로직
-//const socket = new SockJS('/your-websocket-endpoint');
-//const stompClient = Stomp.over(socket);
+const socket = new SockJS('/your-websocket-endpoint');
+const stompClient = Stomp.over(socket);
 
-//stompClient.connect({}, function (frame) {
-//    // 구독 경로 설정 (로그인된 사용자의 ID에 맞게 설정)
-//    const userId = document.getElementById("userId").value; // 사용자 ID를 세션에서 가져옴
-//    stompClient.subscribe('/user/' + userId + '/queue/messages', function (messageOutput) {
-//        showNotificationIcon(); // 메시지 수신 시 알림 배지 표시
-//    });
-//});
+stompClient.connect({}, function (frame) {
+    // 구독 경로 설정 (로그인된 사용자의 ID에 맞게 설정)
+    const userId = document.getElementById("userId").value; // 사용자 ID를 세션에서 가져옴
+    stompClient.subscribe('/user/' + userId + '/queue/messages', function (messageOutput) {
+        showNotificationIcon(); // 메시지 수신 시 알림 배지 표시
+    });
+});
 
 // 알림 배지를 표시하는 함수
 function showNotificationIcon() {

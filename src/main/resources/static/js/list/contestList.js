@@ -1,7 +1,7 @@
 
 function hitUp(e) {
    console.log("test");
-   var id = $(e).siblings("input#contestId").val();
+   var id = $(e).siblings("#contestId").val();
    console.log(id);
 
        $.ajax({
