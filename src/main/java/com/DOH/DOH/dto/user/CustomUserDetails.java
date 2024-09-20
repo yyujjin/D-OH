@@ -11,7 +11,7 @@ import java.util.Collection;
 
 public class CustomUserDetails implements UserDetails {
 
-//    private LoginDTO loginDTO;
+    //    private LoginDTO loginDTO;
     private RegisterDTO registerDTO;
 
     public CustomUserDetails(RegisterDTO registerDTO){
@@ -49,5 +49,9 @@ public class CustomUserDetails implements UserDetails {
         return registerDTO.getUserEmail();
     }
 
+    public String getNickName() {
+
+        return registerDTO.getNickName();
+    }
 
 }

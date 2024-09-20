@@ -9,8 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.Collection;
-import java.util.Iterator;
+import java.security.Principal;
 
 @Slf4j
 @Controller
@@ -23,13 +22,16 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String main(Model model){
+    public String main(Model model, Principal principal) {
 
         String userEmail = userSessionService.userEmail();
         String userRole = userSessionService.userRole();
-        log.info("userEmail : "+userEmail);
-        log.info("userRole : "+userRole);
+        String userNickName = userSessionService.nickName();
 
-        return "list/main";
+        log.info("userEmail : {}", userEmail);
+        log.info("userRole : {}", userRole);
+        log.info("userNickName : {}",userNickName);
+
+        return "list/main"; // 해당 템플릿 파일로 리턴
     }
 }
