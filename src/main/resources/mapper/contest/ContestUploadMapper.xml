@@ -3,17 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0.3//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.DOH.DOH.mapper.contest.ContestUploadMapper">
-    <insert id="insertContest" parameterType="com.DOH.DOH.dto.contest.ContestUploadDTO">
+
+    <insert id="insertContest" parameterType="com.DOH.DOH.dto.contest.ContestUploadDTO" useGeneratedKeys="true" keyProperty="conNum">
         INSERT INTO contest_Upload (conCompanyName, conOneLiner, conType, conLogoName, conBriefing,
                                     conTitle,
                                     conFirstPrice, conSecondPrice, conThirdPrice,
                                     conFirstPeople, conSecondPeople, conThirdPeople,
-                                    conStartDate, conEndDate)
+                                    conStartDate, conEndDate, orderNumber, createdAt)
         VALUES (#{conCompanyName}, #{conOneLiner}, #{conType}, #{conLogoName}, #{conBriefing},
                 #{conTitle},
                 #{conFirstPrice}, #{conSecondPrice}, #{conThirdPrice},
                 #{conFirstPeople}, #{conSecondPeople}, #{conThirdPeople},
-                #{conStartDate}, #{conEndDate})
+                #{conStartDate}, #{conEndDate}, #{orderNumber}, NOW())
     </insert>
 
     <!-- ID로 콘테스트 조회 -->
@@ -21,16 +22,11 @@
         SELECT * FROM contest_Upload WHERE id = #{conNum}
     </select>
 
-    <!-- 오늘 날짜로 주문 카운트 조회 -->
-    <select id="findOrderCountByDate" resultType="java.lang.Integer">
+    <!-- 오늘 날짜로 콘테스트 카운트 조회 -->
+    <select id="findContestCountByDate" resultType="java.lang.Integer">
         SELECT COUNT(*)
-        FROM orders
-        WHERE DATE(created_at) = #{formattedDate}
+        FROM contest_Upload
+        WHERE DATE(createdAt) = #{formattedDate}
     </select>
 
-    <!-- 새로운 주문 삽입 -->
-    <insert id="insertOrder">
-        INSERT INTO orders (order_number)
-        VALUES (#{orderNumber})
-    </insert>
 </mapper>
