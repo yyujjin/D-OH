@@ -49,5 +49,9 @@ public class CustomUserDetails implements UserDetails {
         return registerDTO.getUserEmail();
     }
 
+    public String getNickName() {
+
+        return registerDTO.getNickName();
+    }
 
 }
