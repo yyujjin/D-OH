@@ -156,3 +156,14 @@ html {
     color: rgb(193, 192, 255);
     transform: scale(1.1);
 }
+
+.notification-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgb(193, 192, 255);
+    color: white;
+    padding: 3px 7px;
+    border-radius: 50%;
+    font-size: 12px;
+}
