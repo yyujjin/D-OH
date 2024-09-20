@@ -4,3 +4,4 @@ document.addEventListener('DOMContentLoaded', function () {
         return new bootstrap.Dropdown(dropdownToggleEl)
     });
 });
+

@@ -167,3 +167,16 @@ html {
     border-radius: 50%;
     font-size: 12px;
 }
+
+.nav-tabs {
+    margin-bottom: 10px;
+}
+
+.list-group-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.list-group-item:hover {
+    background-color: #f1f1f1;
+}
