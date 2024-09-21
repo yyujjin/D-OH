@@ -8,8 +8,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
 
 @Slf4j
 @Service("ContestListService")
@@ -32,16 +35,30 @@ public class ContestListServiceImpl implements ContestListService {
 
     public int getTotalCount(){
 //        ContestListMapper contestListMapper = sqlSession.getMapper(ContestListMapper.class);
-
         return contestListMapper.getTotalCount();
     } // 전체 게시물 수를 조회하는 메서드
+
+    public void hitUp(int contestId) {//조회수 증가 메서드
+        contestListMapper.hitUp(contestId);
+    }
+
+    @Override
+//    public boolean scrap(String userEmail, int contestId) {
+    public boolean scrap(@RequestParam HashMap<String, String> param) {
+//        boolean scrap = contestListMapper.searchScrap(userEmail, contestId);
+        boolean scrap = contestListMapper.searchScrap(param);
+
+        if(!scrap){
+//            contestListMapper.addScrap(userEmail, contestId);
+            contestListMapper.addScrap(param);
+        }else {
+            contestListMapper.deleteScrap(param);
+        }
+        return scrap;
+    }
 
     public void saveContestApply(ApplyDTO dto){
       // ContestListMapper contestListMapper = sqlSession.getMapper(ContestListMapper.class);
         contestListMapper.saveContestApply(dto);
-    }
-
-    public void hitUp(int contestId) {//조회수 증가 메서드
-        contestListMapper.hitUp(contestId);
     }
 }

@@ -143,6 +143,11 @@ section
     color: var(--line-gray);
 }
 
+.fa-heart.active
+{
+    color: var(--main-color);
+}
+
 .listArea h5
 {
     font-size: var(--font-size-16);

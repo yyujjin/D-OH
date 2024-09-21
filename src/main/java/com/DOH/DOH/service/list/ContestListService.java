@@ -4,8 +4,11 @@ import com.DOH.DOH.dto.list.ApplyDTO;
 import com.DOH.DOH.dto.list.ContestListDTO;
 import com.DOH.DOH.dto.list.PagingDTO;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 
 public interface ContestListService {
@@ -15,4 +18,6 @@ public interface ContestListService {
     public int getTotalCount(); // 전체 게시물 수를 조회하는 메서드
     public void saveContestApply(ApplyDTO dto);
     public void hitUp(int contestId);//조회수 증가 메서드
+//    boolean scrap(String email, int contestId);
+    boolean scrap(@RequestParam HashMap<String, String> param);
 }

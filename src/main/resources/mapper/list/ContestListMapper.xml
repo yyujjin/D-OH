@@ -41,4 +41,18 @@
     <update id="hitUp">
         update contest_Upload set conHit = ifnull(conHit, 0) +1 where id = #{contestId}
     </update>
+
+
+    <select id="searchScrap" resultType="boolean">
+        select * from scrap_contest where userEmail = ${userEmail}
+                and conNum = ${contestId}
+    </select>
+
+    <insert id="addScrap">
+        insert into scrap_contest values(${userEmail}, ${contestId})
+    </insert>
+
+    <delete id="deleteScrap">
+        delete from scrap_contest where userEmail = ${userEmail} and conNum = ${contestId}
+    </delete>
 </mapper>
