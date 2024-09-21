@@ -66,7 +66,8 @@ public class NoticeServiceImpl implements NoticeService {
      * @param noticeDTO 공지사항 DTO 객체 (제목, 내용, 작성자 등)
      */
     @Override
-    public void noticeRegister(NoticeDTO noticeDTO, Model model){
+//    public void noticeRegister(NoticeDTO noticeDTO, Model model){
+        public void noticeRegister(NoticeDTO noticeDTO){
         // 공지사항 제목이 빈 값이 아닐 경우 설정 (필요 시에만)
         if (noticeDTO.getNoticeTitle() == null || noticeDTO.getNoticeTitle().isEmpty()) {
             noticeDTO.setNoticeTitle("제목 없음"); // 기본 제목 설정
@@ -90,7 +91,8 @@ public class NoticeServiceImpl implements NoticeService {
      * @param noticeDTO 수정된 공지사항 DTO 객체
      */
     @Override
-    public void noticeUpdate(NoticeDTO noticeDTO, Model model){
+//    public void noticeUpdate(NoticeDTO noticeDTO, Model model){
+        public void noticeUpdate(NoticeDTO noticeDTO){
         noticeMapper.updateNotice(noticeDTO);
     }
 

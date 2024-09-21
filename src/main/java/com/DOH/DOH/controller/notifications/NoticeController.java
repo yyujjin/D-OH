@@ -42,16 +42,17 @@ public class NoticeController {
         model.addAttribute("currentPage", page);
 
         // 해당 페이지의 공지사항 목록 가져오기
-        List<NoticeDTO> noticeList = noticeService.getNoticeList(Integer.parseInt(pageNum));
+        List<NoticeDTO> noticeList = noticeService.getNoticeList(page);
         model.addAttribute("noticeList", noticeList);  // 공지사항 목록을 모델에 추가
 
-        // 뷰 리턴
         return "notifications/noticeList";  // templates/notifications/list.html 템플릿을 사용
     }
 
-    //공지사항 작성(작성&수정)
+    // 공지사항 작성(작성&수정) 페이지 렌더링
     @GetMapping("/admin/write")
     public String noticeWrite(@RequestParam(value = "noticeNum", required = false) Long noticeNum, Model model, RedirectAttributes redirectAttributes) {
+        log.info("받은 noticeNum 값: {}", noticeNum); // 확인용 로그
+
         String userEmail = userSessionService.userEmail();
         String userRole = userSessionService.userRole();
 
@@ -64,17 +65,12 @@ public class NoticeController {
         model.addAttribute("userEmail", userEmail);
 
         if (noticeNum != null) {
-            // 수정할 공지사항이 있는 경우, 해당 공지사항의 데이터를 불러옴
             NoticeDTO noticeDTO = noticeService.getNoticeById(noticeNum);
-
-            // 로그 추가: noticeNum 값과 함께 로그 출력
             log.info("공지사항 수정 - noticeNum: {}", noticeNum);
-
             model.addAttribute("noticeDTO", noticeDTO);
         } else {
             log.info("공지사항 신규 등록");
-
-            model.addAttribute("noticeDTO", new NoticeDTO());  // 빈 DTO 추가 (신규 등록 시 사용)
+            model.addAttribute("noticeDTO", new NoticeDTO());
         }
 
         return "notifications/noticeWrite";  // templates/notifications/write.html 템플릿을 사용
@@ -82,7 +78,7 @@ public class NoticeController {
 
     // 공지사항 등록(작성&수정)
     @PostMapping("/admin/register")
-    public String noticeRegister(NoticeDTO noticeDTO, Model model, RedirectAttributes redirectAttributes) {
+    public String noticeRegister(NoticeDTO noticeDTO, RedirectAttributes redirectAttributes) {
         String userEmail = userSessionService.userEmail();
         String userRole = userSessionService.userRole();
 
@@ -92,17 +88,16 @@ public class NoticeController {
             return "redirect:/notice/list";  // 권한이 없으면 목록 페이지로 리다이렉트
         }
 
-        model.addAttribute("userEmail", userEmail);
-
         if (noticeDTO.getNoticeNum() == null) {
             // 신규 공지사항 등록
-            noticeService.noticeRegister(noticeDTO, model);
+            noticeService.noticeRegister(noticeDTO);
+            log.info("공지사항 등록 완료 - 제목: {}", noticeDTO.getNoticeTitle());
         } else {
             // 기존 공지사항 수정
-            noticeService.noticeUpdate(noticeDTO, model);
+            noticeService.noticeUpdate(noticeDTO);
+            log.info("공지사항 수정 완료 - noticeNum: {}", noticeDTO.getNoticeNum());
         }
 
-        // 공지사항 목록 페이지로 리다이렉트
-        return "redirect:/notice/list";
+        return "redirect:/notice/list";  // 등록/수정 후 공지사항 목록 페이지로 리다이렉트
     }
 }
