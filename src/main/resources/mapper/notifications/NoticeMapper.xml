@@ -55,7 +55,7 @@
         LIMIT #{offset}, #{limit}
     </select>
 
-    <!-- 임시 저장된 공지사항 목록 조회 -->
+    <!-- 임시 저장된 공지사항 목록 조회 (최대 3개) -->
     <select id="getTempNoticeList" resultType="com.DOH.DOH.dto.notifications.NoticeDTO">
         SELECT
         noticeNum, noticeTitle, noticeContent, noticeCreateTime, userNum, noticeTempSave
@@ -65,7 +65,7 @@
         noticeTempSave = true
         ORDER BY
         noticeCreateTime DESC
-        LIMIT #{limit} OFFSET #{offset}
+        LIMIT 3  <!-- 여기에 최대 3개 제한을 설정 -->
     </select>
 
     <!-- 전체 정식 공지사항 수 조회 -->

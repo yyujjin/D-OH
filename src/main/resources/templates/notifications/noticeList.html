@@ -15,6 +15,7 @@
         <table class="table">
             <thead>
             <tr>
+                <th>번호</th>
                 <th>제목</th>
                 <th>날짜</th>
             </tr>
@@ -22,19 +23,20 @@
             <tbody>
             <!-- 공지사항이 없을 때 -->
             <tr th:if="${#lists.isEmpty(noticeList)}">
-                <td colspan="2">등록된 공지사항이 없습니다.</td>
+                <td colspan="3">등록된 공지사항이 없습니다.</td>
             </tr>
 
             <!-- 공지사항이 있을 때 -->
             <tr class="toggle-row" th:each="notice : ${noticeList}"
                 th:data-target="'#content-row-' + ${notice.noticeNum}" th:onclick="toggleContent(this)">
+                <td th:text="${notice.noticeNum}"></td> <!-- 공지사항 번호 -->
                 <td th:text="${notice.noticeTitle}"></td> <!-- 공지사항 제목 -->
                 <td th:text="${#dates.format(notice.noticeCreateTime, 'yyyy.MM.dd')}"></td> <!-- 공지사항 작성일 -->
             </tr>
 
             <tr th:each="notice : ${noticeList}" th:id="'content-row-' + ${notice.noticeNum}" class="content-row"
                 style="display: none;">
-                <td colspan="2">
+                <td colspan="3">
                     <div th:text="${notice.noticeContent}"></div> <!-- 공지사항 내용 -->
                     <!-- 수정 및 삭제 버튼 (userRole이 'ROLE_ADMIN'일 때만 보임) -->
                     <div class="buttons" th:if="${userRole == 'ROLE_ADMIN'}">
@@ -58,6 +60,7 @@
             <table class="table">
                 <thead>
                 <tr>
+                    <th>번호</th>
                     <th>제목</th>
                     <th>날짜</th>
                     <th>관리</th>
@@ -65,9 +68,10 @@
                 </thead>
                 <tbody>
                 <tr th:if="${tempNoticeList == null or #lists.isEmpty(tempNoticeList)}">
-                    <td colspan="3">임시 저장된 공지사항이 없습니다.</td>
+                    <td colspan="4">임시 저장된 공지사항이 없습니다.</td>
                 </tr>
                 <tr th:each="tempNotice : ${tempNoticeList}">
+                    <td th:text="${tempNotice.noticeNum}"></td>
                     <td th:text="${tempNotice.noticeTitle}"></td>
                     <td th:text="${#dates.format(tempNotice.noticeCreateTime, 'yyyy.MM.dd')}"></td>
                     <td>
@@ -75,6 +79,11 @@
                         <form th:action="@{/notice/admin/register}" method="post" style="display: inline;">
                             <input type="hidden" name="noticeNum" th:value="${tempNotice.noticeNum}" />
                             <button type="submit" class="btn btn-primary btn-sm">등록</button>
+                        </form>
+                        <!-- 수정 버튼 (추가됨) -->
+                        <form th:action="@{/notice/admin/write(noticeNum=${tempNotice.noticeNum})}" method="post" style="display: inline;">
+                            <input type="hidden" name="noticeNum" th:value="${tempNotice.noticeNum}" />
+                            <button type="submit" class="btn btn-secondary btn-sm">수정</button>
                         </form>
                         <!-- 삭제 버튼 -->
                         <form th:action="@{/notice/admin/delete(noticeNum=${tempNotice.noticeNum})}" method="post" style="display: inline;">
