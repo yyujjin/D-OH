@@ -72,7 +72,8 @@
                 </tr>
 
                 <!-- 임시 저장된 공지사항이 있을 경우 -->
-                <tr th:each="notice : ${tempNoticeList}">
+                <tr class="toggle-row" th:each="notice : ${tempNoticeList}"
+                    th:data-target="'#temp-content-row-' + ${notice.noticeNum}" th:onclick="toggleContent(this)">
                     <td th:text="${notice.noticeNum}"></td> <!-- 공지사항 번호 -->
                     <td th:text="${notice.noticeTitle}"></td> <!-- 공지사항 제목 -->
                     <td th:text="${#dates.format(notice.noticeCreateTime, 'yyyy.MM.dd')}"></td> <!-- 공지사항 작성일 -->
@@ -94,13 +95,23 @@
                         </form>
                     </td>
                 </tr>
+
+                <!-- 임시 저장된 공지사항의 숨겨진 본문 -->
+                <tr th:each="notice : ${tempNoticeList}" th:id="'temp-content-row-' + ${notice.noticeNum}" class="content-row"
+                    style="display: none;">
+                    <td colspan="4">
+                        <div th:text="${notice.noticeContent}"></div> <!-- 공지사항 내용 -->
+                    </td>
+                </tr>
+
                 </tbody>
             </table>
 
             <!-- 경고 메시지: 임시 저장된 공지사항이 3개 이상일 때 경고 표시 -->
-            <div th:if="${tempNoticeList.size() >= 3}">
+            <div th:if="${tempNoticeList != null and tempNoticeList.size() >= 3}">
                 <p class="text-danger">임시 저장된 공지사항은 최대 3개까지만 저장할 수 있습니다. 기존 공지사항을 등록하거나 삭제해 주세요.</p>
             </div>
+        </div>
         </div>
 
         <!-- Pagination Controls -->

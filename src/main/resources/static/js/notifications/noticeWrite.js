@@ -12,13 +12,6 @@ $(document).ready(function() {
             return false; // 검증 실패
         }
 
-        // 내용 유효성 검사 (선택적)
-        if (content === '') {
-            alert('내용을 입력하세요.');
-            $('#content').focus();
-            return false; // 검증 실패
-        }
-
         return true; // 검증 통과
     }
 

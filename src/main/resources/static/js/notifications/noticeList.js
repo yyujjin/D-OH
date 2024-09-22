@@ -13,10 +13,10 @@ function toggleContent(element) {
         row.classList.remove('active-toggle'); // 모든 toggle-row에서 active-toggle 클래스 제거
     });
 
-    // 클릭된 행만 표시
+    // 클릭된 행만 표시 또는 숨김
     if (!isVisible) {
         contentRow.style.display = 'table-row'; // 클릭된 행 표시
-        element.classList.add('active-toggle'); // 클릭된 토글 행에 클래스 추가
+        element.classList.add('active-toggle'); // 클릭된 토글 행에 active-toggle 클래스 추가
     } else {
         contentRow.style.display = 'none'; // 이미 보이는 경우 다시 숨기기
         element.classList.remove('active-toggle'); // active-toggle 클래스 제거
