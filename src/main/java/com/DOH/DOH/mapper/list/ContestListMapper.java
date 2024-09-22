@@ -18,9 +18,8 @@ public interface ContestListMapper {
     public void saveContestApply(ApplyDTO dto);
     void hitUp(int contestId);
 
-//    boolean searchScrap(@Param("userEmail") String uerEmail,@Param("conestId") int contestId);
-    boolean searchScrap(@RequestParam HashMap<String, String> param);
-//    void addScrap(@Param("userEmail") String uerEmail,@Param("conestId") int contestId);
-    void addScrap(@RequestParam HashMap<String, String> param);
-    void deleteScrap(@RequestParam HashMap<String, String> param);
+    ArrayList<Integer> getScrapList(String userEmail);
+    int searchScrap(@Param("userEmail") String userEmail,@Param("contestId") int contestId);
+    void addScrap(@Param("userEmail") String uerEmail,@Param("contestId") int contestId);
+    void deleteScrap(@Param("userEmail") String uerEmail,@Param("contestId") int contestId);
 }

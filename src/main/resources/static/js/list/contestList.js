@@ -1,6 +1,4 @@
 $(document).ready(function() {
-    var email = "${userEmail}";  // 서버에서 전달되는 변수라고 가정
-    console.log("session 정보 확인: " + email);
 
     // fa-heart 아이콘 클릭 이벤트
     $(".listArea .fa-heart").click(function(e) {
@@ -9,6 +7,7 @@ $(document).ready(function() {
 
         console.log("fa-heart 클릭!");
 
+        var thisHeart = $(this);
         // 클릭한 fa-heart 아이콘 근처의 input 태그에서 contestId 값을 가져옴
         var id = $(this).closest(".listValue").find("#contestId").val();
         console.log("콘테스트 ID: " + id);
@@ -21,12 +20,16 @@ $(document).ready(function() {
             success: function(result) {
 //                console.log('좋아요 반영 완료');
                 console.log('반영 완료');
-                if(!result){
+                if(result == 0){
                     alert("해당 콘테스트를 스크랩 했습니다.");
-                    $(this).addClass("active");
-                }else{
+                    thisHeart.addClass("active");
+//                    $("#heart"+id).addClass("active");
+                }else if(result == 1){
                     alert("해당 콘테스트가 스크랩 목록에서 삭제되었습니다.");
-                    $(this).removeClass("active");
+                    thisHeart.removeClass("active");
+//                    $("#heart"+id).removeClass("active");
+                }else{
+                    alert("스크랩 기능을 이용하시려면 로그인해 주세요.");
                 }
             },
             error: function(boolean) {
@@ -51,7 +54,6 @@ function hitUp(e) {
         success: function() {
             // 조회수 증가 성공 시 페이지 이동
             console.log('조회수 증가 완료');
-//            location.href = '/contest/view?contestId=' + id;  // 페이지 이동
         },
         error: function(error) {
             // 조회수 증가 실패 시 에러 처리

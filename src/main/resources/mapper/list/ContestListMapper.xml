@@ -38,21 +38,29 @@
         values(#{conNum}, #{userNum}, #{applyTitle}, #{applyContent}, curdate())
     </insert>
 
+<!--    조회수 증가-->
     <update id="hitUp">
         update contest_Upload set conHit = ifnull(conHit, 0) +1 where id = #{contestId}
     </update>
 
+<!--    기존 관심 공모전 목록 정보를 가져옴-->
+    <select id="getScrapList" resultType="int">
+        select conNum from scrap_contest where userEmail = "${userEmail}"
+    </select>
 
-    <select id="searchScrap" resultType="boolean">
-        select * from scrap_contest where userEmail = ${userEmail}
+<!--    관심 공모전 등록 여부 확인-->
+    <select id="searchScrap" resultType="int">
+        select count(*) from scrap_contest where userEmail = "${userEmail}"
                 and conNum = ${contestId}
     </select>
 
+<!--    관심 공모전 등록-->
     <insert id="addScrap">
-        insert into scrap_contest values(${userEmail}, ${contestId})
+        insert into scrap_contest(userEmail, conNum) values("${userEmail}", ${contestId})
     </insert>
 
+<!--    관심 공모전 삭제-->
     <delete id="deleteScrap">
-        delete from scrap_contest where userEmail = ${userEmail} and conNum = ${contestId}
+        delete from scrap_contest where userEmail = "${userEmail}" and conNum = ${contestId}
     </delete>
 </mapper>
