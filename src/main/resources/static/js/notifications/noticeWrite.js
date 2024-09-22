@@ -12,14 +12,6 @@ $(document).ready(function() {
             return false;
         }
 
-        // 내용 유효성 검사
-        if (content === '') {
-            alert('내용을 입력하세요.');
-            $('#content').focus();
-            event.preventDefault(); // 폼 제출 방지
-            return false;
-        }
-
         // 기본적으로 정식 등록
         $('#noticeTempSave').val('false');
     });

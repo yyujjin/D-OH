@@ -26,27 +26,24 @@
             </tr>
 
             <!-- 공지사항이 있을 때 -->
-            <!-- 공지사항 리스트 반복 -->
             <tr class="toggle-row" th:each="notice : ${noticeList}"
                 th:data-target="'#content-row-' + ${notice.noticeNum}" th:onclick="toggleContent(this)">
                 <td th:text="${notice.noticeTitle}"></td> <!-- 공지사항 제목 -->
                 <td th:text="${#dates.format(notice.noticeCreateTime, 'yyyy.MM.dd')}"></td> <!-- 공지사항 작성일 -->
             </tr>
 
-            <!-- 공지사항 내용 반복 -->
             <tr th:each="notice : ${noticeList}" th:id="'content-row-' + ${notice.noticeNum}" class="content-row"
                 style="display: none;">
                 <td colspan="2">
-                    <!-- 공지사항 내용 (모든 사용자에게 보임) -->
                     <div th:text="${notice.noticeContent}"></div> <!-- 공지사항 내용 -->
                     <!-- 수정 및 삭제 버튼 (userRole이 'ROLE_ADMIN'일 때만 보임) -->
                     <div class="buttons" th:if="${userRole == 'ROLE_ADMIN'}">
-                        <!-- 수정 버튼 -->
                         <form th:action="@{/notice/admin/write(noticeNum=${notice.noticeNum})}" method="post" style="display: inline;">
+                            <input type="hidden" name="noticeNum" th:value="${notice.noticeNum}" />
                             <button type="submit" class="btn btn-primary btn-sm">수정</button>
                         </form>
-                        <!-- 삭제 버튼 -->
                         <form th:action="@{/notice/admin/delete(noticeNum=${notice.noticeNum})}" method="post" style="display: inline;">
+                            <input type="hidden" name="noticeNum" th:value="${notice.noticeNum}" />
                             <button type="submit" class="btn btn-danger btn-sm">삭제</button>
                         </form>
                     </div>
@@ -55,28 +52,58 @@
             </tbody>
         </table>
 
-        <!-- Pagination Controls 페이지네이션 -->
+        <!-- 임시 저장된 공지사항 리스트 (admin만 보임) -->
+        <div th:if="${userRole == 'ROLE_ADMIN'}">
+            <h2>임시 저장된 공지사항</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>제목</th>
+                    <th>날짜</th>
+                    <th>관리</th> <!-- 관리 버튼들 -->
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(tempNoticeList)}">
+                    <td colspan="3">임시 저장된 공지사항이 없습니다.</td>
+                </tr>
+                <tr th:each="tempNotice : ${tempNoticeList}">
+                    <td th:text="${tempNotice.noticeTitle}"></td>
+                    <td th:text="${#dates.format(tempNotice.noticeCreateTime, 'yyyy.MM.dd')}"></td>
+                    <td>
+                        <!-- 등록 버튼 -->
+                        <form th:action="@{/notice/admin/register}" method="post" style="display: inline;">
+                            <input type="hidden" name="noticeNum" th:value="${tempNotice.noticeNum}" />
+                            <button type="submit" class="btn btn-primary btn-sm">등록</button>
+                        </form>
+                        <!-- 삭제 버튼 -->
+                        <form th:action="@{/notice/admin/delete(noticeNum=${tempNotice.noticeNum})}" method="post" style="display: inline;">
+                            <input type="hidden" name="noticeNum" th:value="${tempNotice.noticeNum}" />
+                            <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination Controls -->
         <nav aria-label="Page navigation example" th:if="${totalPages != null and totalPages > 0}">
             <ul class="pagination justify-content-center">
-                <!-- 이전 페이지 버튼 (현재 페이지가 1인 경우 비활성화) -->
                 <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
                     <a class="page-link" th:href="@{/notice/list(page=${currentPage - 1})}">&laquo;</a>
                 </li>
-
-                <!-- 페이지 번호 반복 -->
                 <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}"
                     th:classappend="${i == currentPage} ? 'active'">
                     <a class="page-link" th:href="@{/notice/list(page=${i})}" th:text="${i}"></a>
                 </li>
-
-                <!-- 다음 페이지 버튼 (현재 페이지가 마지막 페이지인 경우 비활성화) -->
                 <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
                     <a class="page-link" th:href="@{/notice/list(page=${currentPage + 1})}">&raquo;</a>
                 </li>
             </ul>
         </nav>
 
-        <!-- 등록 버튼 (userRole이 'ROLE_ADMIN'일 때만 보임) -->
+        <!-- 등록 버튼 -->
         <div class="buttons" th:if="${userRole == 'ROLE_ADMIN'}">
             <form th:action="@{/notice/admin/write}" method="post">
                 <button type="submit" class="btn btn-primary">등록</button>

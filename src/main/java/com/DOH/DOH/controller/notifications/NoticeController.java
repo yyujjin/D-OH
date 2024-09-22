@@ -3,7 +3,6 @@ package com.DOH.DOH.controller.notifications;
 import com.DOH.DOH.dto.notifications.NoticeDTO;
 import com.DOH.DOH.service.notifications.NoticeService;
 import com.DOH.DOH.service.user.UserSessionService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,39 +27,31 @@ public class NoticeController {
 
     // 공지사항 목록 페이지
     @GetMapping("/list")
-    public String noticeList(
-            @RequestParam(value = "pageNum", required = false, defaultValue = "1") String pageNum,
-            Model model) {
+    public String noticeList(@RequestParam(value = "pageNum", required = false, defaultValue = "1") String pageNum, Model model) {
+        int page = Integer.parseInt(pageNum);
 
-        // 페이지 번호 처리
-        int page = Integer.parseInt(pageNum);  // pageNum을 int로 변환
-
-        // 총 페이지 수 가져오기
         int totalPages = noticeService.getTotalPages();
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("currentPage", page);
 
-        // 해당 페이지의 공지사항 목록 가져오기
         List<NoticeDTO> noticeList = noticeService.getNoticeList(page);
-        model.addAttribute("noticeList", noticeList);  // 공지사항 목록을 모델에 추가
+        model.addAttribute("noticeList", noticeList);
 
-        return "notifications/noticeList";  // templates/notifications/list.html 템플릿을 사용
+        return "notifications/noticeList";
     }
 
     // 공지사항 작성(작성&수정) 페이지 렌더링
     @PostMapping("/admin/write")
     public String noticeWriteForm(@RequestParam(value = "noticeNum", required = false) Long noticeNum, ModelMap modelMap) throws Exception {
-        // 수정 작업 시 공지사항 정보 조회
         if (noticeNum != null) {
             NoticeDTO noticeInfo = noticeService.getNoticeById(noticeNum);
-            modelMap.addAttribute("noticeDTO", noticeInfo);  // 수정 시 사용될 정보
+            modelMap.addAttribute("noticeDTO", noticeInfo);
             log.info("공지사항 수정 페이지 - noticeNum: {}", noticeNum);
         } else {
-            // 새로운 공지사항 등록을 위한 빈 객체 전달
             modelMap.addAttribute("noticeDTO", new NoticeDTO());
             log.info("공지사항 신규 등록 페이지");
         }
-        return "notifications/noticeWrite";  // templates/notifications/noticeWrite.html 템플릿 사용
+        return "notifications/noticeWrite";
     }
 
     // 공지사항 작성(작성&수정) 처리 (POST로 처리)
@@ -68,25 +59,26 @@ public class NoticeController {
     public String noticeWrite(@ModelAttribute NoticeDTO noticeDTO, RedirectAttributes redirectAttributes) throws Exception {
         String userEmail = userSessionService.userEmail();
         String userRole = userSessionService.userRole();
+        Long userNum = userSessionService.userNum();  // Retrieve userNum from session
 
         // 권한 검사: 관리자만 작성 가능
         if (!userEmail.equals("admin") && !userRole.equals("ROLE_ADMIN")) {
             redirectAttributes.addFlashAttribute("errorMessage", "공지사항 작성 권한이 없습니다.");
-            return "redirect:/notice/list";  // 권한 없으면 목록 페이지로 리다이렉트
+            return "redirect:/notice/list";
         }
 
-        // 작성과 수정을 구분
+        // Set the userNum in the NoticeDTO
+        noticeDTO.setUserNum(Math.toIntExact(userNum));
+
         if (noticeDTO.getNoticeNum() == null) {
-            // 신규 공지사항 등록
             noticeService.noticeRegister(noticeDTO);
-            log.info("공지사항 등록 완료 - 제목: {}", noticeDTO.getNoticeTitle());
+            log.info("공지사항 등록 완료 - 제목: {}, 작성자: {}", noticeDTO.getNoticeTitle(), userEmail);
         } else {
-            // 기존 공지사항 수정
             noticeService.noticeUpdate(noticeDTO);
             log.info("공지사항 수정 완료 - noticeNum: {}", noticeDTO.getNoticeNum());
         }
 
-        return "redirect:/notice/list";  // 등록/수정 후 공지사항 목록 페이지로 리다이렉트
+        return "redirect:/notice/list";
     }
 
     // 공지사항 임시 저장 처리
@@ -94,18 +86,20 @@ public class NoticeController {
     public String saveTempNotice(@ModelAttribute NoticeDTO noticeDTO, RedirectAttributes redirectAttributes) throws Exception {
         String userEmail = userSessionService.userEmail();
         String userRole = userSessionService.userRole();
+        Long userNum = userSessionService.userNum();  // Retrieve userNum from session
 
         // 권한 검사: 관리자만 임시 저장 가능
         if (!userEmail.equals("admin") && !userRole.equals("ROLE_ADMIN")) {
             redirectAttributes.addFlashAttribute("errorMessage", "공지사항 임시 저장 권한이 없습니다.");
-            return "redirect:/notice/list";  // 권한 없으면 목록 페이지로 리다이렉트
+            return "redirect:/notice/list";
         }
 
-        // 임시 저장 처리
+        noticeDTO.setUserNum(Math.toIntExact(userNum));
+
         noticeService.saveTempNotice(noticeDTO);
         log.info("공지사항 임시 저장 완료 - 제목: {}", noticeDTO.getNoticeTitle());
 
-        return "redirect:/notice/list";  // 임시 저장 후 공지사항 목록 페이지로 리다이렉트
+        return "redirect:/notice/list";
     }
 
     // 공지사항 삭제 처리
@@ -117,13 +111,12 @@ public class NoticeController {
         // 권한 검사: 관리자만 삭제 가능
         if (!userEmail.equals("admin") && !userRole.equals("ROLE_ADMIN")) {
             redirectAttributes.addFlashAttribute("errorMessage", "공지사항 삭제 권한이 없습니다.");
-            return "redirect:/notice/list";  // 권한 없으면 목록 페이지로 리다이렉트
+            return "redirect:/notice/list";
         }
 
-        // 공지사항 삭제 처리
         noticeService.deleteNotice(noticeNum);
         log.info("공지사항 삭제 완료 - noticeNum: {}", noticeNum);
 
-        return "redirect:/notice/list";  // 삭제 후 공지사항 목록 페이지로 리다이렉트
+        return "redirect:/notice/list";
     }
 }
