@@ -89,5 +89,22 @@ public class NoticeController {
         return "redirect:/notice/list";  // 등록/수정 후 공지사항 목록 페이지로 리다이렉트
     }
 
-    //삭제
+    // 공지사항 삭제 처리
+    @PostMapping("/admin/delete")
+    public String deleteNotice(@RequestParam("noticeNum") Long noticeNum, RedirectAttributes redirectAttributes) throws Exception {
+        String userEmail = userSessionService.userEmail();
+        String userRole = userSessionService.userRole();
+
+        // 권한 검사: 관리자만 삭제 가능
+        if (!userEmail.equals("admin") && !userRole.equals("ROLE_ADMIN")) {
+            redirectAttributes.addFlashAttribute("errorMessage", "공지사항 삭제 권한이 없습니다.");
+            return "redirect:/notice/list";  // 권한 없으면 목록 페이지로 리다이렉트
+        }
+
+        // 공지사항 삭제 처리
+        noticeService.deleteNotice(noticeNum);
+        log.info("공지사항 삭제 완료 - noticeNum: {}", noticeNum);
+
+        return "redirect:/notice/list";  // 삭제 후 공지사항 목록 페이지로 리다이렉트
+    }
 }
