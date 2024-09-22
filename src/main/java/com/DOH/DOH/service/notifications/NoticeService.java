@@ -10,6 +10,8 @@ public interface NoticeService {
     // 공지사항 목록 조회 (페이징 처리)
     List<NoticeDTO> getNoticeList(int page);
 
+    List<NoticeDTO> getTempNoticeList();
+
     // 전체 페이지 수 계산 메서드 (페이지네이션)
     int getTotalPages();
 

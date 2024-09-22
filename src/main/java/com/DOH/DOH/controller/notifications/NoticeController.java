@@ -34,8 +34,16 @@ public class NoticeController {
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("currentPage", page);
 
+        // 정식 등록된 공지사항 가져오기
         List<NoticeDTO> noticeList = noticeService.getNoticeList(page);
         model.addAttribute("noticeList", noticeList);
+
+        // 임시 저장된 공지사항 가져오기 (관리자만 표시)
+        String userRole = userSessionService.userRole();
+        if (userRole.equals("ROLE_ADMIN")) {
+            List<NoticeDTO> tempNoticeList = noticeService.getTempNoticeList();
+            model.addAttribute("tempNoticeList", tempNoticeList);
+        }
 
         return "notifications/noticeList";
     }

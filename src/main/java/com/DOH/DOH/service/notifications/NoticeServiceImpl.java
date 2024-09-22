@@ -4,7 +4,6 @@ import com.DOH.DOH.dto.notifications.NoticeDTO;
 import com.DOH.DOH.mapper.notifications.NoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,21 +23,19 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public List<NoticeDTO> getNoticeList(int page) {
-        if (page < 1) {
-            page = 1; // 최소 페이지 번호는 1
-        }
-
-        int offset = (page - 1) * PAGE_SIZE; // 페이징 처리를 위한 offset 계산
-
-        // 공지사항 목록 가져오기
+        int offset = (page > 0) ? (page - 1) * PAGE_SIZE : 0; // 페이징 처리를 위한 offset 계산
         List<NoticeDTO> noticeList = noticeMapper.getNoticeList(offset, PAGE_SIZE);
+        return (noticeList != null) ? noticeList : new ArrayList<>();
+    }
 
-        // 리스트가 null이면 빈 리스트로 초기화
-        if (noticeList == null) {
-            noticeList = new ArrayList<>();
-        }
-
-        return noticeList;
+    /**
+     * 임시 저장된 공지사항 전체 목록을 가져오는 메서드
+     * @return 임시 저장된 공지사항 목록
+     */
+    @Override
+    public List<NoticeDTO> getTempNoticeList() {
+        List<NoticeDTO> tempNotices = noticeMapper.findTempNotices(); // 페이징 없이 전체 임시 저장 목록 조회
+        return (tempNotices != null) ? tempNotices : new ArrayList<>();
     }
 
     /**
@@ -66,9 +63,8 @@ public class NoticeServiceImpl implements NoticeService {
      * @param noticeDTO 공지사항 DTO 객체 (제목, 내용, 작성자 등)
      */
     @Override
-//    public void noticeRegister(NoticeDTO noticeDTO, Model model){
-        public void noticeRegister(NoticeDTO noticeDTO){
-        // 공지사항 제목이 빈 값이 아닐 경우 설정 (필요 시에만)
+    public void noticeRegister(NoticeDTO noticeDTO) {
+        // 공지사항 제목이 빈 값이 아닐 경우 설정
         if (noticeDTO.getNoticeTitle() == null || noticeDTO.getNoticeTitle().isEmpty()) {
             noticeDTO.setNoticeTitle("제목 없음"); // 기본 제목 설정
         }
@@ -83,7 +79,7 @@ public class NoticeServiceImpl implements NoticeService {
     @Override
     public void saveTempNotice(NoticeDTO noticeDTO) {
         // 현재 임시 저장된 공지사항 수 확인
-        List<NoticeDTO> tempNotices = noticeMapper.getTempNoticeList(0, 3);
+        List<NoticeDTO> tempNotices = noticeMapper.findTempNotices();
 
         if (tempNotices.size() >= 3) {
             throw new IllegalStateException("임시 저장된 공지사항은 최대 3개까지만 저장할 수 있습니다.");
@@ -98,8 +94,7 @@ public class NoticeServiceImpl implements NoticeService {
      * @param noticeDTO 수정된 공지사항 DTO 객체
      */
     @Override
-//    public void noticeUpdate(NoticeDTO noticeDTO, Model model){
-        public void noticeUpdate(NoticeDTO noticeDTO){
+    public void noticeUpdate(NoticeDTO noticeDTO) {
         noticeMapper.updateNotice(noticeDTO);
     }
 

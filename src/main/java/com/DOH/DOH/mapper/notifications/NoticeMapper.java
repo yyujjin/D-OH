@@ -3,7 +3,6 @@ package com.DOH.DOH.mapper.notifications;
 import com.DOH.DOH.dto.notifications.NoticeDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
 
 @Mapper
@@ -24,6 +23,12 @@ public interface NoticeMapper {
      * @return 임시 저장된 공지사항 목록
      */
     List<NoticeDTO> getTempNoticeList(@Param("offset") int offset, @Param("limit") int limit);
+
+    /**
+     * 임시 저장된 공지사항 전체 목록을 가져오는 메서드 (페이징 없이)
+     * @return 임시 저장된 공지사항 전체 목록
+     */
+    List<NoticeDTO> findTempNotices();
 
     /**
      * 새로운 공지사항을 작성하는 메서드
@@ -52,13 +57,13 @@ public interface NoticeMapper {
 
     /**
      * 정식 저장된 공지사항의 총 개수를 가져오는 메서드
-     * @return 정식 저장된 공지사항 총 개수
+     * @return 정식 저장된 공지사항의 총 개수
      */
     int getTotalNotices();
 
     /**
      * 임시 저장된 공지사항의 총 개수를 가져오는 메서드
-     * @return 임시 저장된 공지사항 총 개수
+     * @return 임시 저장된 공지사항의 총 개수
      */
     int getTotalTempNotices();
 }
