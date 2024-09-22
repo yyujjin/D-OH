@@ -53,6 +53,7 @@
             </tr>
             </tbody>
         </table>
+
         <!-- 임시 저장된 공지사항 리스트 (admin만 보임) -->
         <div th:if="${userRole == 'ROLE_ADMIN'}">
             <h2>임시 저장된 공지사항</h2>
@@ -78,11 +79,6 @@
                     <td th:text="${notice.noticeTitle}"></td> <!-- 공지사항 제목 -->
                     <td th:text="${#dates.format(notice.noticeCreateTime, 'yyyy.MM.dd')}"></td> <!-- 공지사항 작성일 -->
                     <td>
-                        <!-- 등록 버튼 -->
-                        <form th:action="@{/notice/admin/register}" method="post" style="display: inline;">
-                            <input type="hidden" name="noticeNum" th:value="${notice.noticeNum}" />
-                            <button type="submit" class="btn btn-primary btn-sm">등록</button>
-                        </form>
                         <!-- 수정 버튼 -->
                         <form th:action="@{/notice/admin/write(noticeNum=${notice.noticeNum})}" method="post" style="display: inline;">
                             <input type="hidden" name="noticeNum" th:value="${notice.noticeNum}" />
@@ -103,7 +99,6 @@
                         <div th:text="${notice.noticeContent}"></div> <!-- 공지사항 내용 -->
                     </td>
                 </tr>
-
                 </tbody>
             </table>
 
@@ -111,7 +106,6 @@
             <div th:if="${tempNoticeList != null and tempNoticeList.size() >= 3}">
                 <p class="text-danger">임시 저장된 공지사항은 최대 3개까지만 저장할 수 있습니다. 기존 공지사항을 등록하거나 삭제해 주세요.</p>
             </div>
-        </div>
         </div>
 
         <!-- Pagination Controls -->

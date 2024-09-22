@@ -28,4 +28,7 @@ public interface NoticeService {
 
     // 공지사항 삭제
     void deleteNotice(Long noticeNum);
+
+    //임시저장 수정
+    void updateTempNotice(NoticeDTO noticeDTO);
 }

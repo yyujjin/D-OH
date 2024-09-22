@@ -28,13 +28,21 @@ $(document).ready(function() {
 
     // 임시 저장 버튼 클릭 시 처리
     $('#tempSaveBtn').on('click', function(event) {
+        event.preventDefault(); // 폼 제출 방지
+
         if (!validateForm()) {
-            event.preventDefault(); // 폼 제출 방지
-            return false;
+            return false; // 유효성 검증 실패 시 처리 중단
         }
 
+        // 임시 저장 시 버튼 텍스트 변경
         $('#noticeTempSave').val('true'); // 임시 저장 플래그 설정
         $('#noticeForm').attr('action', '/notice/admin/tempSave'); // 임시 저장 경로 설정
-        $('#noticeForm').submit(); // 폼 제출
+
+        // '등록' 버튼을 '수정'으로, '임시 저장' 버튼을 '등록'으로 변경
+        $('.btn-primary').text('등록');
+        $('#tempSaveBtn').text('수정');
+
+        // 폼 제출
+        $('#noticeForm').submit();
     });
 });

@@ -28,15 +28,17 @@
                 <textarea id="content" name="noticeContent" class="form-control" placeholder="내용을 입력하세요" th:text="${noticeDTO.noticeContent}"></textarea>
             </div>
             <!-- hidden input to handle temporary save state -->
-            <input type="hidden" id="noticeTempSave" name="noticeTempSave" value="false">
+            <input type="hidden" id="noticeTempSave" name="noticeTempSave" th:value="${noticeDTO.noticeTempSave ? 'true' : 'false'}">
             <!-- hidden input for noticeNum in case of update -->
             <input type="hidden" id="noticeNum" name="noticeNum" th:value="${noticeDTO.noticeNum}">
 
             <div class="btn-group">
                 <a th:href="@{/notice/list}" class="btn btn-secondary">목록보기</a>
-                <button type="submit" class="btn btn-primary" th:text="${noticeDTO.noticeNum != null ? '수정' : '등록'}"></button>
-                <!-- 임시 저장 버튼 -->
-                <button type="button" class="btn btn-secondary" id="tempSaveBtn" onclick="handleTempSave()">임시 저장</button>
+                <button type="submit" class="btn btn-primary"
+                        th:text="${noticeDTO.noticeNum != null and !noticeDTO.noticeTempSave ? '수정' : '등록'}"></button>
+                <button type="button" class="btn btn-secondary" id="tempSaveBtn"
+                        th:text="${noticeDTO.noticeTempSave ? '수정' : '임시 저장'}"
+                        onclick="handleTempSave()"></button>
             </div>
         </form>
     </div>

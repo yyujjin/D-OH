@@ -78,6 +78,7 @@ public class NoticeController {
         // Set the userNum in the NoticeDTO
         noticeDTO.setUserNum(Math.toIntExact(userNum));
 
+        // 공지사항 번호가 없으면 등록, 있으면 수정
         if (noticeDTO.getNoticeNum() == null) {
             noticeService.noticeRegister(noticeDTO);
             log.info("공지사항 등록 완료 - 제목: {}, 작성자: {}", noticeDTO.getNoticeTitle(), userEmail);
@@ -89,7 +90,7 @@ public class NoticeController {
         return "redirect:/notice/list";
     }
 
-    // 공지사항 임시 저장 처리
+    // 공지사항 임시 저장 처리 (임시 저장 또는 수정 처리)
     @PostMapping("/admin/tempSave")
     public String saveTempNotice(@ModelAttribute NoticeDTO noticeDTO, RedirectAttributes redirectAttributes) throws Exception {
         String userEmail = userSessionService.userEmail();
@@ -104,8 +105,14 @@ public class NoticeController {
 
         noticeDTO.setUserNum(Math.toIntExact(userNum));
 
-        noticeService.saveTempNotice(noticeDTO);
-        log.info("공지사항 임시 저장 완료 - 제목: {}", noticeDTO.getNoticeTitle());
+        // 임시 저장된 공지사항 수정 로직 추가
+        if (noticeDTO.getNoticeNum() == null) {
+            noticeService.saveTempNotice(noticeDTO);
+            log.info("공지사항 임시 저장 완료 - 제목: {}", noticeDTO.getNoticeTitle());
+        } else {
+            noticeService.updateTempNotice(noticeDTO); // 이미 임시 저장된 공지사항 수정
+            log.info("임시 저장 공지사항 수정 완료 - noticeNum: {}", noticeDTO.getNoticeNum());
+        }
 
         return "redirect:/notice/list";
     }

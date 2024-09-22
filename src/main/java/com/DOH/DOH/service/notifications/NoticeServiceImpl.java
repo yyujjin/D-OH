@@ -106,4 +106,9 @@ public class NoticeServiceImpl implements NoticeService {
     public void deleteNotice(Long noticeNum) {
         noticeMapper.deleteNotice(noticeNum);
     }
+
+    @Override
+    public void updateTempNotice(NoticeDTO noticeDTO) {
+        noticeMapper.updateTempNotice(noticeDTO);
+    }
 }

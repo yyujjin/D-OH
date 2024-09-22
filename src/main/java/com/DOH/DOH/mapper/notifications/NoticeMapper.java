@@ -66,4 +66,6 @@ public interface NoticeMapper {
      * @return 임시 저장된 공지사항의 총 개수
      */
     int getTotalTempNotices();
+
+    void updateTempNotice(NoticeDTO noticeDTO);
 }

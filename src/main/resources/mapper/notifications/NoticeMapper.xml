@@ -37,6 +37,18 @@
         noticeNum = #{noticeNum}
     </update>
 
+    <!-- 임시 저장된 공지사항 수정 -->
+    <update id="updateTempNotice">
+        UPDATE notice
+        SET
+        noticeTitle = #{noticeTitle},
+        noticeContent = #{noticeContent},
+        noticeCreateTime = NOW()  <!-- 수정 시 수정 시간을 갱신할 수 있음 -->
+        WHERE
+        noticeNum = #{noticeNum}
+        AND noticeTempSave = true
+    </update>
+
     <!-- 공지사항 삭제 -->
     <delete id="deleteNotice">
         DELETE FROM notice
