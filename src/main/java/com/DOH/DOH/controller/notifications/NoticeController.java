@@ -3,13 +3,12 @@ package com.DOH.DOH.controller.notifications;
 import com.DOH.DOH.dto.notifications.NoticeDTO;
 import com.DOH.DOH.service.notifications.NoticeService;
 import com.DOH.DOH.service.user.UserSessionService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -49,45 +48,34 @@ public class NoticeController {
     }
 
     // 공지사항 작성(작성&수정) 페이지 렌더링
-    @GetMapping("/admin/write")
-    public String noticeWrite(@RequestParam(value = "noticeNum", required = false) Long noticeNum, Model model, RedirectAttributes redirectAttributes) {
-        log.info("받은 noticeNum 값: {}", noticeNum); // 확인용 로그
-
-        String userEmail = userSessionService.userEmail();
-        String userRole = userSessionService.userRole();
-
-        // 특정 사용자만 작성 가능
-        if (!userEmail.equals("admin") && !userRole.equals("ROLE_ADMIN")) {
-            redirectAttributes.addFlashAttribute("errorMessage", "공지사항 작성 권한이 없습니다.");
-            return "redirect:/notice/list";  // 권한이 없으면 목록 페이지로 리다이렉트
-        }
-
-        model.addAttribute("userEmail", userEmail);
-
+    @PostMapping("/admin/write")
+    public String noticeWriteForm(@RequestParam(value = "noticeNum", required = false) Long noticeNum, ModelMap modelMap) throws Exception {
+        // 수정 작업 시 공지사항 정보 조회
         if (noticeNum != null) {
-            NoticeDTO noticeDTO = noticeService.getNoticeById(noticeNum);
-            log.info("공지사항 수정 - noticeNum: {}", noticeNum);
-            model.addAttribute("noticeDTO", noticeDTO);
+            NoticeDTO noticeInfo = noticeService.getNoticeById(noticeNum);
+            modelMap.addAttribute("noticeDTO", noticeInfo);  // 수정 시 사용될 정보
+            log.info("공지사항 수정 페이지 - noticeNum: {}", noticeNum);
         } else {
-            log.info("공지사항 신규 등록");
-            model.addAttribute("noticeDTO", new NoticeDTO());
+            // 새로운 공지사항 등록을 위한 빈 객체 전달
+            modelMap.addAttribute("noticeDTO", new NoticeDTO());
+            log.info("공지사항 신규 등록 페이지");
         }
-
-        return "notifications/noticeWrite";  // templates/notifications/write.html 템플릿을 사용
+        return "notifications/noticeWrite";  // templates/notifications/noticeWrite.html 템플릿 사용
     }
 
-    // 공지사항 등록(작성&수정)
+    // 공지사항 작성(작성&수정) 처리 (POST로 처리)
     @PostMapping("/admin/register")
-    public String noticeRegister(NoticeDTO noticeDTO, RedirectAttributes redirectAttributes) {
+    public String noticeWrite(@ModelAttribute NoticeDTO noticeDTO, RedirectAttributes redirectAttributes) throws Exception {
         String userEmail = userSessionService.userEmail();
         String userRole = userSessionService.userRole();
 
-        // 특정 사용자만 작성 가능
+        // 권한 검사: 관리자만 작성 가능
         if (!userEmail.equals("admin") && !userRole.equals("ROLE_ADMIN")) {
             redirectAttributes.addFlashAttribute("errorMessage", "공지사항 작성 권한이 없습니다.");
-            return "redirect:/notice/list";  // 권한이 없으면 목록 페이지로 리다이렉트
+            return "redirect:/notice/list";  // 권한 없으면 목록 페이지로 리다이렉트
         }
 
+        // 작성과 수정을 구분
         if (noticeDTO.getNoticeNum() == null) {
             // 신규 공지사항 등록
             noticeService.noticeRegister(noticeDTO);
@@ -100,4 +88,6 @@ public class NoticeController {
 
         return "redirect:/notice/list";  // 등록/수정 후 공지사항 목록 페이지로 리다이렉트
     }
+
+    //삭제
 }
