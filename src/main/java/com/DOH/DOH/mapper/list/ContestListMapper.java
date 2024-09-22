@@ -11,8 +11,8 @@ import java.util.HashMap;
 
 @Mapper
 public interface ContestListMapper {
-//    public ArrayList<ContestListDTO> getContestList(@Param("offset") int offset, @Param("pageSize") int pageSize,  @Param("orderType") String orderType);
-    public ArrayList<ContestListDTO> getContestList(@Param("offset") int offset, @Param("pageSize") int pageSize);
+    public ArrayList<ContestListDTO> getContestList(@Param("offset") int offset, @Param("pageSize") int pageSize,  @Param("orderType") String orderType);
+//    public ArrayList<ContestListDTO> getContestList(@Param("offset") int offset, @Param("pageSize") int pageSize);
 
     public int getTotalCount(); // 전체 게시물 수를 조회하는 메서드
     public void saveContestApply(ApplyDTO dto);

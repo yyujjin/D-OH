@@ -23,11 +23,12 @@ public class ContestListServiceImpl implements ContestListService {
     ContestListMapper contestListMapper;
 
     @Override
-    public ArrayList<ContestListDTO> getContestList(PagingDTO dto) {
+//    public ArrayList<ContestListDTO> getContestList(PagingDTO dto) {
+    public ArrayList<ContestListDTO> getContestList(PagingDTO dto, String orderType) {
         int offset = (dto.getCurrentPage() - 1) * dto.getPageSize();  // 페이징 offset 계산
         int pageSize = dto.getPageSize();
 
-        return contestListMapper.getContestList(offset, pageSize);
+        return contestListMapper.getContestList(offset, pageSize, orderType);
     }
 
     public int getTotalCount(){// 전체 게시물 수를 조회하는 메서드

@@ -12,22 +12,19 @@ $(document).ready(function() {
         var id = $(this).closest(".listValue").find("#contestId").val();
         console.log("콘테스트 ID: " + id);
 
-        // 서버로 Ajax 요청을 보냄
         $.ajax({
             url: '/contest/scrap', // 서버의 hitUp 컨트롤러 URL
             type: 'POST',
             data: { contestId: id },
             success: function(result) {
-//                console.log('좋아요 반영 완료');
+
                 console.log('반영 완료');
                 if(result == 0){
                     alert("해당 콘테스트를 스크랩 했습니다.");
                     thisHeart.addClass("active");
-//                    $("#heart"+id).addClass("active");
                 }else if(result == 1){
                     alert("해당 콘테스트가 스크랩 목록에서 삭제되었습니다.");
                     thisHeart.removeClass("active");
-//                    $("#heart"+id).removeClass("active");
                 }else{
                     alert("스크랩 기능을 이용하시려면 로그인해 주세요.");
                 }
@@ -52,12 +49,30 @@ function hitUp(e) {
         type: 'POST',
         data: { contestId: id },
         success: function() {
-            // 조회수 증가 성공 시 페이지 이동
             console.log('조회수 증가 완료');
         },
         error: function(error) {
-            // 조회수 증가 실패 시 에러 처리
             console.log('조회수 증가 중 오류 발생:', error);
         }
     });
 }
+
+    function order(){
+        var orderType = $(".orderWrap .orderType").val();
+        console.log("this ->" +orderType);
+
+            $.ajax({
+                url: '/contest/list',
+                type: 'GET',
+                data: { orderType: orderType},
+                success: function(result) {
+                    // 성공적으로 데이터를 받아왔을 때, 페이지 갱신 처리
+                    // result에는 서버에서 전송한 HTML 데이터가 담겨 있다고 가정합니다.
+
+                    // 받아온 데이터를 렌더링할 영역을 찾아서 업데이트
+                    $(".contestWrap").html(result);
+                },
+                error: function() {
+                }
+            });
+    }

@@ -20,7 +20,7 @@
                 </div><!--listHead-->
                 <div class="listWrap">
                     <div class="orderWrap">
-                        <select name="orderType" id="" class="orderType">
+                        <select name="orderType" id="" class="orderType" th:onchange="order()">
                             <option value="current" selected>최신등록순</option>
                             <option value="latest">마감임박순</option>
                             <option value="price">총 상금순</option>

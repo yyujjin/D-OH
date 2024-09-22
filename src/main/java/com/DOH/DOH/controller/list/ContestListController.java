@@ -29,7 +29,7 @@ public class ContestListController {
                               @RequestParam(name = "orderType", defaultValue = "current")String orderType,
                               Principal principal, Model model){
 
-
+        log.info("orderType 테스트!! "+orderType);
         if (principal != null) { // principal이 null이 아닌 경우 처리
             String userEmail = principal.getName();
             if (userEmail != null) {
@@ -41,7 +41,7 @@ public class ContestListController {
 
         PagingDTO dto = new PagingDTO(page,contestListService.getTotalCount(),10);
 
-        ArrayList<ContestListDTO> contestList = contestListService.getContestList(dto);
+        ArrayList<ContestListDTO> contestList = contestListService.getContestList(dto, orderType);
         model.addAttribute("contestList", contestList);
         model.addAttribute("pageMaker", dto);
 

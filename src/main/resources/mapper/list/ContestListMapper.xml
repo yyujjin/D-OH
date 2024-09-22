@@ -12,20 +12,20 @@
                 (datediff(conEndDate, now())) as endDate, conCompanyName
             FROM contest_Upload
             WHERE datediff(conEndDate, now()) >= 0
-<!--        <choose>-->
-<!--            <when test="orderType == 'price'">&lt;!&ndash;총 상금 순&ndash;&gt;-->
-<!--                order by totalPricee desc-->
-<!--            </when>-->
-<!--            <when test="orderType == 'latest'">&lt;!&ndash;마감임박순&ndash;&gt;-->
-<!--                order by endDate asc-->
-<!--            </when>-->
-<!--            <when test="orderType == 'hit'">&lt;!&ndash;조회순&ndash;&gt;-->
-<!--                order by conHit desc-->
-<!--            </when>-->
-<!--            <otherwise>&lt;!&ndash;기본 값 : 최신순&ndash;&gt;-->
-<!--                order by rownum asc-->
-<!--            </otherwise>-->
-<!--        </choose>-->
+        <choose>
+            <when test="orderType == 'price'"><!--총 상금 순-->
+                order by totalPricee desc
+            </when>
+            <when test="orderType == 'latest'"><!--마감임박순-->
+                order by endDate asc
+            </when>
+            <when test="orderType == 'hit'"><!--조회순-->
+                order by conHit desc
+            </when>
+            <otherwise><!--기본 값 : 최신순-->
+                order by rownum asc
+            </otherwise>
+        </choose>
             limit #{offset} , #{pageSize}
     </select>
 

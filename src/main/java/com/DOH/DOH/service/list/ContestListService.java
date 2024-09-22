@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface ContestListService {
 //    public ArrayList<ContestListDTO> getContestList(int page, int pageSize, String orderType);
-    public ArrayList<ContestListDTO> getContestList(PagingDTO dto);
+    public ArrayList<ContestListDTO> getContestList(PagingDTO dto, String orderType);
 
     public int getTotalCount(); // 전체 게시물 수를 조회하는 메서드
     public void saveContestApply(ApplyDTO dto);
