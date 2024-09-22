@@ -16,14 +16,12 @@ public interface NoticeService {
     NoticeDTO getNoticeById(Long noticeNum);  // 공지사항 번호로 공지사항을 조회하는 메서드
 
     // 공지사항 정식 저장
-//    void noticeRegister(NoticeDTO noticeDTO, Model model);
     void noticeRegister(NoticeDTO noticeDTO);
 
     // 공지사항 임시 저장 메서드
     void saveTempNotice(NoticeDTO noticeDTO);
 
     // 공지사항 수정
-//    void noticeUpdate(NoticeDTO noticeDTO, Model model);
     void noticeUpdate(NoticeDTO noticeDTO);
 
     // 공지사항 삭제

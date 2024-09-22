@@ -82,6 +82,13 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public void saveTempNotice(NoticeDTO noticeDTO) {
+        // 현재 임시 저장된 공지사항 수 확인
+        List<NoticeDTO> tempNotices = noticeMapper.getTempNoticeList(0, 3);
+
+        if (tempNotices.size() >= 3) {
+            throw new IllegalStateException("임시 저장된 공지사항은 최대 3개까지만 저장할 수 있습니다.");
+        }
+
         noticeDTO.setNoticeTempSave(true); // 임시 저장으로 설정
         noticeMapper.insertNotice(noticeDTO);
     }
