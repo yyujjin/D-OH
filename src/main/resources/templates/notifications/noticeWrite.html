@@ -35,11 +35,12 @@
             <div class="btn-group">
                 <a th:href="@{/notice/list}" class="btn btn-secondary">목록보기</a>
                 <button type="submit" class="btn btn-primary" th:text="${noticeDTO.noticeNum != null ? '수정' : '등록'}"></button>
-                <!-- 임시 저장 버튼에 기능 추가 -->
+                <!-- 임시 저장 버튼 -->
                 <button type="button" class="btn btn-secondary" id="tempSaveBtn" onclick="handleTempSave()">임시 저장</button>
             </div>
         </form>
     </div>
+
 </th:block>
 
 </html>

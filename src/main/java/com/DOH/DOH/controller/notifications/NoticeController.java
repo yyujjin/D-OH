@@ -89,6 +89,25 @@ public class NoticeController {
         return "redirect:/notice/list";  // 등록/수정 후 공지사항 목록 페이지로 리다이렉트
     }
 
+    // 공지사항 임시 저장 처리
+    @PostMapping("/admin/tempSave")
+    public String saveTempNotice(@ModelAttribute NoticeDTO noticeDTO, RedirectAttributes redirectAttributes) throws Exception {
+        String userEmail = userSessionService.userEmail();
+        String userRole = userSessionService.userRole();
+
+        // 권한 검사: 관리자만 임시 저장 가능
+        if (!userEmail.equals("admin") && !userRole.equals("ROLE_ADMIN")) {
+            redirectAttributes.addFlashAttribute("errorMessage", "공지사항 임시 저장 권한이 없습니다.");
+            return "redirect:/notice/list";  // 권한 없으면 목록 페이지로 리다이렉트
+        }
+
+        // 임시 저장 처리
+        noticeService.saveTempNotice(noticeDTO);
+        log.info("공지사항 임시 저장 완료 - 제목: {}", noticeDTO.getNoticeTitle());
+
+        return "redirect:/notice/list";  // 임시 저장 후 공지사항 목록 페이지로 리다이렉트
+    }
+
     // 공지사항 삭제 처리
     @PostMapping("/admin/delete")
     public String deleteNotice(@RequestParam("noticeNum") Long noticeNum, RedirectAttributes redirectAttributes) throws Exception {

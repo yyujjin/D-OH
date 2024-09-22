@@ -16,6 +16,7 @@
         )
     </insert>
 
+    <!-- 공지사항 번호로 공지사항 조회 -->
     <select id="selectNoticeById" resultType="com.DOH.DOH.dto.notifications.NoticeDTO">
         SELECT
         noticeNum, noticeTitle, noticeContent, noticeCreateTime, userNum, noticeTempSave
@@ -48,7 +49,8 @@
         noticeNum, noticeTitle, noticeContent, noticeCreateTime, userNum, noticeTempSave
         FROM
         notice
-        WHERE noticeTempSave = false
+        WHERE
+        noticeTempSave = false
         ORDER BY noticeCreateTime DESC
         LIMIT #{offset}, #{limit}
     </select>
@@ -59,12 +61,13 @@
         noticeNum, noticeTitle, noticeCreateTime, userNum, noticeTempSave
         FROM
         notice
-        WHERE noticeTempSave = true
+        WHERE
+        noticeTempSave = true
         ORDER BY noticeCreateTime DESC
         LIMIT #{offset}, #{limit}
     </select>
 
-    <!-- 전체 공지사항 수 조회 -->
+    <!-- 전체 정식 공지사항 수 조회 -->
     <select id="getTotalNotices" resultType="int">
         SELECT COUNT(*) FROM notice WHERE noticeTempSave = false
     </select>
