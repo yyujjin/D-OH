@@ -1,6 +1,7 @@
 package com.DOH.DOH.service.notifications;
 
 import com.DOH.DOH.dto.notifications.EventDTO;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -10,8 +11,6 @@ public interface EventService {
     List<EventDTO> getEventListLimited();
 
     List<EventDTO> getTempEventList();
-
-    EventDTO getEventById(Long eventNum);  // 이벤트 번호로 이벤트를 조회하는 메서드
 
     // 이벤트 정식 저장
     void eventRegister(EventDTO eventDTO);
@@ -27,5 +26,8 @@ public interface EventService {
 
     // 임시 저장 수정
     void updateTempEvent(EventDTO eventDTO);
+
+    //이벤트 상세 보기
+    EventDTO getEventById(Long eventNum, Model model); // 상세보기 메소드 추가
 
 }

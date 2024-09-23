@@ -4,6 +4,7 @@ import com.DOH.DOH.dto.notifications.EventDTO;
 import com.DOH.DOH.mapper.notifications.EventMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,16 +33,6 @@ public class EventServiceImpl implements EventService {
     public List<EventDTO> getTempEventList() {
         List<EventDTO> tempEvents = eventMapper.findTempEvents(); // 페이징 없이 전체 임시 저장 목록 조회
         return (tempEvents != null) ? tempEvents : new ArrayList<>();
-    }
-
-    /**
-     * 이벤트 번호로 이벤트를 조회하는 메서드
-     * @param eventNum 이벤트 번호
-     * @return 이벤트 DTO 객체
-     */
-    @Override
-    public EventDTO getEventById(Long eventNum) {
-        return eventMapper.selectEventById(eventNum);
     }
 
     /**
@@ -96,5 +87,10 @@ public class EventServiceImpl implements EventService {
     @Override
     public void updateTempEvent(EventDTO eventDTO) {
         eventMapper.updateTempEvent(eventDTO);
+    }
+
+    @Override
+    public EventDTO getEventById(Long eventNum, Model model) {
+        return eventMapper.selectEventById(eventNum); // 메퍼에서 호출
     }
 }

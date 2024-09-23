@@ -3,6 +3,7 @@ package com.DOH.DOH.mapper.notifications;
 import com.DOH.DOH.dto.notifications.EventDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -65,4 +66,6 @@ public interface EventMapper {
     int getTotalTempEvents();
 
     void updateTempEvent(EventDTO eventDTO);
+
+    EventDTO selectEventById(Long eventNum, Model model); // 상세보기 메소드 추가
 }
