@@ -6,8 +6,6 @@ $(document).ready(function() {
 
 
 function hitUp(e) {
-    console.log("test");
-
     var id = $(e).siblings("#contestId").val();
     console.log(id);
 
@@ -25,7 +23,6 @@ function hitUp(e) {
 }
 
     function order(){
-        alert("test03");
         var orderType = $(".orderWrap .orderType").val();
         console.log("this ->" +orderType);
 
@@ -47,7 +44,6 @@ function hitUp(e) {
     }
 
     function order_page(page){
-        alert("test04");
         var orderType = $(".orderWrap .orderType").val();
         console.log("this ->" +orderType);
 
@@ -70,7 +66,6 @@ function hitUp(e) {
 
  // fa-heart 아이콘 클릭 이벤트
     function scrap(e) {
-        alert("test02");
         event.stopPropagation(); // 이벤트 버블링 방지, 상위 요소로의 이벤트 전달 차단
         event.preventDefault();  // a 태그의 기본 동작(페이지 이동)을 막음
 
