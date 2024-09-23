@@ -64,5 +64,5 @@ function check() {
         return false;
      }
 
-     location.href="/contest/application/write";
+     location.href="/api/users/contest/application/write";
  } 

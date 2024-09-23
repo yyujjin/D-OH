@@ -25,18 +25,17 @@ $(document).ready(function () {
     // 폼 제출 시 선택된 파일을 서버로 전송
     $("form").on("submit", function (e) {
         e.preventDefault(); // 기본 폼 제출 막기
-
         var formData = new FormData(this); // 폼 데이터를 객체로 저장
-
         // AJAX를 이용한 서버로 파일 전송
         $.ajax({
-            url: "/contest/application/upload", // 업로드할 엔드포인트
+            url: "/api/users/contest/application/upload", // 업로드할 엔드포인트
             type: "POST",
             data: formData,
-            processData: false,
             contentType: false,
+            processData: false,
             success: function (response) {
                 alert("파일이 성공적으로 업로드되었습니다!");
+                //window.location.href = "/추후 변경 요망";
             },
             error: function (error) {
                 alert("업로드 중 오류가 발생했습니다.");
