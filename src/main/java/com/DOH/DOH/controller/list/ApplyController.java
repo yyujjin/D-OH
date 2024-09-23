@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 @Slf4j
 @Controller
-@RequestMapping("/contest")
+@RequestMapping("/api/users/contest")
 public class ApplyController {
 
     @Autowired
