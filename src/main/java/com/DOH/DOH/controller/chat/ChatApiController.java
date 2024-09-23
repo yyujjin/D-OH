@@ -51,7 +51,7 @@ public class ChatApiController {
     public Map<String,List<MessageDTO>> getUnreadMessages() {
         String  userNickName = userSessionService.nickName();
 
-        if ("anonymousUser".equals( userNickName)) {
+        if ("Anonymous".equals( userNickName)) {
             // 빈 리스트 반환 또는 상태 코드를 명확하게 설정하는 것이 좋음
             return Collections.emptyMap(); // 빈 리스트 반환
         }

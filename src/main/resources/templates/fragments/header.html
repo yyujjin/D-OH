@@ -52,7 +52,7 @@
 
                         <!-- 관리자가 아닌 경우에만 이메일을 마이페이지 링크로 감싸기 -->
                         <div th:if="${userRole != 'ROLE_ADMIN'}" class="link-item">
-                            <a class="nav-link" th:href="@{/users/mypage}" th:text="${userEmail}"></a>
+                            <a class="nav-link" th:href="@{/users/mypage}" th:text="${nickName}"></a>
                         </div>
 
                         <!-- 관리자인 경우 이메일만 표시 -->
