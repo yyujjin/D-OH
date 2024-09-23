@@ -18,28 +18,28 @@
                 <input type="text" id="eventTitle" name="eventTitle" class="form-control" placeholder="이벤트 제목을 입력하세요" required>
             </div>
 
-            <!-- 날짜와 시간 (필드명 수정) -->
+            <!-- 날짜와 시간 (이벤트 생성 시간 설정) -->
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="date">날짜</label>
-                    <input type="date" id="date" name="eventDate" class="form-control">
+                    <label for="eventCreateTime">날짜</label>
+                    <input type="date" id="eventCreateTime" name="eventCreateTime" class="form-control" required>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label for="time">시간</label>
-                    <input type="time" id="time" name="eventTime" class="form-control">
+                    <label for="eventTime">시간</label>
+                    <input type="time" id="eventTime" name="eventTime" class="form-control">
                 </div>
             </div>
 
             <!-- 이벤트 설명 -->
             <div class="mb-3">
                 <label for="eventContent">이벤트 설명</label>
-                <textarea id="eventContent" name="eventContent" class="form-control" placeholder="이벤트 설명을 입력하세요"></textarea>
+                <textarea id="eventContent" name="eventContent" class="form-control" placeholder="이벤트 설명을 입력하세요" required></textarea>
             </div>
 
             <!-- 이벤트 이미지 -->
             <div class="mb-3">
-                <label for="file">이벤트 이미지</label>
-                <input type="file" id="file" name="file" class="form-control">
+                <label for="eventImage">이벤트 이미지</label>
+                <input type="file" id="eventImage" name="file" class="form-control">
             </div>
 
             <!-- 버튼들 -->
