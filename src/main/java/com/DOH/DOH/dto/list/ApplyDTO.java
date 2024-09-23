@@ -6,6 +6,7 @@ import java.util.Date;
 
 @Data
 public class ApplyDTO {
+
     private Long conNum;
     private String userEmail;
     private String applyTitle;

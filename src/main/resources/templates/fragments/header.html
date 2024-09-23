@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/js/user/header.js}">
+</head>
+
 <th:block th:fragment="headerFragment">
     <header class="header">
         <nav class="navbar">
@@ -8,7 +12,7 @@
                     <img th:src="@{/img/fragments/logoG.png}" alt="Logo" style="width: 150px; height: 65px;">
                 </a>
                 <div class="search-bar">
-                    <input type="text" placeholder="검색">
+                    <input class="header-search-bar" type="text" placeholder="검색">
                     <button type="submit">
                         <img src="https://img.icons8.com/ios-filled/50/000000/search.png" alt="search" width="20" />
                     </button>
@@ -17,7 +21,7 @@
 
             <div class="nav-center">
                 <a class="nav-link" th:href="@{/contest/list}">공모전</a>
-                <a class="nav-link" th:href="@{/contest}">디자인 의뢰</a>
+                <a class="nav-link" th:href="@{/users/contest}">디자인 의뢰</a>
                 <a class="nav-link" th:href="@{/portfolio/list}">포트폴리오</a>
                 <a class="nav-link" th:href="@{/event/list}">이벤트</a>
                 <a class="nav-link" th:href="@{/notice/list}">공지사항</a>
@@ -39,20 +43,27 @@
                     <div th:if="${userEmail != 'anonymousUser'}" class="login-links">
 
                         <!-- 알림 아이콘 (관리자가 아닌 경우만) -->
-                        <div th:if="${userRole != 'ROLE_ADMIN'}" class="link-item">
+                        <div th:if="${userRole != 'ROLE_ADMIN'}" class="link-item dropdown">
                             <!-- 알림 아이콘 -->
-                            <div th:if="true">
+                            <div class="dropdown-toggle" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
                                 <i class="fa-regular fa-bell"></i> <!-- 알림 없음 -->
+                                <span class="notification-badge" th:if="${hasUnreadNotifications}">N</span>
                             </div>
-                            <div th:if="false" style="position: relative;">
-                                <i class="fa-regular fa-bell" style="position: relative;"></i> <!-- 알림 있음 -->
-                                <span class="notification-badge">N</span>
-                            </div>
+                            <!-- 알림 드롭다운 메뉴 -->
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+                                <li th:each="notification : ${notificationList}">
+                                    <a class="dropdown-item" th:text="${notification.message}" th:href="${notification.url}"></a>
+                                </li>
+                                <!-- 알림이 없는 경우 -->
+                                <li th:if="${#lists.isEmpty(notificationList)}">
+                                    <a class="dropdown-item">새로운 알림이 없습니다.</a>
+                                </li>
+                            </ul>
                         </div>
 
                         <!-- 관리자가 아닌 경우에만 이메일을 마이페이지 링크로 감싸기 -->
                         <div th:if="${userRole != 'ROLE_ADMIN'}" class="link-item">
-                            <a class="nav-link" th:href="@{/users/mypage}" th:text="${userEmail}"></a>
+                            <a class="nav-link" th:href="@{/users/mypage}" th:text="${nickName}"></a>
                         </div>
 
                         <!-- 관리자인 경우 이메일만 표시 -->

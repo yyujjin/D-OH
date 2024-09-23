@@ -7,25 +7,25 @@
     <select id="getContestList" resultType="com.DOH.DOH.dto.list.ContestListDTO">
         SELECT row_number() over(order by id desc) as rownum, id, conType, conTitle,
                 (conFirstPrice * conFirstPeople + conSecondPrice * conSecondPeople
-                + conThirdPrice * conThirdPeople) as totalPrice,
+                + conThirdPrice * conThirdPeople) as totalPrice,conHit,
                 date_format(conEndDate, '%y.%m.%d') as conEndDate,
                 (datediff(conEndDate, now())) as endDate, conCompanyName
             FROM contest_Upload
             WHERE datediff(conEndDate, now()) >= 0
-<!--        <choose>-->
-<!--            <when test="orderType == 'price'">&lt;!&ndash;총 상금 순&ndash;&gt;-->
-<!--                order by totalPricee desc-->
-<!--            </when>-->
-<!--            <when test="orderType == 'latest'">&lt;!&ndash;마감임박순&ndash;&gt;-->
-<!--                order by endDate asc-->
-<!--            </when>-->
-<!--            <when test="orderType == 'hit'">&lt;!&ndash;조회순&ndash;&gt;-->
-<!--                order by conHit desc-->
-<!--            </when>-->
-<!--            <otherwise>&lt;!&ndash;기본 값 : 최신순&ndash;&gt;-->
-<!--                order by rownum asc-->
-<!--            </otherwise>-->
-<!--        </choose>-->
+        <choose>
+            <when test="orderType == 'price'"><!--총 상금 순-->
+                order by totalPrice desc
+            </when>
+            <when test="orderType == 'latest'"><!--마감임박순-->
+                order by endDate asc
+            </when>
+            <when test="orderType == 'hit'"><!--조회순-->
+                order by conHit desc
+            </when>
+            <otherwise><!--기본 값 : 최신순-->
+                order by rownum asc
+            </otherwise>
+        </choose>
             limit #{offset} , #{pageSize}
     </select>
 
@@ -37,8 +37,29 @@
         insert into apply_contest(userEmail,applyTitle,applyContent,imageUrl ) values(#{userEmail}, #{applyTitle}, #{applyContent},#{imageUrl})
     </insert>
 
-
+<!--    조회수 증가-->
     <update id="hitUp">
         update contest_Upload set conHit = ifnull(conHit, 0) +1 where id = #{contestId}
     </update>
+
+<!--    기존 관심 공모전 목록 정보를 가져옴-->
+    <select id="getScrapList" resultType="int">
+        select conNum from scrap_contest where userEmail = "${userEmail}"
+    </select>
+
+<!--    관심 공모전 등록 여부 확인-->
+    <select id="searchScrap" resultType="int">
+        select count(*) from scrap_contest where userEmail = "${userEmail}"
+                and conNum = ${contestId}
+    </select>
+
+<!--    관심 공모전 등록-->
+    <insert id="addScrap">
+        insert into scrap_contest(userEmail, conNum) values("${userEmail}", ${contestId})
+    </insert>
+
+<!--    관심 공모전 삭제-->
+    <delete id="deleteScrap">
+        delete from scrap_contest where userEmail = "${userEmail}" and conNum = ${contestId}
+    </delete>
 </mapper>
