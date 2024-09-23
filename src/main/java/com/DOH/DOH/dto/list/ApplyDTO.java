@@ -11,4 +11,5 @@ public class ApplyDTO {
     private String applyTitle;
     private String applyContent;
     private Date applyDate;
+    private String imageUrl;
 }
