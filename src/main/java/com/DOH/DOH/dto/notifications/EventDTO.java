@@ -18,4 +18,5 @@ public class EventDTO {
     private String eventImageUrl;
     private int userNum;
     private boolean eventTempSave;
+    private String formattedCreateTime; // 추가된 필드
 }
