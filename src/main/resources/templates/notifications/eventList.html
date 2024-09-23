@@ -6,6 +6,7 @@
     <title>이벤트 페이지</title>
     <link rel="stylesheet" th:href="@{/css/notifications/eventList.css}">
 </head>
+
 <th:block layout:fragment="content">
     <!-- Main Content -->
     <div class="container mt-5">
@@ -21,12 +22,13 @@
             <div class="col" th:each="event : ${eventList}">
                 <a th:href="@{/event/detail(eventNum=${event.eventNum})}" class="card-link">
                     <div class="card h-100">
-                        <img th:src="${event.eventImageUrl}" class="card-img-top" th:alt="${event.eventTitle} 이미지">
+                        <img th:src="${event.eventImageUrl != null ? event.eventImageUrl : '@{/img/fragments/이미지제공안됨.png}'}"
+                             class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${event.eventTitle}">이벤트 제목</h5>
                             <p class="card-text" th:text="${event.eventContent}">이벤트 설명입니다.</p>
                             <p class="card-text">
-                                <small class="text-muted" th:text="'등록일: ' + ${#dates.format(event.eventCreateTime, 'yyyy년 MM월 dd일')}"></small>
+                                <small class="text-muted" th:text="'등록일: ' + ${event.formattedCreateTime}"></small>
                             </p>
                         </div>
                     </div>
@@ -35,7 +37,6 @@
             <!-- //이벤트 카드 반복 끝 -->
         </div>
     </div>
-
 </th:block>
 
 </html>
