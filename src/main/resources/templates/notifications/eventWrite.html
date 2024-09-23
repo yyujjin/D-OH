@@ -3,22 +3,24 @@
       layout:decorate="~{/fragments/layout}">
 
 <head>
-    <title>이벤트 등록</title>
+    <title th:text="${eventDTO != null && eventDTO.eventNum != null ? '이벤트 수정' : '이벤트 등록'}">이벤트 등록</title>
     <link rel="stylesheet" th:href="@{/css/notifications/eventWrite.css}">
     <script th:src="@{/js/notifications/eventWrite.js}"></script>
 </head>
 
-<body>
-<div layout:fragment="content">
+<th:block layout:fragment="content">
     <div class="container mt-5">
-        <h1 class="text-center mb-4">이벤트 등록</h1>
+        <h1 class="text-center mb-4" th:text="${eventDTO.eventNum != null ? '이벤트 수정' : '이벤트 등록'}">이벤트 등록</h1>
 
-        <!-- 이벤트 등록 폼 -->
-        <form method="post" th:action="@{/event/admin/create}" enctype="multipart/form-data">
+        <!-- 이벤트 등록/수정 폼 -->
+        <form id="eventForm" th:action="@{/event/admin/create}" method="post">
+
             <!-- 이벤트 제목 -->
             <div class="mb-3">
                 <label for="eventTitle">이벤트 제목</label>
-                <input type="text" id="eventTitle" name="eventTitle" class="form-control" placeholder="이벤트 제목을 입력하세요" required>
+                <input type="text" id="eventTitle" name="eventTitle" class="form-control"
+                       placeholder="이벤트 제목을 입력하세요"
+                       th:value="${eventDTO != null && eventDTO.eventTitle != null ? eventDTO.eventTitle : ''}" required>
             </div>
 
             <!-- 이벤트 생성일 -->
@@ -44,32 +46,32 @@
                 </div>
             </div>
 
-
-            <!-- Display formatted dates -->
-<!--            <span th:text="${event.formattedCreateTime}"></span>-->
-<!--            <span th:text="${event.formattedStartDate}"></span>-->
-<!--            <span th:text="${event.formattedEndDate}"></span>-->
-
             <!-- 이벤트 설명 -->
             <div class="mb-3">
                 <label for="eventContent">이벤트 설명</label>
-                <textarea id="eventContent" name="eventContent" class="form-control" placeholder="이벤트 설명을 입력하세요"></textarea>
+                <textarea id="eventContent" name="eventContent" class="form-control"
+                          placeholder="이벤트 설명을 입력하세요"
+                          th:text="${eventDTO != null && eventDTO.eventContent != null ? eventDTO.eventContent : ''}"></textarea>
             </div>
 
             <!-- 이벤트 이미지 -->
             <div class="mb-3">
                 <label for="eventImageUrl">이벤트 이미지</label>
                 <input type="file" id="eventImageUrl" name="file" class="form-control">
+                <div th:if="${eventDTO != null && eventDTO.eventImageName != null}" class="mt-2">
+                    <img th:src="${eventDTO.eventImageName}" alt="이벤트 이미지" class="img-thumbnail" width="200">
+                </div>
             </div>
 
             <!-- 버튼들 -->
             <div class="d-flex justify-content-between">
                 <a th:href="@{/event/list}" class="btn btn-secondary">목록보기</a>
-                <button type="submit" class="btn btn-primary">등록</button>
+
+                <!-- 등록/수정 버튼 -->
+                <button type="submit" class="btn btn-primary"
+                        th:text="${eventDTO != null && eventDTO.eventNum != null ? '수정' : '등록'}"></button>
             </div>
         </form>
     </div>
-</div>
-</body>
-
+</th:block>
 </html>

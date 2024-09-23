@@ -11,8 +11,8 @@
     <!-- Main Content -->
     <div class="container mt-5">
         <!-- 이벤트 등록 버튼 -->
-        <div class="d-flex justify-content-end mb-4">
-            <form th:action="@{/event/admin/write}" method="post">
+        <div class="d-flex justify-content-end mb-4" th:if="${userRole == 'ROLE_ADMIN' && userEmail == 'admin'}">
+        <form th:action="@{/event/admin/write}" method="post">
                 <button type="submit" class="btn">이벤트 등록</button>
             </form>
         </div>
@@ -32,19 +32,20 @@
                                     <span th:text="'생성일: ' + ${event.formattedCreateTime}"></span><br>
                                     <span th:text="'이벤트 기간: ' + ${event.formattedStartDate} + ' ~ ' + ${event.formattedEndDate}"></span>
                                 </small>
-
                             </p>
-                            <!-- 삭제 버튼 -->
-                            <form th:action="@{/event/admin/delete(eventNum=${event.eventNum})}" method="post" class="d-inline">
-                                <button type="submit" class="btn btn-danger btn-sm">삭제</button>
-                            </form>
-                            <!-- 임시 저장 버튼 -->
-                            <form th:action="@{/event/admin/tempSave}" method="post" class="d-inline">
-                                <input type="hidden" name="eventNum" th:value="${event.eventNum}"/>
-                                <input type="hidden" name="eventTitle" th:value="${event.eventTitle}"/>
-                                <input type="hidden" name="eventContent" th:value="${event.eventContent}"/>
-                                <button type="submit" class="btn btn-warning btn-sm">임시 저장</button>
-                            </form>
+
+                            <!-- 관리자일 때만 수정 및 삭제 버튼 표시 -->
+                            <div th:if="${userRole == 'ROLE_ADMIN' && userEmail == 'admin'}">
+                                <!-- 수정 버튼 -->
+                                <form th:action="@{/event/admin/write(eventNum=${event.eventNum})}" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-primary btn-sm">수정</button>
+                                </form>
+
+                                <!-- 삭제 버튼 -->
+                                <form th:action="@{/event/admin/delete(eventNum=${event.eventNum})}" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </a>
