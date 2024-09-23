@@ -8,27 +8,28 @@
     <script th:src="@{/js/notifications/eventView.js}"></script>
 </head>
 
-<th:block layout:fragment="content">
-    <form method="get" action="/event/detail" enctype="multipart/form-data" onsubmit="return validateForm();">
+<body>
+<div layout:fragment="content">
+    <form id="eventForm" method="get" th:action="@{/event/detail(eventNum=${event.eventNum})}">
+        <div class="container mt-5">
+            <h1 class="text-center mb-4" th:text="${event.eventTitle}">이벤트 제목</h1>
 
-    <div class="container mt-5">
-        <h1 class="text-center mb-4" th:text="${event.eventTitle}">이벤트 제목</h1>
+            <div class="event-image mb-4">
+                <img th:src="@{${event.eventImageName}}" alt="이벤트 이미지" class="img-fluid">
+            </div>
 
-        <div class="event-image mb-4">
-            <img th:src="${event.eventImageName}" alt="이벤트 이미지" class="img-fluid">
+            <div class="event-details">
+                <h2>이벤트 기간</h2>
+                <span th:text="'생성일: ' + ${event.eventCreateTime}"></span><br>
+                <span th:text="${event.eventStartDate != null ? event.eventStartDate : 'N/A'}"></span> ~
+                <span th:text="${event.eventEndDate != null ? event.eventEndDate : 'N/A'}"></span>
+
+                <h2>이벤트 설명</h2>
+                <p th:text="${event.eventContent}">이곳에 이벤트에 대한 자세한 설명을 작성하세요.</p>
+            </div>
         </div>
-
-        <div class="event-details">
-            <h2>이벤트 기간</h2>
-            <span th:text="'생성일: ' + ${event.formattedCreateTime}"></span><br>
-            <span th:text="${event.eventStartDate != null ? event.eventStartDate : 'N/A'}"></span> ~
-            <span th:text="${event.eventEndDate != null ? event.eventEndDate : 'N/A'}"></span>
-
-            <h2>이벤트 설명</h2>
-            <p th:text="${event.eventContent}">이곳에 이벤트에 대한 자세한 설명을 작성하세요.</p>
-        </div>
-    </div>
-</form>
-</th:block>
+    </form>
+</div>
+</body>
 
 </html>

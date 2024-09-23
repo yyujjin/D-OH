@@ -4,6 +4,8 @@ import com.DOH.DOH.dto.notifications.EventDTO;
 import com.DOH.DOH.mapper.notifications.EventMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +91,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventDTO getEventById(Long eventNum) {
+    public EventDTO getEventById(Long eventNum, ModelMap modelMap) {
         return eventMapper.selectEventById(eventNum); // 메퍼에서 호출
     }
 }

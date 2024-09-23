@@ -1,6 +1,8 @@
 package com.DOH.DOH.service.notifications;
 
 import com.DOH.DOH.dto.notifications.EventDTO;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 
 import java.util.List;
 
@@ -27,6 +29,6 @@ public interface EventService {
     void updateTempEvent(EventDTO eventDTO);
 
     //이벤트 상세 보기
-    EventDTO getEventById(Long eventNum); // 상세보기 메소드 추가
+    EventDTO getEventById(Long eventNum, ModelMap modelMap); // 상세보기 메소드 추가
 
 }

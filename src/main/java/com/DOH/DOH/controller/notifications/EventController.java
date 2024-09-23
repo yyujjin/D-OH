@@ -81,7 +81,7 @@ public class EventController {
         log.info("이벤트 작성 페이지 요청 - eventNum: {}", eventNum);
 
         if (eventNum != null) {
-            EventDTO eventInfo = eventService.getEventById(eventNum);
+            EventDTO eventInfo = eventService.getEventById(eventNum, modelMap);
             modelMap.addAttribute("eventDTO", eventInfo);
             log.info("이벤트 수정 페이지 로드 - eventNum: {}", eventNum);
         } else {
@@ -202,5 +202,21 @@ public class EventController {
         String userEmail = userSessionService.userEmail();
         String userRole = userSessionService.userRole();
         return userEmail.equals("admin") || userRole.equals("ROLE_ADMIN");
+    }
+    // 이벤트 상세보기 페이지
+    @GetMapping("/detail")
+    public String viewEvent(@RequestParam("eventNum") Long eventNum, Model model) {
+        log.info("이벤트 상세보기 요청 - eventNum: {}", eventNum);
+
+        EventDTO eventInfo = eventService.getEventById(eventNum, (ModelMap) model);
+        if (eventInfo != null) {
+            model.addAttribute("event", eventInfo);
+            log.info("이벤트 상세 정보 로드 완료 - 제목: {}", eventInfo.getEventTitle());
+        } else {
+            log.warn("이벤트 정보가 존재하지 않음 - eventNum: {}", eventNum);
+            model.addAttribute("errorMessage", "이벤트 정보를 찾을 수 없습니다.");
+        }
+
+        return "notifications/eventView"; // 상세보기 페이지로 이동
     }
 }
