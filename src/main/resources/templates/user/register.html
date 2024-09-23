@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>register</title>
     <link rel="stylesheet" href="/css/user/register.css" />
     <script src="/js/user/register.js"></script>
@@ -9,8 +8,14 @@
 <body>
 <div class="signup-container">
     <form action="/users/register" method="post" enctype="multipart/form-data">
-    <img th:src="@{/img/fragments/logoGG.png}" alt="D'OH Logo" width="150px" height="75px">
+    <a th:href="@{/}">
+        <img th:src="@{/img/fragments/logoGG.png}" alt="D'OH Logo" width="150px" height="75px">
+    </a>
     <h2>이메일 가입하기</h2>
+    <label for="nickName">닉네임</label>
+    <div class="nickName-container">
+        <input type="text" id="nickName" name="nickName" required>
+    </div>
     <label for="email">이메일 주소</label>
     <div class="email-container">
         <input type="text" id="email" name="userEmail" required>

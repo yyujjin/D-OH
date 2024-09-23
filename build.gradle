@@ -54,8 +54,12 @@ dependencies {
 	// JUnit 플랫폼
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+	//WebSocket
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
 	//spring scurity
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 }
 
 tasks.named('test') {

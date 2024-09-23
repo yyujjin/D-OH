@@ -1,24 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/fragments/layout">
-
+      layout:decorate="~{/fragments/layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>페이지</title>
-
-    <!-- jQuery 추가 -->
-    <script src="https://code.jquery.com/jquery-3.6.4.js"
-            integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- 커스텀 CSS 및 JS 추가 -->
-    <link rel="stylesheet" th:href="@{/css/user/portfolioDetail.css}" />
-    <link rel="stylesheet" th:href="@{/css/fragments/header.css}">
-    <link rel="stylesheet" th:href="@{/css/fragments/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/user/portfolioDetail.css}"/>
     <script type="text/javascript" th:src="@{/js/user/portfolioDetail.js}"></script>
-
 </head>
 <th:block layout:fragment="content">
 
@@ -91,7 +76,11 @@
                             </div>
                         </div>
                     </figure><!--figure-->
-                    <button type="button">디자이너에게 문의하기</button>
+                    <!--임시값으로 aaaa 고정 -->
+                    <!--추후 사용자 닉네임 저장하는 로직 구현되면 닉네임을 쿼리로 넘겨야함 -->
+                    <a href="/users/chat?receiver=aaaa">
+                        <button type="button" >디자이너에게 문의하기</button>
+                    </a>
                 </aside><!--sectionInfo-->
             </div><!--mainWrap-->
 
@@ -99,4 +88,4 @@
     </main>
 </th:block>
 
-</html>ml>
+</html>

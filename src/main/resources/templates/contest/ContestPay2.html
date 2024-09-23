@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/fragments/layout}">
 <head xmlns:th="http://www.w3.org/1999/xhtml">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/contest/ContestPay2.css">
+    <link rel="stylesheet" th:href="@{/css/contest/ContestPay2.css}">
+    <script th:src="@{/js/contest/ContestPay2.js}"></script>
     <script src="/js/contest/ContestPay2.js"></script>
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
     <title>Document</title>
     <script>
-
         // 서버 주소 (백엔드 서버의 주소로 설정)
                 IMP.init("imp54854523");
 
@@ -87,7 +88,7 @@
     </script>
 </head>
 <body>
-
+<th:block layout:fragment="content">
 <div class="Contestpayment">
     <form action="/contest/payment/submit" method="post" enctype="multipart/form-data">
         <h1>결제 정보를 확인해주세요.</h1>
@@ -121,5 +122,7 @@
 
     </form>
 </div>
+
+</th:block>
 </body>
 </html>
