@@ -17,7 +17,7 @@
                     // 1. 서버에서 주문 번호를 먼저 생성 (POST 요청)
                     let orderNumber;
                     try {
-                        const response = await fetch('/contest/createOrder', {
+                        const response = await fetch('/users/contest/createOrder', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' }
                     });
@@ -35,7 +35,7 @@
                     const amount = totalPrize * 10000 + totalPrize * 2500;
 
                     // HTML에서 userEmail 값을 가져오기
-                    const userEmail = document.getElementById('displayuserEmail').textContent;
+                    const userEmail = document.getElementById('userEmail').value;
 
 
                     IMP.request_pay({
@@ -57,7 +57,7 @@
 
                         // 결제 성공 시 서버로 결제 정보 전송
                         try {
-                            const notified = await fetch(`/contest/payment/complete`, {
+                            const notified = await fetch(`/users/contest/payment/complete`, {
                                 method: "POST",
                                 headers: { "Content-Type": "application/json" },
                                 body: JSON.stringify({
@@ -90,11 +90,13 @@
 <body>
 <th:block layout:fragment="content">
 <div class="Contestpayment">
-    <form action="/contest/payment/submit" method="post" enctype="multipart/form-data">
+    <form action="/users/contest/payment/submit" method="post" enctype="multipart/form-data">
         <h1>결제 정보를 확인해주세요.</h1>
         <div class="info">
             <h3>의뢰자 정보</h3>
             <p>이메일 <span id="displayuserEmail" th:text="${userEmail}"></span></p>
+
+            <input type="hidden" id="userEmail" th:value="${userEmail}">
 
             <p>회사명 <span id="displaycompanyName" th:text="${contestUploadDTO.conCompanyName}"></span></p>
             <!-- 회사명을 히든 인풋으로 저장 -->

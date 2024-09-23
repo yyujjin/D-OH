@@ -32,7 +32,8 @@ public class ContestUploadController {
     private ContestUploadService contestUploadService;
 
     // 1단계: 첫 번째 폼 (회사 정보 등) 보여주기
-    @GetMapping("/contest")
+//    @GetMapping("/users/contest")
+    @GetMapping("/users/contest")
     public String showContestForm(Model model) {
         // DB에서 업종 목록 가져오기
         List<String> contestTypes = contestUploadService.getContestTypes();
@@ -42,17 +43,17 @@ public class ContestUploadController {
     }
 
     // 1단계: 폼 데이터를 세션에 저장하고 다음 단계로 이동
-    @PostMapping("/contest")
+    @PostMapping("/users/contest")
     public String submitContest(@ModelAttribute ContestUploadDTO contestUploadDTO, HttpSession session) {
         log.info("Received ContestUploadDTO: {}", contestUploadDTO);
         session.setAttribute("contestData", contestUploadDTO);
         // 세션에 저장된 값 확인
         log.info("Stored in session: {}", session.getAttribute("contestData"));
-        return "redirect:/contest/budget";  // 2단계로 이동
+        return "redirect:/users/contest/budget";  // 2단계로 이동
     }
 
     // 2단계: 상금 및 기간 설정 폼 보여주기
-    @GetMapping("/contest/budget")
+    @GetMapping("/users/contest/budget")
     public String showContestForm1(Model model, HttpSession session) {
         ContestUploadDTO contestUploadDTO = (ContestUploadDTO) session.getAttribute("contestData");
         model.addAttribute("contestUploadDTO", contestUploadDTO);
@@ -60,23 +61,23 @@ public class ContestUploadController {
     }
 
     // 2단계: 폼 데이터를 세션에 업데이트하고 최종 저장 단계로 이동
-    @PostMapping("/contest/budget")
+    @PostMapping("/users/contest/budget")
     public String submitContest1(@ModelAttribute ContestUploadDTO contestUploadDTO, HttpSession session) {
         ContestUploadDTO existingContestData = (ContestUploadDTO) session.getAttribute("contestData");
         log.info("ContestUploadDTO before copy: {}", existingContestData);
         BeanUtilsHelper.copyNonNullProperties(contestUploadDTO, existingContestData);
         session.setAttribute("contestData", existingContestData);
         log.info("Updated ContestUploadDTO in session: {}", existingContestData);
-        return "redirect:/contest/payment";  // 결제 정보 확인 페이지로 이동
+        return "redirect:/users/contest/payment";  // 결제 정보 확인 페이지로 이동
     }
 
     // 결제 정보 확인 페이지
-    @GetMapping("/contest/payment")
+    @GetMapping("/users/contest/payment")
     public String showPaymentPage(HttpSession session, Model model) {
         ContestUploadDTO contestUploadDTO = (ContestUploadDTO) session.getAttribute("contestData");
         log.info("ContestUploadDTO in payment page: {}", contestUploadDTO); // 세션에서 가져온 DTO 확인
         if (contestUploadDTO == null) {
-            return "redirect:/contest";  // 세션에 데이터가 없으면 처음으로 리다이렉트
+            return "redirect:/users/contest";  // 세션에 데이터가 없으면 처음으로 리다이렉트
         }
         String userEmail = userSessionService.userEmail();
         model.addAttribute("userEmail", userEmail);
@@ -89,7 +90,7 @@ public class ContestUploadController {
         return "contest/ContestPay2";  // 결제 페이지로 이동
     }
 
-    @PostMapping("/contest/payment/complete")
+    @PostMapping("/users/contest/payment/complete")
     public ResponseEntity<Map<String, String>> completePayment(@RequestBody Map<String, String> paymentData, HttpSession session) {
         String impUid = paymentData.get("imp_uid");
         String merchantUid = paymentData.get("merchant_uid");
@@ -123,18 +124,18 @@ public class ContestUploadController {
     }
 
     // 결제 완료 후 contestView로 리다이렉트하는 새로운 메서드
-    @GetMapping("/contest/payment/success")
+    @GetMapping("/users/contest/payment/success")
     public String redirectToContestView(HttpSession session) {
         Long contestNum = (Long) session.getAttribute("contestNum");
         if (contestNum != null) {
             return "redirect:/contest/view?contestNum=" + contestNum;
         } else {
-            return "redirect:/contest";  // contestNum가 없으면 초기화면으로
+            return "redirect:/users/contest";  // contestNum가 없으면 초기화면으로
         }
     }
 
     // 주문번호 생성기 (필요시)
-    @PostMapping("/contest/createOrder")
+    @PostMapping("/users/contest/createOrder")
     public ResponseEntity<Map<String, String>> createOrder() {
         String orderNumber = contestUploadService.generateOrderNumber();
         Map<String, String> response = new HashMap<>();
