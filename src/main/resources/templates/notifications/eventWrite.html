@@ -7,8 +7,9 @@
     <link rel="stylesheet" th:href="@{/css/notifications/eventWrite.css}">
     <script th:src="@{/js/notifications/eventWrite.js}"></script>
 </head>
-<th:block layout:fragment="content">
 
+<th:block layout:fragment="content">
+    <form method="post" th:action="@{/event/admin/create}" enctype="multipart/form-data">
     <div class="container mt-5">
         <h1 class="text-center mb-4">이벤트 등록</h1>
         <form th:action="@{/event/admin/create}" method="post" enctype="multipart/form-data">
@@ -20,13 +21,10 @@
 
             <!-- 날짜와 시간 (이벤트 생성 시간 설정) -->
             <div class="row">
-                <div class="col-md-6 mb-3">
+                <!-- 날짜 (이벤트 생성 시간 설정) -->
+                <div class="mb-3">
                     <label for="eventCreateTime">날짜</label>
                     <input type="date" id="eventCreateTime" name="eventCreateTime" class="form-control" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="eventTime">시간</label>
-                    <input type="time" id="eventTime" name="eventTime" class="form-control">
                 </div>
             </div>
 
@@ -38,8 +36,8 @@
 
             <!-- 이벤트 이미지 -->
             <div class="mb-3">
-                <label for="eventImage">이벤트 이미지</label>
-                <input type="file" id="eventImage" name="file" class="form-control">
+                <label for="eventImageUrl">이벤트 이미지</label>
+                <input type="file" id="eventImageUrl" name="file" class="form-control">
             </div>
 
             <!-- 버튼들 -->
@@ -49,7 +47,7 @@
             </div>
         </form>
     </div>
-
+</form>
 </th:block>
 
 </html>

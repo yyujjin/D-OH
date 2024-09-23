@@ -10,16 +10,16 @@
             SELECT IFNULL(MAX(eventNum), 0) + 1 FROM event
         </selectKey>
         INSERT INTO event (
-        eventNum, eventTitle, eventContent, eventCreateTime, userNum, eventTempSave
+        eventNum, eventTitle, eventContent, eventCreateTime, userNum, eventTempSave, eventImageUrl
         ) VALUES (
-        #{eventNum}, #{eventTitle}, #{eventContent}, #{eventCreateTime}, #{userNum}, #{eventTempSave}
+        #{eventNum}, #{eventTitle}, #{eventContent}, #{eventCreateTime}, #{userNum}, #{eventTempSave}, #{eventImageName}
         )
     </insert>
 
     <!-- 이벤트 번호로 이벤트 조회 -->
     <select id="selectEventById" resultType="com.DOH.DOH.dto.notifications.EventDTO">
         SELECT
-        eventNum, eventTitle, eventContent, eventCreateTime, userNum, eventTempSave
+        eventNum, eventTitle, eventContent, eventCreateTime, userNum, eventTempSave, eventImageUrl AS eventImageName
         FROM
         event
         WHERE
@@ -33,7 +33,8 @@
         eventTitle = #{eventTitle},
         eventContent = #{eventContent},
         eventTempSave = #{eventTempSave},
-        eventCreateTime = #{eventCreateTime}  <!-- 수정 시 시간도 업데이트 -->
+        eventImageUrl = #{eventImageName},
+        eventCreateTime = NOW()
         WHERE
         eventNum = #{eventNum}
     </update>
@@ -44,7 +45,8 @@
         SET
         eventTitle = #{eventTitle},
         eventContent = #{eventContent},
-        eventCreateTime = #{eventCreateTime}  <!-- 수정 시 수정 시간을 갱신할 수 있음 -->
+        eventImageUrl = #{eventImageName},
+        eventCreateTime = NOW()
         WHERE
         eventNum = #{eventNum}
         AND eventTempSave = true
@@ -59,7 +61,7 @@
     <!-- 정식 저장된 이벤트 목록 조회 -->
     <select id="getEventList" resultType="com.DOH.DOH.dto.notifications.EventDTO">
         SELECT
-        eventNum, eventTitle, eventContent, eventCreateTime, userNum, eventTempSave
+        eventNum, eventTitle, eventContent, eventCreateTime, userNum, eventTempSave, eventImageUrl AS eventImageName
         FROM
         event
         WHERE
@@ -70,7 +72,7 @@
     <!-- 임시 저장된 이벤트 목록 조회 (최대 3개) -->
     <select id="findTempEvents" resultType="com.DOH.DOH.dto.notifications.EventDTO">
         SELECT
-        eventNum, eventTitle, eventContent, eventCreateTime, userNum, eventTempSave
+        eventNum, eventTitle, eventContent, eventCreateTime, userNum, eventTempSave, eventImageUrl AS eventImageName
         FROM
         event
         WHERE

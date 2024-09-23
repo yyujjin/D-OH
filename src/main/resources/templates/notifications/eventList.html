@@ -22,7 +22,7 @@
             <div class="col" th:each="event : ${eventList}">
                 <a th:href="@{/event/detail(eventNum=${event.eventNum})}" class="card-link">
                     <div class="card h-100">
-                        <img th:src="${event.eventImageUrl != null ? event.eventImageUrl : '@{/img/fragments/이미지제공안됨.png}'}"
+                        <img th:src="${event.eventImageName != null ? event.eventImageName : '@{/img/fragments/이미지제공안됨.png}'}"
                              class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${event.eventTitle}">이벤트 제목</h5>
@@ -30,6 +30,17 @@
                             <p class="card-text">
                                 <small class="text-muted" th:text="'등록일: ' + ${event.formattedCreateTime}"></small>
                             </p>
+                            <!-- 삭제 버튼 -->
+                            <form th:action="@{/event/admin/delete(eventNum=${event.eventNum})}" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+                            </form>
+                            <!-- 임시 저장 버튼 -->
+                            <form th:action="@{/event/admin/tempSave}" method="post" class="d-inline">
+                                <input type="hidden" name="eventNum" th:value="${event.eventNum}"/>
+                                <input type="hidden" name="eventTitle" th:value="${event.eventTitle}"/>
+                                <input type="hidden" name="eventContent" th:value="${event.eventContent}"/>
+                                <button type="submit" class="btn btn-warning btn-sm">임시 저장</button>
+                            </form>
                         </div>
                     </div>
                 </a>

@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -13,10 +13,9 @@ public class EventDTO {
     private Long eventNum;
     private String eventTitle;
     private String eventContent;
-    private LocalDateTime eventCreateTime;
+    private LocalDate eventCreateTime;
     private String eventImageName;
     private String eventImageUrl;
     private int userNum;
     private boolean eventTempSave;
-    private String formattedCreateTime; // 추가된 필드
 }

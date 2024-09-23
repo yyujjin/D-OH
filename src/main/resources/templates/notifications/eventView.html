@@ -7,41 +7,26 @@
     <link rel="stylesheet" th:href="@{/css/notifications/eventView.css}">
     <script th:src="@{/js/notifications/eventView.js}"></script>
 </head>
-<th:block layout:fragment="content">
 
-    <!-- 배너 이미지와 이벤트 제목 -->
-    <div class="event-container">
-        <div class="banner">
-            <h2 th:text="${event.eventTitle}">이벤트 제목</h2>
+<th:block layout:fragment="content">
+    <form method="get" action="/event/detail" enctype="multipart/form-data" onsubmit="return validateForm();">
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4" th:text="${event.eventTitle}">이벤트 제목</h1>
+
+        <div class="event-image mb-4">
+            <img th:src="${event.eventImageUrl}" alt="이벤트 이미지" class="img-fluid">
         </div>
+
         <div class="event-details">
+            <h2>이벤트 날짜</h2>
+            <p th:text="${#dates.format(event.eventCreateTime, 'yyyy년 MM월 dd일')}">날짜 정보</p>
+
             <h2>이벤트 설명</h2>
             <p th:text="${event.eventContent}">이곳에 이벤트에 대한 자세한 설명을 작성하세요.</p>
-
-            <div class="event-info">
-                <h3>이벤트 정보</h3>
-                <div class="info-item">
-                    <i class="bi bi-calendar-event-fill"></i> 날짜: <span th:text="${#dates.format(event.eventCreateTime, 'yyyy년 MM월 dd일')}">2024년 9월 15일</span>
-                </div>
-                <div class="info-item">
-                    <i class="bi bi-clock-fill"></i> 시간: 오후 2:00 - 오후 6:00
-                </div>
-                <div class="info-item">
-                    <i class="bi bi-geo-alt-fill"></i> 장소: 서울시 강남구 ABC 건물
-                </div>
-                <div class="info-item">
-                    <i class="bi bi-ticket-fill"></i> 티켓 가격: 20,000원
-                </div>
-            </div>
-
-            <!-- 응모 버튼 -->
-            <div class="register-btn">
-                <a href="#">지금 응모하기</a>
-            </div>
-
         </div>
     </div>
-
+</form>
 </th:block>
 
 </html>

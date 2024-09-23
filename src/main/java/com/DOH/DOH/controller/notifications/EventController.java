@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
@@ -50,7 +51,9 @@ public class EventController {
 
         // LocalDateTime을 String으로 변환
         for (EventDTO event : eventList) {
-            event.setFormattedCreateTime(event.getEventCreateTime().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
+            if (event.getEventCreateTime() != null) {
+                event.setFormattedCreateTime(event.getEventCreateTime().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
+            }
         }
 
         model.addAttribute("eventList", eventList);
@@ -71,7 +74,7 @@ public class EventController {
         log.info("이벤트 작성 페이지 요청 - eventNum: {}", eventNum);
 
         if (eventNum != null) {
-            EventDTO eventInfo = eventService.getEventById(eventNum, modelMap);
+            EventDTO eventInfo = eventService.getEventById(eventNum);
             modelMap.addAttribute("eventDTO", eventInfo);
             log.info("이벤트 수정 페이지 로드 - eventNum: {}", eventNum);
         } else {
@@ -81,10 +84,10 @@ public class EventController {
         return "notifications/eventWrite";
     }
 
-    // 이벤트 작성(작성&수정) 처리 (POST로 처리)
     @PostMapping("/admin/create")
     public String eventWrite(@ModelAttribute EventDTO eventDTO,
                              @RequestParam(value = "file", required = false) MultipartFile file,
+                             @RequestParam("eventCreateTime") String eventCreateTimeStr, // 날짜를 String으로 받음
                              RedirectAttributes redirectAttributes) throws Exception {
         log.info("이벤트 작성 요청 - 제목: {}", eventDTO.getEventTitle());
 
@@ -99,6 +102,10 @@ public class EventController {
         }
 
         eventDTO.setUserNum(Math.toIntExact(userNum));
+
+        // 날짜 문자열을 LocalDate로 변환
+        LocalDate eventCreateTime = LocalDate.parse(eventCreateTimeStr);
+        eventDTO.setEventCreateTime(eventCreateTime); // 변환된 날짜를 DTO에 설정
 
         // S3에 파일이 업로드된 경우
         if (file != null && !file.isEmpty()) {
@@ -159,8 +166,12 @@ public class EventController {
     public String viewEvent(@RequestParam("eventNum") Long eventNum, Model model) {
         log.info("이벤트 상세보기 요청 - eventNum: {}", eventNum);
 
-        EventDTO eventInfo = eventService.getEventById(eventNum, model);
+        EventDTO eventInfo = eventService.getEventById(eventNum);
         if (eventInfo != null) {
+            // 날짜 형식 설정
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+            eventInfo.setFormattedCreateTime(eventInfo.getEventCreateTime().format(formatter));
+
             model.addAttribute("event", eventInfo);
             log.info("이벤트 상세 정보 로드 완료 - 제목: {}", eventInfo.getEventTitle());
         } else {
