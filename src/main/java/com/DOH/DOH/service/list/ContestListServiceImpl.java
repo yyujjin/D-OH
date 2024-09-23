@@ -59,7 +59,8 @@ public class ContestListServiceImpl implements ContestListService {
         return result;
     }
 
-    public void saveContestApply(ApplyDTO dto){
-        contestListMapper.saveContestApply(dto);
+    @Override
+    public void saveContest(ApplyDTO applyDTO) {
+        contestListMapper.saveContest(applyDTO);
     }
 }
