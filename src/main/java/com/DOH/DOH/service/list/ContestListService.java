@@ -9,10 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface ContestListService {
+
+    //컨테스트 저장
+    void saveContest(ApplyDTO applyDTO);
+    
 //    public ArrayList<ContestListDTO> getContestList(int page, int pageSize, String orderType);
     public ArrayList<ContestListDTO> getContestList(PagingDTO dto);
 
     public int getTotalCount(); // 전체 게시물 수를 조회하는 메서드
-    public void saveContestApply(ApplyDTO dto);
+    
+    
     public void hitUp(int contestId);//조회수 증가 메서드
 }

@@ -31,14 +31,14 @@ public class ContestListServiceImpl implements ContestListService {
     }
 
     public int getTotalCount(){
-//        ContestListMapper contestListMapper = sqlSession.getMapper(ContestListMapper.class);
+
 
         return contestListMapper.getTotalCount();
     } // 전체 게시물 수를 조회하는 메서드
 
-    public void saveContestApply(ApplyDTO dto){
-      // ContestListMapper contestListMapper = sqlSession.getMapper(ContestListMapper.class);
-        contestListMapper.saveContestApply(dto);
+    //컨테스트 저장
+    public void saveContest(ApplyDTO applyDTO){
+        contestListMapper.saveContest(applyDTO);
     }
 
     public void hitUp(int contestId) {//조회수 증가 메서드

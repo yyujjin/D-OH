@@ -14,6 +14,10 @@ public interface ContestListMapper {
     public ArrayList<ContestListDTO> getContestList(@Param("offset") int offset, @Param("pageSize") int pageSize);
 
     public int getTotalCount(); // 전체 게시물 수를 조회하는 메서드
-    public void saveContestApply(ApplyDTO dto);
+
+    //컨테스트 저장
+    void saveContest(ApplyDTO applyDTO);
+
     void hitUp(int contestId);
+
 }
