@@ -31,10 +31,6 @@ public class ContestListServiceImpl implements ContestListService {
         return contestListMapper.getContestList(offset, pageSize, orderType);
     }
 
-    //컨테스트 저장
-    public void saveContest(ApplyDTO applyDTO){
-        contestListMapper.saveContest(applyDTO);
-
     public int getTotalCount(){// 전체 게시물 수를 조회하는 메서드
         return contestListMapper.getTotalCount();
     }
@@ -63,7 +59,8 @@ public class ContestListServiceImpl implements ContestListService {
         return result;
     }
 
-    public void saveContestApply(ApplyDTO dto){
-        contestListMapper.saveContestApply(dto);
+    @Override
+    public void saveContest(ApplyDTO applyDTO) {
+        contestListMapper.saveContest(applyDTO);
     }
 }

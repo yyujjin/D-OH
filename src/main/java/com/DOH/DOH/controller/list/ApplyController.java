@@ -23,13 +23,11 @@ import java.util.HashMap;
 public class ApplyController {
 
     private final ContestListService contestListService;
-    private final S3Service s3Service;  // S3 업로드 서비스를 추가로 주입
     private final UserSessionService userSessionService;
     private final S3FileUploadService s3FileUploadService;
 
-    public ApplyController(ContestListService contestListService, S3Service s3Service, UserSessionService userSessionService, S3FileUploadService s3FileUploadService) {
+    public ApplyController(ContestListService contestListService, UserSessionService userSessionService, S3FileUploadService s3FileUploadService) {
         this.contestListService = contestListService;
-        this.s3Service = s3Service;
         this.userSessionService = userSessionService;
         this.s3FileUploadService = s3FileUploadService;
     }
