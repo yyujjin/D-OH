@@ -34,7 +34,7 @@
     </select>
 
     <insert id="saveContest" parameterType="com.DOH.DOH.dto.list.ApplyDTO">
-        insert into apply_contest(userEmail,applyTitle,applyContent ) values(#{userEmail}, #{applyTitle}, #{applyContent})
+        insert into apply_contest(userEmail,applyTitle,applyContent,imageUrl ) values(#{userEmail}, #{applyTitle}, #{applyContent},#{imageUrl})
     </insert>
 
 
