@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -29,23 +30,54 @@ public class ContestListController {
                               @RequestParam(name = "orderType", defaultValue = "current")String orderType,
                               Principal principal, Model model){
 
+//        log.info("orderType 테스트!! "+orderType);
+//        if (principal != null) { // principal이 null이 아닌 경우 처리
+//            String userEmail = principal.getName();
+//            if (userEmail != null) {
+//                ArrayList<Integer> scrapList = contestListService.getScrapList(userEmail);
+//                log.info("scrapList" + scrapList);
+//                model.addAttribute("scrapList", scrapList);
+//            }
+//        }
+
+        //PagingDTO dto = new PagingDTO(page,contestListService.getTotalCount(),10);
+
+        //ArrayList<ContestListDTO> contestList = contestListService.getContestList(dto, orderType);
+        //model.addAttribute("contestList", contestList);
+        //model.addAttribute("pageMaker", dto);
+
+        return "list/contestList";
+    }
+
+    @GetMapping("/list_ajax")
+    public ModelAndView contestList(@RequestParam(defaultValue = "1") int page,
+                                    @RequestParam(name = "orderType", defaultValue = "current")String orderType,
+                                    Principal principal){ //, Model model){
+
         log.info("orderType 테스트!! "+orderType);
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("/list/contestWrap_ajax");
+
         if (principal != null) { // principal이 null이 아닌 경우 처리
             String userEmail = principal.getName();
             if (userEmail != null) {
                 ArrayList<Integer> scrapList = contestListService.getScrapList(userEmail);
                 log.info("scrapList" + scrapList);
-                model.addAttribute("scrapList", scrapList);
+                //model.addAttribute("scrapList", scrapList);
+                mav.addObject("scrapList", scrapList);
             }
         }
 
         PagingDTO dto = new PagingDTO(page,contestListService.getTotalCount(),10);
 
         ArrayList<ContestListDTO> contestList = contestListService.getContestList(dto, orderType);
-        model.addAttribute("contestList", contestList);
-        model.addAttribute("pageMaker", dto);
+        //model.addAttribute("contestList", contestList);
+        //model.addAttribute("pageMaker", dto);
 
-        return "list/contestList";
+        mav.addObject("contestList", contestList);
+        mav.addObject("pageMaker", dto);
+
+        return mav;
     }
 
     @PostMapping("/scrap")

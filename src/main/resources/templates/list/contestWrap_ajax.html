@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div class="contestWrap">
+    <div class="listValue" th:each="list : ${contestList}">
+        <input type="hidden" id="contestId" th:value="${list.id}">
+        <a href="#" th:href="@{/contest/view(contestId=${list.id})}" th:onclick="hitUp(this)">
+            <div class="listArea">
+                <div class="content A">
+                    <div class="endDate"><span th:text="${list.endDate}">8</span>일 남음</div>
+                    <div class="industry" th:text="${list.conType}">식품/건강</div>
+                    <div class="heart">
+                        <i class="fa-solid fa-heart" th:classappend="${scrapList != null && scrapList.contains(list.id) ? 'active' : ''}"></i>
+                    </div>
+                </div>
+                <h5 th:text="${list.conTitle}">글로벌 한방 브랜드 네이밍 콘테스트</h5>
+                <div class="content B">
+                    <div class="contestHost" th:text="${list.conCompanyName}">헬스마켓</div>
+                    <div class="hit">
+                        <i class="bi bi-hand-index"></i>
+                        <span th:text="${list.conHit}">363</span>
+                    </div>
+                </div>
+            </div><!--listArea-->
+            <div class="listChar">
+                <div class="priceInfo">
+                    <div class="infoArea">
+                        <!-- <div class="infoLeft"> -->
+                        <div>
+                            <i class="bi bi-trophy"></i>
+                        </div>
+                        <div class="host">총 상금</div>
+                        <!-- </div> -->
+                    </div>
+                    <div class="total P"><span th:text="${list.totalPrice}">30</span> 만원</div>
+                </div><!--상금 정보 부분-->
+                <div class="priceInfo">
+                    <div class="infoArea">
+                        <!-- <div class="infoLeft"> -->
+                        <div>
+                            <i class="bi bi-calendar-week"></i>
+                        </div>
+                        <div class="host">남은 기간</div>
+                        <!-- </div> -->
+                    </div>
+                    <div class="total E"><span th:text="${list.endDate}">8</span> 일</div>
+                </div><!--마감일 부분-->
+                <div class="priceInfo">
+                    <div class="lastDate"><span th:text="${list.conEndDate}">24.08.18</span> 마감</div>
+                </div>
+            </div><!--listChar-->
+        </a><!--콘테스트 정보-->
+    </div><!--listValue-->
+</div><!--contestWrap-->
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item" th:if="${pageMaker.prev}">
+            <a class="page-link" th:href="@{/contest/list_ajax(page=${pageMaker.startPage - 1}, orderType=${param.orderType})}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="page-item" th:each="i : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}">
+            <!-- <a class="page-link" th:text="${i}" th:href="@{/contest/list(page=${i}, orderType=${param.orderType})}">3</a>-->
+            <!-- <a class="page-link" th:text="${i}" th:href="@{/contest/list_ajax(page=${i}, orderType=${param.orderType})}">3</a> -->
+            <a class="page-link" th:text="${i}" th:attr="onclick='order_page(' + ${i} + ')'">3</a>
+        </li>
+        <li class="page-item" th:if="${pageMaker.next}">
+            <!--
+            <a class="page-link" th:href="@{/contest/list_ajax(page=${pageMaker.endPage + 1}, orderType=${param.orderType})}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+            -->
+            <a class="page-link" th:onclick="order_page('${pageMaker.endPage + 1}', '${param.orderType}')" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+</body>
+</html>

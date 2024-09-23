@@ -34,6 +34,8 @@ $(document).ready(function() {
             }
         });
     });
+
+    order();
 });
 
 
@@ -61,18 +63,40 @@ function hitUp(e) {
         var orderType = $(".orderWrap .orderType").val();
         console.log("this ->" +orderType);
 
-            $.ajax({
-                url: '/contest/list',
-                type: 'GET',
-                data: { orderType: orderType},
-                success: function(result) {
-                    // 성공적으로 데이터를 받아왔을 때, 페이지 갱신 처리
-                    // result에는 서버에서 전송한 HTML 데이터가 담겨 있다고 가정합니다.
+        $.ajax({
+            url: '/contest/list_ajax',//'/contest/list',
+            type: 'GET',
+            data: { orderType: orderType},
+            success: function(result) {
+                // 성공적으로 데이터를 받아왔을 때, 페이지 갱신 처리
+                // result에는 서버에서 전송한 HTML 데이터가 담겨 있다고 가정합니다.
 
-                    // 받아온 데이터를 렌더링할 영역을 찾아서 업데이트
-                    $(".contestWrap").html(result);
-                },
-                error: function() {
-                }
-            });
+                // 받아온 데이터를 렌더링할 영역을 찾아서 업데이트
+                $("#ajax_area").html(result);
+            },
+            error: function() {
+                console.log("에러...");
+            }
+        });
+    }
+
+    function order_page(page){
+        var orderType = $(".orderWrap .orderType").val();
+        console.log("this ->" +orderType);
+
+        $.ajax({
+            url: '/contest/list_ajax',//'/contest/list',
+            type: 'GET',
+            data: { page: page, orderType: orderType},
+            success: function(result) {
+                // 성공적으로 데이터를 받아왔을 때, 페이지 갱신 처리
+                // result에는 서버에서 전송한 HTML 데이터가 담겨 있다고 가정합니다.
+
+                // 받아온 데이터를 렌더링할 영역을 찾아서 업데이트
+                $("#ajax_area").html(result);
+            },
+            error: function() {
+                console.log("에러...");
+            }
+        });
     }
