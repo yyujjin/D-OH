@@ -29,6 +29,6 @@ public interface EventService {
     void updateTempEvent(EventDTO eventDTO);
 
     //이벤트 상세 보기
-    EventDTO getEventById(Long eventNum, ModelMap modelMap); // 상세보기 메소드 추가
+    EventDTO getEventById(Long eventNum, Model model); // 상세보기 메소드 추가
 
 }

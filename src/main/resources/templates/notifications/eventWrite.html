@@ -8,7 +8,8 @@
     <script th:src="@{/js/notifications/eventWrite.js}"></script>
 </head>
 
-<th:block layout:fragment="content">
+<body>
+<div layout:fragment="content">
     <div class="container mt-5">
         <h1 class="text-center mb-4">이벤트 등록</h1>
 
@@ -23,8 +24,8 @@
             <!-- 이벤트 생성일 -->
             <div class="mb-3">
                 <label for="eventCreateTime">이벤트 생성일</label>
-                <input type="date" id="eventCreateTime" name="eventCreateTime" class="form-control" required
-                       th:value="${event.formattedCreateTime}">
+                <input type="date" id="eventCreateTime" name="eventCreateTime" class="form-control"
+                       th:value="${eventDTO != null && eventDTO.eventCreateTime != null ? eventDTO.eventCreateTime : ''}" required>
             </div>
 
             <div class="row">
@@ -32,21 +33,22 @@
                 <div class="col-md-6 mb-3">
                     <label for="eventStartDate">이벤트 시작일</label>
                     <input type="date" id="eventStartDate" name="eventStartDate" class="form-control" required
-                           th:value="${event.formattedStartDate}">
+                           th:value="${eventDTO != null && eventDTO.eventStartDate != null ? eventDTO.eventStartDate : ''}">
                 </div>
 
                 <!-- 이벤트 마감일 설정 -->
                 <div class="col-md-6 mb-3">
                     <label for="eventEndDate">이벤트 마감일</label>
                     <input type="date" id="eventEndDate" name="eventEndDate" class="form-control" required
-                           th:value="${event.formattedEndDate}">
+                           th:value="${eventDTO != null && eventDTO.eventEndDate != null ? eventDTO.eventEndDate : ''}">
                 </div>
             </div>
 
+
             <!-- Display formatted dates -->
-            <span th:text="${event.formattedCreateTime}"></span>
-            <span th:text="${event.formattedStartDate}"></span>
-            <span th:text="${event.formattedEndDate}"></span>
+<!--            <span th:text="${event.formattedCreateTime}"></span>-->
+<!--            <span th:text="${event.formattedStartDate}"></span>-->
+<!--            <span th:text="${event.formattedEndDate}"></span>-->
 
             <!-- 이벤트 설명 -->
             <div class="mb-3">
@@ -67,6 +69,7 @@
             </div>
         </form>
     </div>
-</th:block>
+</div>
+</body>
 
 </html>

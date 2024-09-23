@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.UUID;
 
@@ -65,7 +66,6 @@ public class EventController {
         model.addAttribute("eventList", eventList);
         log.info("이벤트 목록 조회 완료 - 총 이벤트 수: {}", eventList.size());
 
-        // 관리자 권한 확인 후 임시 저장된 이벤트 목록 추가
         if (isAdminUser()) {
             List<EventDTO> tempEventList = eventService.getTempEventList();
             model.addAttribute("tempEventList", tempEventList);
@@ -77,15 +77,15 @@ public class EventController {
 
     // 이벤트 작성(작성&수정) 페이지 렌더링
     @PostMapping("/admin/write")
-    public String eventWriteForm(@RequestParam(value = "eventNum", required = false) Long eventNum, ModelMap modelMap) {
+    public String eventWriteForm(@RequestParam(value = "eventNum", required = false) Long eventNum, Model model) {
         log.info("이벤트 작성 페이지 요청 - eventNum: {}", eventNum);
 
         if (eventNum != null) {
-            EventDTO eventInfo = eventService.getEventById(eventNum, modelMap);
-            modelMap.addAttribute("eventDTO", eventInfo);
+            EventDTO eventInfo = eventService.getEventById(eventNum, model);
+            model.addAttribute("eventDTO", eventInfo);
             log.info("이벤트 수정 페이지 로드 - eventNum: {}", eventNum);
         } else {
-            modelMap.addAttribute("eventDTO", new EventDTO());
+            model.addAttribute("eventDTO", new EventDTO());
             log.info("이벤트 신규 등록 페이지 로드");
         }
         return "notifications/eventWrite";
@@ -107,17 +107,18 @@ public class EventController {
 
         eventDTO.setUserNum(Math.toIntExact(userSessionService.userNum()));
 
-        // 날짜 문자열을 LocalDate로 변환
+        // 날짜 변환 로직
         try {
-            LocalDate eventCreateTime = LocalDate.parse(eventCreateTimeStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            eventDTO.setEventCreateTime(eventCreateTime);
+            eventDTO.setEventCreateTime(convertStringToLocalDate(eventCreateTimeStr));
+            eventDTO.setEventStartDate(convertStringToLocalDate(eventStartDateStr));
+            eventDTO.setEventEndDate(convertStringToLocalDate(eventEndDateStr));
         } catch (Exception e) {
             log.error("날짜 변환 오류: {}", e.getMessage());
             redirectAttributes.addFlashAttribute("errorMessage", "날짜 형식이 올바르지 않습니다.");
             return "redirect:/event/list";
         }
 
-        // S3에 파일 업로드
+        // S3 파일 업로드 처리
         if (file != null && !file.isEmpty()) {
             try {
                 String newFileName = uploadFileToS3Bucket(file);
@@ -129,7 +130,7 @@ public class EventController {
             }
         }
 
-        // 이벤트 등록 또는 수정
+        // 이벤트 저장 또는 수정 처리
         if (eventDTO.getEventNum() == null) {
             eventService.eventRegister(eventDTO);
             log.info("이벤트 등록 완료 - 제목: {}", eventDTO.getEventTitle());
@@ -138,30 +139,13 @@ public class EventController {
             log.info("이벤트 수정 완료 - eventNum: {}", eventDTO.getEventNum());
         }
 
+        redirectAttributes.addFlashAttribute("successMessage", "이벤트가 성공적으로 등록되었습니다.");
         return "redirect:/event/list";
     }
 
-    // 이벤트 임시 저장 처리
-    @PostMapping("/admin/tempSave")
-    public String saveTempEvent(@ModelAttribute EventDTO eventDTO, RedirectAttributes redirectAttributes) {
-        log.info("이벤트 임시 저장 요청 - 제목: {}", eventDTO.getEventTitle());
-
-        if (!isAdminUser()) {
-            redirectAttributes.addFlashAttribute("errorMessage", "이벤트 임시 저장 권한이 없습니다.");
-            return "redirect:/event/list";
-        }
-
-        eventDTO.setUserNum(Math.toIntExact(userSessionService.userNum()));
-
-        if (eventDTO.getEventNum() == null) {
-            eventService.saveTempEvent(eventDTO);
-            log.info("이벤트 임시 저장 완료 - 제목: {}", eventDTO.getEventTitle());
-        } else {
-            eventService.updateTempEvent(eventDTO);
-            log.info("임시 저장 이벤트 수정 완료 - eventNum: {}", eventDTO.getEventNum());
-        }
-
-        return "redirect:/event/list";
+    // 날짜 변환 공통 함수
+    private LocalDate convertStringToLocalDate(String dateStr) throws DateTimeParseException {
+        return LocalDate.parse(dateStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     // 이벤트 삭제 처리
@@ -203,12 +187,13 @@ public class EventController {
         String userRole = userSessionService.userRole();
         return userEmail.equals("admin") || userRole.equals("ROLE_ADMIN");
     }
+
     // 이벤트 상세보기 페이지
     @GetMapping("/detail")
     public String viewEvent(@RequestParam("eventNum") Long eventNum, Model model) {
         log.info("이벤트 상세보기 요청 - eventNum: {}", eventNum);
 
-        EventDTO eventInfo = eventService.getEventById(eventNum, (ModelMap) model);
+        EventDTO eventInfo = eventService.getEventById(eventNum, model);
         if (eventInfo != null) {
             model.addAttribute("event", eventInfo);
             log.info("이벤트 상세 정보 로드 완료 - 제목: {}", eventInfo.getEventTitle());
@@ -217,6 +202,6 @@ public class EventController {
             model.addAttribute("errorMessage", "이벤트 정보를 찾을 수 없습니다.");
         }
 
-        return "notifications/eventView"; // 상세보기 페이지로 이동
+        return "notifications/eventView";
     }
 }

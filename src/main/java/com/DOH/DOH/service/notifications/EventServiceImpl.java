@@ -91,7 +91,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventDTO getEventById(Long eventNum, ModelMap modelMap) {
+    public EventDTO getEventById(Long eventNum, Model model) {
         return eventMapper.selectEventById(eventNum); // 메퍼에서 호출
     }
 }
