@@ -15,12 +15,14 @@
         <h1 class="text-center mb-4" th:text="${event.eventTitle}">이벤트 제목</h1>
 
         <div class="event-image mb-4">
-            <img th:src="${event.eventImageUrl}" alt="이벤트 이미지" class="img-fluid">
+            <img th:src="${event.eventImageName}" alt="이벤트 이미지" class="img-fluid">
         </div>
 
         <div class="event-details">
-            <h2>이벤트 날짜</h2>
-            <p th:text="${#dates.format(event.eventCreateTime, 'yyyy년 MM월 dd일')}">날짜 정보</p>
+            <h2>이벤트 기간</h2>
+            <span th:text="'생성일: ' + ${event.formattedCreateTime}"></span><br>
+            <span th:text="${event.eventStartDate != null ? event.eventStartDate : 'N/A'}"></span> ~
+            <span th:text="${event.eventEndDate != null ? event.eventEndDate : 'N/A'}"></span>
 
             <h2>이벤트 설명</h2>
             <p th:text="${event.eventContent}">이곳에 이벤트에 대한 자세한 설명을 작성하세요.</p>

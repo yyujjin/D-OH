@@ -19,5 +19,10 @@ public class EventDTO {
     private MultipartFile eventImageUrl;
     private int userNum;
     private boolean eventTempSave;
-    private String formattedCreateTime; // 추가된 필드
+    private String formattedCreateTime; // 생성일
+    private String formattedStartDate; // 이벤트 시작일
+    private String formattedEndDate; // 이벤트 마감일
+    //이벤트 시작일, 마감일 설정
+    private LocalDate eventStartDate;
+    private LocalDate eventEndDate;
 }

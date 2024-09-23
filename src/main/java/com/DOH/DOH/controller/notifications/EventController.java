@@ -48,29 +48,36 @@ public class EventController {
         log.info("이벤트 목록 조회 요청");
 
         List<EventDTO> eventList = eventService.getEventListLimited();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
 
-        // LocalDateTime을 String으로 변환
         for (EventDTO event : eventList) {
             if (event.getEventCreateTime() != null) {
-                event.setFormattedCreateTime(event.getEventCreateTime().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일")));
+                event.setFormattedCreateTime(event.getEventCreateTime().format(formatter));
+            }
+            if (event.getEventStartDate() != null) {
+                event.setFormattedStartDate(event.getEventStartDate().format(formatter));
+            }
+            if (event.getEventEndDate() != null) {
+                event.setFormattedEndDate(event.getEventEndDate().format(formatter));
             }
         }
 
         model.addAttribute("eventList", eventList);
         log.info("이벤트 목록 조회 완료 - 총 이벤트 수: {}", eventList.size());
 
-        String userRole = userSessionService.userRole();
-        if (userRole.equals("ROLE_ADMIN")) {
+        // 관리자 권한 확인 후 임시 저장된 이벤트 목록 추가
+        if (isAdminUser()) {
             List<EventDTO> tempEventList = eventService.getTempEventList();
             model.addAttribute("tempEventList", tempEventList);
             log.info("관리자 권한으로 임시 저장된 이벤트 조회 완료 - 총 임시 이벤트 수: {}", tempEventList.size());
         }
+
         return "notifications/eventList";
     }
 
     // 이벤트 작성(작성&수정) 페이지 렌더링
     @PostMapping("/admin/write")
-    public String eventWriteForm(@RequestParam(value = "eventNum", required = false) Long eventNum, ModelMap modelMap) throws Exception {
+    public String eventWriteForm(@RequestParam(value = "eventNum", required = false) Long eventNum, ModelMap modelMap) {
         log.info("이벤트 작성 페이지 요청 - eventNum: {}", eventNum);
 
         if (eventNum != null) {
@@ -87,48 +94,45 @@ public class EventController {
     @PostMapping("/admin/create")
     public String eventWrite(@ModelAttribute EventDTO eventDTO,
                              @RequestParam(value = "file", required = false) MultipartFile file,
-                             @RequestParam("eventCreateTime") String eventCreateTimeStr, // 날짜를 String으로 받음
+                             @RequestParam("eventCreateTime") String eventCreateTimeStr,
+                             @RequestParam("eventStartDate") String eventStartDateStr,
+                             @RequestParam("eventEndDate") String eventEndDateStr,
                              RedirectAttributes redirectAttributes) throws Exception {
         log.info("이벤트 작성 요청 - 제목: {}", eventDTO.getEventTitle());
 
-        String userEmail = userSessionService.userEmail();
-        String userRole = userSessionService.userRole();
-        Long userNum = userSessionService.userNum(); // userNum 가져오기
-
-        if (!userEmail.equals("admin") && !userRole.equals("ROLE_ADMIN")) {
+        if (!isAdminUser()) {
             redirectAttributes.addFlashAttribute("errorMessage", "이벤트 작성 권한이 없습니다.");
-            log.warn("이벤트 작성 권한 없음 - userEmail: {}, userRole: {}", userEmail, userRole);
             return "redirect:/event/list";
         }
 
-        eventDTO.setUserNum(Math.toIntExact(userNum));
+        eventDTO.setUserNum(Math.toIntExact(userSessionService.userNum()));
 
         // 날짜 문자열을 LocalDate로 변환
-        LocalDate eventCreateTime = LocalDate.parse(eventCreateTimeStr);
-        eventDTO.setEventCreateTime(eventCreateTime); // 변환된 날짜를 DTO에 설정
-
-        // S3에 파일이 업로드된 경우
-        if (file != null && !file.isEmpty()) {
-            String newFileName = uploadFileToS3Bucket(file);
-            eventDTO.setEventImageName(newFileName);
+        try {
+            LocalDate eventCreateTime = LocalDate.parse(eventCreateTimeStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            eventDTO.setEventCreateTime(eventCreateTime);
+        } catch (Exception e) {
+            log.error("날짜 변환 오류: {}", e.getMessage());
+            redirectAttributes.addFlashAttribute("errorMessage", "날짜 형식이 올바르지 않습니다.");
+            return "redirect:/event/list";
         }
-//        if (file != null && !file.isEmpty()) {
-//            try {
-//                String fileUrl = uploadFileToS3Bucket(file); // S3에 파일 업로드
-//                eventDTO.setEventImageUrl(fileUrl); // S3 URL을 eventDTO에 설정
-//                eventDTO.setEventImageName(file.getOriginalFilename()); // 파일 이름을 eventDTO에 설정
-//                log.info("파일 업로드 완료 - 파일명: {}, S3 URL: {}", file.getOriginalFilename(), fileUrl);
-//            } catch (IOException e) {
-//                log.error("S3 파일 업로드 실패 - 제목: {}, 오류: {}", eventDTO.getEventTitle(), e.getMessage());
-//                redirectAttributes.addFlashAttribute("errorMessage", "파일 업로드 중 오류가 발생했습니다.");
-//                return "redirect:/event/list";
-//            }
-//        }
 
-        // 이벤트 번호가 없으면 등록, 있으면 수정
+        // S3에 파일 업로드
+        if (file != null && !file.isEmpty()) {
+            try {
+                String newFileName = uploadFileToS3Bucket(file);
+                eventDTO.setEventImageName(newFileName);
+            } catch (IOException e) {
+                log.error("S3 파일 업로드 실패: {}", e.getMessage());
+                redirectAttributes.addFlashAttribute("errorMessage", "파일 업로드 중 오류가 발생했습니다.");
+                return "redirect:/event/list";
+            }
+        }
+
+        // 이벤트 등록 또는 수정
         if (eventDTO.getEventNum() == null) {
             eventService.eventRegister(eventDTO);
-            log.info("이벤트 등록 완료 - 제목: {}, 작성자: {}", eventDTO.getEventTitle(), userEmail);
+            log.info("이벤트 등록 완료 - 제목: {}", eventDTO.getEventTitle());
         } else {
             eventService.eventUpdate(eventDTO);
             log.info("이벤트 수정 완료 - eventNum: {}", eventDTO.getEventNum());
@@ -139,20 +143,15 @@ public class EventController {
 
     // 이벤트 임시 저장 처리
     @PostMapping("/admin/tempSave")
-    public String saveTempEvent(@ModelAttribute EventDTO eventDTO, RedirectAttributes redirectAttributes) throws Exception {
+    public String saveTempEvent(@ModelAttribute EventDTO eventDTO, RedirectAttributes redirectAttributes) {
         log.info("이벤트 임시 저장 요청 - 제목: {}", eventDTO.getEventTitle());
 
-        String userEmail = userSessionService.userEmail();
-        String userRole = userSessionService.userRole();
-        Long userNum = userSessionService.userNum();
-
-        if (!userEmail.equals("admin") && !userRole.equals("ROLE_ADMIN")) {
+        if (!isAdminUser()) {
             redirectAttributes.addFlashAttribute("errorMessage", "이벤트 임시 저장 권한이 없습니다.");
-            log.warn("이벤트 임시 저장 권한 없음 - userEmail: {}, userRole: {}", userEmail, userRole);
             return "redirect:/event/list";
         }
 
-        eventDTO.setUserNum(Math.toIntExact(userNum));
+        eventDTO.setUserNum(Math.toIntExact(userSessionService.userNum()));
 
         if (eventDTO.getEventNum() == null) {
             eventService.saveTempEvent(eventDTO);
@@ -165,38 +164,13 @@ public class EventController {
         return "redirect:/event/list";
     }
 
-    // 이벤트 상세보기 페이지
-    @GetMapping("/detail")
-    public String viewEvent(@RequestParam("eventNum") Long eventNum, Model model) {
-        log.info("이벤트 상세보기 요청 - eventNum: {}", eventNum);
-
-        EventDTO eventInfo = eventService.getEventById(eventNum);
-        if (eventInfo != null) {
-            // 날짜 형식 설정
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
-            eventInfo.setFormattedCreateTime(eventInfo.getEventCreateTime().format(formatter));
-
-            model.addAttribute("event", eventInfo);
-            log.info("이벤트 상세 정보 로드 완료 - 제목: {}", eventInfo.getEventTitle());
-        } else {
-            log.warn("이벤트 정보가 존재하지 않음 - eventNum: {}", eventNum);
-            model.addAttribute("errorMessage", "이벤트 정보를 찾을 수 없습니다.");
-        }
-
-        return "notifications/eventView"; // 상세보기 페이지로 이동
-    }
-
     // 이벤트 삭제 처리
     @PostMapping("/admin/delete")
-    public String deleteEvent(@RequestParam("eventNum") Long eventNum, RedirectAttributes redirectAttributes) throws Exception {
+    public String deleteEvent(@RequestParam("eventNum") Long eventNum, RedirectAttributes redirectAttributes) {
         log.info("이벤트 삭제 요청 - eventNum: {}", eventNum);
 
-        String userEmail = userSessionService.userEmail();
-        String userRole = userSessionService.userRole();
-
-        if (!userEmail.equals("admin") && !userRole.equals("ROLE_ADMIN")) {
+        if (!isAdminUser()) {
             redirectAttributes.addFlashAttribute("errorMessage", "이벤트 삭제 권한이 없습니다.");
-            log.warn("이벤트 삭제 권한 없음 - userEmail: {}, userRole: {}", userEmail, userRole);
             return "redirect:/event/list";
         }
 
@@ -221,5 +195,12 @@ public class EventController {
         String fileUrl = amazonS3.getUrl(bucketName, fileName).toString();
         log.info("파일이 S3에 업로드되었습니다. fileUrl: {}", fileUrl);
         return fileUrl;
+    }
+
+    // 관리자 권한 확인 메서드
+    private boolean isAdminUser() {
+        String userEmail = userSessionService.userEmail();
+        String userRole = userSessionService.userRole();
+        return userEmail.equals("admin") || userRole.equals("ROLE_ADMIN");
     }
 }
