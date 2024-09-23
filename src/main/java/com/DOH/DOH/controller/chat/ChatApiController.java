@@ -95,4 +95,10 @@ public class ChatApiController {
         chatService.deleteMessages(messageDTO);
         return ResponseEntity.ok().build();
     }
+
+    //로그인한 유저를 기준으로 다른 유저가 보낸 최신 메시지들을 조회
+    @PostMapping("/messages/latest")
+    public List<MessageDTO>findLatestMessagesForLoggedInUser(@RequestParam String userNickName) {
+        return chatService.findLatestMessagesForLoggedInUser(userNickName);
+    }
 }

@@ -45,4 +45,19 @@
         (sender = #{sender} AND receiver = #{receiver})
         OR (sender = #{receiver} AND receiver = #{sender});
     </update>
+
+    <select id="findLatestMessagesForLoggedInUser" parameterType="String"  resultType="com.DOH.DOH.dto.chat.MessageDTO">
+        SELECT t1.receiver, t1.content, t1.timestamp AS latestTimestamp
+        FROM chat t1
+        JOIN (
+        SELECT receiver, MAX(timestamp) AS latestTimestamp
+        FROM chat
+        WHERE sender = #{sender}
+        AND isSenderDeleted = 0
+        GROUP BY receiver
+        ) t2 ON t1.receiver = t2.receiver AND t1.timestamp = t2.latestTimestamp
+        WHERE t1.sender = #{sender}
+        AND t1.isSenderDeleted = 0;
+    </select>
+
 </mapper>
