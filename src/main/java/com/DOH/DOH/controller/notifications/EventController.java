@@ -2,17 +2,19 @@ package com.DOH.DOH.controller.notifications;
 
 import com.DOH.DOH.dto.notifications.EventDTO;
 import com.DOH.DOH.service.notifications.EventService;
+import com.DOH.DOH.service.user.UserSessionService;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,98 +27,120 @@ import java.util.UUID;
 public class EventController {
 
     @Autowired
-    EventService eventService;
-
-    @Autowired
     private AmazonS3 amazonS3;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucketName;
 
+    private final EventService eventService;
+    private final UserSessionService userSessionService;
+
+    public EventController(EventService eventService, UserSessionService userSessionService) {
+        this.eventService = eventService;
+        this.userSessionService = userSessionService;
+    }
+
     // 이벤트 목록 조회
     @GetMapping("/list")
-    public String eventList(Model model, @RequestParam(name = "page", defaultValue = "1") int page) {
-        int totalPages = eventService.getTotalPages();  // 전체 페이지 수 계산
-
-        // 이벤트 목록을 모델에 추가
-        List<EventDTO> eventList = eventService.getEventList(page);
+    public String eventList(Model model) {
+        // 최대 12개의 이벤트 가져오기
+        List<EventDTO> eventList = eventService.getEventListLimited();
         model.addAttribute("eventList", eventList);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("currentPage", page);
 
+        // 임시 저장된 이벤트 가져오기 (관리자만 표시)
+        String userRole = userSessionService.userRole();
+        if (userRole.equals("ROLE_ADMIN")) {
+            List<EventDTO> tempEventList = eventService.getTempEventList();
+            model.addAttribute("tempEventList", tempEventList);
+        }
         return "notifications/eventList";  // 이벤트 목록 페이지로 이동
     }
 
-    // 이벤트 상세 조회
-    @GetMapping("/detail")
-    public String showEventDetail(@RequestParam(name = "eventNum", defaultValue = "0") int eventNum, Model model) {
-        if (eventNum <= 0) {
-            // 파라미터가 누락되었거나 유효하지 않은 경우 처리
-            return "redirect:/event/list";  // 목록 페이지로 리다이렉트 또는 오류 페이지 표시
+    // 이벤트 작성(작성&수정) 페이지 렌더링
+    @PostMapping("/admin/write")
+    public String eventWriteForm(@RequestParam(value = "eventNum", required = false) Long eventNum, ModelMap modelMap) throws Exception {
+        if (eventNum != null) {
+            EventDTO eventInfo = eventService.getEventById(eventNum);
+            modelMap.addAttribute("eventDTO", eventInfo);
+            log.info("이벤트 수정 페이지 - eventNum: {}", eventNum);
+        } else {
+            modelMap.addAttribute("eventDTO", new EventDTO());
+            log.info("이벤트 신규 등록 페이지");
         }
-        EventDTO event = eventService.getEventDetail(eventNum);
-        model.addAttribute("event", event);
-        return "notifications/eventView";
+        return "events/eventWrite";
     }
 
-    // 이벤트 작성 페이지 이동
-    @GetMapping("/admin/write")
-    public String showEventWritePage(Model model) {
-        model.addAttribute("currentDate", new java.util.Date());
-        return "notifications/eventWrite";  // 이벤트 작성 페이지로 이동
-    }
+    // 이벤트 작성(작성&수정) 처리 (POST로 처리)
+    @PostMapping("/admin/register")
+    public String eventWrite(@ModelAttribute EventDTO eventDTO, RedirectAttributes redirectAttributes) throws Exception {
+        String userEmail = userSessionService.userEmail();
+        String userRole = userSessionService.userRole();
+        Long userNum = userSessionService.userNum();  // Retrieve userNum from session
 
-    // 이벤트 등록
-    @PostMapping("/admin/create")
-    public String createEvent(@ModelAttribute EventDTO eventDTO,
-                              @RequestParam("file") MultipartFile file,
-                              HttpSession session,
-                              Model model) throws IOException {
-        // 세션에서 로그인된 사용자의 userNum 가져오기
-        Integer loggedInUserNum = (Integer) session.getAttribute("userNum");
-        if (loggedInUserNum == null) {
-            throw new RuntimeException("로그인된 사용자가 없습니다.");
+        // 권한 검사: 관리자만 작성 가능
+        if (!userEmail.equals("admin") && !userRole.equals("ROLE_ADMIN")) {
+            redirectAttributes.addFlashAttribute("errorMessage", "이벤트 작성 권한이 없습니다.");
+            return "redirect:/event/list";
         }
 
-        // userNum이 3이 아니면 등록을 차단
-        if (!loggedInUserNum.equals(3)) {
-            model.addAttribute("errorMessage", "이벤트 등록은 허용되지 않습니다.");
-            return "redirect:/event/list";  // 목록 페이지로 리다이렉트
+        // Set the userNum in the EventDTO
+        eventDTO.setUserNum(Math.toIntExact(userNum));
+
+        // 이벤트 번호가 없으면 등록, 있으면 수정
+        if (eventDTO.getEventNum() == null) {
+            eventService.eventRegister(eventDTO);
+            log.info("이벤트 등록 완료 - 제목: {}, 작성자: {}", eventDTO.getEventTitle(), userEmail);
+        } else {
+            eventService.eventUpdate(eventDTO);
+            log.info("이벤트 수정 완료 - eventNum: {}", eventDTO.getEventNum());
         }
 
-        // 파일 업로드 로직
-        if (!file.isEmpty()) {
-            String fileUrl = uploadFileToS3Bucket(file);
-            eventDTO.setEventImageUrl(fileUrl);
-            eventDTO.setEventImageName(file.getOriginalFilename());
-        }
-
-        eventDTO.setUserNum(loggedInUserNum);  // userNum을 DTO에 설정
-        eventService.writeEvent(eventDTO);
         return "redirect:/event/list";
     }
 
+    // 이벤트 임시 저장 처리 (임시 저장 또는 수정 처리)
+    @PostMapping("/admin/tempSave")
+    public String saveTempEvent(@ModelAttribute EventDTO eventDTO, RedirectAttributes redirectAttributes) throws Exception {
+        String userEmail = userSessionService.userEmail();
+        String userRole = userSessionService.userRole();
+        Long userNum = userSessionService.userNum();  // Retrieve userNum from session
 
-    // 이벤트 임시 저장
-    @PostMapping("/admin/save")
-    public String saveEvent(@ModelAttribute EventDTO eventDTO, @RequestParam("file") MultipartFile file) throws IOException {
-        // 파일 업로드 로직 추가
-        if (!file.isEmpty()) {
-            String fileUrl = uploadFileToS3Bucket(file);
-            eventDTO.setEventImageUrl(fileUrl);  // S3에 저장된 이미지 URL을 DTO에 설정
-            eventDTO.setEventImageName(file.getOriginalFilename()); // 원본 파일명을 DTO에 설정
+        // 권한 검사: 관리자만 임시 저장 가능
+        if (!userEmail.equals("admin") && !userRole.equals("ROLE_ADMIN")) {
+            redirectAttributes.addFlashAttribute("errorMessage", "이벤트 임시 저장 권한이 없습니다.");
+            return "redirect:/event/list";
         }
 
-        eventDTO.setEventTempSave(true);
-        eventService.writeEvent(eventDTO);  // 임시 저장 후 목록으로 리다이렉트
+        eventDTO.setUserNum(Math.toIntExact(userNum));
+
+        // 임시 저장된 이벤트 수정 로직 추가
+        if (eventDTO.getEventNum() == null) {
+            eventService.saveTempEvent(eventDTO);
+            log.info("이벤트 임시 저장 완료 - 제목: {}", eventDTO.getEventTitle());
+        } else {
+            eventService.updateTempEvent(eventDTO); // 이미 임시 저장된 이벤트 수정
+            log.info("임시 저장 이벤트 수정 완료 - eventNum: {}", eventDTO.getEventNum());
+        }
+
         return "redirect:/event/list";
     }
 
-    // 이벤트 삭제
+    // 이벤트 삭제 처리
     @PostMapping("/admin/delete")
-    public String deleteEvent(@RequestParam("eventNum") int eventNum) {
+    public String deleteEvent(@RequestParam("eventNum") Long eventNum, RedirectAttributes redirectAttributes) throws Exception {
+        String userEmail = userSessionService.userEmail();
+        String userRole = userSessionService.userRole();
+
+        // 권한 검사: 관리자만 삭제 가능
+        if (!userEmail.equals("admin") && !userRole.equals("ROLE_ADMIN")) {
+            redirectAttributes.addFlashAttribute("errorMessage", "이벤트 삭제 권한이 없습니다.");
+            return "redirect:/event/list";
+        }
+
         eventService.deleteEvent(eventNum);
-        return "redirect:/event/list";  // 삭제 후 목록으로 리다이렉트
+        log.info("이벤트 삭제 완료 - eventNum: {}", eventNum);
+
+        return "redirect:/event/list";
     }
 
     // S3에 파일 업로드 처리

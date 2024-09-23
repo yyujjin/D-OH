@@ -10,19 +10,11 @@
         SELECT COUNT(*) FROM event
     </select>
 
-    <!-- 이벤트 목록 조회 (페이징 처리) -->
-    <select id="getEventList" resultType="com.DOH.DOH.dto.notifications.EventDTO">
-        SELECT eventNum,
-        eventTitle,
-        eventContent,
-        eventCreateTime,
-        eventImageName,
-        eventImageUrl,
-        userNum,
-        eventTempSave
-        FROM event
+    <!-- 최대 12개의 이벤트 조회 -->
+    <select id="selectLimitedEvents" resultType="com.DOH.DOH.dto.notifications.EventDTO">
+        SELECT * FROM event
         ORDER BY eventCreateTime DESC
-        LIMIT #{limit} OFFSET #{offset}
+        LIMIT 12
     </select>
 
     <!-- 이벤트 상세 조회 -->

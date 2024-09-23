@@ -9,21 +9,60 @@ import java.util.List;
 @Mapper
 public interface EventMapper {
 
-    // 전체 이벤트 수 조회
-    int getTotalEventCount();
+    /**
+     * 정식 저장된 이벤트 목록을 가져오는 메서드
+     * @return 정식 저장된 이벤트 목록
+     */
+    List<EventDTO> getEventList();
 
-    // 이벤트 목록 조회 (페이징 처리)
-    List<EventDTO> getEventList(@Param("offset") int offset, @Param("limit") int limit);
+    /**
+     * 임시 저장된 이벤트 목록을 가져오는 메서드
+     * @return 임시 저장된 이벤트 목록
+     */
+    List<EventDTO> getTempEventList();
 
-    // 이벤트 상세 조회
-    EventDTO getEventDetail(@Param("eventNum") int eventNum);
+    /**
+     * 임시 저장된 이벤트 전체 목록을 가져오는 메서드 (페이징 없이)
+     * @return 임시 저장된 이벤트 전체 목록
+     */
+    List<EventDTO> findTempEvents();
 
-    // 이벤트 작성
-    void writeEvent(EventDTO event);
+    /**
+     * 새로운 이벤트를 작성하는 메서드
+     * @param event 이벤트 DTO 객체
+     */
+    void insertEvent(EventDTO event);
 
-    // 이벤트 수정
+    /**
+     * 이벤트 번호로 이벤트를 조회하는 메서드
+     * @param eventNum 조회할 이벤트 번호
+     * @return 조회된 이벤트 DTO
+     */
+    EventDTO selectEventById(@Param("eventNum") Long eventNum);
+
+    /**
+     * 이벤트 수정 메서드
+     * @param event 수정된 이벤트 DTO 객체
+     */
     void updateEvent(EventDTO event);
 
-    // 이벤트 삭제
-    void deleteEvent(@Param("eventNum") int eventNum);
+    /**
+     * 이벤트 삭제 메서드
+     * @param eventNum 삭제할 이벤트 번호
+     */
+    void deleteEvent(@Param("eventNum") Long eventNum);
+
+    /**
+     * 정식 저장된 이벤트의 총 개수를 가져오는 메서드
+     * @return 정식 저장된 이벤트의 총 개수
+     */
+    int getTotalEvents();
+
+    /**
+     * 임시 저장된 이벤트의 총 개수를 가져오는 메서드
+     * @return 임시 저장된 이벤트의 총 개수
+     */
+    int getTotalTempEvents();
+
+    void updateTempEvent(EventDTO eventDTO);
 }

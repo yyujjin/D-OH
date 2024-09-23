@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventDTO {
-    private int eventNum;
+    private Long eventNum;
     private String eventTitle;
     private String eventContent;
     private LocalDate eventCreateTime;
