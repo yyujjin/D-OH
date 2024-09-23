@@ -7,14 +7,14 @@
     <select id="getContestList" resultType="com.DOH.DOH.dto.list.ContestListDTO">
         SELECT row_number() over(order by id desc) as rownum, id, conType, conTitle,
                 (conFirstPrice * conFirstPeople + conSecondPrice * conSecondPeople
-                + conThirdPrice * conThirdPeople) as totalPrice,
+                + conThirdPrice * conThirdPeople) as totalPrice,conHit,
                 date_format(conEndDate, '%y.%m.%d') as conEndDate,
                 (datediff(conEndDate, now())) as endDate, conCompanyName
             FROM contest_Upload
             WHERE datediff(conEndDate, now()) >= 0
         <choose>
             <when test="orderType == 'price'"><!--총 상금 순-->
-                order by totalPricee desc
+                order by totalPrice desc
             </when>
             <when test="orderType == 'latest'"><!--마감임박순-->
                 order by endDate asc
