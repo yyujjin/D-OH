@@ -3,6 +3,7 @@ package com.DOH.DOH.dto.notifications;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
@@ -15,7 +16,7 @@ public class EventDTO {
     private String eventContent;
     private LocalDate eventCreateTime;
     private String eventImageName;
-    private String eventImageUrl;
+    private MultipartFile eventImageUrl;
     private int userNum;
     private boolean eventTempSave;
     private String formattedCreateTime; // 추가된 필드

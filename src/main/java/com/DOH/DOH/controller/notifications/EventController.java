@@ -109,17 +109,21 @@ public class EventController {
 
         // S3에 파일이 업로드된 경우
         if (file != null && !file.isEmpty()) {
-            try {
-                String fileUrl = uploadFileToS3Bucket(file); // S3에 파일 업로드
-                eventDTO.setEventImageUrl(fileUrl); // S3 URL을 eventDTO에 설정
-                eventDTO.setEventImageName(file.getOriginalFilename()); // 파일 이름을 eventDTO에 설정
-                log.info("파일 업로드 완료 - 파일명: {}, S3 URL: {}", file.getOriginalFilename(), fileUrl);
-            } catch (IOException e) {
-                log.error("S3 파일 업로드 실패 - 제목: {}, 오류: {}", eventDTO.getEventTitle(), e.getMessage());
-                redirectAttributes.addFlashAttribute("errorMessage", "파일 업로드 중 오류가 발생했습니다.");
-                return "redirect:/event/list";
-            }
+            String newFileName = uploadFileToS3Bucket(file);
+            eventDTO.setEventImageName(newFileName);
         }
+//        if (file != null && !file.isEmpty()) {
+//            try {
+//                String fileUrl = uploadFileToS3Bucket(file); // S3에 파일 업로드
+//                eventDTO.setEventImageUrl(fileUrl); // S3 URL을 eventDTO에 설정
+//                eventDTO.setEventImageName(file.getOriginalFilename()); // 파일 이름을 eventDTO에 설정
+//                log.info("파일 업로드 완료 - 파일명: {}, S3 URL: {}", file.getOriginalFilename(), fileUrl);
+//            } catch (IOException e) {
+//                log.error("S3 파일 업로드 실패 - 제목: {}, 오류: {}", eventDTO.getEventTitle(), e.getMessage());
+//                redirectAttributes.addFlashAttribute("errorMessage", "파일 업로드 중 오류가 발생했습니다.");
+//                return "redirect:/event/list";
+//            }
+//        }
 
         // 이벤트 번호가 없으면 등록, 있으면 수정
         if (eventDTO.getEventNum() == null) {
