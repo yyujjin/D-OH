@@ -44,9 +44,20 @@ public class EventController {
             event.setFormattedEndDate(DateUtils.formatLocalDate(event.getEventEndDate()));
         });
 
+        // 이벤트 최대 12개까지만 유지, 초과된 이벤트는 삭제
+        if (eventList.size() > 12) {
+            List<EventDTO> excessEvents = eventList.subList(12, eventList.size());
+            excessEvents.forEach(event -> {
+                eventService.deleteEvent(event.getEventNum());
+                log.info("초과된 이벤트 삭제 - eventNum: {}", event.getEventNum());
+            });
+            eventList = eventList.subList(0, 12); // 12개까지만 유지
+        }
+
         model.addAttribute("eventList", eventList);
         log.info("이벤트 목록 조회 완료 - 총 이벤트 수: {}", eventList.size());
 
+        // 관리자라면 임시 저장된 이벤트 조회
         if (isAdminUser()) {
             List<EventDTO> tempEventList = eventService.getTempEventList();
             model.addAttribute("tempEventList", tempEventList);
@@ -55,6 +66,7 @@ public class EventController {
 
         return "notifications/eventList";
     }
+
 
     // 이벤트 작성(작성&수정) 페이지 렌더링
     @PostMapping("/admin/write")
@@ -85,14 +97,13 @@ public class EventController {
         return "notifications/eventWrite";
     }
 
-    // 이벤트 등록(작성&수정)
     @PostMapping("/admin/create")
     public String eventWrite(@ModelAttribute EventDTO eventDTO, Model model,
                              @RequestParam(value = "file", required = false) MultipartFile file,
                              @RequestParam("existingImageName") String existingImageName,  // 기존 이미지 이름 받기
-                             @RequestParam("eventCreateTime") String eventCreateTimeStr,
-                             @RequestParam("eventStartDate") String eventStartDateStr,
-                             @RequestParam("eventEndDate") String eventEndDateStr,
+                             @RequestParam(value = "eventCreateTime", required = false) String eventCreateTimeStr,
+                             @RequestParam(value = "eventStartDate", required = false) String eventStartDateStr,
+                             @RequestParam(value = "eventEndDate", required = false) String eventEndDateStr,
                              RedirectAttributes redirectAttributes) throws Exception {
         log.info("이벤트 작성 요청 - 제목: {}", eventDTO.getEventTitle());
 
@@ -105,11 +116,28 @@ public class EventController {
         // 세션에서 userNum 설정
         eventDTO.setUserNum(Math.toIntExact(userSessionService.userNum()));
 
-        // 날짜 변환 로직
+        // 유효성 검사: 등록 시에는 생성일 및 이벤트 기간이 필수
+        if (eventDTO.getEventNum() == null) { // 새로 등록하는 경우
+            if (eventCreateTimeStr == null || eventCreateTimeStr.isEmpty() ||
+                    eventStartDateStr == null || eventStartDateStr.isEmpty() ||
+                    eventEndDateStr == null || eventEndDateStr.isEmpty()) {
+                log.error("생성일 또는 이벤트 기간이 입력되지 않음.");
+                addMessage(redirectAttributes, "생성일과 이벤트 기간을 모두 입력해 주세요.", true);
+                return "redirect:/event/admin/write";
+            }
+        }
+
+        // 날짜 변환 로직 (날짜가 입력된 경우에만 처리)
         try {
-            eventDTO.setEventCreateTime(DateUtils.parseStringToLocalDate(eventCreateTimeStr));
-            eventDTO.setEventStartDate(DateUtils.parseStringToLocalDate(eventStartDateStr));
-            eventDTO.setEventEndDate(DateUtils.parseStringToLocalDate(eventEndDateStr));
+            if (eventCreateTimeStr != null && !eventCreateTimeStr.isEmpty()) {
+                eventDTO.setEventCreateTime(DateUtils.parseStringToLocalDate(eventCreateTimeStr));
+            }
+            if (eventStartDateStr != null && !eventStartDateStr.isEmpty()) {
+                eventDTO.setEventStartDate(DateUtils.parseStringToLocalDate(eventStartDateStr));
+            }
+            if (eventEndDateStr != null && !eventEndDateStr.isEmpty()) {
+                eventDTO.setEventEndDate(DateUtils.parseStringToLocalDate(eventEndDateStr));
+            }
         } catch (Exception e) {
             log.error("날짜 변환 오류: {}", e.getMessage());
             addMessage(redirectAttributes, "날짜 형식이 올바르지 않습니다.", true);
@@ -156,7 +184,6 @@ public class EventController {
         addMessage(redirectAttributes, "이벤트가 성공적으로 등록되었습니다.", false);
         return "redirect:/event/list";
     }
-
 
     // 이벤트 삭제 처리
     @PostMapping("/admin/delete")
@@ -218,6 +245,13 @@ public class EventController {
         // 권한 검사: 관리자만 임시 저장 가능
         if (!userEmail.equals("admin") && !userRole.equals("ROLE_ADMIN")) {
             redirectAttributes.addFlashAttribute("errorMessage", "이벤트 임시 저장 권한이 없습니다.");
+            return "redirect:/event/list";
+        }
+
+        // 임시 저장된 이벤트가 3개 이상이면 저장하지 않고 경고 메시지
+        List<EventDTO> tempEventList = eventService.getTempEventList();
+        if (tempEventList.size() >= 3) {
+            redirectAttributes.addFlashAttribute("errorMessage", "임시 저장된 이벤트는 최대 3개까지만 가능합니다.");
             return "redirect:/event/list";
         }
 
