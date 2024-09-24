@@ -41,6 +41,12 @@ public class MainController {
 
         ArrayList<ContestListDTO> imageList = mainService.getImageList();
         model.addAttribute("imageList",imageList);
+        ArrayList<ContestListDTO> latestList = mainService.getLatestList();
+        model.addAttribute("latestList",latestList);
+        ArrayList<ContestListDTO> priceList = mainService.getPriceList();
+        model.addAttribute("priceList",priceList);
+        ArrayList<ContestListDTO> hitList = mainService.getHitList();
+        model.addAttribute("hitList",hitList);
 
         return "list/main"; // 해당 템플릿 파일로 리턴
     }
