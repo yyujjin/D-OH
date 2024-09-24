@@ -10,25 +10,38 @@
 
 <body>
 <div layout:fragment="content">
-    <form id="eventForm" method="get" th:action="@{/event/detail(eventNum=${event.eventNum})}">
-        <div class="container mt-5">
-            <h1 class="text-center mb-4" th:text="${event.eventTitle}">이벤트 제목</h1>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4" th:text="${event.eventTitle}">이벤트 제목</h1>
 
-            <div class="event-image mb-4">
-                <img th:src="@{${event.eventImageName}}" alt="이벤트 이미지" class="img-fluid">
-            </div>
-
-            <div class="event-details">
-                <h2>이벤트 기간</h2>
-                <span th:text="'생성일: ' + ${event.eventCreateTime}"></span><br>
-                <span th:text="${event.eventStartDate != null ? event.eventStartDate : 'N/A'}"></span> ~
-                <span th:text="${event.eventEndDate != null ? event.eventEndDate : 'N/A'}"></span>
-
-                <h2>이벤트 설명</h2>
-                <p th:text="${event.eventContent}">이곳에 이벤트에 대한 자세한 설명을 작성하세요.</p>
-            </div>
+        <div class="event-image mb-4">
+            <img th:src="${event.eventImageName != null ? event.eventImageName : '@{/img/fragments/이미지제공안됨.png}'}"
+            alt="이벤트 이미지" class="img-fluid">
         </div>
-    </form>
+
+        <div class="event-details">
+            <h2>이벤트 기간</h2>
+            <span th:text="'생성일: ' + ${event.eventCreateTime}"></span><br>
+            <span th:text="${event.eventStartDate != null ? event.eventStartDate : 'N/A'}"></span> ~
+            <span th:text="${event.eventEndDate != null ? event.eventEndDate : 'N/A'}"></span>
+
+            <h2>이벤트 설명</h2>
+            <p th:text="${event.eventContent}">이곳에 이벤트에 대한 자세한 설명을 작성하세요.</p>
+        </div>
+
+        <!-- 관리자에게만 수정/삭제 버튼 표시 -->
+        <div th:if="${userRole == 'ROLE_ADMIN' && userEmail == 'admin'}" class="mt-4">
+            <form th:action="@{/event/admin/write(eventNum=${event.eventNum})}" method="post">
+                <input type="hidden" name="eventNum" th:value="${event.eventNum}" />
+                <button type="submit" class="btn btn-primary">수정</button>
+            </form>
+
+            <!-- 삭제 버튼을 POST 방식으로 변경 -->
+            <form th:action="@{/event/admin/delete}" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                <input type="hidden" name="eventNum" th:value="${event.eventNum}" />
+                <button type="submit" class="btn btn-danger">삭제</button>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 

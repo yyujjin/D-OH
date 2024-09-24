@@ -30,7 +30,8 @@
             <div class="mb-3">
                 <label for="eventCreateTime">이벤트 생성일</label>
                 <input type="date" id="eventCreateTime" name="eventCreateTime" class="form-control"
-                       th:value="${eventDTO != null && eventDTO.eventCreateTime != null ? eventDTO.eventCreateTime : ''}" required>
+                       th:value="${eventDTO != null && eventDTO.eventCreateTime != null ? eventDTO.eventCreateTime : ''}"
+                       th:readonly="${eventDTO != null && eventDTO.eventNum != null}" required>
             </div>
 
             <div class="row">
@@ -61,9 +62,17 @@
             <div class="mb-3">
                 <label for="eventImageUrl">이벤트 이미지</label>
                 <input type="file" id="eventImageUrl" name="file" class="form-control">
+
+                <!-- 기존 이미지가 있을 경우 보여줌 -->
                 <div th:if="${eventDTO.eventImageName != null}" class="mt-2">
-                    <img th:src="@{${eventDTO.eventImageName}}" alt="이벤트 이미지" class="img-thumbnail" width="200">
+<!--                    <img th:src="@{'https://doh-contest-storage.s3.ap-northeast-2.amazonaws.com/'+${eventDTO.eventImageName}}"-->
+<!--                         alt="이벤트 이미지" class="img-thumbnail" width="200">-->
+                    <img th:src="${eventDTO.eventImageName}"
+                         alt="이벤트 이미지" class="img-thumbnail" width="200">
                 </div>
+
+                <!-- 기존 이미지 경로를 숨긴 필드로 전달 -->
+                <input type="hidden" name="existingImageName" th:value="${eventDTO.eventImageName}">
             </div>
 
             <!-- 버튼들 -->
