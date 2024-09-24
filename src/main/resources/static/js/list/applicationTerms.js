@@ -1,4 +1,7 @@
-//$(document).ready(function() {
+$(document).ready(function() {
+    Date()
+});//end of document ready
+
     // 아이디어 업로드 체크리스트
     $('#check\\ A').change(function() {
         if($(this).is(':checked')) {

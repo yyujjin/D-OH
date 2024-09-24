@@ -34,7 +34,8 @@
     </select>
 
     <insert id="saveContest" parameterType="com.DOH.DOH.dto.list.ApplyDTO">
-        insert into apply_contest(userEmail,applyTitle,applyContent,imageUrl ) values(#{userEmail}, #{applyTitle}, #{applyContent},#{imageUrl})
+        insert into apply_contest(userEmail,applyTitle,applyContent,imageUrl )
+                values(#{userEmail}, #{applyTitle}, #{applyContent},#{imageUrl})
     </insert>
 
 <!--    조회수 증가-->
@@ -53,13 +54,24 @@
                 and conNum = ${contestId}
     </select>
 
-<!--    관심 공모전 등록-->
+<!--    관심 공모전 정보 등록-->
     <insert id="addScrap">
         insert into scrap_contest(userEmail, conNum) values("${userEmail}", ${contestId})
     </insert>
 
-<!--    관심 공모전 삭제-->
+<!--    관심 공모전 정보 삭제-->
     <delete id="deleteScrap">
         delete from scrap_contest where userEmail = "${userEmail}" and conNum = ${contestId}
     </delete>
+
+    <select id="contestInfo" resultType="com.DOH.DOH.dto.list.ContestListDTO">
+        SELECT id, conType, conTitle, (conFirstPrice * conFirstPeople + conSecondPrice * conSecondPeople
+                + conThirdPrice * conThirdPeople) as totalPrice,
+                (datediff(conEndDate, now())) as endDate
+            FROM contest_Upload where id = ${id}
+    </select>
+
+    <select id="getApplyCount" resultType="int">
+        select count(*) from apply_contest where conNum = ${id}
+    </select>
 </mapper>

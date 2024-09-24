@@ -1,6 +1,9 @@
 package com.DOH.DOH.controller.list;
+import com.DOH.DOH.dto.contest.ContestUploadDTO;
 import com.DOH.DOH.dto.list.ApplyDTO;
+import com.DOH.DOH.dto.list.ContestListDTO;
 import com.DOH.DOH.service.common.S3FileUploadService;
+import com.DOH.DOH.service.contest.ContestUploadService;
 import com.DOH.DOH.service.list.ContestListService;
 import com.DOH.DOH.service.list.S3Service;
 import com.DOH.DOH.service.user.UserSessionService;
@@ -32,15 +35,24 @@ public class ApplyController {
         this.s3FileUploadService = s3FileUploadService;
     }
 
+
     //컨테스트 참여 약관동의 페이지 로드
     @GetMapping("/application/terms")
-    public String applictionTerms(HttpSession session){
+    public String applictionTerms(@RequestParam(name = "contestNum")Long id, Model model)
+    {
+        log.info("id test --> "+id);
+
+        ContestListDTO dto = contestListService.contestInfo(id);
+        int count = contestListService.getApplyCount(id);
+
+        model.addAttribute("contestDTO", dto);
+        model.addAttribute("count", count);
         return "list/applicationTerms";
     }
 
     //컨테스트 작성 페이지 로드
     @GetMapping("/application/write")
-    public String applictionWrite(String userEmail, Model model){
+    public String applictionWrite(int id, String userEmail, Model model){
         model.addAttribute("userEmail", userEmail);
         return "list/applicationWrite";
     }
