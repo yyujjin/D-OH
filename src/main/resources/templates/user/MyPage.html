@@ -56,7 +56,7 @@
                         <td th:text="${#dates.format(contest.conStartDate, 'yyyy-MM-dd')} + ' - ' + ${#dates.format(contest.conEndDate, 'yyyy-MM-dd')}">2024-09-25 ~ 2024-10-01</td>
                         <td th:text="${contest.conHit}">Hit</td>
                         <td>
-                            <a th:href="@{/contest/detail/{id}(id=${contest.id})}" class="action-btn">바로가기</a>
+                            <a th:href="@{/contest/view?contestNum={id}(id=${contest.id})}" class="action-btn">바로가기</a>
                         </td>
                     </tr>
                     </tbody>
