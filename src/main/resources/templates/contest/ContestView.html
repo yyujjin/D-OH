@@ -2,6 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/fragments/layout}">
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
+
     <link rel="stylesheet" th:href="@{/css/contest/ContestView.css}">
     <script th:src="@{/js/contest/ContestView.js}"></script>
 </head>
@@ -20,9 +26,14 @@
         <!-- 요청사항 -->
         <div class="request">
             <div>
-                <p>한줄 소개 : <span th:text="${contestUploadDTO.conOneLiner}"></span></p>
-                <p>로고명 : <span th:text="${contestUploadDTO.conLogoName}"></span></p>
-                <p>브리핑 : <span th:text="${contestUploadDTO.conBriefing}"></span></p>
+                <p>한줄 소개: <span th:text="${contestUploadDTO.conOneLiner}"></span></p>
+                <p>로고명: <span th:text="${contestUploadDTO.conLogoName}"></span></p>
+
+                <!-- Summernote 에디터 적용 -->
+                <label for="briefing">브리핑:</label>
+                <div id="briefing" class="summernote">
+                    <span th:utext="${contestUploadDTO.conBriefing}"></span>
+                </div>
             </div>
         </div>
         <!-- 문의댓글 -->
@@ -70,5 +81,7 @@
         <a href="#" class="button">콘테스트 참여하기</a>
     </div>
 </div>
+
+
 </th:block>
 </html>
