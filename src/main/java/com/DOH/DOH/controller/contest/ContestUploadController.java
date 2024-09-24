@@ -180,6 +180,9 @@ public class ContestUploadController {
         List<String>applicantList = contestUploadService.getContestApplicants(contestNum);
         model.addAttribute("applicantList",applicantList);
 
+        //컨테스트 작성한 유저 이메일 내보내기
+        model.addAttribute("writer",contestUploadDTO.getUserEmail());
+
         return "contest/ContestView";  // 뷰로 이동
     }
 
