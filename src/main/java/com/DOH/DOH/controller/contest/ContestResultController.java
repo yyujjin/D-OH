@@ -11,4 +11,9 @@ public class ContestResultController {
     public String test() {
         return "/contest/result";
     }
+
+    @GetMapping("/contest/award")
+    public String contestAward() {
+        return "/contest/contestAward";
+    }
 }
