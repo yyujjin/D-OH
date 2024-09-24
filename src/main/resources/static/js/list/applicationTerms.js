@@ -1,6 +1,15 @@
 $(document).ready(function() {
-    Date()
-});//end of document ready
+    let today = new Date();
+
+    let year = today.getFullYear(); // 년도
+    let month = today.getMonth() + 1;  // 월
+    let date = today.getDate();  // 날짜
+
+    let day = year + '년 ' + month + '월 ' + date+ '일 기준';
+//    console.log(day);
+
+    $(".check.date").text(day);
+
 
     // 아이디어 업로드 체크리스트
     $('#check\\ A').change(function() {
@@ -23,9 +32,6 @@ $(document).ready(function() {
     });
 
     $('#check\\ A, #check\\ B, #check\\ C').change(function(){
-        // if($(this).isChecked){
-        //     $('#checkAll').prop('checked', isChecked);
-        // }
         $('#check\\ A, #check\\ B, #check\\ C').change(function() {
             // 하위 항목 체크박스들 중 체크되지 않은 항목이 있는지 확인
             if ($('#check\\ A').is(':checked') && $('#check\\ B').is(':checked') && $('#check\\ C').is(':checked')) {
@@ -53,12 +59,16 @@ $(document).ready(function() {
             $('.popUP.C').slideUp();
         }
     });
-//});//end of document ready
+});//end of document ready
 
 //유효성 검사
 function check() {
-    
-    // var checkAll = document.querySelector("#checkAll");
+    const urlParams = new URLSearchParams(location.search);
+    //현재 페이지의 URL 값을 가져옴
+    const contestNum = urlParams.get('contestNum');
+    //현재 페이지의 URL에서 noticem_num 값을 가져옴
+    console.log(contestNum);
+
     var checkAll = document.querySelector("#checkAll");
     if(!checkAll.checked)
     {
@@ -67,5 +77,5 @@ function check() {
         return false;
      }
 
-     location.href="/api/users/contest/application/write";
+     location.href="/api/users/contest/application/write?contestNum="+contestNum;
  } 

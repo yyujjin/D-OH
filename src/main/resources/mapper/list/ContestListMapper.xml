@@ -34,8 +34,8 @@
     </select>
 
     <insert id="saveContest" parameterType="com.DOH.DOH.dto.list.ApplyDTO">
-        insert into apply_contest(userEmail,applyTitle,applyContent,imageUrl )
-                values(#{userEmail}, #{applyTitle}, #{applyContent},#{imageUrl})
+        insert into apply_contest(conNum, userEmail,applyTitle,applyContent,imageUrl )
+                values(#{conNum}, #{userEmail}, #{applyTitle}, #{applyContent},#{imageUrl})
     </insert>
 
 <!--    조회수 증가-->
