@@ -19,18 +19,24 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="participant : ${applicantList}">
-                <td th:text="${participant.userName}">참여자 이메일</td>
+            <!-- 참여자가 없을 경우 출력 -->
+            <tr th:if="${#lists.isEmpty(applicantList)}">
+                <td colspan="2">참여자가 없습니다.</td>
+            </tr>
+
+            <!-- 참여자가 있을 경우 이메일과 순위 선택 출력 -->
+            <tr th:each="applicant : ${applicantList}">
+                <td th:text="${applicant}">참여자 이메일</td>
                 <td>
                     <select
                             name="ranking"
                             class="form-control"
-                            th:name="ranking_${participant.userId}"
+                            th:name="${applicant}"
                     >
-                        <option value="none" selected>순위 선택</option>
-                        <option value="1">1등</option>
-                        <option value="2">2등</option>
-                        <option value="3">3등</option>
+                    <option value="none" selected>순위 선택</option>
+                    <option value="1">1등</option>
+                    <option value="2">2등</option>
+                    <option value="3">3등</option>
                     </select>
                 </td>
             </tr>
