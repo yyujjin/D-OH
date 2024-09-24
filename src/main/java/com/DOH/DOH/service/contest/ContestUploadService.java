@@ -21,4 +21,6 @@ public interface ContestUploadService {
     // 주문번호 생성
     String generateOrderNumber();
 
+    //컨테스트 지원자 목록 가져오기
+    List<String>getContestApplicants(Long contestNum);
 }

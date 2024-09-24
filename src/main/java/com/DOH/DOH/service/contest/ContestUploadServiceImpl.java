@@ -62,4 +62,9 @@ public class ContestUploadServiceImpl implements ContestUploadService {
         // 5. 생성된 주문 번호 반환
         return orderNumber;
     }
+
+        //컨테스트 지원자 목록 가져오기
+        public List<String>getContestApplicants(Long contestNum){
+            return contestUploadMapper.getContestApplicants(contestNum);
+        }
 }

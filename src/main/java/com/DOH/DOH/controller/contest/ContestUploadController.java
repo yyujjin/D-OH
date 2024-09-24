@@ -176,9 +176,13 @@ public class ContestUploadController {
         // 모델에 DTO 객체 자체를 추가
         model.addAttribute("contestUploadDTO", contestUploadDTO);
 
+        //컨테스트 지원자 목록 가져오기
+        List<String>applicantList = contestUploadService.getContestApplicants(contestNum);
+        //model.addAttribute("applicantList",applicantList);
+        log.info("가져온 지원자 목록:{}",applicantList);
+
         return "contest/ContestView";  // 뷰로 이동
     }
-
 
 
 }
