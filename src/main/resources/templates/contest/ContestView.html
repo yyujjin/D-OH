@@ -36,10 +36,13 @@
             </div>
         </div>
 
-        <!-- 참여작 -->
+        <!-- 참여자 -->
         <div class="work">
-            <div>
-                <p>작품 리스트</p>
+            <div th:if="${#lists.isEmpty(applicantList)}">
+                <p>참여자가 없습니다.</p>
+            </div>
+            <div th:each="applicant : ${applicantList}" th:unless="${#lists.isEmpty(applicantList)}">
+                <p><span>👤 </span><span th:text="${applicant}"> 지원자 이름</span></p>
             </div>
         </div>
     </form>

@@ -178,8 +178,7 @@ public class ContestUploadController {
 
         //컨테스트 지원자 목록 가져오기
         List<String>applicantList = contestUploadService.getContestApplicants(contestNum);
-        //model.addAttribute("applicantList",applicantList);
-        log.info("가져온 지원자 목록:{}",applicantList);
+        model.addAttribute("applicantList",applicantList);
 
         return "contest/ContestView";  // 뷰로 이동
     }
