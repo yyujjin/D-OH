@@ -3,7 +3,6 @@ package com.DOH.DOH.mapper.notifications;
 import com.DOH.DOH.dto.notifications.EventDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -14,7 +13,6 @@ public interface EventMapper {
      * 정식 저장된 이벤트 목록을 가져오는 메서드
      * @return 정식 저장된 이벤트 목록
      */
-    @Select("SELECT * FROM event WHERE eventTempSave = false LIMIT 12")
     List<EventDTO> getEventList();
 
     /**
@@ -27,7 +25,6 @@ public interface EventMapper {
      * 임시 저장된 이벤트 전체 목록을 가져오는 메서드 (페이징 없이)
      * @return 임시 저장된 이벤트 전체 목록
      */
-    @Select("SELECT * FROM event WHERE eventTempSave = true LIMIT 3")
     List<EventDTO> getTempSavedEvents();
 
     /**

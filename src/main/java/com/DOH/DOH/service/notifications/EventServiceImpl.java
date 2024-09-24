@@ -16,13 +16,16 @@ public class EventServiceImpl implements EventService {
     private EventMapper eventMapper;
 
     /**
-     * 이벤트 목록을 가져오는 메서드
-     * @return 이벤트 목록
+     * 이벤트 목록을 가져오는 메서드 (12개로 제한)
+     * @return 이벤트 목록 (최대 12개)
      */
     @Override
     public List<EventDTO> getEventListLimited() {
-        List<EventDTO> eventList = eventMapper.getEventList(); // 모든 이벤트 목록 조회
-        return (eventList != null) ? eventList : new ArrayList<>();
+        List<EventDTO> eventList = eventMapper.getEventList();
+        if (eventList != null && eventList.size() > 12) {
+            return eventList.subList(0, 12); // 12개로 제한
+        }
+        return (eventList != null) ? eventList : new ArrayList<>(); // null 체크 후 반환
     }
 
     /**
@@ -31,9 +34,10 @@ public class EventServiceImpl implements EventService {
      */
     @Override
     public List<EventDTO> getTempEventList() {
-        List<EventDTO> tempEvents = eventMapper.getTempSavedEvents(); // 페이징 없이 전체 임시 저장 목록 조회
-        return (tempEvents != null) ? tempEvents : new ArrayList<>();
+        List<EventDTO> tempEvents = eventMapper.getTempSavedEvents();
+        return (tempEvents != null) ? tempEvents : new ArrayList<>(); // null 체크
     }
+
 
     /**
      * 새로운 이벤트를 작성하는 메서드
@@ -47,6 +51,9 @@ public class EventServiceImpl implements EventService {
         }
 
         eventMapper.insertEvent(eventDTO); // 이벤트 저장
+
+        // 저장 후 모델에 이벤트 정보 추가
+        model.addAttribute("event", eventDTO);
     }
 
     /**
@@ -56,9 +63,9 @@ public class EventServiceImpl implements EventService {
     @Override
     public void saveTempEvent(EventDTO eventDTO) {
         // 현재 임시 저장된 이벤트 수 확인
-        List<EventDTO> tempEvents = eventMapper.getTempEventList();
+        List<EventDTO> tempEvents = eventMapper.getTempSavedEvents();
 
-        if (tempEvents.size() >= 3) {
+        if (tempEvents != null && tempEvents.size() >= 3) {
             throw new IllegalStateException("임시 저장된 이벤트는 최대 3개까지만 저장할 수 있습니다.");
         }
 
@@ -71,8 +78,11 @@ public class EventServiceImpl implements EventService {
      * @param eventDTO 수정된 이벤트 DTO 객체
      */
     @Override
-    public void eventUpdate(EventDTO eventDTO,Model model) {
+    public void eventUpdate(EventDTO eventDTO, Model model) {
         eventMapper.updateEvent(eventDTO);
+
+        // 업데이트 후 모델에 수정된 이벤트 정보 추가
+        model.addAttribute("updatedEvent", eventDTO);
     }
 
     /**
@@ -91,6 +101,11 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventDTO getEventById(Long eventNum, Model model) {
-        return eventMapper.selectEventById(eventNum); // 메퍼에서 호출
+        EventDTO event = eventMapper.selectEventById(eventNum);
+
+        // 조회된 이벤트를 모델에 추가
+        model.addAttribute("event", event);
+
+        return event;
     }
 }

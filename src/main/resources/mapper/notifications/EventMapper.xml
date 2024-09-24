@@ -71,10 +71,11 @@
         WHERE
         eventTempSave = false
         ORDER BY eventCreateTime DESC, eventNum DESC
+        LIMIT 12
     </select>
 
     <!-- 임시 저장된 이벤트 목록 조회 (최대 3개) -->
-    <select id="getTempEventList" resultType="com.DOH.DOH.dto.notifications.EventDTO">
+    <select id="getTempSavedEvents" resultType="com.DOH.DOH.dto.notifications.EventDTO">
         SELECT
         eventNum, eventTitle, eventContent, eventStartDate, eventEndDate, eventCreateTime, userNum, eventTempSave, eventImageUrl AS eventImageName
         FROM
@@ -82,6 +83,7 @@
         WHERE
         eventTempSave = true
         ORDER BY eventCreateTime DESC, eventNum DESC
+        LIMIT 3
     </select>
 
     <!-- 전체 정식 이벤트 수 조회 -->

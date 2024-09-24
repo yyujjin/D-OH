@@ -13,12 +13,12 @@
         <!-- 이벤트 등록 버튼 -->
         <div class="d-flex justify-content-end mb-4" th:if="${userRole == 'ROLE_ADMIN' && userEmail == 'admin'}">
             <form th:action="@{/event/admin/write}" method="post">
-                <button type="submit" class="btn" th:disabled="${tempSavedEvents.size() >= 3}">이벤트 등록</button>
+                <button type="submit" class="btn" th:disabled="${#lists.size(tempSavedEvents) >= 3}">이벤트 등록</button>
             </form>
         </div>
 
         <!-- 알림: 임시 저장 이벤트가 3개를 초과할 경우 -->
-        <div class="alert alert-warning" th:if="${tempSavedEvents.size() >= 3}">
+        <div class="alert alert-warning" th:if="${#lists.size(tempSavedEvents) >= 3}">
             <strong>알림:</strong> 최대 3개의 임시 저장된 이벤트만 가능합니다. 임시 저장을 삭제하거나 정식 등록하세요.
         </div>
 
@@ -60,7 +60,7 @@
 
         <!-- 임시 저장된 이벤트 목록 -->
         <h2>임시 저장된 이벤트</h2>
-        <div class="row row-cols-1 row-cols-md-4 g-4" th:if="${!tempSavedEvents.isEmpty()}">
+        <div class="row row-cols-1 row-cols-md-4 g-4" th:if="${tempSavedEvents != null && !tempSavedEvents.isEmpty()}">
             <div class="col" th:each="event : ${tempSavedEvents}">
                 <div class="card h-100">
                     <img th:src="${event.eventImageName != null ? event.eventImageName : '@{/img/fragments/이미지제공안됨.png}'}"
