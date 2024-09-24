@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:c=""
       layout:decorate="~{/fragments/layout}">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -43,6 +43,7 @@
                 <button type="button">등록</button>
             </div>
         </div>
+
         <!-- 참여작 -->
         <div class="work">
             <div>
@@ -76,9 +77,9 @@
         <span th:text="${#dates.format(contestUploadDTO.conEndDate, 'yyyy/MM/dd')}"></span>
 
         <p>참여작</p>
-        <p>조회수</p>
-        <a href="#" class="button">콘테스트 목록으로</a>
-        <a href="#" class="button">콘테스트 참여하기</a>
+        <p>조회수  <span th:text="${contestUploadDTO.conHit}"></span></p>
+        <a href="/contest/list" class="button">콘테스트 목록으로</a>
+        <a href="/api/users/contest/application/terms" class="button">콘테스트 참여하기</a>
     </div>
 </div>
 

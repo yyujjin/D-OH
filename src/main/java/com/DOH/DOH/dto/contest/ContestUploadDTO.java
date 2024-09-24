@@ -34,5 +34,7 @@ public class ContestUploadDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date conEndDate;
 
+    private int conHit; // 조회수
+
     private String orderNumber; // 주문번호
 }
