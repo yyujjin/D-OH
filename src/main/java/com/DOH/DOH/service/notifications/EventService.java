@@ -2,7 +2,6 @@ package com.DOH.DOH.service.notifications;
 
 import com.DOH.DOH.dto.notifications.EventDTO;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 
 import java.util.List;
 
@@ -14,13 +13,13 @@ public interface EventService {
     List<EventDTO> getTempEventList();
 
     // 이벤트 정식 저장
-    void eventRegister(EventDTO eventDTO);
+    void eventRegister(EventDTO eventDTO, Model model);
 
     // 이벤트 임시 저장 메서드
     void saveTempEvent(EventDTO eventDTO);
 
     // 이벤트 수정
-    void eventUpdate(EventDTO eventDTO);
+    void eventUpdate(EventDTO eventDTO,Model model);
 
     // 이벤트 삭제
     void deleteEvent(Long eventNum);

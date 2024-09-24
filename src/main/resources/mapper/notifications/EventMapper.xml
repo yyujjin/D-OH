@@ -27,7 +27,7 @@
     </select>
 
     <!-- 이벤트 수정 -->
-    <update id="eventUpdate">
+    <update id="updateEvent">
         UPDATE event
         SET
         eventTitle = #{eventTitle},

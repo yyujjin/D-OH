@@ -5,7 +5,6 @@ import com.DOH.DOH.mapper.notifications.EventMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +40,7 @@ public class EventServiceImpl implements EventService {
      * @param eventDTO 이벤트 DTO 객체 (제목, 내용, 작성자 등)
      */
     @Override
-    public void eventRegister(EventDTO eventDTO) {
+    public void eventRegister(EventDTO eventDTO, Model model) {
         // 이벤트 제목이 빈 값이 아닐 경우 설정
         if (eventDTO.getEventTitle() == null || eventDTO.getEventTitle().isEmpty()) {
             eventDTO.setEventTitle("제목 없음"); // 기본 제목 설정
@@ -72,7 +71,7 @@ public class EventServiceImpl implements EventService {
      * @param eventDTO 수정된 이벤트 DTO 객체
      */
     @Override
-    public void eventUpdate(EventDTO eventDTO) {
+    public void eventUpdate(EventDTO eventDTO,Model model) {
         eventMapper.updateEvent(eventDTO);
     }
 

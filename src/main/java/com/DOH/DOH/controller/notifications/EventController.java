@@ -91,9 +91,9 @@ public class EventController {
         return "notifications/eventWrite";
     }
 
-    //이벤트 등록(작성&수정) 페이지
+    // 이벤트 등록(작성&수정) 페이지
     @PostMapping("/admin/create")
-    public String eventWrite(@ModelAttribute EventDTO eventDTO,
+    public String eventWrite(@ModelAttribute EventDTO eventDTO, Model model,
                              @RequestParam(value = "file", required = false) MultipartFile file,
                              @RequestParam("eventCreateTime") String eventCreateTimeStr,
                              @RequestParam("eventStartDate") String eventStartDateStr,
@@ -142,10 +142,10 @@ public class EventController {
 
         // 이벤트 저장 또는 수정 처리
         if (eventDTO.getEventNum() == null) {
-            eventService.eventRegister(eventDTO);  // 이벤트 등록
+            eventService.eventRegister(eventDTO, model);  // 이벤트 등록
             log.info("이벤트 등록 완료 - 제목: {}", eventDTO.getEventTitle());
         } else {
-            eventService.eventUpdate(eventDTO);  // 이벤트 수정
+            eventService.eventUpdate(eventDTO, model);  // 이벤트 수정
             log.info("이벤트 수정 완료 - eventNum: {}", eventDTO.getEventNum());
         }
 
