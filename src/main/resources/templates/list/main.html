@@ -39,85 +39,88 @@
             <div class="section A">
                 <div class="title">요즘 인기 있는 콘테스트</div>
                 <div class="cardConWarap">
-                    <div class="bar">
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </div>
-                    <div class="cardList">
-                        <a href="#">
-                            <div class="cardImage">
+<!--                    <div class="bar">-->
+<!--                        <i class="fa-solid fa-chevron-left"></i>-->
+<!--                    </div>-->
+                    <div class="cardList" th:each="list : ${imageList}">
+                        <a href="#" th:href="@{/contest/view(contestNum=${list.id})}" th:onclick="hitUp(this)">
+<!--                            <div class="cardImage">-->
+                            <div class="cardImage" th:src="${list.imageUrl} == null ? '' : ${list.imageUrl}">
 
                             </div>
+<!--                            </div>-->
                             <div class="content">
-                                <div class="endDate">8일 남음</div>
-                                <div class="conTitle">글로벌 한방 브랜드 네이밍 콘테스트</div>
+                                <div class="endDate"><span th:text="${list.endDate}">8</span>일 남음</div>
+                                <div class="conTitle" th:text="${list.conTitle}">글로벌 한방 브랜드 네이밍 콘테스트</div>
                                 <div class="conSub">
-                                    <div class="context">헬스마켓</div>
+                                    <div class="context" th:text="${list.conCompanyName}">헬스마켓</div>
                                     <div class="conIcon">
-                                        <i class="fa-regular fa-hand-pointer"></i>
-                                        <span class="context gray">363</span>
+<!--                                        <i class="fa-regular fa-hand-pointer"></i>-->
+                                        <i class="bi bi-hand-index"></i>
+                                        <span class="context gray" th:text="${list.conHit}">363</span>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div><!--cardList-->
-                    <div class="cardList">
-                        <a href="#">
-                            <div class="cardImage">
+<!--                    <div class="cardList">-->
+<!--                        <a href="#">-->
+<!--                            <div class="cardImage">-->
 
-                            </div>
-                            <div class="content">
-                                <div class="endDate">8일 남음</div>
-                                <div class="conTitle">글로벌 한방 브랜드 네이밍 콘테스트</div>
-                                <div class="conSub">
-                                    <div class="context">헬스마켓</div>
-                                    <div class="conIcon">
-                                        <i class="fa-regular fa-hand-pointer"></i>
-                                        <span class="context gray">363</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div><!--cardList-->
-                    <div class="cardList">
-                        <a href="#">
-                            <div class="cardImage">
+<!--                            </div>-->
+<!--                            <div class="content">-->
+<!--                                <div class="endDate">8일 남음</div>-->
+<!--                                <div class="conTitle">글로벌 한방 브랜드 네이밍 콘테스트</div>-->
+<!--                                <div class="conSub">-->
+<!--                                    <div class="context">헬스마켓</div>-->
+<!--                                    <div class="conIcon">-->
+<!--                                        <i class="fa-regular fa-hand-pointer"></i>-->
+<!--                                        <span class="context gray">363</span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </a>-->
+<!--                    </div>&lt;!&ndash;cardList&ndash;&gt;-->
+<!--                    <div class="cardList">-->
+<!--                        <a href="#">-->
+<!--                            <div class="cardImage">-->
 
-                            </div>
-                            <div class="content">
-                                <div class="endDate">8일 남음</div>
-                                <div class="conTitle">글로벌 한방 브랜드 네이밍 콘테스트</div>
-                                <div class="conSub">
-                                    <div class="context">헬스마켓</div>
-                                    <div class="conIcon">
-                                        <i class="fa-regular fa-hand-pointer"></i>
-                                        <span class="context gray">363</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div><!--cardList-->
-                    <div class="cardList">
-                        <a href="#">
-                            <div class="cardImage">
+<!--                            </div>-->
+<!--                            <div class="content">-->
+<!--                                <div class="endDate">8일 남음</div>-->
+<!--                                <div class="conTitle">글로벌 한방 브랜드 네이밍 콘테스트</div>-->
+<!--                                <div class="conSub">-->
+<!--                                    <div class="context">헬스마켓</div>-->
+<!--                                    <div class="conIcon">-->
+<!--                                        <i class="fa-regular fa-hand-pointer"></i>-->
+<!--                                        <span class="context gray">363</span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </a>-->
+<!--                    </div>&lt;!&ndash;cardList&ndash;&gt;-->
+<!--                    <div class="cardList">-->
+<!--                        <a href="#">-->
+<!--                            <div class="cardImage">-->
 
-                            </div>
-                            <div class="content">
-                                <div class="endDate">8일 남음</div>
-                                <div class="conTitle">글로벌 한방 브랜드 네이밍 콘테스트</div>
-                                <div class="conSub">
-                                    <div class="context">헬스마켓</div>
-                                    <div class="conIcon">
-                                        <i class="fa-regular fa-hand-pointer"></i>
-                                        <span class="context gray">363</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div><!--cardList-->
+<!--                            </div>-->
+<!--                            <div class="content">-->
+<!--                                <div class="endDate">8일 남음</div>-->
+<!--                                <div class="conTitle">글로벌 한방 브랜드 네이밍 콘테스트</div>-->
+<!--                                <div class="conSub">-->
+<!--                                    <div class="context">헬스마켓</div>-->
+<!--                                    <div class="conIcon">-->
+<!--                                        <i class="fa-regular fa-hand-pointer"></i>-->
+<!--                                        <span class="context gray">363</span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </a>-->
+<!--                    </div>&lt;!&ndash;cardList&ndash;&gt;-->
 
-                    <div class="bar">
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </div>
+<!--                    <div class="bar">-->
+<!--                        <i class="fa-solid fa-chevron-right"></i>-->
+<!--                    </div>-->
                 </div><!--cardConWarap-->
             </div><!--sectionA 끝-->
 
