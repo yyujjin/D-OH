@@ -37,6 +37,30 @@
                 </div>
             </div> <!-- sidebar end -->
             <div class="main-class">
+
+                <h3>내가 개최한 컨테스트 목록보기</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>View Details</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="contest, iterStat : ${contestList}">
+                        <td th:text="${iterStat.index + 1}">1</td>
+                        <td th:text="${contest.title}">Contest Title</td>
+                        <td th:text="${#dates.format(contest.date, 'yyyy-MM-dd')}">2024-09-25</td>
+                        <td>
+                            <a th:href="@{/contest/detail/{id}(id=${contest.id})}" class="action-btn">바로가기</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
                 <a href="/users/mypage/profile/write" class="profilewrite" th:if="${profile == null or profile?.profileOneLiner == null}">프로필 작성하러가기</a>
                 <div class="profileOneLiner">
                     <p th:if="${profile != null and profile?.profileOneLiner != null}" th:text="${profile?.profileOneLiner}"></p>
@@ -56,27 +80,28 @@
                     <a href="/users/mypage/upload" class="underline">작품 업로드하기</a>
                 </div>
             </div> <!-- button-class end -->
-            <div class="management">
-                <div><h6>참여한 공모전</h6><hr></div>
-                <div class="imagecard"></div>
-                <div class="imagecard"></div>
-                <div class="imagecard"></div>
-                <div class="imagecard"></div>
-                <div class="imagecard"></div>
+<!--            <div class="management">-->
+<!--                <div><h6>참여한 공모전</h6><hr></div>-->
+<!--                <div class="imagecard"></div>-->
+<!--                <div class="imagecard"></div>-->
+<!--                <div class="imagecard"></div>-->
+<!--                <div class="imagecard"></div>-->
+<!--                <div class="imagecard"></div>-->
 
-            </div>
-            <div class="commition">
-                <div><h6>공모전 의뢰 목록</h6><hr></div>
-                <div class="commition1">
-                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>
-                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>
-                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>
-                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>
-                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>
-                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>
-                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>
-                </div>
-            </div>
+<!--            </div>-->
+<!--            <div class="commition">-->
+<!--                <div><h6>공모전 의뢰 목록</h6><hr></div>-->
+<!--                <div class="commition1">-->
+<!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
+<!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
+<!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
+<!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
+<!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
+<!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
+<!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
+<!--                </div>-->
+<!--            </div>-->
+
 
             </div> <!-- container end -->
         </main>
