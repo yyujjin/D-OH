@@ -1,15 +1,13 @@
 package com.DOH.DOH.controller.list;
 
+import com.DOH.DOH.dto.list.PagingDTO;
 import com.DOH.DOH.dto.list.PortFolioDTO;
 import com.DOH.DOH.service.list.PortFolioService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -22,10 +20,16 @@ public class PortFolioController {
     PortFolioService portFolioService;
 
     @GetMapping("/list")
-    public String portfolioList(Model model)
-    {
-        ArrayList<PortFolioDTO> dto = portFolioService.getPortFolioList();
-        model.addAttribute("portfolioList", dto);
+    public String portfolioList(@RequestParam(defaultValue = "1") int page,
+                                @RequestParam(defaultValue = "false")String orderType,
+                                Model model) {
+
+        PagingDTO dto = new PagingDTO(page, portFolioService.getTotalCount(),12);
+
+        ArrayList<PortFolioDTO> portFolioList = portFolioService.getPortFolioList(dto);
+
+        model.addAttribute("portfolioList", portFolioList);
+        model.addAttribute("pageMaker",dto);
         return "list/portfolioList";
 
     }
