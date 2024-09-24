@@ -10,12 +10,12 @@ import java.util.ArrayList;
 
 @Slf4j
 @Service
-public class PortFolioServiceImpl {
+public class PortFolioServiceImpl implements PortFolioService {
 
     @Autowired
     PortFolioMapper portFolioMapper;
 
-    ArrayList<PortFolioDTO> getPortFolioList(){
+    public ArrayList<PortFolioDTO> getPortFolioList(){
       return portFolioMapper.getPortFolioList();
     };
 }
