@@ -39,262 +39,262 @@
             </nav><!--filterWrap-->
             
             <section>
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
+                <div class="cardList" th:each="list : ${portfolioList}">
+                    <a href="#" th:href="@{/portfolio/list/detail(portfolioId=${list.id})}">
+                        <img class="img" th:src="${list.personalWork}">
+                            <!--포토폴리오 이미지가 들어갈 영역-->
+                        </img>
                         <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
+                            <div class="title" th:text="${list.title}">식품 브랜드 밀잇 브랜드 콘테스트</div>
                             <div class="info">
-                                <h5>싱싱한초록546</h5> ·
+                                <h5 th:text="${list.userNickname}">싱싱한초록546</h5> ·
                                 <div class="hit">
-                                    조회수 363
+                                    조회수 <span th:text="${list.profileHit}">363</span>
                                 </div>
                             </div>
                         </div>
                     </a>
                 </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
+<!--                <div class="cardList">-->
+<!--                    <a href="#">-->
+<!--                        <div class="img">-->
+<!--                            &lt;!&ndash;포토폴리오가 들어갈 영역&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="portfolioSummary">-->
+<!--                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>-->
+<!--                            <div class="info">-->
+<!--                                <h5>싱싱한초록546</h5> ·-->
+<!--                                <div class="hit">-->
+<!--                                    조회수 363-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>&lt;!&ndash;cardList&ndash;&gt;-->
+<!--                <div class="cardList">-->
+<!--                    <a href="#">-->
+<!--                        <div class="img">-->
+<!--                            &lt;!&ndash;포토폴리오가 들어갈 영역&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="portfolioSummary">-->
+<!--                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>-->
+<!--                            <div class="info">-->
+<!--                                <h5>싱싱한초록546</h5> ·-->
+<!--                                <div class="hit">-->
+<!--                                    조회수 363-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>&lt;!&ndash;cardList&ndash;&gt;-->
+<!--                <div class="cardList">-->
+<!--                    <a href="#">-->
+<!--                        <div class="img">-->
+<!--                            &lt;!&ndash;포토폴리오가 들어갈 영역&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="portfolioSummary">-->
+<!--                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>-->
+<!--                            <div class="info">-->
+<!--                                <h5>싱싱한초록546</h5> ·-->
+<!--                                <div class="hit">-->
+<!--                                    조회수 363-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>&lt;!&ndash;cardList&ndash;&gt;-->
+<!--                <div class="cardList">-->
+<!--                    <a href="#">-->
+<!--                        <div class="img">-->
+<!--                            &lt;!&ndash;포토폴리오가 들어갈 영역&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="portfolioSummary">-->
+<!--                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>-->
+<!--                            <div class="info">-->
+<!--                                <h5>싱싱한초록546</h5> ·-->
+<!--                                <div class="hit">-->
+<!--                                    조회수 363-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>&lt;!&ndash;cardList&ndash;&gt;-->
+<!--                <div class="cardList">-->
+<!--                    <a href="#">-->
+<!--                        <div class="img">-->
+<!--                            &lt;!&ndash;포토폴리오가 들어갈 영역&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="portfolioSummary">-->
+<!--                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>-->
+<!--                            <div class="info">-->
+<!--                                <h5>싱싱한초록546</h5> ·-->
+<!--                                <div class="hit">-->
+<!--                                    조회수 363-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>&lt;!&ndash;cardList&ndash;&gt;-->
+<!--                <div class="cardList">-->
+<!--                    <a href="#">-->
+<!--                        <div class="img">-->
+<!--                            &lt;!&ndash;포토폴리오가 들어갈 영역&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="portfolioSummary">-->
+<!--                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>-->
+<!--                            <div class="info">-->
+<!--                                <h5>싱싱한초록546</h5> ·-->
+<!--                                <div class="hit">-->
+<!--                                    조회수 363-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>&lt;!&ndash;cardList&ndash;&gt;-->
+<!--                <div class="cardList">-->
+<!--                    <a href="#">-->
+<!--                        <div class="img">-->
+<!--                            &lt;!&ndash;포토폴리오가 들어갈 영역&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="portfolioSummary">-->
+<!--                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>-->
+<!--                            <div class="info">-->
+<!--                                <h5>싱싱한초록546</h5> ·-->
+<!--                                <div class="hit">-->
+<!--                                    조회수 363-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>&lt;!&ndash;cardList&ndash;&gt;-->
+<!--                <div class="cardList">-->
+<!--                    <a href="#">-->
+<!--                        <div class="img">-->
+<!--                            &lt;!&ndash;포토폴리오가 들어갈 영역&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="portfolioSummary">-->
+<!--                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>-->
+<!--                            <div class="info">-->
+<!--                                <h5>싱싱한초록546</h5> ·-->
+<!--                                <div class="hit">-->
+<!--                                    조회수 363-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>&lt;!&ndash;cardList&ndash;&gt;-->
+<!--                <div class="cardList">-->
+<!--                    <a href="#">-->
+<!--                        <div class="img">-->
+<!--                            &lt;!&ndash;포토폴리오가 들어갈 영역&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="portfolioSummary">-->
+<!--                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>-->
+<!--                            <div class="info">-->
+<!--                                <h5>싱싱한초록546</h5> ·-->
+<!--                                <div class="hit">-->
+<!--                                    조회수 363-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>&lt;!&ndash;cardList&ndash;&gt;-->
+<!--                <div class="cardList">-->
+<!--                    <a href="#">-->
+<!--                        <div class="img">-->
+<!--                            &lt;!&ndash;포토폴리오가 들어갈 영역&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="portfolioSummary">-->
+<!--                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>-->
+<!--                            <div class="info">-->
+<!--                                <h5>싱싱한초록546</h5> ·-->
+<!--                                <div class="hit">-->
+<!--                                    조회수 363-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>&lt;!&ndash;cardList&ndash;&gt;-->
+<!--                <div class="cardList">-->
+<!--                    <a href="#">-->
+<!--                        <div class="img">-->
+<!--                            &lt;!&ndash;포토폴리오가 들어갈 영역&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="portfolioSummary">-->
+<!--                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>-->
+<!--                            <div class="info">-->
+<!--                                <h5>싱싱한초록546</h5> ·-->
+<!--                                <div class="hit">-->
+<!--                                    조회수 363-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>&lt;!&ndash;cardList&ndash;&gt;-->
+<!--                <div class="cardList">-->
+<!--                    <a href="#">-->
+<!--                        <div class="img">-->
+<!--                            &lt;!&ndash;포토폴리오가 들어갈 영역&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="portfolioSummary">-->
+<!--                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>-->
+<!--                            <div class="info">-->
+<!--                                <h5>싱싱한초록546</h5> ·-->
+<!--                                <div class="hit">-->
+<!--                                    조회수 363-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>&lt;!&ndash;cardList&ndash;&gt;-->
+<!--                <div class="cardList">-->
+<!--                    <a href="#">-->
+<!--                        <div class="img">-->
+<!--                            &lt;!&ndash;포토폴리오가 들어갈 영역&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="portfolioSummary">-->
+<!--                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>-->
+<!--                            <div class="info">-->
+<!--                                <h5>싱싱한초록546</h5> ·-->
+<!--                                <div class="hit">-->
+<!--                                    조회수 363-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>&lt;!&ndash;cardList&ndash;&gt;-->
+<!--                <div class="cardList">-->
+<!--                    <a href="#">-->
+<!--                        <div class="img">-->
+<!--                            &lt;!&ndash;포토폴리오가 들어갈 영역&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="portfolioSummary">-->
+<!--                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>-->
+<!--                            <div class="info">-->
+<!--                                <h5>싱싱한초록546</h5> ·-->
+<!--                                <div class="hit">-->
+<!--                                    조회수 363-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>&lt;!&ndash;cardList&ndash;&gt;-->
+<!--                <div class="cardList">-->
+<!--                    <a href="#">-->
+<!--                        <div class="img">-->
+<!--                            &lt;!&ndash;포토폴리오가 들어갈 영역&ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="portfolioSummary">-->
+<!--                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>-->
+<!--                            <div class="info">-->
+<!--                                <h5>싱싱한초록546</h5> ·-->
+<!--                                <div class="hit">-->
+<!--                                    조회수 363-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>&lt;!&ndash;cardList&ndash;&gt;-->
             </section>
 
             <nav aria-label="Page navigation example">

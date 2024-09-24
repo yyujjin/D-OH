@@ -2,5 +2,14 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0.3//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.DOH.DOH.mapper.list.ProfileListMapper">
+<mapper namespace="com.DOH.DOH.mapper.list.PortFolioMapper">
+
+    <select id="getPortFolioList" resultType="com.DOH.DOH.dto.list.PortFolioDTO">
+        select up.id, title, up.userEmail, userNickname, commissionStatus,
+            profileHit, personalWork
+            from portfolio_upload up
+                left join (select userEmail, userNickname, commissionStatus
+                            from profile_user_info) us
+                on us.userEmail = up.userEmail
+    </select>
 </mapper>
