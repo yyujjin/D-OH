@@ -1,29 +1,21 @@
 package com.DOH.DOH.controller.contest;
 
 import com.DOH.DOH.dto.contest.ContestUploadDTO;
-import com.DOH.DOH.service.contest.ContestS3Service;
+import com.DOH.DOH.service.common.S3FileUploadService;
 import com.DOH.DOH.service.contest.ContestUploadService;
 import com.DOH.DOH.service.user.UserSessionService;
 import com.amazonaws.services.s3.AmazonS3;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,14 +25,14 @@ import java.util.Map;
 public class ContestUploadController {
 
     private final UserSessionService userSessionService;
-    private final ContestS3Service contestS3Service;
+    private final  S3FileUploadService  s3FileUploadService;
     private final AmazonS3 amazonS3;
     private final String bucketName= "doh-contest-storage";
 
     @Autowired
-    public ContestUploadController(UserSessionService userSessionService, ContestS3Service contestS3Service, AmazonS3 amazonS3) {
+    public ContestUploadController(UserSessionService userSessionService, S3FileUploadService s3FileUploadService, AmazonS3 amazonS3) {
         this.userSessionService = userSessionService;
-        this.contestS3Service = contestS3Service;
+        this.s3FileUploadService =  s3FileUploadService;
         this.amazonS3 = amazonS3;
     }
     @Autowired
@@ -62,7 +54,7 @@ public class ContestUploadController {
     public ResponseEntity<Map<String, String>> uploadImage(@RequestParam("file") MultipartFile file) {
         try {
             // S3에 파일을 업로드하고 URL을 받음
-            String imageUrl = contestS3Service.uploadFile(file);
+            String imageUrl = s3FileUploadService.uploadFileToS3Bucket(file);
 
             // URL을 클라이언트로 반환
             Map<String, String> response = new HashMap<>();
@@ -146,7 +138,7 @@ public class ContestUploadController {
             // 세션 초기화
             session.removeAttribute("contestData");
 
-            // 리다이렉트 URL 반환
+            // 리다이렉트 URL 반환3
             Map<String, String> response = new HashMap<>();
             response.put("redirectUrl", "/contest/view?contestNum=" + contestData.getConNum());
             return ResponseEntity.ok(response);
