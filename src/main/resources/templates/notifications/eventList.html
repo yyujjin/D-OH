@@ -16,7 +16,7 @@
                 <button type="submit" class="btn">이벤트 등록</button>
             </form>
         </div>
-
+        <h1>D'OH 이벤트</h1>
         <div class="row row-cols-1 row-cols-md-4 g-4">
             <!-- 이벤트 카드 반복 -->
             <div class="col" th:each="event : ${eventList}">
@@ -26,7 +26,7 @@
                              class="card-img-top" alt="이벤트 이미지">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${event.eventTitle}">이벤트 제목</h5>
-                            <p class="card-text" th:text="${event.eventContent}">이벤트 설명입니다.</p>
+<!--                            <p class="card-text" th:text="${event.eventContent}">이벤트 설명입니다.</p>-->
                             <p class="card-text">
                                 <small class="text-muted">
                                     <span th:text="'생성일: ' + ${event.formattedCreateTime}"></span><br>

@@ -4,6 +4,7 @@ import com.DOH.DOH.dto.notifications.EventDTO;
 import com.DOH.DOH.service.notifications.EventService;
 import com.DOH.DOH.service.user.UserSessionService;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -91,6 +91,7 @@ public class EventController {
         return "notifications/eventWrite";
     }
 
+    //이벤트 등록(작성&수정) 페이지
     @PostMapping("/admin/create")
     public String eventWrite(@ModelAttribute EventDTO eventDTO,
                              @RequestParam(value = "file", required = false) MultipartFile file,
@@ -100,11 +101,13 @@ public class EventController {
                              RedirectAttributes redirectAttributes) throws Exception {
         log.info("이벤트 작성 요청 - 제목: {}", eventDTO.getEventTitle());
 
+        // 관리자 권한 확인
         if (!isAdminUser()) {
             redirectAttributes.addFlashAttribute("errorMessage", "이벤트 작성 권한이 없습니다.");
             return "redirect:/event/list";
         }
 
+        // 세션에서 userNum 설정
         eventDTO.setUserNum(Math.toIntExact(userSessionService.userNum()));
 
         // 날짜 변환 로직
@@ -118,11 +121,18 @@ public class EventController {
             return "redirect:/event/list";
         }
 
-        // S3 파일 업로드 처리
+        // 기존 이미지 삭제 및 S3 파일 업로드 처리
         if (file != null && !file.isEmpty()) {
             try {
+                // 새로운 파일 업로드 전에 기존 이미지 삭제 (수정일 경우)
+                if (eventDTO.getEventImageName() != null && !eventDTO.getEventImageName().isEmpty()) {
+                    deleteFileFromS3Bucket(eventDTO.getEventImageName()); // 기존 이미지 삭제
+                }
+
+                // 새로운 이미지 업로드
                 String newFileName = uploadFileToS3Bucket(file);
-                eventDTO.setEventImageName(newFileName);
+                eventDTO.setEventImageName(newFileName); // 새로운 파일명을 DTO에 설정
+
             } catch (IOException e) {
                 log.error("S3 파일 업로드 실패: {}", e.getMessage());
                 redirectAttributes.addFlashAttribute("errorMessage", "파일 업로드 중 오류가 발생했습니다.");
@@ -132,15 +142,28 @@ public class EventController {
 
         // 이벤트 저장 또는 수정 처리
         if (eventDTO.getEventNum() == null) {
-            eventService.eventRegister(eventDTO);
+            eventService.eventRegister(eventDTO);  // 이벤트 등록
             log.info("이벤트 등록 완료 - 제목: {}", eventDTO.getEventTitle());
         } else {
-            eventService.eventUpdate(eventDTO);
+            eventService.eventUpdate(eventDTO);  // 이벤트 수정
             log.info("이벤트 수정 완료 - eventNum: {}", eventDTO.getEventNum());
         }
 
+        // 성공 메시지
         redirectAttributes.addFlashAttribute("successMessage", "이벤트가 성공적으로 등록되었습니다.");
         return "redirect:/event/list";
+    }
+
+    // 파일 삭제 메서드
+    public void deleteFileFromS3Bucket(String eventImageName) {
+        try {
+            // S3에서 파일 삭제
+            amazonS3.deleteObject(new DeleteObjectRequest(bucketName, eventImageName));
+            System.out.println("파일 삭제 성공: " + eventImageName);
+        } catch (Exception e) {
+            System.err.println("파일 삭제 실패: " + e.getMessage());
+            throw new RuntimeException("S3 파일 삭제 실패", e);
+        }
     }
 
     // 날짜 변환 공통 함수
