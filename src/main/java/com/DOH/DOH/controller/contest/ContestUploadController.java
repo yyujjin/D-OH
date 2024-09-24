@@ -1,18 +1,28 @@
 package com.DOH.DOH.controller.contest;
 
 import com.DOH.DOH.dto.contest.ContestUploadDTO;
+import com.DOH.DOH.service.contest.ContestS3Service;
 import com.DOH.DOH.service.contest.ContestUploadService;
 import com.DOH.DOH.service.user.UserSessionService;
+import com.amazonaws.services.s3.AmazonS3;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -23,11 +33,16 @@ import java.util.Map;
 public class ContestUploadController {
 
     private final UserSessionService userSessionService;
+    private final ContestS3Service contestS3Service;
+    private final AmazonS3 amazonS3;
+    private final String bucketName= "doh-contest-storage";
 
-    public ContestUploadController(UserSessionService userSessionService) {
+    @Autowired
+    public ContestUploadController(UserSessionService userSessionService, ContestS3Service contestS3Service, AmazonS3 amazonS3) {
         this.userSessionService = userSessionService;
+        this.contestS3Service = contestS3Service;
+        this.amazonS3 = amazonS3;
     }
-
     @Autowired
     private ContestUploadService contestUploadService;
 
@@ -40,6 +55,24 @@ public class ContestUploadController {
         model.addAttribute("contestTypes", contestTypes);
         model.addAttribute("contestUploadDTO", new ContestUploadDTO());
         return "contest/ContestUpload";
+    }
+
+    // Summernote에서 이미지 업로드 시 호출되는 핸들러
+    @PostMapping("/users/contest/uploadImage")
+    public ResponseEntity<Map<String, String>> uploadImage(@RequestParam("file") MultipartFile file) {
+        try {
+            // S3에 파일을 업로드하고 URL을 받음
+            String imageUrl = contestS3Service.uploadFile(file);
+
+            // URL을 클라이언트로 반환
+            Map<String, String> response = new HashMap<>();
+            response.put("url", imageUrl);  // Summernote는 'url' 필드를 필요로 함
+            return ResponseEntity.ok(response);
+        } catch (IOException e) {
+            // 오류 발생 시 처리
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", "이미지 업로드 중 오류가 발생했습니다."));
+        }
     }
 
     // 1단계: 폼 데이터를 세션에 저장하고 다음 단계로 이동
@@ -153,5 +186,7 @@ public class ContestUploadController {
 
         return "contest/ContestView";  // 뷰로 이동
     }
+
+
 
 }
