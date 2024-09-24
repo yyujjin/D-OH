@@ -43,16 +43,18 @@
                     <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Title</th>
-                        <th>Date</th>
-                        <th>View Details</th>
+                        <th>제목</th>
+                        <th>모집 기간</th>
+                        <th>조회수</th>
+                        <th>바로 가기</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="contest, iterStat : ${contestList}">
-                        <td th:text="${iterStat.index + 1}">1</td>
-                        <td th:text="${contest.title}">Contest Title</td>
-                        <td th:text="${#dates.format(contest.date, 'yyyy-MM-dd')}">2024-09-25</td>
+                    <tr th:each="contest : ${contestList}">
+                        <td th:text="${contest.id}">1</td>
+                        <td th:text="${contest.conTitle}">Contest Title</td>
+                        <td th:text="${#dates.format(contest.conStartDate, 'yyyy-MM-dd')} + ' - ' + ${#dates.format(contest.conEndDate, 'yyyy-MM-dd')}">2024-09-25 ~ 2024-10-01</td>
+                        <td th:text="${contest.conHit}">Hit</td>
                         <td>
                             <a th:href="@{/contest/detail/{id}(id=${contest.id})}" class="action-btn">바로가기</a>
                         </td>
