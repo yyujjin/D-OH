@@ -12,4 +12,8 @@
                             from profile_user_info) us
                 on us.userEmail = up.userEmail
     </select>
+
+    <update id="hitUp">
+        update portfolio_upload set profileHit = ifnull(profileHit, 0) +1 where id = #{id}
+    </update>
 </mapper>

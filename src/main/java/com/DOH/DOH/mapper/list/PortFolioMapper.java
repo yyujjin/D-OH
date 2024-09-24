@@ -8,4 +8,5 @@ import java.util.ArrayList;
 @Mapper
 public interface PortFolioMapper {
     ArrayList<PortFolioDTO> getPortFolioList();
+    void hitUp(int id);//조회수 증가 메서드
 }

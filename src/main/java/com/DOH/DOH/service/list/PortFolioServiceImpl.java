@@ -16,6 +16,11 @@ public class PortFolioServiceImpl implements PortFolioService {
     PortFolioMapper portFolioMapper;
 
     public ArrayList<PortFolioDTO> getPortFolioList(){
-      return portFolioMapper.getPortFolioList();
-    };
+
+        return portFolioMapper.getPortFolioList();
+    }
+
+    public void hitUp(int id){//조회수 증가 메서드
+        portFolioMapper.hitUp(id);
+    }
 }

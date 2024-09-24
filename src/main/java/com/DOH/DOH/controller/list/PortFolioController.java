@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 
@@ -32,4 +34,14 @@ public class PortFolioController {
     public String viewPortfolio() {
         return "user/portfolioDetail";
     }
+
+
+
+    @PostMapping("/hitUp")
+    @ResponseBody
+    public void hitUp(int id){
+        log.info("portFolio id check!! : "+id);
+        portFolioService.hitUp(id);
+    }
+
 }
