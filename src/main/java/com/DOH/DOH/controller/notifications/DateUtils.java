@@ -13,8 +13,11 @@ public class DateUtils {
         return LocalDate.parse(dateStr, FORMATTER);
     }
 
-    // LocalDate를 문자열로 변환
+    // LocalDate를 문자열로 변환 (null 체크 포함)
     public static String formatLocalDate(LocalDate date) {
+        if (date == null) {
+            return "날짜 없음"; // 기본값으로 적절한 메시지 반환
+        }
         return date.format(FORMATTER);
     }
 }

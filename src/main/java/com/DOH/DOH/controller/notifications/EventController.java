@@ -116,32 +116,22 @@ public class EventController {
         // 세션에서 userNum 설정
         eventDTO.setUserNum(Math.toIntExact(userSessionService.userNum()));
 
-        // 유효성 검사: 등록 시에는 생성일 및 이벤트 기간이 필수
-        if (eventDTO.getEventNum() == null) { // 새로 등록하는 경우
-            if (eventCreateTimeStr == null || eventCreateTimeStr.isEmpty() ||
-                    eventStartDateStr == null || eventStartDateStr.isEmpty() ||
-                    eventEndDateStr == null || eventEndDateStr.isEmpty()) {
-                log.error("생성일 또는 이벤트 기간이 입력되지 않음.");
-                addMessage(redirectAttributes, "생성일과 이벤트 기간을 모두 입력해 주세요.", true);
-                return "redirect:/event/admin/write";
-            }
+        // 등록 시 필수 필드 체크 (임시 저장은 필드가 없어도 저장 가능)
+        if (!eventDTO.isEventTempSave() &&
+                (eventCreateTimeStr == null || eventStartDateStr == null || eventEndDateStr == null)) {
+            redirectAttributes.addFlashAttribute("errorMessage", "생성일과 이벤트 기간을 모두 입력해 주세요.");
+            return "redirect:/event/admin/write";
         }
 
-        // 날짜 변환 로직 (날짜가 입력된 경우에만 처리)
-        try {
-            if (eventCreateTimeStr != null && !eventCreateTimeStr.isEmpty()) {
-                eventDTO.setEventCreateTime(DateUtils.parseStringToLocalDate(eventCreateTimeStr));
-            }
-            if (eventStartDateStr != null && !eventStartDateStr.isEmpty()) {
-                eventDTO.setEventStartDate(DateUtils.parseStringToLocalDate(eventStartDateStr));
-            }
-            if (eventEndDateStr != null && !eventEndDateStr.isEmpty()) {
-                eventDTO.setEventEndDate(DateUtils.parseStringToLocalDate(eventEndDateStr));
-            }
-        } catch (Exception e) {
-            log.error("날짜 변환 오류: {}", e.getMessage());
-            addMessage(redirectAttributes, "날짜 형식이 올바르지 않습니다.", true);
-            return "redirect:/event/list";
+        // 날짜 변환 로직 (임시 저장 시에는 생략 가능)
+        if (eventCreateTimeStr != null) {
+            eventDTO.setEventCreateTime(DateUtils.parseStringToLocalDate(eventCreateTimeStr));
+        }
+        if (eventStartDateStr != null) {
+            eventDTO.setEventStartDate(DateUtils.parseStringToLocalDate(eventStartDateStr));
+        }
+        if (eventEndDateStr != null) {
+            eventDTO.setEventEndDate(DateUtils.parseStringToLocalDate(eventEndDateStr));
         }
 
         // 이미지 처리 로직

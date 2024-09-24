@@ -15,11 +15,24 @@ $(document).ready(function() {
 
     // 폼 유효성 검사 함수
     function validateForm() {
-        let title = $('#eventTitle').val(); // 'eventTitle'는 폼의 제목 입력란 id
+        let title = $('#eventTitle').val(); // 제목 입력란
+        const eventCreateTime = $('#eventCreateTime').val();
+        const eventStartDate = $('#eventStartDate').val();
+        const eventEndDate = $('#eventEndDate').val();
+
+        // 제목 유효성 검사
         if (title === '') {
             alert('제목을 입력하세요.');
             $('#eventTitle').focus();
             return false;
+        }
+
+        // 등록 시 필수 필드 유효성 검사 (임시 저장 시는 검사하지 않음)
+        if ($('#eventTempSave').val() === 'false') { // 정식 등록일 경우
+            if (!eventCreateTime || !eventStartDate || !eventEndDate) {
+                alert("생성일과 이벤트 기간을 모두 입력해 주세요.");
+                return false;
+            }
         }
         return true;
     }
@@ -45,13 +58,24 @@ $(document).ready(function() {
         }
 
         // 임시 저장 플래그 설정 및 폼 제출
-        $('#eventTempSave').val('true'); // 임시 저장 플래그 (숨겨진 필드) 값 설정
+        $('#eventTempSave').val('true'); // 임시 저장 플래그 설정
         $('#eventForm').attr('action', '/event/admin/tempSaveEvent'); // 임시 저장 경로 설정
+
+        // 폼 제출
         $('#eventForm').submit();
     });
 
-    // 등록 또는 수정 버튼 클릭 시 기본값으로 정식 등록 처리
+    // 등록 또는 수정 버튼 클릭 시 정식 등록 처리
     $('#eventForm').on('submit', function() {
         $('#eventTempSave').val('false'); // 기본적으로 정식 등록 처리
+
+        // 폼 액션 설정
+        if ($('#eventDTO').val() != null && $('#eventTempSave').val() === 'true') {
+            // 임시 저장 상태에서 정식 등록
+            $('#eventForm').attr('action', '/event/admin/create');
+        }
+
+        // 유효성 검사 실패 시 처리 중단
+        return validateForm();
     });
 });
