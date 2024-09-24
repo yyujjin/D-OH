@@ -31,7 +31,7 @@ public class EventServiceImpl implements EventService {
      */
     @Override
     public List<EventDTO> getTempEventList() {
-        List<EventDTO> tempEvents = eventMapper.findTempEvents(); // 페이징 없이 전체 임시 저장 목록 조회
+        List<EventDTO> tempEvents = eventMapper.getTempSavedEvents(); // 페이징 없이 전체 임시 저장 목록 조회
         return (tempEvents != null) ? tempEvents : new ArrayList<>();
     }
 
@@ -56,7 +56,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public void saveTempEvent(EventDTO eventDTO) {
         // 현재 임시 저장된 이벤트 수 확인
-        List<EventDTO> tempEvents = eventMapper.findTempEvents();
+        List<EventDTO> tempEvents = eventMapper.getTempEventList();
 
         if (tempEvents.size() >= 3) {
             throw new IllegalStateException("임시 저장된 이벤트는 최대 3개까지만 저장할 수 있습니다.");

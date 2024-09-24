@@ -207,4 +207,32 @@ public class EventController {
 
         return "notifications/eventView";
     }
+
+    // 이벤트 임시 저장 처리 (임시 저장 또는 수정 처리)
+    @PostMapping("/admin/tempSaveEvent")
+    public String saveTempEvent(@ModelAttribute EventDTO eventDTO, RedirectAttributes redirectAttributes) throws Exception {
+        String userEmail = userSessionService.userEmail();
+        String userRole = userSessionService.userRole();
+        Long userNum = userSessionService.userNum();  // 세션에서 userNum 가져오기
+
+        // 권한 검사: 관리자만 임시 저장 가능
+        if (!userEmail.equals("admin") && !userRole.equals("ROLE_ADMIN")) {
+            redirectAttributes.addFlashAttribute("errorMessage", "이벤트 임시 저장 권한이 없습니다.");
+            return "redirect:/event/list";
+        }
+
+        // 이벤트 작성자의 userNum 설정
+        eventDTO.setUserNum(Math.toIntExact(userNum));
+
+        // 임시 저장된 이벤트 수정 로직 추가
+        if (eventDTO.getEventNum() == null) {
+            eventService.saveTempEvent(eventDTO); // 새로운 임시 저장 이벤트
+            log.info("이벤트 임시 저장 완료 - 제목: {}", eventDTO.getEventTitle());
+        } else {
+            eventService.updateTempEvent(eventDTO); // 이미 임시 저장된 이벤트 수정
+            log.info("임시 저장 이벤트 수정 완료 - eventNum: {}", eventDTO.getEventNum());
+        }
+
+        return "redirect:/event/list";
+    }
 }

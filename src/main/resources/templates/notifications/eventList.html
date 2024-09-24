@@ -12,10 +12,16 @@
     <div class="container mt-5">
         <!-- 이벤트 등록 버튼 -->
         <div class="d-flex justify-content-end mb-4" th:if="${userRole == 'ROLE_ADMIN' && userEmail == 'admin'}">
-        <form th:action="@{/event/admin/write}" method="post">
-                <button type="submit" class="btn">이벤트 등록</button>
+            <form th:action="@{/event/admin/write}" method="post">
+                <button type="submit" class="btn" th:disabled="${tempSavedEvents.size() >= 3}">이벤트 등록</button>
             </form>
         </div>
+
+        <!-- 알림: 임시 저장 이벤트가 3개를 초과할 경우 -->
+        <div class="alert alert-warning" th:if="${tempSavedEvents.size() >= 3}">
+            <strong>알림:</strong> 최대 3개의 임시 저장된 이벤트만 가능합니다. 임시 저장을 삭제하거나 정식 등록하세요.
+        </div>
+
         <h1>D'OH 이벤트</h1>
         <div class="row row-cols-1 row-cols-md-4 g-4">
             <!-- 이벤트 카드 반복 -->
@@ -26,7 +32,6 @@
                              class="card-img-top" alt="이벤트 이미지">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${event.eventTitle}">이벤트 제목</h5>
-<!--                            <p class="card-text" th:text="${event.eventContent}">이벤트 설명입니다.</p>-->
                             <p class="card-text">
                                 <small class="text-muted">
                                     <span th:text="'생성일: ' + ${event.formattedCreateTime}"></span><br>
@@ -51,6 +56,38 @@
                 </a>
             </div>
             <!-- //이벤트 카드 반복 끝 -->
+        </div>
+
+        <!-- 임시 저장된 이벤트 목록 -->
+        <h2>임시 저장된 이벤트</h2>
+        <div class="row row-cols-1 row-cols-md-4 g-4" th:if="${!tempSavedEvents.isEmpty()}">
+            <div class="col" th:each="event : ${tempSavedEvents}">
+                <div class="card h-100">
+                    <img th:src="${event.eventImageName != null ? event.eventImageName : '@{/img/fragments/이미지제공안됨.png}'}"
+                         class="card-img-top" alt="이벤트 이미지">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${event.eventTitle}">임시 저장된 이벤트 제목</h5>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <span th:text="'생성일: ' + ${event.formattedCreateTime}"></span><br>
+                                <span th:text="'이벤트 기간: ' + ${event.formattedStartDate} + ' ~ ' + ${event.formattedEndDate}"></span>
+                            </small>
+                        </p>
+                        <!-- 관리자일 때만 수정 및 삭제 버튼 표시 -->
+                        <div th:if="${userRole == 'ROLE_ADMIN' && userEmail == 'admin'}">
+                            <!-- 수정 버튼 -->
+                            <form th:action="@{/event/admin/write(eventNum=${event.eventNum})}" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-primary btn-sm">수정</button>
+                            </form>
+
+                            <!-- 삭제 버튼 -->
+                            <form th:action="@{/event/admin/delete(eventNum=${event.eventNum})}" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </th:block>

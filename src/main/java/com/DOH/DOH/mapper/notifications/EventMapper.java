@@ -3,8 +3,7 @@ package com.DOH.DOH.mapper.notifications;
 import com.DOH.DOH.dto.notifications.EventDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -15,6 +14,7 @@ public interface EventMapper {
      * 정식 저장된 이벤트 목록을 가져오는 메서드
      * @return 정식 저장된 이벤트 목록
      */
+    @Select("SELECT * FROM event WHERE eventTempSave = false LIMIT 12")
     List<EventDTO> getEventList();
 
     /**
@@ -27,19 +27,20 @@ public interface EventMapper {
      * 임시 저장된 이벤트 전체 목록을 가져오는 메서드 (페이징 없이)
      * @return 임시 저장된 이벤트 전체 목록
      */
-    List<EventDTO> findTempEvents();
+    @Select("SELECT * FROM event WHERE eventTempSave = true LIMIT 3")
+    List<EventDTO> getTempSavedEvents();
 
     /**
      * 새로운 이벤트를 작성하는 메서드
-     * @param event 이벤트 DTO 객체
+     * @param eventDTO 이벤트 DTO 객체
      */
-    void insertEvent(EventDTO event);
+    void insertEvent(EventDTO eventDTO);
 
     /**
      * 이벤트 수정 메서드
-     * @param event 수정된 이벤트 DTO 객체
+     * @param eventDTO 수정된 이벤트 DTO 객체
      */
-    void updateEvent(EventDTO event);
+    void updateEvent(EventDTO eventDTO);
 
     /**
      * 이벤트 삭제 메서드
@@ -59,14 +60,16 @@ public interface EventMapper {
      */
     int getTotalTempEvents();
 
+    /**
+     * 임시 저장된 이벤트 수정 메서드
+     * @param eventDTO 수정된 이벤트 DTO 객체
+     */
     void updateTempEvent(EventDTO eventDTO);
 
     /**
-     * 이벤트 번호로 이벤트을 조회하는 메서드
+     * 이벤트 번호로 이벤트를 조회하는 메서드
      * @param eventNum 조회할 이벤트 번호
      * @return 조회된 이벤트 DTO
      */
-    EventDTO selectEventById(@Param("eventNum") Long eventNum); // 상세보기 메소드 추가
-
-    EventDTO getEventById(Long eventNum, ModelMap modelMap);
+    EventDTO selectEventById(@Param("eventNum") Long eventNum);
 }
