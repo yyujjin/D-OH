@@ -67,4 +67,10 @@ public class ContestUploadServiceImpl implements ContestUploadService {
         public List<String>getContestApplicants(Long contestNum){
             return contestUploadMapper.getContestApplicants(contestNum);
         }
+
+    //유저 이메일로 컨테스트 목록 가져오기
+    @Override
+    public List<ContestUploadDTO> getContestsByUserEmail(String userEmail) {
+        return contestUploadMapper.getContestsByUserEmail(userEmail);
+    }
 }
