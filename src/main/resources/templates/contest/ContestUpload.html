@@ -5,37 +5,37 @@
     <title>Contest Upload Form</title>
     <link rel="stylesheet" th:href="@{/css/contest/ContestUpload.css}">
     <script th:src="@{/js/contest/ContestUpload.js}"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
 </head>
 <th:block layout:fragment="content">
-<div class="Contestupload">
-    <h1>어떤 작품이 필요하세요?</h1>
-    <form action="/users/contest" method="post" enctype="multipart/form-data">
+    <div class="Contestupload">
+        <h1>어떤 작품이 필요하세요?</h1>
+        <form action="/users/contest" method="post" enctype="multipart/form-data">
 
-        <h3>회사명(단체명)</h3>
-        <input class="companytype" type="text" id="conCompanyName" name="conCompanyName" placeholder="회사명을 입력해 주세요" required>
+            <h3>회사명(단체명)</h3>
+            <input class="companytype" type="text" id="conCompanyName" name="conCompanyName" placeholder="회사명을 입력해 주세요" required>
 
-        <h3>한 줄 소개</h3>
-        <textarea id="conOneLiner" name="conOneLiner" rows="3" placeholder="우리 서비스는 OO을 판매하는 회사입니다." required></textarea>
+            <h3>한 줄 소개</h3>
+            <textarea id="conOneLiner" name="conOneLiner" rows="3" placeholder="우리 서비스는 OO을 판매하는 회사입니다." required></textarea>
 
-        <h3>업종</h3>
-        <select id="conType" name="conType" required>
-            <option value="">업종 선택</option>
-            <!-- DB에서 가져온 업종 목록을 Thymeleaf로 동적으로 표시 -->
-            <option th:each="type : ${contestTypes}" th:value="${type}" th:text="${type}"></option>
-        </select>
+            <h3>업종</h3>
+            <select id="conType" name="conType" required>
+                <option value="">업종 선택</option>
+                <!-- DB에서 가져온 업종 목록을 Thymeleaf로 동적으로 표시 -->
+                <option th:each="type : ${contestTypes}" th:value="${type}" th:text="${type}"></option>
+            </select>
 
-        <h3>로고명</h3>
-        <input class="companytype" type="text" id="conLogoName" name="conLogoName" placeholder="로고명을 입력해 주세요." required>
+            <h3>로고명</h3>
+            <input class="companytype" type="text" id="conLogoName" name="conLogoName" placeholder="로고명을 입력해 주세요." required>
 
-        <h3>브리핑</h3>
-        <textarea id="conBriefing" name="conBriefing" rows="5" placeholder="브리핑을 입력해 주세요" required></textarea>
+            <h3>브리핑</h3>
+            <textarea id="summernote" name="conBriefing" rows="5" placeholder="브리핑을 입력해 주세요" required></textarea>
 
-        <!--        <label for="conFile">첨부파일</label>-->
-        <!--        <input type="file" id="conFile" name="conFile" accept=".zip,.jpg,.jpeg,.png" required>-->
-
-        <button type="submit" class="btn">다음</button>
-    </form>
-</div>
+            <button type="submit" class="btn">다음</button>
+        </form>
+    </div>
 </th:block>
 
 </html>
