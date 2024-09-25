@@ -20,11 +20,8 @@ public class ContestResultAPIController {
 
     @PostMapping("/award")
     public ResponseEntity submitAwardResults(@RequestBody Map<String, String> formData ) {
-        //유저 이메일이나 컨테스트 id 받아서 들어온 상금 이랑 설정한 상금 인원 같아야 제출가능
-        //{user1=none, user2=none}
 
         contestAwardService.saveAwardResult(formData);
-        log.info("요청 : {}",formData);
 
         return ResponseEntity.ok().build();
     }
