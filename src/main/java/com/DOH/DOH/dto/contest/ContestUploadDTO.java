@@ -38,8 +38,12 @@ public class ContestUploadDTO {
 
     private String orderNumber; // 주문번호
 
+
     private String userEmail; //작성한 유저 이메일
 
     private boolean isFinished; // 0이면 모집중 1이면 끝
+
+
+    private String userEmail;  // 사용자 이메일
 
 }

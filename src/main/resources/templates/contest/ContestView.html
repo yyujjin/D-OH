@@ -80,7 +80,10 @@
         </a>
 
         <a href="/contest/list" class="button">콘테스트 목록으로</a>
-        <a href="/api/users/contest/application/terms" class="button">콘테스트 참여하기</a>
+<!--        <a href="/api/users/contest/application/terms" class="button">콘테스트 참여하기</a>-->
+<!--        <a th:href="@{/api/users/contest/application/terms(contestNum=${contestUploadDTO.id})}" class="button">콘테스트 참여하기</a>-->
+        <a th:if="${userEmail != writer}" th:href="@{/api/users/contest/application/terms(contestNum=${contestUploadDTO.id})}" class="button">콘테스트 참여하기</a>
+
     </div>
 </div>
 

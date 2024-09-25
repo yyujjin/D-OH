@@ -1,4 +1,4 @@
-body {
+        body {
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
@@ -69,6 +69,18 @@ body {
             font-size: 14px;
         }
         .signup-container .auth-btn {
+            padding: 10px;
+            background-color:black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 11px;
+            margin-left: 10px;
+            width: 70px;
+            height: 40px;
+        }
+        .signup-container .submit-verify-btn {
             padding: 10px;
             background-color:black;
             color: white;
@@ -208,4 +220,26 @@ body {
             cursor: pointer;
             color: blue;
             text-decoration: none;
+        }
+        /* 에러 메시지 */
+        .error-border {
+            border: 1px solid red !important;
+        }
+
+        .emailError {
+           color: red;
+           font-size: 12px;
+           display: none;
+           align-items: center;
+        }
+
+        .passwordError {
+           color: red;
+           font-size: 12px;
+           display: none;
+           align-items: center;
+        }
+
+        .error-icon {
+           margin-right: 2px;
         }

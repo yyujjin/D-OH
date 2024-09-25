@@ -5,33 +5,113 @@
 <head>
     <title>이벤트 페이지</title>
     <link rel="stylesheet" th:href="@{/css/notifications/eventList.css}">
+    <link rel="stylesheet" th:href="@{/css/notifications/eventList.js}">
 </head>
+
 <th:block layout:fragment="content">
-    <!-- Main Content -->
     <div class="container mt-5">
-        <!-- 이벤트 등록 버튼 -->
-        <div class="d-flex justify-content-end mb-4">
-            <a th:href="@{/event/admin/write}" class="btn">이벤트 등록</a>
+
+        <!-- 이벤트 등록 버튼 (관리자 전용) -->
+        <div class="d-flex justify-content-end mb-4" th:if="${userRole == 'ROLE_ADMIN' && userEmail == 'admin'}">
+            <form th:action="@{/event/admin/write}" method="post">
+                <button type="submit" class="btn">이벤트 등록</button>
+            </form>
         </div>
 
+        <!-- 최대 임시 저장 제한 알림 -->
+        <div th:if="${tempSaveLimitReached}" class="alert alert-warning">
+            <strong>알림:</strong> 임시 저장된 이벤트는 최대 3개까지만 가능합니다.
+        </div>
+
+        <!-- 이벤트 목록 -->
+        <h1>D'OH 이벤트</h1>
         <div class="row row-cols-1 row-cols-md-4 g-4">
-            <!-- 이벤트 카드 반복 -->
-            <div class="col" th:each="event : ${eventList}">
-                <a th:href="@{/event/detail(eventNum=${event.eventNum})}" class="card-link">
+            <!-- 이벤트 카드 반복 (최대 12개만 표시) -->
+            <div class="col" th:each="event, iterStat : ${eventList}" th:if="${iterStat.index < 12}">
+                <a th:href="@{/event/detail(eventNum=${event.eventNum})}" class="card-link"
+                   th:class="${event.formattedEndDate < currentDate ? 'expired' : ''}">
                     <div class="card h-100">
-                        <img th:src="${event.eventImageUrl}" class="card-img-top"
-                             th:alt="${event.eventTitle} 이미지">
+
+                        <div th:if="${event.eventImageName != null}">
+                            <img th:src="@{${event.eventImageName}}" class="card-img-top" alt="이벤트 이미지">
+                        </div>
+                        <div th:if="${event.eventImageName == null}">
+                            <img th:src="@{/img/fragments/noimg.png}" class="card-img-top" alt="이벤트 이미지">
+                        </div>
+
+                        <span class="expired-message" th:if="${event.formattedEndDate < currentDate}">이벤트 종료</span>
                         <div class="card-body">
                             <h5 class="card-title" th:text="${event.eventTitle}">이벤트 제목</h5>
-                            <p class="card-text" th:text="${event.eventContent}">이벤트 설명입니다.</p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <span th:text="'생성일: ' + ${event.formattedCreateTime}"></span><br>
+                                    <span th:text="'이벤트 기간: ' + ${event.formattedStartDate} + ' ~ ' + ${event.formattedEndDate}"></span>
+                                </small>
+                            </p>
+
+                            <!-- 관리자 전용 수정 및 삭제 버튼 -->
+                            <div th:if="${userRole == 'ROLE_ADMIN' && userEmail == 'admin'}">
+                                <form th:action="@{/event/admin/write(eventNum=${event.eventNum})}" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-primary btn-sm">수정</button>
+                                </form>
+
+                                <form th:action="@{/event/admin/delete(eventNum=${event.eventNum})}" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </a>
             </div>
-            <!-- //이벤트 카드 반복 끝 -->
+        </div>
+
+        <!-- 임시 저장된 이벤트 목록 (관리자 전용) -->
+        <div th:if="${userRole == 'ROLE_ADMIN'}">
+            <h2>임시 저장된 이벤트</h2>
+            <!-- 임시 저장된 이벤트가 없을 때 -->
+            <div class="alert alert-warning mt-4" th:if="${#lists.isEmpty(tempEventList)}">
+                등록된 임시 저장 이벤트가 없습니다.
+            </div>
+
+
+            <!-- 임시 저장된 이벤트 목록 -->
+            <div class="row row-cols-1 row-cols-md-4 g-4" th:if="${!#lists.isEmpty(tempEventList)}">
+                <div class="col" th:each="event : ${tempEventList}">
+                    <a th:href="@{/event/detail(eventNum=${event.eventNum})}" class="card-link">
+                        <div class="card h-100">
+
+                            <div th:if="${event.eventImageUrl != null}">
+                                <img th:src="@{${event.eventImageUrl}}" class="card-img-top" alt="이벤트 이미지">
+                            </div>
+                            <div th:if="${event.eventImageUrl == null}">
+                                <img th:src="@{/img/fragments/noimg.png}" class="card-img-top" alt="이벤트 이미지">
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${event.eventTitle}">임시 저장된 이벤트 제목</h5>
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        <span th:text="'생성일: ' + ${event.formattedCreateTime}"></span><br>
+                                        <span th:text="'이벤트 기간: ' + ${event.formattedStartDate} + ' ~ ' + ${event.formattedEndDate}"></span>
+                                    </small>
+                                </p>
+
+                                <div>
+                                    <form th:action="@{/event/admin/write(eventNum=${event.eventNum})}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-primary btn-sm">수정</button>
+                                    </form>
+
+                                    <form th:action="@{/event/admin/delete(eventNum=${event.eventNum})}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-
 </th:block>
 
 </html>

@@ -9,12 +9,12 @@
                                     conTitle,
                                     conFirstPrice, conSecondPrice, conThirdPrice,
                                     conFirstPeople, conSecondPeople, conThirdPeople,
-                                    conStartDate, conEndDate, orderNumber, createdAt)
+                                    conStartDate, conEndDate, orderNumber, createdAt, userEmail)
         VALUES (#{conCompanyName}, #{conOneLiner}, #{conType}, #{conLogoName}, #{conBriefing},
                 #{conTitle},
                 #{conFirstPrice}, #{conSecondPrice}, #{conThirdPrice},
                 #{conFirstPeople}, #{conSecondPeople}, #{conThirdPeople},
-                #{conStartDate}, #{conEndDate}, #{orderNumber}, NOW())
+                #{conStartDate}, #{conEndDate}, #{orderNumber}, NOW(), #{userEmail})
     </insert>
 
     <!--콘테스트 모집 종료로 변경 -->
@@ -25,7 +25,9 @@
 
     <!-- ID로 콘테스트 조회 -->
     <select id="selectContestById" parameterType="long" resultType="com.DOH.DOH.dto.contest.ContestUploadDTO">
-        SELECT * FROM contest_Upload WHERE id = #{conNum}
+        SELECT *
+        FROM contest_Upload
+        WHERE id = #{conNum}
     </select>
 
     <!-- 오늘 날짜로 콘테스트 카운트 조회 -->

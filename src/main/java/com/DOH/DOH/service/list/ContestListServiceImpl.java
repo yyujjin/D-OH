@@ -69,5 +69,17 @@ public class ContestListServiceImpl implements ContestListService {
     @Override
     public List<ApplyDTO> getApplicationList(String userEmail) {
         return contestListMapper.getApplicationList(userEmail);
+
+    @Override
+    public ContestListDTO contestInfo(Long id){
+
+        return contestListMapper.contestInfo(id);
+    }
+
+    @Override
+    public int getApplyCount(Long id){
+
+        return contestListMapper.getApplyCount(id);
+
     }
 }

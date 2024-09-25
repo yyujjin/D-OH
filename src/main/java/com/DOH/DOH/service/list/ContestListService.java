@@ -21,4 +21,7 @@ public interface ContestListService {
     int scrap(String email, int contestId);
     void saveContest(ApplyDTO applyDTO);
     List<ApplyDTO> getApplicationList(String userEmail);
+    ContestListDTO contestInfo(Long id);
+    int getApplyCount(Long id);
+
 }
