@@ -51,4 +51,9 @@ public class ContestAwardService {
         contestUploadService.finishContest(contestNum);
 
     }
+
+
+    public AwardDTO viewResult(Long conNum){
+        return contestAwardMapper.viewResult(conNum);
+    }
 }

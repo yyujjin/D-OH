@@ -7,4 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ContestAwardMapper {
     //컨테스트 결과 저장
     void saveAwardResult(AwardDTO awardDTO);
+
+    //컨테스트 결과 조회
+    AwardDTO viewResult(Long conNum);
 }

@@ -7,4 +7,8 @@
     <insert id="saveAwardResult" parameterType="com.DOH.DOH.dto.contest.AwardDTO">
         insert into award values( #{id},#{conNum},#{userEmail}, #{firstPlace},#{secondPlace},#{thirdPlace});
     </insert>
+
+    <select id="viewResult" parameterType="Long" resultType="com.DOH.DOH.dto.contest.AwardDTO">
+        SELECT * FROM DOH.award where conNum=#{conNum};
+    </select>
 </mapper>
