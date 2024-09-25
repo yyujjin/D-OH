@@ -2,13 +2,16 @@ package com.DOH.DOH.controller.contest;
 
 import com.DOH.DOH.service.contest.ContestUploadService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @Slf4j
 @Controller
+@RequestMapping("/contest")
 public class ContestResultController {
 
     private final ContestUploadService contestUploadService;
@@ -18,17 +21,18 @@ public class ContestResultController {
     }
 
 
+    //결과 페이지 렌더링 (트로피)
     @GetMapping("/result")
     public String test() {
         return "/contest/result";
     }
 
-    @GetMapping("/contest/award")
+    //시상식 페이지 렌더링
+    @GetMapping("/award")
     public String contestAward(@RequestParam Long contestNum, Model model) {
 
         model.addAttribute("applicantList",contestUploadService.getContestApplicants(contestNum));
         return "contest/contestAward";
     }
-
 
 }

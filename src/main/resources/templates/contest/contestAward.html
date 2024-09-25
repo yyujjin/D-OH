@@ -6,11 +6,13 @@
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     />
+    <script src="/js/contest/contestAward.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div class="container">
     <h2>수상자 선정</h2>
-    <form action="/contest/award" method="post">
+    <form id="awardForm">
         <table class="table">
             <thead>
             <tr>
@@ -33,10 +35,10 @@
                             class="form-control"
                             th:name="${applicant}"
                     >
-                    <option value="none" selected>순위 선택</option>
-                    <option value="1">1등</option>
-                    <option value="2">2등</option>
-                    <option value="3">3등</option>
+                        <option value="none" selected>순위 선택</option>
+                        <option value="1">1등</option>
+                        <option value="2">2등</option>
+                        <option value="3">3등</option>
                     </select>
                 </td>
             </tr>
@@ -44,12 +46,8 @@
         </table>
         <!-- 버튼 섹션 -->
         <div class="button-section">
-            <button type="submit" class="btn btn-primary">😆 제출하기</button>
-            <button
-                    type="button"
-                    class="btn btn-danger"
-                    onclick="location.href='/contest/no-winner'"
-            >
+            <button type="button" class="btn btn-primary" onclick="submitAward()">😆 제출하기</button>
+            <button type="button" class="btn btn-danger" onclick="location.href='/contest/no-winner'">
                 😭 마음에 드는 작품이 없어요
             </button>
         </div>
