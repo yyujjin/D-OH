@@ -18,6 +18,8 @@
       <!-- 채팅 창 -->
       <div class="chat-window">
         <div class="chat-header">
+<!--          <img th:src="${mypage.profilePhoto != null ? mypage.profilePhoto : '/img/chatimg.png'}" alt="상대방유저" class="receiver">-->
+          <img th:src="@{/img/chaatimg.png}" alt="상대방유저" class="receiver">
           <div class="chat-title" th:text="${receiver}" id="receiver">상대방 유저</div>
           <input id="sender" type="hidden" th:value="${sender}">
           <button class="exit-button" id="exitButton"> 채팅 종료하기</button>
