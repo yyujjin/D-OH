@@ -43,7 +43,4 @@ public class ContestUploadDTO {
 
     private boolean isFinished; // 0이면 모집중 1이면 끝
 
-
-    private String userEmail;  // 사용자 이메일
-
 }
