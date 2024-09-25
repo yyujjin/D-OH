@@ -1,38 +1,30 @@
 package com.DOH.DOH.controller.user;
 
-import com.DOH.DOH.dto.user.MyPageDTO;
-import com.DOH.DOH.dto.user.MyPageProfileDTO;
-import com.DOH.DOH.dto.user.PortFolioUploadDTO;
+import com.DOH.DOH.dto.user.*;
 import com.DOH.DOH.mapper.user.MyPageMapper;
 import com.DOH.DOH.mapper.user.MyPageProfileMapper;
 import com.DOH.DOH.mapper.user.PortFolioUploadMapper;
-import com.DOH.DOH.service.user.MyPageProfileService;
-import com.DOH.DOH.service.user.MyPageService;
-import com.DOH.DOH.service.user.PortFolioUploadService;
-import com.DOH.DOH.service.user.UserSessionService;
+import com.DOH.DOH.service.user.*;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Slf4j
 @Controller
-@RequiredArgsConstructor
 public class MyPageController {
-    private final MyPageProfileMapper myPageProfileMappermapper;
+    private final MyPageProfileMapper myPageProfileMapper;
     private final MyPageProfileService service;
     private final MyPageService myPageService;
     private final PortFolioUploadMapper portFolioUploadMapper;
@@ -41,20 +33,39 @@ public class MyPageController {
     private final String bucketName= "doh-contest-storage";
     private final UserSessionService userSessionService;
     private final MyPageMapper myPageMapper;
+    private final RegisterService registerService;
+
+    public MyPageController(MyPageProfileMapper myPageProfileMapper, MyPageProfileService service, MyPageService myPageService, PortFolioUploadMapper portFolioUploadMapper, PortFolioUploadService portFolioUploadService, AmazonS3 amazonS3, UserSessionService userSessionService, MyPageMapper myPageMapper, RegisterService registerService) {
+        this.myPageProfileMapper = myPageProfileMapper;
+        this.service = service;
+        this.myPageService = myPageService;
+        this.portFolioUploadMapper = portFolioUploadMapper;
+        this.portFolioUploadService = portFolioUploadService;
+        this.amazonS3 = amazonS3;
+
+        this.userSessionService = userSessionService;
+        this.myPageMapper = myPageMapper;
+        this.registerService = registerService;
+    }
 
     @GetMapping("/users/mypage")
-    public String myPage(Long id, Model model, MyPageDTO myPageDTO, MyPageProfileDTO profile) {
+    public String myPage(Model model, MyPageDTO myPageDTO, MyPageProfileDTO profile, RegisterDTO registerDTO) {
 
-        //유저 이메일 가져오기
+        // 유저 이메일 가져오기
         String userEmail = userSessionService.userEmail();
 
+        profile = service.findByUserEmail(userEmail);
+
+        // myPageDTO 가져오기
         myPageDTO = myPageService.findByuserEmail(userEmail);
-        if(myPageDTO == null){
+        if (myPageDTO == null) {
             myPageMapper.insertUserEmail(userEmail);
         }
 
+        model.addAttribute("registerDTO", registerDTO);
         model.addAttribute("myPageDTO", myPageDTO);
         model.addAttribute("profile", profile);
+
         return "user/MyPage";
     }
 
@@ -83,42 +94,59 @@ public class MyPageController {
         return fileUrl; // S3 URL 반환
     }
    @GetMapping("/users/mypage/upload")
-    public String uploadFragment(Model model, PortFolioUploadDTO uploadDTO) {
+    public String uploadFragment(Model model, PortFolioUploadDTO uploadDTO, MyPageProfileDTO profile) {
        String userEmail = userSessionService.userEmail();
        uploadDTO = portFolioUploadService.findByUserEmail(userEmail);
+
        model.addAttribute("uploadDTO", uploadDTO);
        return "user/MyPageUpload";
    }
-   @PostMapping("/users/mypage/upload")
-   public String personalUpload(@RequestParam("personalWork") MultipartFile file, Model model, PortFolioUploadDTO uploadDTO) throws IOException{
-       String userEmail = userSessionService.userEmail();
+    @PostMapping("/users/mypage/upload")
+    public String personalUpload(@RequestParam("personalWork") MultipartFile file, Model model, PortFolioUploadDTO uploadDTO) throws IOException {
+        String userEmail = userSessionService.userEmail();
+
         uploadDTO = portFolioUploadService.findByUserEmail(userEmail);
-       if (file != null && !file.isEmpty()) {
-           String newFileName = uploadFileToS3Bucket(file);
-           uploadDTO.setPersonalFilePath(newFileName);
-       }
-       System.out.println("uploadDTO" + uploadDTO);
-       System.out.println("uploadDTO" + uploadDTO);
-       System.out.println("uploadDTO" + uploadDTO);
-       System.out.println("uploadDTO" + uploadDTO);
-       System.out.println("uploadDTO" + uploadDTO);
-       portFolioUploadService.insert(uploadDTO);
-       return "redirect:/mypage/portfolio";
-   }
+        if (uploadDTO == null) {
+            uploadDTO = new PortFolioUploadDTO();
+            uploadDTO.setUserEmail(userEmail);
+        }
 
+        if (file != null && !file.isEmpty()) {
+            String newFileName = uploadFileToS3Bucket(file);
+            uploadDTO.setPersonalFilePath(newFileName);
+        }
 
-   @GetMapping("/users/mypage/profile/write")
-    public String profileWriteFragment(Model model, MyPageProfileDTO profile) {
-        String tempEmail = "hsm3809@naver.com";
-        profile = service.findByUserEmail(tempEmail);
+        portFolioUploadService.insert(uploadDTO);
+        return "redirect:/users/mypage/portfolio";
+    }
+
+    @GetMapping("/users/mypage/profile/edit/{id}")
+    public String geteditProfile(@PathVariable("id") Long id, Model model, @ModelAttribute MyPageProfileDTO profile, RegisterDTO registerDTO, MyPageSkillDTO myPageSkillDTO) {
+        String userEmail = userSessionService.userEmail();
+        profile = service.findIdByUserEmail(id, userEmail);
+        model.addAttribute("registerDTO", registerDTO);
         model.addAttribute("profile", profile);
-        return "user/MyPageProfile";
-   }
-    @PostMapping("/users/mypage/profile/write")
-    public String Postprofilewrite(Model model, MyPageProfileDTO profile) {
-        String tempEmail = "hsm3809@naver.com";
-        profile = service.findByUserEmail(tempEmail);
-        myPageProfileMappermapper.insert(profile);
-        return "redirect:/mypage";
+        model.addAttribute("myPageSkillDTO", myPageSkillDTO);
+        return "user/MyPageProfileEdit";
+    }
+    @PutMapping("/users/mypage/profile/edit/{id}")
+    public String editProfile(@PathVariable("id") Long id, Model model,@ModelAttribute MyPageProfileDTO profile,RegisterDTO registerDTO, MyPageSkillDTO myPageSkillDTO) {
+        String userEmail = userSessionService.userEmail();
+        // 문제 해결: 기존 프로필 데이터를 덮어쓰지 않고, 필요한 필드만 갱신
+        MyPageProfileDTO existingProfile = service.findIdByUserEmail(id, userEmail);
+        if (existingProfile == null) {
+            // 기존 데이터가 없을 경우 에러 처리
+            log.error("Profile not found for id: " + id);
+            return "redirect:/users/mypage"; // 리디렉션 경로는 상황에 맞게 조정
+        }
+
+        profile.setUserEmail(userEmail);
+        service.update(profile);
+        System.out.println(profile);
+        System.out.println(profile);
+        System.out.println(profile);
+        log.info("editprofile :{}", profile);
+
+        return "redirect:/users/mypage";
     }
 }

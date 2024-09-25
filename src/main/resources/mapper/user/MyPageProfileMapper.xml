@@ -4,14 +4,35 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.DOH.DOH.mapper.user.MyPageProfileMapper">
     <select id="findByUserEmail" resultType="com.DOH.DOH.dto.user.MyPageProfileDTO">
-        SELECT userEmail, userNickName, profileOneLiner, profileIntroduce, myPageUrl,
-               commissionStatus, mittingLocation, messageStart, messageEnd FROM profile_user_info WHERE userEmail=#{userEmail}
+        SELECT id, userEmail, userNickName, profileOneLiner, profileIntroduce, myPageUrl,
+               commissionStatus, mittingLocation, messageStart, messageEnd, skillName FROM profile_user_info WHERE userEmail=#{userEmail}
+        LIMIT 1
     </select>
+    <select id="findIdByUserEmail" resultType="com.DOH.DOH.dto.user.MyPageProfileDTO">
+        SELECT id, userEmail, userNickName, profileOneLiner, profileIntroduce, myPageUrl,
+               commissionStatus, mittingLocation, messageStart, messageEnd, skillName FROM profile_user_info WHERE id = #{id} AND userEmail=#{userEmail}
+        LIMIT 1
+    </select>
+
+
     <insert id="insert" parameterType="com.DOH.DOH.dto.user.MyPageProfileDTO">
-        INSERT INTO profile_user_info(userNickName, profileOneLiner, profileIntroduce, myPageUrl,
-            commissionStatus, mittingLocation, messageStart, messageEnd)
+        INSERT INTO profile_user_info(userEmail, userNickName, profileOneLiner, profileIntroduce, myPageUrl,
+            commissionStatus, mittingLocation, messageStart, messageEnd, skillName)
         VALUES
-            (#{userNickName}, #{profileOneLiner}, #{profileIntroduce}, #{myPageUrl},
-             #{commissionStatus}, #{mittingLocation}, #{messageStart}, #{messageEnd})
+            (#{userEmail}, #{userNickName}, #{profileOneLiner}, #{profileIntroduce}, #{myPageUrl},
+             #{commissionStatus}, #{mittingLocation}, #{messageStart}, #{messageEnd}, #{skillName})
     </insert>
+    <update id="update" parameterType="com.DOH.DOH.dto.user.MyPageProfileDTO">
+        UPDATE profile_user_info
+        SET userNickName = #{userNickName},
+            profileOneLiner = #{profileOneLiner},
+            profileIntroduce = #{profileIntroduce},
+            myPageUrl = #{myPageUrl},
+            commissionStatus = #{commissionStatus},
+            mittingLocation = #{mittingLocation},
+            messageStart = #{messageStart},
+            messageEnd = #{messageEnd},
+            skillName = #{skillName}
+        WHERE id = #{id} AND userEmail = #{userEmail}
+    </update>
 </mapper>

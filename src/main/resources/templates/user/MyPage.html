@@ -3,35 +3,34 @@
 
 <head>
     <link rel="stylesheet" th:href="@{/css/user/MyPage.css}">
-    <script type="text/javascript" th:src="@{/js/user/MyPage.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery-3.7.1.min.js}"></script>
 </head>
 <th:block layout:fragment="content">
     <body>
     <!-- <banner>
         <img th:src="@{/img/banner.png}" alt="banner"  height="240px">
     </banner> -->
-    <form method="get" action="/users/mypage">
+<!--    <form method="get" action="/users/mypage">-->
     <main>
         <div class="container">
             <div class="sidebar">
                 <img th:src="@{/img/quokka.jpg}" alt="quokka"><br>
                 <div class="username">
-                    <p th:if="${profile != null and profile?.userNickName != null}" th:text="${profile?.userNickName}" style="font-size: 15px"></p>
-                    <p th:if="${profile == null or profile?.userNickName == null}" th:text="${myPageDTO?.userEmail}"></p>
+                    <p th:if="${profile != null and profile?.userNickName != null}" th:text="${profile?.userNickName}"></p>
                 </div>
                 <div>
                     <p th:if="${profile != null and profile?.myPageUrl != null}" th:text="${profile?.myPageUrl}"></p>
                     <p th:if="${profile == null or profile?.myPageUrl == null}">정보 없음</p>
                 </div>
-                <a href="/users/mypage/profile/write" class="edit-profile">프로필 수정하기</a>
+                <a th:href="@{'/users/mypage/profile/edit/' + ${profile.id}}" class="edit-profile">프로필 수정하기</a>
                 <div class="activity">
                     <div class="section-title">
                         <h6>라우드 활동</h6>
                     </div>
                     <div>
-                        연락 가능 시간: <p th:if="${profile != null and profile?.messageStart != null}" th:text="${profile.messageStart}"></p>~
+                        연락 가능 시간: <p th:if="${profile != null and profile?.messageStart != null}" th:text="${profile?.messageStart}"></p>~
                         <p th:if="${profile == null or profile?.messageStart == null}">정보 없음</p>
-                        <p th:if="${profile != null and profile?.messageEnd != null}" th:text="${profile.messageEnd}"></p>
+                        <p th:if="${profile != null and profile?.messageEnd != null}" th:text="${profile?.messageEnd}"></p>
                         <p th:if="${profile == null or profile?.messageEnd == null}">정보 없음</p>
                     </div>
                 </div>
@@ -80,7 +79,7 @@
 
             </div> <!-- container end -->
         </main>
-    </form>
+<!--    </form>-->
     </body>
 </th:block>
 
