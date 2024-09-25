@@ -3,6 +3,7 @@
 
 <head>
     <link rel="stylesheet" th:href="@{/css/user/MyPage.css}">
+    <script type="text/javascript" th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script src="/js/user/MyPageUpload.js" defer></script>
     <script>
         function viewAwardResult(conNum) {
@@ -29,33 +30,38 @@
     <!-- <banner>
         <img th:src="@{/img/banner.png}" alt="banner"  height="240px">
     </banner> -->
-    <form method="get" action="/users/mypage">
+<!--    <form method="get" action="/users/mypage">-->
     <main>
         <div class="container">
             <div class="sidebar">
                 <img th:src="@{/img/quokka.jpg}" alt="quokka"><br>
                 <div class="username">
-                    <p th:if="${profile != null and profile?.userNickName != null}" th:text="${profile?.userNickName}" style="font-size: 15px"></p>
-                    <p th:if="${profile == null or profile?.userNickName == null}" th:text="${myPageDTO?.userEmail}"></p>
+                    <p th:if="${profile != null and profile?.userNickName != null}" th:text="${profile?.userNickName}"></p>
                 </div>
                 <div>
                     <p th:if="${profile != null and profile?.myPageUrl != null}" th:text="${profile?.myPageUrl}"></p>
                     <p th:if="${profile == null or profile?.myPageUrl == null}">정보 없음</p>
                 </div>
-                <a href="/users/mypage/profile/write" class="edit-profile">프로필 수정하기</a>
+                <a th:href="@{'/users/mypage/profile/edit/' + ${profile?.id}}" class="edit-profile">프로필 수정하기</a>
                 <div class="activity">
                     <div class="section-title">
                         <h6>라우드 활동</h6>
                     </div>
                     <div>
-                        연락 가능 시간: <p th:if="${profile != null and profile?.messageStart != null}" th:text="${profile.messageStart}"></p>~
+                        연락 가능 시간: <p th:if="${profile != null and profile?.messageStart != null}" th:text="${profile?.messageStart}"></p>~
                         <p th:if="${profile == null or profile?.messageStart == null}">정보 없음</p>
-                        <p th:if="${profile != null and profile?.messageEnd != null}" th:text="${profile.messageEnd}"></p>
+                        <p th:if="${profile != null and profile?.messageEnd != null}" th:text="${profile?.messageEnd}"></p>
                         <p th:if="${profile == null or profile?.messageEnd == null}">정보 없음</p>
                     </div>
                 </div>
             </div> <!-- sidebar end -->
             <div class="main-class">
+                <div class="profileOneLiner">
+                    <p th:if="${profile != null and profile?.profileOneLiner != null}" th:text="${profile?.profileOneLiner}"></p>
+                </div>
+                <div class="profileIntroduce">
+                    <p th:if="${profile !=null and profile?.profileIntroduce != null}" th:text="${profile?.profileIntroduce}"></p>
+                </div>
 
                 <h3>내가 개최한 컨테스트 목록보기</h3>
                 <table>
@@ -75,8 +81,9 @@
                         <td th:text="${#dates.format(contest.conStartDate, 'yyyy-MM-dd')} + ' - ' + ${#dates.format(contest.conEndDate, 'yyyy-MM-dd')}">2024-09-25 ~ 2024-10-01</td>
                         <td th:text="${contest.conHit}">Hit</td>
                         <td>
-                            <a th:href="@{/contest/view?contestNum={id}(id=${contest.id})}" class="action-btn">바로가기</a>
+                            <a th:href="@{/contest/view(contestNum=${contest.id})}" class="action-btn">바로가기</a>
                         </td>
+
                     </tr>
                     </tbody>
                 </table>
@@ -106,14 +113,6 @@
                     </tbody>
                 </table>
 
-
-                <a href="/users/mypage/profile/write" class="profilewrite" th:if="${profile == null or profile?.profileOneLiner == null}">프로필 작성하러가기</a>
-                <div class="profileOneLiner">
-                    <p th:if="${profile != null and profile?.profileOneLiner != null}" th:text="${profile?.profileOneLiner}"></p>
-                </div>
-                <div class="profileIntroduce">
-                    <p th:if="${profile !=null and profile?.profileIntroduce != null}" th:text="${profile?.profileIntroduce}"></p>
-                </div>
             </div>
             <div class="button-class">
                 <div class="profilesetting">
@@ -151,7 +150,7 @@
 
             </div> <!-- container end -->
         </main>
-    </form>
+<!--    </form>-->
     </body>
 </th:block>
 

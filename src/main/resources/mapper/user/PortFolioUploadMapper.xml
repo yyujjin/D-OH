@@ -7,7 +7,7 @@
         SELECT id, title, userEmail, content, personalWork AS personalFilePath, supportedWork AS supportedFilePath FROM portfolio_upload WHERE userEmail=#{userEmail}
     </select>
     <insert id="insert" parameterType="com.DOH.DOH.dto.user.PortFolioUploadDTO">
-        INSERT INTO portfolio_upload(title, content,personalWork, supportedWork)
-        VALUES(#{title}, #{content} ,#{personalFilePath}, #{supportedFilePath})
+        INSERT INTO portfolio_upload(title, userEmail, content,personalWork, supportedWork)
+        VALUES(#{title}, #{userEmail}, #{content} ,#{personalFilePath}, #{supportedFilePath})
     </insert>
 </mapper>
