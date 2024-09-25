@@ -30,7 +30,7 @@
     <!-- <banner>
         <img th:src="@{/img/banner.png}" alt="banner"  height="240px">
     </banner> -->
-<!--    <form method="get" action="/users/mypage">-->
+    <!--    <form method="get" action="/users/mypage">-->
     <main>
         <div class="container">
             <div class="sidebar">
@@ -83,7 +83,6 @@
                         <td>
                             <a th:href="@{/contest/view(contestNum=${contest.id})}" class="action-btn">바로가기</a>
                         </td>
-
                     </tr>
                     </tbody>
                 </table>
@@ -102,16 +101,14 @@
                     <tr th:each="applylist : ${applicationList}">
                         <td th:text="${applylist.conNum}">1</td>
                         <td th:text="${applylist.applyTitle}">Contest Title</td>
-                        <td th:text="${#dates.format(applylist.applyDate, 'yyyy-MM-dd')}">2024-09-25 </td>
-                        <<td>
-                        <!-- 버튼 클릭 시 자바스크립트 함수 호출 -->
-                        <button type="button" th:onclick="'viewAwardResult(' + ${applylist.conNum} + ')' " class="action-btn">결과 보기</button>
-                    </td>
-
-
+                        <td th:text="${#dates.format(applylist.applyDate, 'yyyy-MM-dd')}">2024-09-25</td>
+                        <td>
+                            <button type="button" th:onclick="'viewAwardResult(' + ${applylist.conNum} + ')'" class="action-btn">결과 보기</button>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
+
 
             </div>
             <div class="button-class">
@@ -119,38 +116,38 @@
                     <a href="/users/mypage" class="underline">프로필 설정</a>
                 </div>
                 <div class="portfolio">
-                     <a href="/users/mypage/portfolio" class="underline">포트폴리오</a>
+                    <a href="/users/mypage/portfolio" class="underline">포트폴리오</a>
                 </div>
                 <div class="upload">
                     <a href="/users/mypage/upload" class="underline">작품 업로드하기</a>
                 </div>
             </div> <!-- button-class end -->
-<!--            <div class="management">-->
-<!--                <div><h6>참여한 공모전</h6><hr></div>-->
-<!--                <div class="imagecard"></div>-->
-<!--                <div class="imagecard"></div>-->
-<!--                <div class="imagecard"></div>-->
-<!--                <div class="imagecard"></div>-->
-<!--                <div class="imagecard"></div>-->
+            <!--            <div class="management">-->
+            <!--                <div><h6>참여한 공모전</h6><hr></div>-->
+            <!--                <div class="imagecard"></div>-->
+            <!--                <div class="imagecard"></div>-->
+            <!--                <div class="imagecard"></div>-->
+            <!--                <div class="imagecard"></div>-->
+            <!--                <div class="imagecard"></div>-->
 
-<!--            </div>-->
-<!--            <div class="commition">-->
-<!--                <div><h6>공모전 의뢰 목록</h6><hr></div>-->
-<!--                <div class="commition1">-->
-<!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
-<!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
-<!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
-<!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
-<!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
-<!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
-<!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
-<!--                </div>-->
-<!--            </div>-->
+            <!--            </div>-->
+            <!--            <div class="commition">-->
+            <!--                <div><h6>공모전 의뢰 목록</h6><hr></div>-->
+            <!--                <div class="commition1">-->
+            <!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
+            <!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
+            <!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
+            <!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
+            <!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
+            <!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
+            <!--                    <div>회사를 차리는데 회사 이름 추천 해주세요~</div>-->
+            <!--                </div>-->
+            <!--            </div>-->
 
 
-            </div> <!-- container end -->
-        </main>
-<!--    </form>-->
+        </div> <!-- container end -->
+    </main>
+    <!--    </form>-->
     </body>
 </th:block>
 
