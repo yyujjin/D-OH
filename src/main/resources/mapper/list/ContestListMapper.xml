@@ -12,6 +12,7 @@
                 (datediff(conEndDate, now())) as endDate, conCompanyName
             FROM contest_Upload
             WHERE datediff(conEndDate, now()) >= 0
+            AND isFinished = 0  <!-- isFinished = 0 조건 추가 -->
         <choose>
             <when test="orderType == 'price'"><!--총 상금 순-->
                 order by totalPrice desc
