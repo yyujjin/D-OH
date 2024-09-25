@@ -24,7 +24,7 @@
     </select>
 
     <select id="getPortfolioInfo" resultType="com.DOH.DOH.dto.list.PortFolioDTO">
-        select up.id, title, up.userEmail, content, userNickname, profileIntroduce, commissionStatus,
+        select up.id, up.userEmail, title, up.userEmail, content, userNickname, profileIntroduce, commissionStatus,
                 personalWork, messageStart, messageEnd, myPageUrl
             from portfolio_upload up
             left join (select userEmail, userNickname, profileIntroduce, commissionStatus,

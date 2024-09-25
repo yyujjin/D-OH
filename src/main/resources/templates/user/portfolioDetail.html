@@ -15,6 +15,7 @@
                 <div class="portfolioWrap">
                     <div class="portfolioMain">
                         <!-- 포토폴리오 첫번 째 이미지가 출력될 부분 -->
+                        <img class="img1" th:if="${portFolio.personalWork != null}"  th:src="${portFolio.personalWork}">
                     </div><!--portfolioMain-->
 
                     <div class="description">
@@ -25,6 +26,7 @@
                     </div><!--description-->
                     <article>
                         <div>
+                            <img class="img2" th:src="${portFolio.personalWork}">
                             <!-- 이미지 파일 출력될 부분 -->
                         </div>
                         <div class="title">포토폴리오 설명</div>
@@ -57,25 +59,41 @@
                     </figure>
 
                     <figure>
-                        <div class="title">디자이너님의 다른 작품</div>
-                        <div class="cardList">
-                            <div class="list">
-                                <!--포토폴리오 이미지 영역-->
-                            </div>
-                            <div class="list">
-                                <!--포토폴리오 이미지 영역-->
-                            </div>
-                            <div class="list">
-                                <!--포토폴리오 이미지 영역-->
-                            </div>
-                            <div class="list">
-                                <!--포토폴리오 이미지 영역-->
-                            </div>
-                            <div class="list"><!--더보기 영역-->
-                                <i class="fa-solid fa-plus"></i>
-                            </div>
+                        <div class="title">디자이너님의 활동</div>
+                        <div class="workInfo">
+                            <div class="commission">
+                                <div class="commissionInfo">
+                                    <i class="fa-regular fa-clock"></i>
+                                    연락 가능 시간 :
+                                </div>
+                                <div class="commissionInfo"><span th:text="${portFolio.messageStart}">13:00</span> ~ <span th:text="${portFolio.messageEnd}">19:00</span></div>
+                            </div><!--commission-->
+                            <a th:href="${portFolio.myPageUrl}">
+                                <i class="fa-regular fa-window-restore"></i>
+                                디자이너님의 작업물을 알고 싶다면?
+                            </a>
                         </div>
-                    </figure><!--figure-->
+                    </figure>
+<!--                    <figure>-->
+<!--                        <div class="title">디자이너님의 다른 작품</div>-->
+<!--                        <div class="cardList">-->
+<!--                            <div class="list">-->
+<!--                                &lt;!&ndash;포토폴리오 이미지 영역&ndash;&gt;-->
+<!--                            </div>-->
+<!--                            <div class="list">-->
+<!--                                &lt;!&ndash;포토폴리오 이미지 영역&ndash;&gt;-->
+<!--                            </div>-->
+<!--                            <div class="list">-->
+<!--                                &lt;!&ndash;포토폴리오 이미지 영역&ndash;&gt;-->
+<!--                            </div>-->
+<!--                            <div class="list">-->
+<!--                                &lt;!&ndash;포토폴리오 이미지 영역&ndash;&gt;-->
+<!--                            </div>-->
+<!--                            <div class="list">&lt;!&ndash;더보기 영역&ndash;&gt;-->
+<!--                                <i class="fa-solid fa-plus"></i>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </figure>&lt;!&ndash;figure&ndash;&gt;-->
                     <!--임시값으로 aaaa 고정 -->
                     <!--추후 사용자 닉네임 저장하는 로직 구현되면 닉네임을 쿼리로 넘겨야함 -->
                     <a href="/users/chat?receiver=aaaa">
