@@ -1,6 +1,9 @@
 package com.DOH.DOH.controller.list;
+import com.DOH.DOH.dto.contest.ContestUploadDTO;
 import com.DOH.DOH.dto.list.ApplyDTO;
+import com.DOH.DOH.dto.list.ContestListDTO;
 import com.DOH.DOH.service.common.S3FileUploadService;
+import com.DOH.DOH.service.contest.ContestUploadService;
 import com.DOH.DOH.service.list.ContestListService;
 import com.DOH.DOH.service.list.S3Service;
 import com.DOH.DOH.service.user.UserSessionService;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @Slf4j
@@ -32,16 +37,40 @@ public class ApplyController {
         this.s3FileUploadService = s3FileUploadService;
     }
 
+
     //컨테스트 참여 약관동의 페이지 로드
     @GetMapping("/application/terms")
-    public String applictionTerms(HttpSession session){
+    public String applictionTerms(@RequestParam(name = "contestNum")Long id, Model model)
+    {
+        log.info("id test --> "+id);
+
+        ContestListDTO dto = contestListService.contestInfo(id);
+        int count = contestListService.getApplyCount(id);
+
+        model.addAttribute("contestDTO", dto);
+        model.addAttribute("count", count);
         return "list/applicationTerms";
     }
 
     //컨테스트 작성 페이지 로드
     @GetMapping("/application/write")
-    public String applictionWrite(String userEmail, Model model){
-        model.addAttribute("userEmail", userEmail);
+    public String applictionWrite(@RequestParam(name = "contestNum")Long id, Principal principal, Model model){
+        String userEmail = " ";
+
+        if (principal != null) { // principal이 null이 아닌 경우 처리
+            userEmail = principal.getName();
+            log.info("email test - -->"+userEmail);
+            model.addAttribute("userEmail", userEmail);
+        }else{
+            return "user/login";
+        }
+
+        ContestListDTO dto = contestListService.contestInfo(id);
+        int count = contestListService.getApplyCount(id);
+
+        model.addAttribute("contestDTO", dto);
+        model.addAttribute("count", count);
+
         return "list/applicationWrite";
     }
 

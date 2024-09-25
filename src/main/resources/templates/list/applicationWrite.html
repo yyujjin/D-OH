@@ -26,16 +26,16 @@
             <div class="contestWarap">
                 <div class="contestInfo">
                     <div class="day">
-                        <div class="endDate info">8일</div>
-                        <div class="type info">공공 기관</div>
+                        <div class="endDate info" th:text="${contestDTO.endDate}">8일</div>
+                        <div class="type info" th:text="${contestDTO.conType}">공공 기관</div>
                     </div>
-                    <div class="contitle">[포항문화재단] 포항국제불빛축체 브랜딩 콘테스트</div>
+                    <div class="contitle" th:text="${contestDTO.conTitle}">[포항문화재단] 포항국제불빛축체 브랜딩 콘테스트</div>
                     <div class="applyInfo">
-                        <div class="info">총 상금 300만원</div>
-                        <div class="info">참여작 <span>9</span>개</div>
+                        <div class="info">총 상금 <span th:text="${contestDTO.totalPrice}">300</span>만원</div>
+                        <div class="info">참여작 <span th:text="${count}">9</span>개</div>
                     </div>
                 </div><!--contestInfo-->
-                <a href="#">
+                <a href="#" th:href="@{/contest/view(contestNum=${contestDTO.id})}">
                     <div class="briefing">브리핑 확인하기</div>
                 </a>
             </div><!--contestWarap-->
@@ -43,6 +43,7 @@
             
             <section>
                 <form>
+                    <input type="hidden" id="conNum" name="conNum" th:value="${contestDTO.id}">
                     <div class="applyContent">
                         <input type="text" name="applyTitle" placeholder="제목을 입력해주세요." required>
                         <div class="contArea">
@@ -75,9 +76,9 @@
                                 </div>
                             </div>
                         </div><!--applyInput-->
-                        <button type="button" class="temporary">
-                          임시 저장
-                        </button>
+<!--                        <button type="button" class="temporary">-->
+<!--                          임시 저장-->
+<!--                        </button>-->
                         <button type="submit" class="apply">
                           지원하기
                         </button>
