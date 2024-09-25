@@ -45,7 +45,7 @@
                             <p class="card-text">
                                 <small class="text-muted">
                                     <span th:text="'생성일: ' + ${event.formattedCreateTime}"></span><br>
-                                    <span th:text="'이벤트 기간: ' + ${event.formattedStartDate} + ' ~ ' + ${event.formattedEndDate}"></span>
+                                    <span th:utext="'이벤트 기간 ' + '<br>' + ${event.formattedStartDate} + ' ~ ' + ${event.formattedEndDate}"></span>
                                 </small>
                             </p>
 
