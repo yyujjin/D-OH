@@ -54,6 +54,11 @@ dependencies {
 	// JUnit 플랫폼
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+	// email authentication
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	// validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 	//spring scurity
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 }
