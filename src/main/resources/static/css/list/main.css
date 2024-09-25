@@ -234,7 +234,7 @@ a {
     line-height: 10px;
 }
 
-.listContent .listValue > *,
+.listContent .listValue > * {
     font-size: var(--font-size-14);
 }
 
