@@ -12,10 +12,12 @@ public class ContestAwardService {
 
     private final ContestAwardMapper contestAwardMapper;
     private final UserSessionService userSessionService;
+    private final ContestUploadService contestUploadService;
 
-    public ContestAwardService(ContestAwardMapper contestAwardMapper, UserSessionService userSessionService) {
+    public ContestAwardService(ContestAwardMapper contestAwardMapper, UserSessionService userSessionService, ContestUploadService contestUploadService) {
         this.contestAwardMapper = contestAwardMapper;
         this.userSessionService = userSessionService;
+        this.contestUploadService = contestUploadService;
     }
 
 
@@ -46,5 +48,7 @@ public class ContestAwardService {
         });
 
         contestAwardMapper.saveAwardResult(awardDTO);
+        contestUploadService.finishContest(contestNum);
+
     }
 }

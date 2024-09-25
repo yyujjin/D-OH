@@ -26,4 +26,7 @@ public interface ContestUploadService {
 
     //유저 이메일로 생성한 컨테스트 목록 조회하기
     List<ContestUploadDTO>getContestsByUserEmail(String userEmail);
+
+    //컨테스트 모집 종료
+    void finishContest(Long conNum);
 }

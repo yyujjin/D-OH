@@ -73,4 +73,10 @@ public class ContestUploadServiceImpl implements ContestUploadService {
     public List<ContestUploadDTO> getContestsByUserEmail(String userEmail) {
         return contestUploadMapper.getContestsByUserEmail(userEmail);
     }
+
+    //컨테스트 모집 종료
+    @Override
+    public void finishContest(Long conNum) {
+        contestUploadMapper.finishContest(conNum);
+    }
 }

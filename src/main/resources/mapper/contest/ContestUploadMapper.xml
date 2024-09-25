@@ -17,6 +17,12 @@
                 #{conStartDate}, #{conEndDate}, #{orderNumber}, NOW())
     </insert>
 
+    <!--콘테스트 모집 종료로 변경 -->
+    <update id="finishContest" parameterType="Long">
+        UPDATE DOH.contest_Upload
+        SET isFinished = 1 where id= #{conNum};
+    </update>
+
     <!-- ID로 콘테스트 조회 -->
     <select id="selectContestById" parameterType="long" resultType="com.DOH.DOH.dto.contest.ContestUploadDTO">
         SELECT * FROM contest_Upload WHERE id = #{conNum}
