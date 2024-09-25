@@ -91,10 +91,10 @@ main {
 
 .cardConWarap {
     display: flex;
-    gap: 20px;
+    justify-content: center;
+    gap: 40px;
     overflow: hidden;
     width: 100%;
-    position: relative;
 }
 
 .cardConWarap .bar {
@@ -109,7 +109,10 @@ main {
 
 .cardList {
     min-width: 200px;
-    margin-right: 10px;
+}
+
+.cardList:last-child {
+    margin-right: 0;
 }
 
 .cardList:hover .cardImage {
@@ -147,6 +150,12 @@ a {
     font-weight: 700;
     margin-bottom: 5px;
 }
+
+.conTitle span:first-of-type
+{
+    margin-right: 10px;
+}
+
 
 .conSub {
     display: flex;

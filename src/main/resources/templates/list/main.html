@@ -45,9 +45,7 @@
                     <div class="cardList" th:each="list : ${imageList}">
                         <a href="#" th:href="@{/contest/view(contestNum=${list.id})}" th:onclick="hitUp(this)">
 <!--                            <div class="cardImage">-->
-                            <div class="cardImage" th:src="${list.imageUrl} == null ? '' : ${list.imageUrl}">
-
-                            </div>
+                            <img class="cardImage"  th:src="${list.imageUrl} == null ? '/img/default_image.png' : ${list.imageUrl}">
 <!--                            </div>-->
                             <div class="content">
                                 <div class="endDate"><span th:text="${list.endDate}">8</span>일 남음</div>
@@ -73,10 +71,10 @@
                     <div class="title">조회순 TOP 5</div>
                 </div>
                 <div class="tabContent active" id="latest">
-                    <a href="#" th:each="list : ${latestList}" th:href="@{/contest/view(contestNum=${list.id})}" th:onclick="hitUp(this)">
+                    <a href="#" th:each="list, listStat : ${latestList}" th:href="@{/contest/view(contestNum=${list.id})}" th:onclick="hitUp(this)">
                         <div class="list">
                             <div class="listContent">
-                                <div class="conTitle"><span>1</span><span th:text="${list.conTitle}"> 글로벌 한방 브랜드 네이밍 콘테스트</span></div>
+                                <div class="conTitle"><span th:text="${listStat.count}">1</span><span th:text="${list.conTitle}"> 글로벌 한방 브랜드 네이밍 콘테스트</span></div>
                                 <div class="listValue">
                                     <div class="organizer" th:text="${list.conCompanyName}">헬스마켓</div>
                                     <div class="createDate">등록일 : <span th:text="${list.createdAt}">2024.08.27</span></div>
@@ -91,155 +89,35 @@
                 </div><!--tabContent-->
 
                 <div class="tabContent" id="pariod">
-                    <a href="#" >
+                    <a href="#" th:each="list, listStat : ${priceList}" th:href="@{/contest/view(contestNum=${list.id})}" th:onclick="hitUp(this)">
                         <div class="list">
                             <div class="listContent">
-                                <div class="conTitle"><span>1</span> 글로벌 한방 브랜드 네이밍 콘테스트</div>
+                                <div class="conTitle"><span  th:text="${listStat.count}">1</span><span th:text="${list.conTitle}">글로벌 한방 브랜드 네이밍 콘테스트</span></div>
                                 <div class="listValue">
-                                    <div class="organizer">헬스마켓</div>
-                                    <div class="createDate">마감일 : 2024.08.27</div>
+                                    <div class="organizer" th:text="${list.conCompanyName}">헬스마켓</div>
+                                    <div class="createDate">마감일 : <span th:text="${list.conEndDate}">2024.08.27</span></div>
                                 </div>
                             </div>
                             <div class="importData">
-                                <div class="endDate">8일 남음</div>
-                                <div class="price">상금 20만원</div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="list">
-                            <div class="listContent">
-                                <div class="conTitle"><span>2</span> 글로벌 한방 브랜드 네이밍 콘테스트</div>
-                                <div class="listValue">
-                                    <div class="organizer">헬스마켓</div>
-                                    <div class="createDate">마감일 : 2024.08.27</div>
-                                </div>
-                            </div>
-                            <div class="importData">
-                                <div class="endDate">8일 남음</div>
-                                <div class="price">상금 20만원</div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="list">
-                            <div class="listContent">
-                                <div class="conTitle"><span>3</span> 글로벌 한방 브랜드 네이밍 콘테스트</div>
-                                <div class="listValue">
-                                    <div class="organizer">헬스마켓</div>
-                                    <div class="createDate">마감일 : 2024.08.27</div>
-                                </div>
-                            </div>
-                            <div class="importData">
-                                <div class="endDate">8일 남음</div>
-                                <div class="price">상금 20만원</div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="list">
-                            <div class="listContent">
-                                <div class="conTitle"><span>4</span> 글로벌 한방 브랜드 네이밍 콘테스트</div>
-                                <div class="listValue">
-                                    <div class="organizer">헬스마켓</div>
-                                    <div class="createDate">마감일 : 2024.08.27</div>
-                                </div>
-                            </div>
-                            <div class="importData">
-                                <div class="endDate">8일 남음</div>
-                                <div class="price">상금 20만원</div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="list">
-                            <div class="listContent">
-                                <div class="conTitle"><span>5</span> 글로벌 한방 브랜드 네이밍 콘테스트</div>
-                                <div class="listValue">
-                                    <div class="organizer">헬스마켓</div>
-                                    <div class="createDate">마감일 : 2024.08.27</div>
-                                </div>
-                            </div>
-                            <div class="importData">
-                                <div class="endDate">8일 남음</div>
-                                <div class="price">상금 20만원</div>
+                                <div class="endDate"><span th:text="${list.endDate}">8</span>일 남음</div>
+                                <div class="price">상금 <span th:text="${list.totalPrice}">20</span>만원</div>
                             </div>
                         </div>
                     </a>
                 </div><!--tabContent-->
                 <div class="tabContent"  id="hit">
-                    <a href="#">
+                    <a href="#" th:each="list, listStat : ${priceList}" th:href="@{/contest/view(contestNum=${list.id})}" th:onclick="hitUp(this)">
                         <div class="list">
                             <div class="listContent">
-                                <div class="conTitle"><span>1</span> 글로벌 한방 브랜드 네이밍 콘테스트</div>
+                                <div class="conTitle"><span th:text="${listStat.count}">1</span><span th:text="${list.conTitle}">글로벌 한방 브랜드 네이밍 콘테스트</span></div>
                                 <div class="listValue">
-                                    <div class="organizer">헬스마켓</div>
-                                    <div class="createDate">조회수 <span>363</span></div>
+                                    <div class="organizer" th:text="${list.conCompanyName}">헬스마켓</div>
+                                    <div class="createDate">조회수 <span th:text="${list.conHit}">363</span></div>
                                 </div>
                             </div>
                             <div class="importData">
-                                <div class="endDate">8일 남음</div>
-                                <div class="price">상금 20만원</div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="list">
-                            <div class="listContent">
-                                <div class="conTitle"><span>2</span> 글로벌 한방 브랜드 네이밍 콘테스트</div>
-                                <div class="listValue">
-                                    <div class="organizer">헬스마켓</div>
-                                    <div class="createDate">조회수 <span>363</span></div>
-                                </div>
-                            </div>
-                            <div class="importData">
-                                <div class="endDate">8일 남음</div>
-                                <div class="price">상금 20만원</div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="list">
-                            <div class="listContent">
-                                <div class="conTitle"><span>3</span> 글로벌 한방 브랜드 네이밍 콘테스트</div>
-                                <div class="listValue">
-                                    <div class="organizer">헬스마켓</div>
-                                    <div class="createDate">조회수 <span>363</span></div>
-                                </div>
-                            </div>
-                            <div class="importData">
-                                <div class="endDate">8일 남음</div>
-                                <div class="price">상금 20만원</div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="list">
-                            <div class="listContent">
-                                <div class="conTitle"><span>4</span> 글로벌 한방 브랜드 네이밍 콘테스트</div>
-                                <div class="listValue">
-                                    <div class="organizer">헬스마켓</div>
-                                    <div class="createDate">조회수 <span>363</span></div>
-                                </div>
-                            </div>
-                            <div class="importData">
-                                <div class="endDate">8일 남음</div>
-                                <div class="price">상금 20만원</div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="#">
-                        <div class="list">
-                            <div class="listContent">
-                                <div class="conTitle"><span>5</span> 글로벌 한방 브랜드 네이밍 콘테스트</div>
-                                <div class="listValue">
-                                    <div class="organizer">헬스마켓</div>
-                                    <div class="createDate">조회수 <span>363</span></div>
-                                </div>
-                            </div>
-                            <div class="importData">
-                                <div class="endDate">8일 남음</div>
-                                <div class="price">상금 20만원</div>
+                                <div class="endDate"><span th:text="${list.endDate}">8</span>일 남음</div>
+                                <div class="price">상금 <span th:text="${list.totalPrice}">20</span>만원</div>
                             </div>
                         </div>
                     </a>
