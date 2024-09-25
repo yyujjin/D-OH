@@ -3,53 +3,93 @@
       layout:decorate="~{/fragments/layout}">
 
 <head>
-    <title>이벤트 등록</title>
+    <title th:text="${eventDTO != null && eventDTO.eventNum != null ? '이벤트 수정' : '이벤트 등록'}">이벤트 등록</title>
     <link rel="stylesheet" th:href="@{/css/notifications/eventWrite.css}">
     <script th:src="@{/js/notifications/eventWrite.js}"></script>
 </head>
-<th:block layout:fragment="content">
 
+<th:block layout:fragment="content">
     <div class="container mt-5">
-        <h1 class="text-center mb-4">이벤트 등록</h1>
-        <form th:action="@{/event/admin/create}" method="post" enctype="multipart/form-data">
+        <h1 class="text-center mb-4" th:text="${eventDTO.eventNum != null ? '이벤트 수정' : '이벤트 등록'}">이벤트 등록</h1>
+
+        <!-- 이벤트 등록/수정 폼 -->
+        <form id="eventForm" th:action="@{/event/admin/create}" method="post" enctype="multipart/form-data" onsubmit="return validateForm();">
+            <!-- 이벤트 번호 (수정 시 필요) -->
+            <input type="hidden" name="eventNum" th:value="${eventDTO.eventNum}" />
+
+            <!-- 임시 저장 여부 플래그 추가 -->
+            <input type="hidden" id="eventTempSave" name="eventTempSave" th:value="${eventDTO.eventTempSave ? 'true' : 'false'}">
+
             <!-- 이벤트 제목 -->
             <div class="mb-3">
                 <label for="eventTitle">이벤트 제목</label>
-                <input type="text" id="eventTitle" name="eventTitle" class="form-control" placeholder="이벤트 제목을 입력하세요" required>
+                <input type="text" id="eventTitle" name="eventTitle" class="form-control"
+                       placeholder="이벤트 제목을 입력하세요"
+                       th:value="${eventDTO != null && eventDTO.eventTitle != null ? eventDTO.eventTitle : ''}" required>
             </div>
 
-            <!-- 날짜와 시간 (필드명 수정) -->
+            <!-- 이벤트 생성일 -->
+            <div class="mb-3">
+                <label for="eventCreateTime">이벤트 생성일</label>
+                <input type="date" id="eventCreateTime" name="eventCreateTime" class="form-control"
+                       th:value="${eventDTO != null && eventDTO.eventCreateTime != null ? eventDTO.eventCreateTime : ''}" required>
+            </div>
+
             <div class="row">
+                <!-- 이벤트 시작일 설정 -->
                 <div class="col-md-6 mb-3">
-                    <label for="date">날짜</label>
-                    <input type="date" id="date" name="eventDate" class="form-control">
+                    <label for="eventStartDate">이벤트 시작일</label>
+                    <input type="date" id="eventStartDate" name="eventStartDate" class="form-control"
+                           th:value="${eventDTO != null && eventDTO.eventStartDate != null ? eventDTO.eventStartDate : ''}" required>
                 </div>
+
+                <!-- 이벤트 마감일 설정 -->
                 <div class="col-md-6 mb-3">
-                    <label for="time">시간</label>
-                    <input type="time" id="time" name="eventTime" class="form-control">
+                    <label for="eventEndDate">이벤트 마감일</label>
+                    <input type="date" id="eventEndDate" name="eventEndDate" class="form-control"
+                           th:value="${eventDTO != null && eventDTO.eventEndDate != null ? eventDTO.eventEndDate : ''}" required>
                 </div>
             </div>
 
             <!-- 이벤트 설명 -->
             <div class="mb-3">
                 <label for="eventContent">이벤트 설명</label>
-                <textarea id="eventContent" name="eventContent" class="form-control" placeholder="이벤트 설명을 입력하세요"></textarea>
+                <textarea id="eventContent" name="eventContent" class="form-control"
+                          placeholder="이벤트 설명을 입력하세요"
+                          th:text="${eventDTO != null && eventDTO.eventContent != null ? eventDTO.eventContent : ''}"></textarea>
             </div>
 
             <!-- 이벤트 이미지 -->
             <div class="mb-3">
-                <label for="file">이벤트 이미지</label>
-                <input type="file" id="file" name="file" class="form-control">
+                <label for="eventImageUrl">이벤트 이미지</label>
+                <input type="file" id="eventImageUrl" name="file" class="form-control">
+
+                <!-- 기존 이미지가 있을 경우 보여줌 -->
+                <div th:if="${eventDTO.eventImageName != null}" class="mt-2">
+                    <img th:src="${eventDTO.eventImageName}"
+                         alt="이벤트 이미지" class="img-thumbnail" width="200">
+                </div>
+
+                <!-- 기존 이미지 경로를 숨긴 필드로 전달 -->
+                <input type="hidden" name="existingImageName" th:value="${eventDTO.eventImageName}">
             </div>
 
             <!-- 버튼들 -->
-            <div class="d-flex justify-content-between">
+            <div class="btn-group">
+                <!-- 목록보기 버튼 -->
                 <a th:href="@{/event/list}" class="btn btn-secondary">목록보기</a>
-                <button type="submit" class="btn btn-primary">등록</button>
+
+                <!-- 등록/수정 버튼 -->
+                <button type="submit" class="btn btn-primary"
+                        th:text="${eventDTO.eventNum != null and !eventDTO.eventTempSave ? '수정' : '등록'}"
+                        id="submitRegisterBtn"></button>
+
+                <!-- 임시 저장 버튼 -->
+                <button type="button" class="btn btn-secondary" id="tempSaveBtn"
+                        th:text="${eventDTO.eventTempSave ? '수정' : '임시 저장'}"
+                        onclick="handleTempSave()"></button>
             </div>
         </form>
     </div>
-
 </th:block>
-
 </html>

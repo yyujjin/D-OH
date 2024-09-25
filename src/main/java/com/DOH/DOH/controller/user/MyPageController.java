@@ -2,11 +2,16 @@ package com.DOH.DOH.controller.user;
 
 import com.DOH.DOH.dto.contest.ContestUploadDTO;
 import com.DOH.DOH.dto.user.*;
+import com.DOH.DOH.dto.list.ApplyDTO;
+import com.DOH.DOH.dto.user.MyPageDTO;
+import com.DOH.DOH.dto.user.MyPageProfileDTO;
+import com.DOH.DOH.dto.user.PortFolioUploadDTO;
 import com.DOH.DOH.mapper.user.MyPageMapper;
 import com.DOH.DOH.mapper.user.MyPageProfileMapper;
 import com.DOH.DOH.mapper.user.PortFolioUploadMapper;
 import com.DOH.DOH.service.user.*;
 import com.DOH.DOH.service.contest.ContestUploadService;
+import com.DOH.DOH.service.list.ContestListService;
 import com.DOH.DOH.service.user.MyPageProfileService;
 import com.DOH.DOH.service.user.MyPageService;
 import com.DOH.DOH.service.user.PortFolioUploadService;
@@ -39,8 +44,9 @@ public class MyPageController {
     private final UserSessionService userSessionService;
     private final MyPageMapper myPageMapper;
     private final ContestUploadService contestUploadService;
+    private final ContestListService contestListService;
 
-    public MyPageController(MyPageProfileMapper myPageProfileMapper, MyPageProfileMapper myPageProfileMappermapper, MyPageProfileService service, MyPageService myPageService, PortFolioUploadMapper portFolioUploadMapper, PortFolioUploadService portFolioUploadService, AmazonS3 amazonS3, UserSessionService userSessionService, MyPageMapper myPageMapper, RegisterService registerService, ContestUploadService contestUploadService) {
+    public MyPageController(MyPageProfileMapper myPageProfileMapper, MyPageProfileMapper myPageProfileMappermapper, MyPageProfileService service, MyPageService myPageService, PortFolioUploadMapper portFolioUploadMapper, PortFolioUploadService portFolioUploadService, AmazonS3 amazonS3, UserSessionService userSessionService, MyPageMapper myPageMapper, RegisterService registerService, ContestUploadService contestUploadService, ContestListService contestListService) {
         this.contestUploadService = contestUploadService;
         this.service = service;
         this.myPageService = myPageService;
@@ -48,6 +54,7 @@ public class MyPageController {
         this.amazonS3 = amazonS3;
         this.userSessionService = userSessionService;
         this.myPageMapper = myPageMapper;
+        this.contestListService = contestListService;
     }
 
     @GetMapping("/users/mypage")
@@ -65,8 +72,12 @@ public class MyPageController {
 
         //유저 이메일로 생성한 컨테스트 목록 가져오기
         List<ContestUploadDTO>contestList = contestUploadService.getContestsByUserEmail(userEmail);
+        List<ApplyDTO>getApplicationList = contestListService.getApplicationList(userEmail);
+
+        log.info("ssss:{}",getApplicationList);
 
         model.addAttribute("contestList",contestList);
+        model.addAttribute("applicationList",getApplicationList);
         model.addAttribute("myPageDTO", myPageDTO);
         model.addAttribute("profile", profile);
         return "user/MyPage";

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
 
 @Slf4j
 @Service("ContestListService")
@@ -31,7 +32,7 @@ public class ContestListServiceImpl implements ContestListService {
         return contestListMapper.getContestList(offset, pageSize, orderType);
     }
 
-    public int getTotalCount(){// 전체 게시물 수를 조회하는 메서드
+    public int getTotalCount() {// 전체 게시물 수를 조회하는 메서드
         return contestListMapper.getTotalCount();
     }
 
@@ -40,7 +41,7 @@ public class ContestListServiceImpl implements ContestListService {
     }
 
     @Override
-    public ArrayList<Integer> getScrapList(String userEmail){
+    public ArrayList<Integer> getScrapList(String userEmail) {
 
         return contestListMapper.getScrapList(userEmail);
     }
@@ -50,10 +51,10 @@ public class ContestListServiceImpl implements ContestListService {
         int count = contestListMapper.searchScrap(userEmail, contestId);
         int result = 0;
 
-        if(count == 0){
+        if (count == 0) {
             contestListMapper.addScrap(userEmail, contestId);
-        }else {
-            contestListMapper.deleteScrap(userEmail,contestId);
+        } else {
+            contestListMapper.deleteScrap(userEmail, contestId);
             result = 1;
         }
         return result;
@@ -64,15 +65,22 @@ public class ContestListServiceImpl implements ContestListService {
         contestListMapper.saveContest(applyDTO);
     }
 
+    //유저이메일로 지원한 컨테스트 목록 가져오기
     @Override
-    public ContestListDTO contestInfo(Long id){
+    public List<ApplyDTO> getApplicationList(String userEmail) {
+        return contestListMapper.getApplicationList(userEmail);
+    }
+
+    @Override
+    public ContestListDTO contestInfo(Long id) {
 
         return contestListMapper.contestInfo(id);
     }
 
     @Override
-    public int getApplyCount(Long id){
+    public int getApplyCount(Long id) {
 
         return contestListMapper.getApplyCount(id);
+
     }
 }
