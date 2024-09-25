@@ -17,6 +17,12 @@
                 #{conStartDate}, #{conEndDate}, #{orderNumber}, NOW(), #{userEmail})
     </insert>
 
+    <!--콘테스트 모집 종료로 변경 -->
+    <update id="finishContest" parameterType="Long">
+        UPDATE DOH.contest_Upload
+        SET isFinished = 1 where id= #{conNum};
+    </update>
+
     <!-- ID로 콘테스트 조회 -->
     <select id="selectContestById" parameterType="long" resultType="com.DOH.DOH.dto.contest.ContestUploadDTO">
         SELECT *
@@ -39,5 +45,10 @@
     <!--유저 이메일로 생성한 컨테스트 목록 가져오기-->
     <select id="getContestsByUserEmail" parameterType="String" resultType="com.DOH.DOH.dto.contest.ContestUploadDTO">
         SELECT * FROM DOH.contest_Upload where userEmail = #{userEmail};
+    </select>
+
+    <!--모집 마감됐는지 isFinished 컬럼으로 확인하기 -->
+    <select id="isFinishedContest" parameterType="Long" resultType="java.lang.Integer">
+        SELECT isFinished FROM DOH.contest_Upload where id = #{conNum};
     </select>
 </mapper>
