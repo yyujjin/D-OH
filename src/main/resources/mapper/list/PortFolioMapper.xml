@@ -22,4 +22,15 @@
         select count(*) from portfolio_upload up left join profile_user_info us
                 on us.userEmail = up.userEmail
     </select>
+
+    <select id="getPortfolioInfo" resultType="com.DOH.DOH.dto.list.PortFolioDTO">
+        select up.id, title, up.userEmail, content, userNickname, profileIntroduce, commissionStatus,
+                personalWork, messageStart, messageEnd, myPageUrl
+            from portfolio_upload up
+            left join (select userEmail, userNickname, profileIntroduce, commissionStatus,
+                        time_format(messageStart, '%H:%i') as messageStart, time_format(messageEnd, '%H:%i') as messageEnd,
+                        myPageUrl
+                    from profile_user_info) us
+                on us.userEmail = up.userEmail where id=#{id}
+    </select>
 </mapper>
