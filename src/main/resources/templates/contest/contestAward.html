@@ -6,11 +6,14 @@
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     />
+    <script src="/js/contest/contestAward.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div class="container">
     <h2>수상자 선정</h2>
-    <form action="/contest/award" method="post">
+    <form id="awardForm">
+        <input type="hidden" name="contestNum" th:value="${contestNum}" />
         <table class="table">
             <thead>
             <tr>
@@ -33,23 +36,28 @@
                             class="form-control"
                             th:name="${applicant}"
                     >
-                    <option value="none" selected>순위 선택</option>
-                    <option value="1">1등</option>
-                    <option value="2">2등</option>
-                    <option value="3">3등</option>
+                        <option value="none" selected>순위 선택</option>
+
+                        <!-- 1등 옵션: conFirstPeople이 0이면 비활성화 -->
+                        <option value="1" th:disabled="${contestUploadDTO.conFirstPeople == 0}">1등</option>
+
+                        <!-- 2등 옵션: conSecondPeople이 0이면 비활성화 -->
+                        <option value="2" th:disabled="${contestUploadDTO.conSecondPeople == 0}">2등</option>
+
+                        <!-- 3등 옵션: conThirdPeople이 0이면 비활성화 -->
+                        <option value="3" th:disabled="${contestUploadDTO.conThirdPeople == 0}">3등</option>
                     </select>
                 </td>
             </tr>
             </tbody>
         </table>
+
+
+
         <!-- 버튼 섹션 -->
         <div class="button-section">
-            <button type="submit" class="btn btn-primary">😆 제출하기</button>
-            <button
-                    type="button"
-                    class="btn btn-danger"
-                    onclick="location.href='/contest/no-winner'"
-            >
+            <button type="button" class="btn btn-primary" onclick="submitAward()">😆 제출하기</button>
+            <button type="button" class="btn btn-danger" onclick="location.href='/users/contest/no-winner'">
                 😭 마음에 드는 작품이 없어요
             </button>
         </div>

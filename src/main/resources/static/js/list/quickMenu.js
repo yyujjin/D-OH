@@ -101,8 +101,8 @@ function updateChatList() {
   });
 }
 
-scrollTop();
+
 //페이지의 스크롤을 맨 위로 이동시킴
-function scrollTop() {
+function scrollToTop() {
   $(window).scrollTop(0);
 }

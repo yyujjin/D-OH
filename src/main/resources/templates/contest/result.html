@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -83,33 +83,35 @@
     <div class="podium-container">
       <div class="podium third-place">
         <img
-          src="/img/contest/trophy1.jpeg"
+          src="/img/contest/trophy3.jpeg"
           alt="3rd Place Trophy"
           class="trophy"
         />
-        <div class="user-id">User3</div>
+        <div class="user-id" th:text="${award.thirdPlace}">User3</div>
       </div>
       <div class="podium first-place">
         <img
-          src="/img/contest/trophy2.jpeg"
+
+          src="/img/contest/trophy1.jpeg"
           alt="1st Place Trophy"
           class="trophy"
         />
-        <div class="user-id">User1</div>
+        <div class="user-id" th:text="${award.firstPlace}">User1</div>
       </div>
       <div class="podium second-place">
         <img
-          src="/img/contest/trophy3.jpeg"
+
+          src="/img/contest/trophy2.jpeg"
           alt="2nd Place Trophy"
           class="trophy"
         />
-        <div class="user-id">User2</div>
+        <div class="user-id" th:text="${award.secondPlace}">User2</div>
       </div>
     </div>
 
     <button
       class="back-button"
-      onclick="window.location.href='previous-page-url';"
+      onclick="window.location.href='/users/mypage';"
     >
       돌아가기
     </button>

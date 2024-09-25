@@ -1,6 +1,7 @@
 package com.DOH.DOH.service.common;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -40,5 +41,9 @@ public class S3FileUploadService {
         String fileUrl = amazonS3.getUrl(bucketName, fileName).toString();
         log.info("fileUrl 로 파일이 업로드 되었습니다."+fileUrl);
         return fileUrl; // S3 URL 반환
+    }
+    // 파일 삭제
+    public void deleteFile(String fileName) {
+        amazonS3.deleteObject(new DeleteObjectRequest(bucketName, fileName));
     }
 }
