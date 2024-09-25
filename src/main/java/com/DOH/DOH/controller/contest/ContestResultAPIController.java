@@ -36,7 +36,6 @@ public class ContestResultAPIController {
             return ResponseEntity.ok("콘테스트가 진행 중입니다. 모집 기간 종료 후 결과를 확인할 수 있습니다!");
         };
 
-        log.info("dddd:{}",contestAwardService.viewResult(conNum));
         return ResponseEntity.ok(contestAwardService.viewResult(conNum));
     }
 }

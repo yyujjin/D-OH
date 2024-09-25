@@ -3,7 +3,29 @@
 
 <head>
     <link rel="stylesheet" th:href="@{/css/user/MyPage.css}">
-    <script type="text/javascript" th:src="@{/js/user/MyPage.js}"></script>
+    <script src="/js/user/MyPageUpload.js" defer></script>
+    <script>
+        function viewAwardResult(conNum) {
+    $.ajax({
+        url: '/users/contest/award/result', // 요청할 서버의 URL
+        type: 'GET', // GET 요청 방식
+        data: { conNum: conNum }, // 쿼리스트링으로 conNum 전송
+        success: function(response) {
+            // 요청이 성공했을 때 처리할 로직
+            console.log("서버 응답: ", response);
+            alert("결과를 성공적으로 가져왔습니다.");
+
+            // 응답 결과를 HTML에 표시 (예: 특정 섹션에 결과 표시)
+            $("#resultSection").html(response);
+        },
+        error: function(xhr, status, error) {
+            console.error('결과를 가져오는 중 오류 발생: ', error);
+            alert("결과를 가져오는 중 오류가 발생했습니다.");
+        }
+    });
+}
+
+    </script>
 </head>
 <th:block layout:fragment="content">
     <body>
@@ -77,9 +99,12 @@
                         <td th:text="${applylist.conNum}">1</td>
                         <td th:text="${applylist.applyTitle}">Contest Title</td>
                         <td th:text="${#dates.format(applylist.applyDate, 'yyyy-MM-dd')}">2024-09-25 </td>
-                       <!-- <td>
-                            <a th:href="@{/contest/view?contestNum={id}(id=${contest.id})}" class="action-btn">결과 보기</a>
-                        </td>-->
+                        <<td>
+                        <!-- 버튼 클릭 시 자바스크립트 함수 호출 -->
+                        <button type="button" th:onclick="'viewAwardResult(' + ${applylist.conNum} + ')' " class="action-btn">결과 보기</button>
+                    </td>
+
+
                     </tr>
                     </tbody>
                 </table>
