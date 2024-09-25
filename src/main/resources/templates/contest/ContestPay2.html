@@ -11,80 +11,80 @@
     <title>Document</title>
     <script>
         // 서버 주소 (백엔드 서버의 주소로 설정)
-                IMP.init("imp54854523");
+ IMP.init("imp54854523");
 
-                async function requestPay() {
-                    // 1. 서버에서 주문 번호를 먼저 생성 (POST 요청)
-                    let orderNumber;
-                    try {
-                        const response = await fetch('/users/contest/createOrder', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' }
-                    });
-                    const data = await response.json();
-                    orderNumber = data.orderNumber; // 서버에서 받은 주문 번호
-                } catch (error) {
-                    console.error('주문 번호 생성 중 오류 발생:', error);
-                    return alert('주문 번호 생성 중 오류가 발생했습니다.');
-                }
+ async function requestPay() {
+     // 1. 서버에서 주문 번호를 먼저 생성 (POST 요청)
+     let orderNumber;
+     try {
+         const response = await fetch('/users/contest/createOrder', {
+             method: 'POST',
+             headers: { 'Content-Type': 'application/json' }
+         });
+         const data = await response.json();
+         orderNumber = data.orderNumber; // 서버에서 받은 주문 번호
+     } catch (error) {
+         console.error('주문 번호 생성 중 오류 발생:', error);
+         return alert('주문 번호 생성 중 오류가 발생했습니다.');
+     }
 
-                    // HTML에서 값을 가져오기
-                    const conCompanyName = document.getElementById('conCompanyName').value; // name
+     // HTML에서 값을 가져오기
+     const conCompanyName = document.getElementById('conCompanyName').value; // name
+     const totalPrize = document.getElementById('totalPrizeValue').value; // amount
+     const amount = totalPrize * 10000 + totalPrize * 2500;
 
-                    const totalPrize = document.getElementById('totalPrizeValue').value; // amount
-                    const amount = totalPrize * 10000 + totalPrize * 2500;
+     // HTML에서 userEmail 값을 가져오기
+     const userEmail = document.getElementById('userEmail').value;
 
-                    // HTML에서 userEmail 값을 가져오기
-                    const userEmail = document.getElementById('userEmail').value;
+     IMP.request_pay({
+         pg: 'kakaopay',
+         pay_method: "card",
+         merchant_uid: orderNumber, // 주문 고유 번호
+         name: conCompanyName + '님 의 콘테스트',
+         amount: amount, // 계산된 금액을 사용
+         buyer_email: userEmail, // 이메일 값 사용
+     }, async (response) => {
+         // 결제 성공 여부 확인
+         if (response.success) {
+             // 결제 성공 시 서버로 결제 정보 전송
+             try {
+                 const notified = await fetch(`/users/contest/payment/complete`, {
+                     method: "POST",
+                     headers: { "Content-Type": "application/json" },
+                     body: JSON.stringify({
+                         imp_uid: response.imp_uid,       // 아임포트 고유번호
+                         merchant_uid: response.merchant_uid, // 주문 고유 번호
+                         userEmail: userEmail // userEmail을 함께 전송
 
+                     })
+                 });
 
-                    IMP.request_pay({
-                        pg: 'kakaopay',
-                        pay_method: "card",
-                        merchant_uid: orderNumber, // 주문 고유 번호
-                        name: conCompanyName+'님 의 콘테스트',
-                        amount: amount, // 계산된 금액을 사용
-                        buyer_email: userEmail, // 이메일 값 사용
-                        // buyer_name: "홍길동",
-                        // buyer_tel: "010-4242-4242",
-                        // buyer_addr: "서울특별시 강남구 신사동",
-                        // buyer_postcode: "01181",
-                      }, async (response) => {
-                        // 결제 성공 여부 확인
-                        if (response.error_code != null) {
-                            return alert(`결제 실패! 에러 내용: ${response.error_msg}`);
-                        }
+                 if (!notified.ok) {
+                     const errorResponse = await notified.json();
+                     return alert(`결제 정보 전송 중 오류 발생: ${errorResponse.message}`);
+                 }
 
-                        // 결제 성공 시 서버로 결제 정보 전송
-                        try {
-                            const notified = await fetch(`/users/contest/payment/complete`, {
-                                method: "POST",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({
-                                    imp_uid: response.imp_uid,       // 아임포트 고유번호
-<!--                                    merchant_uid: response.merchant_uid, // 주문 고유 번호-->
-                                    merchant_uid: response.merchant_uid, // 주문 고유 번호
-                                })
-                            });
+                 // 결제가 성공적으로 완료된 후 리다이렉트
+                 const successResponse = await notified.json();
+                 if (successResponse.redirectUrl) {
+                     window.location.href = successResponse.redirectUrl; // 리다이렉트 처리
+                 }
 
-                            if (!notified.ok) {
-                                const errorResponse = await notified.json();
-                                return alert(`결제 정보 전송 중 오류 발생: ${errorResponse.message}`);
-                            }
-
-                            // 결제가 성공적으로 완료된 후 리다이렉트
-                            const successResponse = await notified.json();
-                            if (successResponse.redirectUrl) {
-                                window.location.href = successResponse.redirectUrl; // 리다이렉트 처리
-                            }
-
-                            alert("결제가 성공적으로 완료되었습니다.");
-                        } catch (error) {
-                            console.error('결제 정보 전송 중 오류 발생:', error);
-                            alert("결제 정보 전송 중 오류가 발생했습니다.");
-                        }
-                    });
-                }
+                 alert("결제가 성공적으로 완료되었습니다.");
+             } catch (error) {
+                 console.error('결제 정보 전송 중 오류 발생:', error);
+                 alert("결제 정보 전송 중 오류가 발생했습니다.");
+             }
+         } else {
+             // 결제 실패 또는 취소 처리
+             if (response.error_code) {
+                 alert(`결제 실패! 에러 내용: ${response.error_msg}`);
+             } else if (response.status === "cancelled") {
+                 alert('결제가 취소되었습니다.');
+             }
+         }
+     });
+ }
     </script>
 </head>
 <body>
