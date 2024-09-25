@@ -118,53 +118,54 @@ public class EventController {
         eventDTO.setUserNum(Math.toIntExact(userSessionService.userNum()));
 
         // 날짜 필드 검증 - null 또는 빈 값 체크
-//        if ((eventCreateTimeStr == null || eventCreateTimeStr.trim().isEmpty()) ||
-//                (eventStartDateStr == null || eventStartDateStr.trim().isEmpty()) ||
-//                (eventEndDateStr == null || eventEndDateStr.trim().isEmpty())) {
-//            redirectAttributes.addFlashAttribute("errorMessage", "생성일, 시작일, 종료일을 모두 입력해 주세요.");
-//            return "redirect:/event/admin/write";
-//        }
-        // 필수 필드 체크 - 날짜가 비어있는지 확인
-        if (eventCreateTimeStr == null || eventStartDateStr == null || eventEndDateStr == null ||
-                eventCreateTimeStr.isEmpty() || eventStartDateStr.isEmpty() || eventEndDateStr.isEmpty()) {
-            redirectAttributes.addFlashAttribute("errorMessage", "생성일, 시작일, 종료일을 모두 입력해 주세요.");
-            return "redirect:/event/admin/write";  // 다시 작성 페이지로 리다이렉트
+        if (!eventDTO.isEventTempSave()) { // 임시 저장이 아닌 경우에만 빈 값 검증
+            if ((eventCreateTimeStr == null || eventCreateTimeStr.trim().isEmpty()) ||
+                    (eventStartDateStr == null || eventStartDateStr.trim().isEmpty()) ||
+                    (eventEndDateStr == null || eventEndDateStr.trim().isEmpty())) {
+
+                // 필수 날짜가 입력되지 않으면 에러 메시지와 함께 리다이렉트
+                redirectAttributes.addFlashAttribute("errorMessage", "생성일, 시작일, 종료일을 모두 입력해 주세요.");
+                return "redirect:/event/admin/write";
+            }
         }
 
-
-        // 날짜 변환 로직
+// 날짜 변환 로직
         setEventDates(eventDTO, eventCreateTimeStr, eventStartDateStr, eventEndDateStr);
 
-        // 이미지 처리 로직
+// 이미지 처리 로직
         processEventImage(file, existingImageName, eventDTO);
 
-        // 이벤트 저장 또는 수정 처리
+// 이벤트 저장 또는 수정 처리
         saveOrUpdateEvent(eventDTO, model);
 
+// 성공 메시지 추가 후 이벤트 목록 페이지로 리다이렉트
         addMessage(redirectAttributes, "이벤트가 성공적으로 등록되었습니다.", false);
         return "redirect:/event/list";
     }
 
+    // 날짜 변환 로직
     private void setEventDates(EventDTO eventDTO, String eventCreateTimeStr, String eventStartDateStr, String eventEndDateStr) {
-        if (eventCreateTimeStr != null && !eventCreateTimeStr.isEmpty()) {
+        // 생성일이 null이거나 빈 문자열일 경우 현재 날짜로 설정
+        if (eventCreateTimeStr != null && !eventCreateTimeStr.trim().isEmpty()) {
             eventDTO.setEventCreateTime(DateUtils.parseStringToLocalDate(eventCreateTimeStr));
         } else {
-            eventDTO.setEventCreateTime(LocalDate.now());  // 기본값으로 현재 날짜 설정
+            eventDTO.setEventCreateTime(LocalDate.now());  // 기본값: 현재 날짜
         }
 
-        if (eventStartDateStr != null && !eventStartDateStr.isEmpty()) {
+        // 시작일이 null이거나 빈 문자열일 경우 현재 날짜로 설정
+        if (eventStartDateStr != null && !eventStartDateStr.trim().isEmpty()) {
             eventDTO.setEventStartDate(DateUtils.parseStringToLocalDate(eventStartDateStr));
         } else {
-            eventDTO.setEventStartDate(LocalDate.now());  // 기본값으로 현재 날짜 설정
+            eventDTO.setEventStartDate(LocalDate.now());  // 기본값: 현재 날짜
         }
 
-        if (eventEndDateStr != null && !eventEndDateStr.isEmpty()) {
+        // 종료일이 null이거나 빈 문자열일 경우 현재 날짜로부터 7일 후로 설정
+        if (eventEndDateStr != null && !eventEndDateStr.trim().isEmpty()) {
             eventDTO.setEventEndDate(DateUtils.parseStringToLocalDate(eventEndDateStr));
         } else {
-            eventDTO.setEventEndDate(LocalDate.now().plusDays(7));  // 기본값으로 7일 후 날짜 설정
+            eventDTO.setEventEndDate(LocalDate.now().plusDays(7));  // 기본값: 현재 날짜로부터 7일 후
         }
     }
-
 
     private void processEventImage(MultipartFile file, String existingImageName, EventDTO eventDTO) {
         if (file != null && !file.isEmpty()) {
