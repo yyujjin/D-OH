@@ -3,6 +3,7 @@
     --primary-color: rgb(193, 192, 255);
     --primary-hover-color: rgba(193, 192, 255, 0.8);
     --primary-box-shadow: rgba(193, 192, 255, 0.5);
+    --secondary-color: rgba(193, 192, 255, 0.2); /* Secondary 버튼 배경색 추가 */
 }
 
 .container {
@@ -35,7 +36,7 @@ label {
     font-weight: 600;
 }
 
-input[type="text"],
+.form-control,
 textarea,
 input[type="date"] {
     width: 100%;
@@ -46,7 +47,7 @@ input[type="date"] {
     transition: box-shadow 0.3s ease-in-out;
 }
 
-input[type="text"]:focus,
+.form-control:focus,
 textarea:focus,
 input[type="date"]:focus {
     box-shadow: 0 0 8px var(--primary-box-shadow);
@@ -88,7 +89,14 @@ textarea {
     font-size: 14px;
     border: 1px solid var(--primary-color);
     cursor: pointer;
-    background-color: transparent;
+    background-color: var(--secondary-color);
     color: var(--primary-color);
     text-decoration: none;
-    transition: background-color
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(193, 192, 255, 0.1);
+    color:black;
+    box-shadow: 0 4px 10px var(--primary-box-shadow);
+}
