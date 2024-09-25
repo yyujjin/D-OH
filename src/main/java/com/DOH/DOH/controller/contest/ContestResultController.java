@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Slf4j
 @Controller
-@RequestMapping("/contest")
+@RequestMapping("/users/contest")
 public class ContestResultController {
 
     private final ContestUploadService contestUploadService;

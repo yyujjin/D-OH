@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@RequestMapping("/contest")
+@RequestMapping("/users/contest")
 @RestController
 @Slf4j
 public class ContestResultAPIController {
