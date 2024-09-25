@@ -31,8 +31,14 @@
                 <a th:href="@{/event/detail(eventNum=${event.eventNum})}" class="card-link"
                    th:class="${event.formattedEndDate < currentDate ? 'expired' : ''}">
                     <div class="card h-100">
-                        <img th:src="${event.eventImageName != null ? event.eventImageName : '@{/img/fragments/이미지제공안됨.png}'}"
-                             class="card-img-top" alt="이벤트 이미지">
+
+                        <div th:if="${event.eventImageName != null}">
+                            <img th:src="@{${event.eventImageName}}" class="card-img-top" alt="이벤트 이미지">
+                        </div>
+                        <div th:if="${event.eventImageName == null}">
+                            <img th:src="@{/img/fragments/noimg.png}" class="card-img-top" alt="이벤트 이미지">
+                        </div>
+
                         <span class="expired-message" th:if="${event.formattedEndDate < currentDate}">이벤트 종료</span>
                         <div class="card-body">
                             <h5 class="card-title" th:text="${event.eventTitle}">이벤트 제목</h5>
@@ -67,13 +73,20 @@
                 등록된 임시 저장 이벤트가 없습니다.
             </div>
 
+
             <!-- 임시 저장된 이벤트 목록 -->
             <div class="row row-cols-1 row-cols-md-4 g-4" th:if="${!#lists.isEmpty(tempEventList)}">
                 <div class="col" th:each="event : ${tempEventList}">
                     <a th:href="@{/event/detail(eventNum=${event.eventNum})}" class="card-link">
                         <div class="card h-100">
-                            <img th:src="${event.eventImageName != null ? event.eventImageName : '@{/img/fragments/이미지제공안됨.png}'}"
-                                 class="card-img-top" alt="임시 저장된 이벤트 이미지">
+
+                            <div th:if="${event.eventImageUrl != null}">
+                                <img th:src="@{${event.eventImageUrl}}" class="card-img-top" alt="이벤트 이미지">
+                            </div>
+                            <div th:if="${event.eventImageUrl == null}">
+                                <img th:src="@{/img/fragments/noimg.png}" class="card-img-top" alt="이벤트 이미지">
+                            </div>
+
                             <div class="card-body">
                                 <h5 class="card-title" th:text="${event.eventTitle}">임시 저장된 이벤트 제목</h5>
                                 <p class="card-text">
