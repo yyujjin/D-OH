@@ -15,4 +15,8 @@ public class ContestListDTO {
     private int endDate;//콘테스트 남은 기간(마감일)
     private String conCompanyName;//콘테스트 주최자명
     private int conHit;//콘테스트 조회수
+
+    private String createdAt;//콘테스트 생성일(생성일 전체)
+    private String imageUrl;//콘테스트 이미지 경로
+    private int applyCount;// 콘테스트 지원자 수
 }

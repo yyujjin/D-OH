@@ -3,4 +3,54 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0.3//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.DOH.DOH.mapper.list.MainMapper">
+
+    <select id="getImageList" resultType="com.DOH.DOH.dto.list.ContestListDTO">
+        SELECT con.id, conTitle,
+                CASE
+                    WHEN LOCATE('src=\"', conBriefing) > 0
+                        THEN SUBSTRING_INDEX(SUBSTRING_INDEX(conBriefing, 'src=\"', -1), '\"', 1)
+                    ELSE
+                        NULL
+                    END AS imageUrl, conHit,
+                        (datediff(conEndDate, now())) as endDate, conCompanyName
+                    FROM contest_Upload con
+                    join
+                        (select count(conNum) as apply, conNum from apply_contest group by conNum) num
+                    on con.id = num.conNum
+                WHERE datediff(conEndDate, now()) >= 0
+                order by apply desc
+                limit 4
+    </select>
+
+    <select id="getLatestList" resultType="com.DOH.DOH.dto.list.ContestListDTO">
+        SELECT id, conTitle, (conFirstPrice * conFirstPeople + conSecondPrice * conSecondPeople
+                            + conThirdPrice * conThirdPeople) as totalPrice,
+                date_format(createdAt, '%y.%m.%d') as createdAt,
+                (datediff(conEndDate, now())) as endDate, conCompanyName
+            FROM contest_Upload
+            WHERE datediff(conEndDate, now()) >= 0
+            order by createdAt desc
+            limit 5
+    </select>
+
+    <select id="getPriceList" resultType="com.DOH.DOH.dto.list.ContestListDTO">
+        SELECT id, conTitle, (conFirstPrice * conFirstPeople + conSecondPrice * conSecondPeople
+                                + conThirdPrice * conThirdPeople) as totalPrice,
+                    date_format(conEndDate, '%y.%m.%d') as conEndDate,
+                    (datediff(conEndDate, now())) as endDate, conCompanyName
+                FROM contest_Upload
+                WHERE datediff(conEndDate, now()) >= 0
+                order by totalPrice desc
+                limit 5
+    </select>
+
+    <select id="getHitList" resultType="com.DOH.DOH.dto.list.ContestListDTO">
+        SELECT id, conTitle, (conFirstPrice * conFirstPeople + conSecondPrice * conSecondPeople
+                                + conThirdPrice * conThirdPeople) as totalPrice, conHit,
+                (datediff(conEndDate, now())) as endDate, conCompanyName
+            FROM contest_Upload
+            WHERE datediff(conEndDate, now()) >= 0
+            order by conHit desc
+            limit 5
+    </select>
 </mapper>
