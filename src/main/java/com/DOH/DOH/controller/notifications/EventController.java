@@ -132,11 +132,43 @@ public class EventController {
 // 날짜 변환 로직
         setEventDates(eventDTO, eventCreateTimeStr, eventStartDateStr, eventEndDateStr);
 
-// 이미지 처리 로직
-        processEventImage(file, existingImageName, eventDTO);
-
 // 이벤트 저장 또는 수정 처리
-        saveOrUpdateEvent(eventDTO, model);
+        // 이미지 처리 로직
+        if (file != null && !file.isEmpty()) {
+            // 새로운 파일 업로드
+            try {
+                String uploadedFileName = s3FileUploadService.uploadFileToS3Bucket(file);
+                eventDTO.setEventImageName(uploadedFileName); // 새로운 이미지 이름 설정
+                log.info("새로운 파일이 S3에 업로드되었습니다: {}", uploadedFileName);
+
+                // 기존 이미지 삭제
+                if (existingImageName != null && !existingImageName.isEmpty()) {
+                    try {
+                        s3FileUploadService.deleteFile(existingImageName);
+                        log.info("기존 이미지가 S3에서 삭제되었습니다: {}", existingImageName);
+                    } catch (Exception e) {
+                        log.error("S3에서 기존 이미지를 삭제하는 데 실패했습니다: {}", e.getMessage());
+                    }
+                }
+            } catch (Exception e) {
+                throw new RuntimeException("새로운 이미지를 업로드하는 데 실패했습니다.", e);
+            }
+        } else {
+            // 파일이 비어 있는 경우 기존 이미지를 유지
+            eventDTO.setEventImageName(existingImageName);
+            log.info("이미지 수정이 없으므로 기존 이미지를 유지합니다: {}", existingImageName);
+        }
+
+        // 이벤트 저장 또는 수정 처리
+        if (eventDTO.getEventNum() == null) {
+            // 새 이벤트 등록
+            eventService.eventRegister(eventDTO, model);
+            log.info("이벤트 등록 완료 - 제목: {}", eventDTO.getEventTitle());
+        } else {
+            // 기존 이벤트 수정
+            eventService.eventUpdate(eventDTO, model);
+            log.info("이벤트 수정 완료 - eventNum: {}", eventDTO.getEventNum());
+        }
 
 // 성공 메시지 추가 후 이벤트 목록 페이지로 리다이렉트
         addMessage(redirectAttributes, "이벤트가 성공적으로 등록되었습니다.", false);
