@@ -13,6 +13,7 @@
 <div class="container">
     <h2>수상자 선정</h2>
     <form id="awardForm">
+        <input type="hidden" name="contestNum" th:value="${contestNum}" />
         <table class="table">
             <thead>
             <tr>
@@ -44,6 +45,9 @@
             </tr>
             </tbody>
         </table>
+
+
+
         <!-- 버튼 섹션 -->
         <div class="button-section">
             <button type="button" class="btn btn-primary" onclick="submitAward()">😆 제출하기</button>

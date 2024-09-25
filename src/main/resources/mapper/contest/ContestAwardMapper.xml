@@ -5,6 +5,6 @@
 <mapper namespace="com.DOH.DOH.mapper.contest.ContestAwardMapper">
 
     <insert id="saveAwardResult" parameterType="com.DOH.DOH.dto.contest.AwardDTO">
-        insert into award values( #{id},#{userEmail}, #{firstPlace},#{secondPlace},#{thirdPlace});
+        insert into award values( #{id},#{conNum},#{userEmail}, #{firstPlace},#{secondPlace},#{thirdPlace});
     </insert>
 </mapper>

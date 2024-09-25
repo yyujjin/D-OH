@@ -25,6 +25,10 @@ public class ContestAwardService {
 
         awardDTO.setUserEmail(userSessionService.userEmail());
 
+        String contestNumString = formData.get("contestNum");
+        Long contestNum = Long.valueOf(contestNumString);
+        awardDTO.setConNum(contestNum);
+
         formData.forEach((email, ranking) -> {
 
             if (!ranking.equals("none")){

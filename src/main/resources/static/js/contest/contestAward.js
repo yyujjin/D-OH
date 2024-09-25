@@ -5,6 +5,11 @@ function submitAward() {
     var selectedRanks = [];  // 선택된 순위를 저장할 배열
     var hasDuplicate = false;  // 중복 여부를 저장하는 변수
 
+    // 히든 필드에서 contestNum 값을 가져와서 formData에 추가
+    var contestNum = $("input[name='contestNum']").val();
+    formData["contestNum"] = contestNum;
+
+    // 각 참여자의 이메일과 순위 선택 정보를 수집
     $("#awardForm select").each(function() {
         var email = $(this).attr("name");  // 이메일을 name 속성에서 가져옴
         var ranking = $(this).val();       // 선택한 순위를 가져옴
@@ -46,7 +51,7 @@ function submitAward() {
         data: JSON.stringify(formData),  // 데이터를 JSON으로 변환하여 전송
         success: function(response) {
             alert('시상식 정보가 성공적으로 제출되었습니다!');
-            window.location.href = '/contest/list';
+            window.location.href = '/contest/list';  // 성공 후 리다이렉트
         },
         error: function(xhr, status, error) {
             console.error('AJAX 요청 실패: ', error);

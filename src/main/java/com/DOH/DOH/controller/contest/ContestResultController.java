@@ -32,6 +32,8 @@ public class ContestResultController {
     public String contestAward(@RequestParam Long contestNum, Model model) {
 
         model.addAttribute("applicantList",contestUploadService.getContestApplicants(contestNum));
+        model.addAttribute("contestNum",contestNum);
+
         return "contest/contestAward";
     }
 
