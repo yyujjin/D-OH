@@ -6,7 +6,8 @@ import lombok.Data;
 public class ContestListDTO {
 
     private int rownum;//콘테스트 번호 역순
-    private Long id;//콘테스트 번호
+//    private Long id;//콘테스트 번호 : 타입 불일치로 변경함
+    private int id;//콘테스트 번호
     private String conType;//콘테스트 유형(업종)
     private String conTitle;//콘테스트 제목
     private int totalPrice;//콘테스트 총 상금
@@ -14,4 +15,8 @@ public class ContestListDTO {
     private int endDate;//콘테스트 남은 기간(마감일)
     private String conCompanyName;//콘테스트 주최자명
     private int conHit;//콘테스트 조회수
+
+    private String createdAt;//콘테스트 생성일(생성일 전체)
+    private String imageUrl;//콘테스트 이미지 경로
+    private int applyCount;// 콘테스트 지원자 수
 }

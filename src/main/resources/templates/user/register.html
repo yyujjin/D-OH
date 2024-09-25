@@ -2,12 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>register</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="/css/user/register.css" />
-    <script src="/js/user/register.js"></script>
+    <script src="/js/user/register.js" defer></script>
 </head>
 <body>
 <div class="signup-container">
-    <form action="/users/register" method="post" enctype="multipart/form-data">
+    <form id="signup-form" action="/users/register" method="post" enctype="multipart/form-data">
     <a th:href="@{/}">
         <img th:src="@{/img/fragments/logoGG.png}" alt="D'OH Logo" width="150px" height="75px">
     </a>
@@ -16,32 +17,49 @@
     <div class="nickName-container">
         <input type="text" id="nickName" name="nickName" required>
     </div>
-    <label for="email">이메일 주소</label>
+    <label for="userEmail">이메일 주소</label>
     <div class="email-container">
-        <input type="text" id="email" name="userEmail" required>
-        <button type="button" id="auth-btn" class="auth-btn" onclick="show()">인증</button>
-        <button type="button" id="resend-btn" class="auth-btn">재전송</button>
+        <input type="text" id="userEmail" name="userEmail" required>
+        <button type="button" id="auth-btn" class="auth-btn" >인증</button>
+        <button type="button" id="resend-btn" class="auth-btn" style="display: none;">재전송</button>
     </div>
-    <div id="verification-container">
+
+    <div id="emailError" class="emailError">
+        <span class="error-icon">⚠️</span>
+        <span class="error-message">이메일 형식이 올바르지 않습니다.</span>
+    </div>
+
+    <div id="emailVerificationError" class="emailError">
+        <span class="error-icon">⚠️</span>
+        <span class="error-message">이메일 인증을 해주세요.</span>
+    </div>
+
+    <div id="verification-container" style="display: none;">
         <label for="verification-code">인증번호 입력</label>
-        <div class="email-container">
+        <div class="email-container" id="mail_number">
             <input type="text" id="verification-code" required>
-            <button type="button" class="auth-btn">인증 완료</button>
+            <button type="button" class="submit-verify-btn">인증 완료</button>
         </div>
     </div>
     <label for="password">비밀번호</label>
     <input type="password" id="password" name="userPassword" required>
     <label for="confirm-password">비밀번호 확인</label>
-    <input type="password" id="confirm-password" required>
-    <div class="note">
-        <div class="note-item">
-            <input type="checkbox" id="agreement" required>
-            <label for="agreement">D'OH 가입 약관에 모두 동의합니다.<a href="javascript:void(0)" onclick="showTerms()">확인하기</a></label>
-        </div>
-        <div class="note-item">
-            <label for=>D'OH 이용약관(필수),개인정보취급방침(필수),마케팅정보 수집동의(선택)</label>
-        </div>
+    <input type="password" id="confirm-password" name="confirm-password" required>
+
+    <div id="passwordMatchError" class="passwordError" style="display: none;">
+        <span class="error-icon">⚠️</span>
+        <span class="error-message">비밀번호가 일치하지않습니다.</span>
     </div>
+
+        <div class="note">
+            <div class="note-item">
+                <input type="checkbox" id="agreement">
+                <label for="agreement">D'OH 가입 약관에 모두 동의합니다.<a href="javascript:void(0)">확인하기</a></label>
+            </div>
+            <div class="note-item">
+                <label for=>D'OH 이용약관(필수),개인정보취급방침(필수),마케팅정보 수집동의(선택)</label>
+            </div>
+        </div>
     <div class="actions">
         <button type="button" class="return-btn" onclick="window.history.back()">이전</button>
         <button id="join-btn" class="join-btn" type="submit">가입하기</button>
@@ -49,7 +67,7 @@
     </form>
 </div>
 
-<!-- Terms overlay -->
+<!-- 약관 동의 -->
 <div id="terms-overlay">
     <div class="terms-content">
         <h2>약관 확인하기</h2>
@@ -57,9 +75,9 @@
         <input type="checkbox" name="chk" class="filter01">
         <label for=>전체 동의</label>
         <hr>
-        <input type="checkbox" name="chk" class="filter01">
+        <input type="checkbox" id="agree" name="chk" class="filter01">
         <span style="color: blue;">[필수]</span> 개인정보 수집 및 이용 동의
-        <a onclick="toggleContent('content1')" id="toggle-btn">펼치기</a>
+        <a href="javascript:void(0)" id="toggle-btn">펼치기</a>
         <div id="content1" class="content">
             제 1 장 환영합니다!
             제 1 조 목적 및 정의
@@ -75,7 +93,7 @@
         <input type="checkbox" name="chk" class="filter01">
         <label>[선택]마케팅 정보 수신</label>
         <hr>
-        <button id="confirm-btn" onclick="hideTerms()">확인 완료</button>
+        <button id="confirm-btn">확인 완료</button>
     </div>
 </div>
 </body>

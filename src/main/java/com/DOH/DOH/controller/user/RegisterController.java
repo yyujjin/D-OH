@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
@@ -40,14 +41,13 @@ public class RegisterController {
     }
 
     @PostMapping("/users/register")
-    public String showRegister(@ModelAttribute RegisterDTO registerDTO,@ModelAttribute MyPageProfileDTO profileDTO) {
+    public String showRegister(@ModelAttribute RegisterDTO registerDTO, @ModelAttribute MyPageProfileDTO profileDTO) {
 
         registerService.register(registerDTO);
         profileDTO = new MyPageProfileDTO();
         profileDTO.setUserNickName(registerDTO.getNickName());
         profileDTO.setUserEmail(registerDTO.getUserEmail());
         service.insert(profileDTO);
-
         return "redirect:/users/login";
     }
 

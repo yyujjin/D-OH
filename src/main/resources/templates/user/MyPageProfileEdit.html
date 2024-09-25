@@ -19,7 +19,8 @@
                 </div>
                 <h6>닉네임</h6>
                 <div class="nickname">
-                    <input type="text" name="userNickName" id="userNickName" th:value="${profile?.userNickName}">
+                    <input type="text" name="oldName" placeholder="이전 닉네임" th:value="${profile?.userNickName}" readonly><br>
+                    <input type="text" name="newName" placeholder="새 닉네임">
                 </div>
                 <h6>한줄 프로필</h6>
                 <div class="one-info">

@@ -7,6 +7,9 @@ import java.util.Date;
 
 @Data
 public class ContestUploadDTO {
+
+    private Long id; // AI PK (자동 증가 기본 키)
+
     private Long conNum; // id와 매핑되는 필드 (Primary Key)
     private String conEmail; // 콘테스트 등록 업체 이메일
 
@@ -15,11 +18,6 @@ public class ContestUploadDTO {
     private String conType; // 업종
     private String conLogoName; // 로고명
     private String conBriefing; // 브리핑
-
-//    파일 업로드
-//    private MultipartFile conFilePath; // 경로
-//    private String fileName; // 파일명
-//    private String image; // 이미지
 
     private String conTitle; // 콘테스트 제목
 
@@ -35,4 +33,10 @@ public class ContestUploadDTO {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date conEndDate;
+
+    private int conHit; // 조회수
+
+    private String orderNumber; // 주문번호
+
+    private String userEmail;  // 사용자 이메일
 }

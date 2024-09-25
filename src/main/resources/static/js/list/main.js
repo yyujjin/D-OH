@@ -33,3 +33,24 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+
+    function hitUp(e) {
+    const href = e.getAttribute('href');
+        const urlParams = new URLSearchParams(href.split('?')[1]);
+        const id = urlParams.get('contestNum');
+
+        console.log('contestNum ID:', id);
+        console.log(id);
+
+        $.ajax({
+            url: '/contest/hitUp',
+            type: 'POST',
+            data: { contestId: id },
+            success: function() {
+                console.log('조회수 증가 완료');
+            },
+            error: function(error) {
+                console.log('조회수 증가 중 오류 발생:', error);
+            }
+        });
+    }

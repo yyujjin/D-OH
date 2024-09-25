@@ -2,6 +2,7 @@ package com.DOH.DOH.service.user;
 
 import com.DOH.DOH.dto.user.MyPageProfileDTO;
 import com.DOH.DOH.dto.user.MyPageSkillDTO;
+import com.DOH.DOH.dto.user.RegisterDTO;
 import com.DOH.DOH.mapper.user.MyPageProfileMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -39,4 +40,19 @@ public class MyPageProfileServiceImpl implements MyPageProfileService {
         log.info("myPageProfileDTOUPDATE:{}", myPageProfileDTO);
         myPageProfileMapper.update(myPageProfileDTO);
     }
+
+    @Override
+    public void updateUserNickName(String newName, String oldName) {
+        log.info("updateUserNickName: newName={}, oldName={}", newName, oldName);
+        myPageProfileMapper.updateUserNickName(newName, oldName);
+    }
+
+    @Transactional
+    @Override
+    public void updateUserInfoNickName(String newName, String oldName) {
+        log.info("updateUserInfoNickName: newName={}, oldName={}", newName, oldName);
+        myPageProfileMapper.updateUserInfoNickName(newName, oldName);
+        myPageProfileMapper.updateUserNickName(newName, oldName);
+    }
+
 }

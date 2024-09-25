@@ -24,7 +24,7 @@
     </insert>
     <update id="update" parameterType="com.DOH.DOH.dto.user.MyPageProfileDTO">
         UPDATE profile_user_info
-        SET userNickName = #{userNickName},
+        SET
             profileOneLiner = #{profileOneLiner},
             profileIntroduce = #{profileIntroduce},
             myPageUrl = #{myPageUrl},
@@ -34,5 +34,17 @@
             messageEnd = #{messageEnd},
             skillName = #{skillName}
         WHERE id = #{id} AND userEmail = #{userEmail}
+    </update>
+    <update id="updateUserNickName">
+        <!-- 첫 번째 테이블 업데이트 -->
+        UPDATE profile_user_info
+        SET userNickName = #{newName}
+        WHERE userNickName = #{oldName};
+    </update>
+    <update id="updateUserInfoNickName">
+        <!-- 두 번째 테이블 업데이트 -->
+        UPDATE user_info
+        SET nickName = #{newName}
+        WHERE nickName = #{oldName};
     </update>
 </mapper>
