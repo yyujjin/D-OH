@@ -40,7 +40,7 @@ function submitAward() {
 
     // AJAX 요청
     $.ajax({
-        url: '/contest/award',
+        url: '/users/contest/award',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(formData),  // 데이터를 JSON으로 변환하여 전송

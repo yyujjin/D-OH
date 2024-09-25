@@ -75,7 +75,7 @@
         <p>조회수  <span th:text="${contestUploadDTO.conHit}"></span></p>
 
         <!-- 시상하기 버튼 추가 -->
-        <a th:if="${userEmail == writer}" th:href="@{/contest/award(contestNum=${contestUploadDTO.id})}" class="button" style="background-color: #28a745; color: white;">
+        <a th:if="${userEmail == writer}" th:href="@{/users/contest/award(contestNum=${contestUploadDTO.id})}" class="button" style="background-color: #28a745; color: white;">
             시상하기
         </a>
 
