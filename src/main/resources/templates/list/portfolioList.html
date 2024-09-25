@@ -3,293 +3,57 @@
       layout:decorate="~{/fragments/layout}">
 <head>
     <link rel="stylesheet" th:href="@{/css/list/portfolioList.css}">
+    <script th:src="@{/js/list/portfolioList.js}"></script>
 </head>
 <th:block layout:fragment="content">
     <main>
         <div class="mainWrap">
-            <nav class="filterWrap">
-                <div class="filter left">
+<!--            <nav class="filterWrap">-->
+<!--                <div class="filter left">-->
                     <!-- <button type="button">
                         <i class="fa-solid fa-crown"></i>
                         콘테스트 우승
                     </button> -->
-                    <div>
-                        <label class="type">
-                            <input type="checkbox" name="" id="#" class="check">
-                            <i class="fa-solid fa-crown"></i>
-                            콘테스트 우승
-                        </label>
-                    </div>
+<!--                    <div>-->
+<!--                        <label class="type">-->
+<!--                            <input type="checkbox" name="" id="#" class="check">-->
+<!--                            <i class="fa-solid fa-crown"></i>-->
+<!--                            콘테스트 우승-->
+<!--                        </label>-->
+<!--                    </div>-->
                     <!-- <button type="button"> -->
-                    <div>
-                        <label class="type">
-                            <input type="checkbox" name="" id="" class="check">
-                            <i class="fa-solid fa-people-arrows"></i>
-                            1 : 1 의뢰 가능
-                        </label>
-                    </div>
-                    <!-- </button> -->
-                </div><!--filter left-->
 
-                <!-- <div class="filter right"> -->
-                    <button type="button" class="filter right">
-                        추천순
-                    </button>
-                <!-- </div>filter right -->
-            </nav><!--filterWrap-->
+<!--                    <div>-->
+<!--                        <label class="type" th:onclick="check(this)">-->
+<!--                            <i class="fa-solid fa-check"></i>-->
+<!--                            <i class="fa-solid fa-people-arrows"></i>-->
+<!--                            1 : 1 의뢰 가능-->
+<!--                        </label>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; </button> &ndash;&gt;-->
+<!--                </div>&lt;!&ndash;filter left&ndash;&gt;-->
+
+<!--                &lt;!&ndash; <div class="filter right"> &ndash;&gt;-->
+<!--                <form>-->
+<!--                    <button type="button" class="filter right">-->
+<!--                        조회순-->
+<!--                    </button>-->
+<!--                &lt;!&ndash; </div>filter right &ndash;&gt;-->
+<!--                </form>-->
+<!--            </nav>&lt;!&ndash;filterWrap&ndash;&gt;-->
             
             <section>
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
+                <div class="cardList" th:each="list : ${portfolioList}">
+                    <a href="#" th:href="@{/portfolio/list/detail(portfolioId=${list.id})}" th:onclick="hitUp(this)">
+                        <img class="img" th:src="${list.personalWork}">
+                            <!--포토폴리오 이미지가 들어갈 영역-->
+                        </img>
                         <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
+                            <div class="title" th:text="${list.title}">식품 브랜드 밀잇 브랜드 콘테스트</div>
                             <div class="info">
-                                <h5>싱싱한초록546</h5> ·
+                                <h5 th:text="${list.userNickname}">싱싱한초록546</h5> ·
                                 <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div><!--cardList-->
-                <div class="cardList">
-                    <a href="#">
-                        <div class="img">
-                            <!--포토폴리오가 들어갈 영역-->
-                        </div>
-                        <div class="portfolioSummary">
-                            <div class="title">식품 브랜드 밀잇 브랜드 콘테스트</div>
-                            <div class="info">
-                                <h5>싱싱한초록546</h5> ·
-                                <div class="hit">
-                                    조회수 363
+                                    조회수 <span th:text="${list.profileHit}">363</span>
                                 </div>
                             </div>
                         </div>
@@ -299,16 +63,16 @@
 
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
+                  <li class="page-item" th:if="${pageMaker.prev}">
+                    <a class="page-link" href="#" th:href="@{/portfolio/list(page=${pageMaker.startPage - 1}, orderType=${param.orderType})}" aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
                     </a>
                   </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
+                  <li class="page-item" th:each="i : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}">
+                      <a class="page-link" href="#" th:text="${i}" th:href="@{/portfolio/list(page=${i}, orderType=${param.orderType})}">3</a>
+                  </li>
+                  <li class="page-item" th:if="${pageMaker.next}">
+                    <a class="page-link" href="#" th:onclick="order_page('${pageMaker.endPage + 1}', '${param.orderType}')" aria-label="Next">
                       <span aria-hidden="true">&raquo;</span>
                     </a>
                   </li>

@@ -63,4 +63,16 @@ public class ContestListServiceImpl implements ContestListService {
     public void saveContest(ApplyDTO applyDTO) {
         contestListMapper.saveContest(applyDTO);
     }
+
+    @Override
+    public ContestListDTO contestInfo(Long id){
+
+        return contestListMapper.contestInfo(id);
+    }
+
+    @Override
+    public int getApplyCount(Long id){
+
+        return contestListMapper.getApplyCount(id);
+    }
 }

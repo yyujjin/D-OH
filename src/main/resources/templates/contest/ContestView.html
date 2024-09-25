@@ -18,9 +18,8 @@
             <h1><p>제목 : <span th:text="${contestUploadDTO.conTitle}"></span></p></h1>
             <p>회사명 : <span th:text="${contestUploadDTO.conCompanyName}"></span></p>
             <div class="meta">
-                <span id="request-tab" onclick="showContent('request')">요청 사항</span>
-                <span id="comments-tab" onclick="showContent('comments')">문의 댓글</span>
-                <span id="work-tab" onclick="showContent('work')">작품 목록</span>
+                <span id="request-tab" onclick="showContent('request')">📋 요청 사항</span>
+                <span id="work-tab" onclick="showContent('work')">👥 참여자</span>
             </div>
         </div>
         <!-- 요청사항 -->
@@ -36,18 +35,14 @@
                 </div>
             </div>
         </div>
-        <!-- 문의댓글 -->
-        <div class="comments">
-            <div>
-                <textarea id="comments" placeholder="요청 사항에 관련된 사항을 남길 수 있습니다."></textarea>
-                <button type="button">등록</button>
-            </div>
-        </div>
 
-        <!-- 참여작 -->
+        <!-- 참여자 -->
         <div class="work">
-            <div>
-                <p>작품 리스트</p>
+            <div th:if="${#lists.isEmpty(applicantList)}">
+                <p>참여자가 없습니다.</p>
+            </div>
+            <div th:each="applicant : ${applicantList}" th:unless="${#lists.isEmpty(applicantList)}">
+                <p><span>👤 </span><span th:text="${applicant}"> 지원자 이름</span></p>
             </div>
         </div>
     </form>
@@ -78,8 +73,15 @@
 
         <p>참여작</p>
         <p>조회수  <span th:text="${contestUploadDTO.conHit}"></span></p>
+
+        <!-- 시상하기 버튼 추가 -->
+        <a th:if="${userEmail == writer}" th:href="@{/contest/award(contestNum=${contestUploadDTO.id})}" class="button" style="background-color: #28a745; color: white;">
+            시상하기
+        </a>
+
         <a href="/contest/list" class="button">콘테스트 목록으로</a>
-        <a href="/api/users/contest/application/terms" class="button">콘테스트 참여하기</a>
+<!--        <a href="/api/users/contest/application/terms" class="button">콘테스트 참여하기</a>-->
+        <a th:href="@{/api/users/contest/application/terms(contestNum=${contestUploadDTO.id})}" class="button">콘테스트 참여하기</a>
     </div>
 </div>
 

@@ -41,7 +41,7 @@ public class ContestUploadController {
     // 1단계: 첫 번째 폼 (회사 정보 등) 보여주기
 //    @GetMapping("/users/contest")
     @GetMapping("/users/contest")
-    public String showContestForm(Model model) {
+    public String showConteLongstForm(Model model) {
         // DB에서 업종 목록 가져오기
         List<String> contestTypes = contestUploadService.getContestTypes();
         model.addAttribute("contestTypes", contestTypes);
@@ -176,9 +176,15 @@ public class ContestUploadController {
         // 모델에 DTO 객체 자체를 추가
         model.addAttribute("contestUploadDTO", contestUploadDTO);
 
+        //컨테스트 지원자 목록 가져오기
+        List<String>applicantList = contestUploadService.getContestApplicants(contestNum);
+        model.addAttribute("applicantList",applicantList);
+
+        //컨테스트 작성한 유저 이메일 내보내기
+        model.addAttribute("writer",contestUploadDTO.getUserEmail());
+
         return "contest/ContestView";  // 뷰로 이동
     }
-
 
 
 }

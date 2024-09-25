@@ -20,4 +20,7 @@ public interface ContestListService {
     ArrayList<Integer> getScrapList(String userEmail);
     int scrap(String email, int contestId);
     void saveContest(ApplyDTO applyDTO);
+
+    ContestListDTO contestInfo(Long id);
+    int getApplyCount(Long id);
 }
