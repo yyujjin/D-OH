@@ -62,6 +62,30 @@
                     </tbody>
                 </table>
 
+                <h3>내가 지원한 컨테스트 목록보기</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>제목</th>
+                        <th>모집 기간</th>
+                        <th>조회수</th>
+                        <th>바로 가기</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="contest : ${contestList}">
+                        <td th:text="${contest.id}">1</td>
+                        <td th:text="${contest.conTitle}">Contest Title</td>
+                        <td th:text="${#dates.format(contest.conStartDate, 'yyyy-MM-dd')} + ' - ' + ${#dates.format(contest.conEndDate, 'yyyy-MM-dd')}">2024-09-25 ~ 2024-10-01</td>
+                        <td th:text="${contest.conHit}">Hit</td>
+                        <td>
+                            <a th:href="@{/contest/view?contestNum={id}(id=${contest.id})}" class="action-btn">결과 보기</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
 
                 <a href="/users/mypage/profile/write" class="profilewrite" th:if="${profile == null or profile?.profileOneLiner == null}">프로필 작성하러가기</a>
                 <div class="profileOneLiner">
