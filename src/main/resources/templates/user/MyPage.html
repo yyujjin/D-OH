@@ -66,22 +66,20 @@
                 <table>
                     <thead>
                     <tr>
-                        <th>No.</th>
+                        <th>Contest No.</th>
                         <th>제목</th>
-                        <th>모집 기간</th>
-                        <th>조회수</th>
-                        <th>바로 가기</th>
+                        <th>지원 날짜</th>
+                        <th>결과 보기</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="contest : ${contestList}">
-                        <td th:text="${contest.id}">1</td>
-                        <td th:text="${contest.conTitle}">Contest Title</td>
-                        <td th:text="${#dates.format(contest.conStartDate, 'yyyy-MM-dd')} + ' - ' + ${#dates.format(contest.conEndDate, 'yyyy-MM-dd')}">2024-09-25 ~ 2024-10-01</td>
-                        <td th:text="${contest.conHit}">Hit</td>
-                        <td>
+                    <tr th:each="applylist : ${applicationList}">
+                        <td th:text="${applylist.conNum}">1</td>
+                        <td th:text="${applylist.applyTitle}">Contest Title</td>
+                        <td th:text="${#dates.format(applylist.applyDate, 'yyyy-MM-dd')}">2024-09-25 </td>
+                       <!-- <td>
                             <a th:href="@{/contest/view?contestNum={id}(id=${contest.id})}" class="action-btn">결과 보기</a>
-                        </td>
+                        </td>-->
                     </tr>
                     </tbody>
                 </table>
