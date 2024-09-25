@@ -119,6 +119,7 @@ public class ContestUploadController {
     public ResponseEntity<Map<String, String>> completePayment(@RequestBody Map<String, String> paymentData, HttpSession session) {
         String impUid = paymentData.get("imp_uid");
         String merchantUid = paymentData.get("merchant_uid");
+        String userEmail = paymentData.get("userEmail");  // 클라이언트에서 전송한 userEmail 받기
         ContestUploadDTO contestData = (ContestUploadDTO) session.getAttribute("contestData");
 
         if (contestData == null) {
@@ -128,6 +129,7 @@ public class ContestUploadController {
         try {
             // 주문번호를 설정
             contestData.setOrderNumber(merchantUid); // merchantUid를 주문번호로 설정
+            contestData.setUserEmail(userEmail);  // userEmail도 contestData에 설정
 
             // DB에 모든 정보 저장 (콘테스트 정보)
             contestUploadService.saveContest(contestData); // 콘테스트 정보 저장
