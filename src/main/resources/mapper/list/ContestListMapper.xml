@@ -53,8 +53,11 @@
         select count(*) from scrap_contest where userEmail = "${userEmail}"
                 and conNum = ${contestId}
     </select>
+    <select id="getApplicationList" parameterType="String" resultType="com.DOH.DOH.dto.list.ApplyDTO">
+        SELECT * FROM DOH.apply_contest where userEmail = #{userEmail};
+    </select>
 
-<!--    관심 공모전 등록-->
+    <!--    관심 공모전 등록-->
     <insert id="addScrap">
         insert into scrap_contest(userEmail, conNum) values("${userEmail}", ${contestId})
     </insert>
