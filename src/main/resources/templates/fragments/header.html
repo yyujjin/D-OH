@@ -43,23 +43,23 @@
                     <div th:if="${userEmail != 'anonymousUser'}" class="login-links">
 
                         <!-- 알림 아이콘 (관리자가 아닌 경우만) -->
-                        <div th:if="${userRole != 'ROLE_ADMIN'}" class="link-item dropdown">
-                            <!-- 알림 아이콘 -->
-                            <div class="dropdown-toggle" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
-                                <i class="fa-regular fa-bell"></i> <!-- 알림 없음 -->
-                                <span class="notification-badge" th:if="${hasUnreadNotifications}">N</span>
-                            </div>
-                            <!-- 알림 드롭다운 메뉴 -->
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-                                <li th:each="notification : ${notificationList}">
-                                    <a class="dropdown-item" th:text="${notification.message}" th:href="${notification.url}"></a>
-                                </li>
-                                <!-- 알림이 없는 경우 -->
-                                <li th:if="${#lists.isEmpty(notificationList)}">
-                                    <a class="dropdown-item">새로운 알림이 없습니다.</a>
-                                </li>
-                            </ul>
-                        </div>
+<!--                        <div th:if="${userRole != 'ROLE_ADMIN'}" class="link-item dropdown">-->
+<!--                            &lt;!&ndash; 알림 아이콘 &ndash;&gt;-->
+<!--                            <div class="dropdown-toggle" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">-->
+<!--                                <i class="fa-regular fa-bell"></i> &lt;!&ndash; 알림 없음 &ndash;&gt;-->
+<!--                                <span class="notification-badge" th:if="${hasUnreadNotifications}">N</span>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; 알림 드롭다운 메뉴 &ndash;&gt;-->
+<!--                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">-->
+<!--                                <li th:each="notification : ${notificationList}">-->
+<!--                                    <a class="dropdown-item" th:text="${notification.message}" th:href="${notification.url}"></a>-->
+<!--                                </li>-->
+<!--                                &lt;!&ndash; 알림이 없는 경우 &ndash;&gt;-->
+<!--                                <li th:if="${#lists.isEmpty(notificationList)}">-->
+<!--                                    <a class="dropdown-item">새로운 알림이 없습니다.</a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
 
                         <!-- 관리자가 아닌 경우에만 이메일을 마이페이지 링크로 감싸기 -->
                         <div th:if="${userRole != 'ROLE_ADMIN'}" class="link-item">
