@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
 
 @Slf4j
 @Service("ContestListService")
@@ -64,6 +65,11 @@ public class ContestListServiceImpl implements ContestListService {
         contestListMapper.saveContest(applyDTO);
     }
 
+    //유저이메일로 지원한 컨테스트 목록 가져오기
+    @Override
+    public List<ApplyDTO> getApplicationList(String userEmail) {
+        return contestListMapper.getApplicationList(userEmail);
+
     @Override
     public ContestListDTO contestInfo(Long id){
 
@@ -74,5 +80,6 @@ public class ContestListServiceImpl implements ContestListService {
     public int getApplyCount(Long id){
 
         return contestListMapper.getApplyCount(id);
+
     }
 }
