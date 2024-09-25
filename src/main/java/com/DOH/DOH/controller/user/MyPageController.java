@@ -1,11 +1,13 @@
 package com.DOH.DOH.controller.user;
 
+import com.DOH.DOH.dto.contest.ContestUploadDTO;
 import com.DOH.DOH.dto.user.MyPageDTO;
 import com.DOH.DOH.dto.user.MyPageProfileDTO;
 import com.DOH.DOH.dto.user.PortFolioUploadDTO;
 import com.DOH.DOH.mapper.user.MyPageMapper;
 import com.DOH.DOH.mapper.user.MyPageProfileMapper;
 import com.DOH.DOH.mapper.user.PortFolioUploadMapper;
+import com.DOH.DOH.service.contest.ContestUploadService;
 import com.DOH.DOH.service.user.MyPageProfileService;
 import com.DOH.DOH.service.user.MyPageService;
 import com.DOH.DOH.service.user.PortFolioUploadService;
@@ -41,6 +43,7 @@ public class MyPageController {
     private final String bucketName= "doh-contest-storage";
     private final UserSessionService userSessionService;
     private final MyPageMapper myPageMapper;
+    private final ContestUploadService contestUploadService;
 
     @GetMapping("/users/mypage")
     public String myPage(Long id, Model model, MyPageDTO myPageDTO, MyPageProfileDTO profile) {
@@ -53,6 +56,10 @@ public class MyPageController {
             myPageMapper.insertUserEmail(userEmail);
         }
 
+        //유저 이메일로 생성한 컨테스트 목록 가져오기
+        List<ContestUploadDTO>contestList = contestUploadService.getContestsByUserEmail(userEmail);
+
+        model.addAttribute("contestList",contestList);
         model.addAttribute("myPageDTO", myPageDTO);
         model.addAttribute("profile", profile);
         return "user/MyPage";

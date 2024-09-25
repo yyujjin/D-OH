@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>시상하기 페이지</title>
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+</head>
+<body>
+<div class="container">
+    <h2>수상자 선정</h2>
+    <form action="/contest/award" method="post">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>참여자 이메일</th>
+                <th>순위 선택</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- 참여자가 없을 경우 출력 -->
+            <tr th:if="${#lists.isEmpty(applicantList)}">
+                <td colspan="2">참여자가 없습니다.</td>
+            </tr>
+
+            <!-- 참여자가 있을 경우 이메일과 순위 선택 출력 -->
+            <tr th:each="applicant : ${applicantList}">
+                <td th:text="${applicant}">참여자 이메일</td>
+                <td>
+                    <select
+                            name="ranking"
+                            class="form-control"
+                            th:name="${applicant}"
+                    >
+                    <option value="none" selected>순위 선택</option>
+                    <option value="1">1등</option>
+                    <option value="2">2등</option>
+                    <option value="3">3등</option>
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- 버튼 섹션 -->
+        <div class="button-section">
+            <button type="submit" class="btn btn-primary">😆 제출하기</button>
+            <button
+                    type="button"
+                    class="btn btn-danger"
+                    onclick="location.href='/contest/no-winner'"
+            >
+                😭 마음에 드는 작품이 없어요
+            </button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
