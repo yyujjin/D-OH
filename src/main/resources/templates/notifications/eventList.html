@@ -5,6 +5,7 @@
 <head>
     <title>이벤트 페이지</title>
     <link rel="stylesheet" th:href="@{/css/notifications/eventList.css}">
+    <link rel="stylesheet" th:href="@{/css/notifications/eventList.js}">
 </head>
 
 <th:block layout:fragment="content">
@@ -27,10 +28,12 @@
         <div class="row row-cols-1 row-cols-md-4 g-4">
             <!-- 이벤트 카드 반복 (최대 12개만 표시) -->
             <div class="col" th:each="event, iterStat : ${eventList}" th:if="${iterStat.index < 12}">
-                <a th:href="@{/event/detail(eventNum=${event.eventNum})}" class="card-link">
+                <a th:href="@{/event/detail(eventNum=${event.eventNum})}" class="card-link"
+                   th:class="${event.formattedEndDate < currentDate ? 'expired' : ''}">
                     <div class="card h-100">
                         <img th:src="${event.eventImageName != null ? event.eventImageName : '@{/img/fragments/이미지제공안됨.png}'}"
                              class="card-img-top" alt="이벤트 이미지">
+                        <span class="expired-message" th:if="${event.formattedEndDate < currentDate}">이벤트 종료</span>
                         <div class="card-body">
                             <h5 class="card-title" th:text="${event.eventTitle}">이벤트 제목</h5>
                             <p class="card-text">

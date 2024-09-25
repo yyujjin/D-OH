@@ -94,11 +94,13 @@
     color: white;
 }
 
-/* 반응형 설정 */
-/*
-@media (max-width: 767px) {
-    .card-img-top {
-        height: 150px;
-    }
+.expired {
+    opacity: 0.5; /* 불투명도 설정 */
+    pointer-events: none; /* 클릭 방지 */
 }
-*/
+
+.expired-message {
+    color: rgb(193, 192, 255);
+    font-weight: bold; /* 글꼴 두껍게 */
+    font-size: 30px;
+}

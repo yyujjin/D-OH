@@ -38,6 +38,8 @@ public class EventController {
 
         List<EventDTO> eventList = eventService.getEventListLimited();
 
+        model.addAttribute("currentDate", LocalDate.now().toString()); // 현재 날짜 추가
+
         // 날짜 변환
         eventList.forEach(event -> {
             event.setFormattedCreateTime(DateUtils.formatLocalDate(event.getEventCreateTime()));
