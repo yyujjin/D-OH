@@ -1,5 +1,6 @@
 package com.DOH.DOH.controller.contest;
 
+import com.DOH.DOH.dto.contest.ContestUploadDTO;
 import com.DOH.DOH.service.contest.ContestUploadService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,9 @@ public class ContestResultController {
     //시상식 페이지 렌더링
     @GetMapping("/award")
     public String contestAward(@RequestParam Long contestNum, Model model) {
+        ContestUploadDTO contestUploadDTO = contestUploadService.findContestById(contestNum);
 
+        model.addAttribute("contestUploadDTO", contestUploadDTO);
         model.addAttribute("applicantList",contestUploadService.getContestApplicants(contestNum));
         model.addAttribute("contestNum",contestNum);
 

@@ -37,9 +37,15 @@
                             th:name="${applicant}"
                     >
                         <option value="none" selected>순위 선택</option>
-                        <option value="1">1등</option>
-                        <option value="2">2등</option>
-                        <option value="3">3등</option>
+
+                        <!-- 1등 옵션: conFirstPeople이 0이면 비활성화 -->
+                        <option value="1" th:disabled="${contestUploadDTO.conFirstPeople == 0}">1등</option>
+
+                        <!-- 2등 옵션: conSecondPeople이 0이면 비활성화 -->
+                        <option value="2" th:disabled="${contestUploadDTO.conSecondPeople == 0}">2등</option>
+
+                        <!-- 3등 옵션: conThirdPeople이 0이면 비활성화 -->
+                        <option value="3" th:disabled="${contestUploadDTO.conThirdPeople == 0}">3등</option>
                     </select>
                 </td>
             </tr>
