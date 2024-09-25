@@ -1,81 +1,51 @@
-$(document).ready(function() {
-    // 현재 날짜를 yyyy-MM-dd 형식으로 가져오는 함수
-    function getCurrentDate() {
-        let today = new Date();
-        let year = today.getFullYear();
-        let month = ('0' + (today.getMonth() + 1)).slice(-2);  // 월은 0부터 시작하므로 1을 더함
-        let day = ('0' + today.getDate()).slice(-2);
-        return year + '-' + month + '-' + day;
+document.addEventListener("DOMContentLoaded", function () {
+    // 임시 저장 여부를 나타내는 hidden input 요소 추가
+    let eventTempSaveInput = document.getElementById("eventTempSave");
+    if (!eventTempSaveInput) {
+        eventTempSaveInput = document.createElement("input");
+        eventTempSaveInput.setAttribute("type", "hidden");
+        eventTempSaveInput.setAttribute("id", "eventTempSave");
+        eventTempSaveInput.setAttribute("name", "eventTempSave");
+        eventTempSaveInput.setAttribute("value", "false");
+        document.getElementById("eventForm").appendChild(eventTempSaveInput);
     }
 
-    // 이벤트 생성일이 비어있을 경우 현재 날짜로 설정
-    if (!$('#eventCreateTime').val()) {
-        $('#eventCreateTime').val(getCurrentDate());
-    }
+    // 현재 날짜를 YYYY-MM-DD 형식으로 가져와 이벤트 생성일 입력 필드에 설정
+    const today = new Date();
+    const formattedDate = today.toISOString().split('T')[0];
+    document.getElementById("eventCreateTime").value = formattedDate;
 
-    // 폼 유효성 검사 함수
-    function validateForm() {
-        let title = $('#eventTitle').val(); // 제목 입력란
-        const eventCreateTime = $('#eventCreateTime').val();
-        const eventStartDate = $('#eventStartDate').val();
-        const eventEndDate = $('#eventEndDate').val();
+    // 임시 저장 버튼 핸들러
+        const tempSaveBtn = document.getElementById("tempSaveBtn");
+        if (tempSaveBtn) {
+            tempSaveBtn.addEventListener("click", function () {
+                // 임시 저장 시 필수 입력 제거
+                document.getElementById("eventCreateTime").removeAttribute("required");
+                document.getElementById("eventStartDate").removeAttribute("required");
+                document.getElementById("eventEndDate").removeAttribute("required");
 
-        // 제목 유효성 검사
-        if (title === '') {
-            alert('제목을 입력하세요.');
-            $('#eventTitle').focus();
-            return false;
+                // 임시 저장 플래그 true 설정 및 폼 제출
+                document.getElementById("eventTempSave").value = "true";
+                document.getElementById("eventForm").submit();
+            });
         }
 
-        // 등록 시 필수 필드 유효성 검사 (임시 저장 시는 검사하지 않음)
-        if ($('#eventTempSave').val() === 'false') { // 정식 등록일 경우
-            if (!eventCreateTime || !eventStartDate || !eventEndDate) {
-                alert("생성일과 이벤트 기간을 모두 입력해 주세요.");
-                return false;
-            }
-        }
-        return true;
-    }
-
-    // 임시 저장 버튼 클릭 시 처리
-    $('#tempSaveBtn').on('click', function(event) {
-        event.preventDefault(); // 폼 제출 방지
-
-        // 유효성 검사 실패 시 처리 중단
+    // 폼 제출 시 검증 함수 호출 (등록 버튼 클릭 시)
+    document.getElementById("eventForm").addEventListener("submit", function (event) {
         if (!validateForm()) {
-            return false;
+            event.preventDefault(); // 폼 제출을 막음
         }
-
-        // 이벤트 시작일과 마감일이 비어 있으면 null로 처리
-        let eventStartDate = $('#eventStartDate').val();
-        let eventEndDate = $('#eventEndDate').val();
-
-        if (eventStartDate === '') {
-            $('#eventStartDate').val(null); // null로 설정
-        }
-        if (eventEndDate === '') {
-            $('#eventEndDate').val(null); // null로 설정
-        }
-
-        // 임시 저장 플래그 설정 및 폼 제출
-        $('#eventTempSave').val('true'); // 임시 저장 플래그 설정
-        $('#eventForm').attr('action', '/event/admin/tempSaveEvent'); // 임시 저장 경로 설정
-
-        // 폼 제출
-        $('#eventForm').submit();
-    });
-
-    // 등록 또는 수정 버튼 클릭 시 정식 등록 처리
-    $('#eventForm').on('submit', function() {
-        $('#eventTempSave').val('false'); // 기본적으로 정식 등록 처리
-
-        // 폼 액션 설정
-        if ($('#eventDTO').val() != null && $('#eventTempSave').val() === 'true') {
-            // 임시 저장 상태에서 정식 등록
-            $('#eventForm').attr('action', '/event/admin/create');
-        }
-
-        // 유효성 검사 실패 시 처리 중단
-        return validateForm();
     });
 });
+
+// 폼 검증 함수 (이벤트 제목만 검증)
+function validateForm() {
+    const eventTitle = document.getElementById("eventTitle").value;
+
+    if (eventTitle.trim() === "") {
+        alert("이벤트 제목을 입력하세요.");
+        return false;
+    }
+
+    return true; // 검증 통과 시 true 반환
+}

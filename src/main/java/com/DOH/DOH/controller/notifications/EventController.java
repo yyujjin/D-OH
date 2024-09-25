@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -67,7 +68,6 @@ public class EventController {
         return "notifications/eventList";
     }
 
-
     // 이벤트 작성(작성&수정) 페이지 렌더링
     @PostMapping("/admin/write")
     public String eventWriteForm(@RequestParam(value = "eventNum", required = false) Long eventNum, Model model, RedirectAttributes redirectAttributes) {
@@ -100,11 +100,12 @@ public class EventController {
     @PostMapping("/admin/create")
     public String eventWrite(@ModelAttribute EventDTO eventDTO, Model model,
                              @RequestParam(value = "file", required = false) MultipartFile file,
-                             @RequestParam("existingImageName") String existingImageName,  // 기존 이미지 이름 받기
+                             @RequestParam(value = "existingImageName", required = false) String existingImageName,  // 기존 이미지 이름 받기
                              @RequestParam(value = "eventCreateTime", required = false) String eventCreateTimeStr,
                              @RequestParam(value = "eventStartDate", required = false) String eventStartDateStr,
                              @RequestParam(value = "eventEndDate", required = false) String eventEndDateStr,
                              RedirectAttributes redirectAttributes) throws Exception {
+
         log.info("이벤트 작성 요청 - 제목: {}", eventDTO.getEventTitle());
 
         // 관리자 권한 확인
@@ -116,63 +117,82 @@ public class EventController {
         // 세션에서 userNum 설정
         eventDTO.setUserNum(Math.toIntExact(userSessionService.userNum()));
 
-        // 등록 시 필수 필드 체크 (임시 저장은 필드가 없어도 저장 가능)
-        if (!eventDTO.isEventTempSave() &&
-                (eventCreateTimeStr == null || eventStartDateStr == null || eventEndDateStr == null)) {
-            redirectAttributes.addFlashAttribute("errorMessage", "생성일과 이벤트 기간을 모두 입력해 주세요.");
-            return "redirect:/event/admin/write";
+        // 날짜 필드 검증 - null 또는 빈 값 체크
+//        if ((eventCreateTimeStr == null || eventCreateTimeStr.trim().isEmpty()) ||
+//                (eventStartDateStr == null || eventStartDateStr.trim().isEmpty()) ||
+//                (eventEndDateStr == null || eventEndDateStr.trim().isEmpty())) {
+//            redirectAttributes.addFlashAttribute("errorMessage", "생성일, 시작일, 종료일을 모두 입력해 주세요.");
+//            return "redirect:/event/admin/write";
+//        }
+        // 필수 필드 체크 - 날짜가 비어있는지 확인
+        if (eventCreateTimeStr == null || eventStartDateStr == null || eventEndDateStr == null ||
+                eventCreateTimeStr.isEmpty() || eventStartDateStr.isEmpty() || eventEndDateStr.isEmpty()) {
+            redirectAttributes.addFlashAttribute("errorMessage", "생성일, 시작일, 종료일을 모두 입력해 주세요.");
+            return "redirect:/event/admin/write";  // 다시 작성 페이지로 리다이렉트
         }
 
-        // 날짜 변환 로직 (임시 저장 시에는 생략 가능)
-        if (eventCreateTimeStr != null) {
-            eventDTO.setEventCreateTime(DateUtils.parseStringToLocalDate(eventCreateTimeStr));
-        }
-        if (eventStartDateStr != null) {
-            eventDTO.setEventStartDate(DateUtils.parseStringToLocalDate(eventStartDateStr));
-        }
-        if (eventEndDateStr != null) {
-            eventDTO.setEventEndDate(DateUtils.parseStringToLocalDate(eventEndDateStr));
-        }
+
+        // 날짜 변환 로직
+        setEventDates(eventDTO, eventCreateTimeStr, eventStartDateStr, eventEndDateStr);
 
         // 이미지 처리 로직
-        if (file != null && !file.isEmpty()) {
-            // 새로운 파일 업로드
-            try {
-                String uploadedFileName = s3FileUploadService.uploadFileToS3Bucket(file);
-                eventDTO.setEventImageName(uploadedFileName); // 새로운 이미지 이름 설정
-                log.info("새로운 파일이 S3에 업로드되었습니다: {}", uploadedFileName);
-
-                // 기존 이미지 삭제
-                if (existingImageName != null && !existingImageName.isEmpty()) {
-                    try {
-                        s3FileUploadService.deleteFile(existingImageName);
-                        log.info("기존 이미지가 S3에서 삭제되었습니다: {}", existingImageName);
-                    } catch (Exception e) {
-                        log.error("S3에서 기존 이미지를 삭제하는 데 실패했습니다: {}", e.getMessage());
-                    }
-                }
-            } catch (Exception e) {
-                throw new RuntimeException("새로운 이미지를 업로드하는 데 실패했습니다.", e);
-            }
-        } else {
-            // 파일이 비어 있는 경우 기존 이미지를 유지
-            eventDTO.setEventImageName(existingImageName);
-            log.info("이미지 수정이 없으므로 기존 이미지를 유지합니다: {}", existingImageName);
-        }
+        processEventImage(file, existingImageName, eventDTO);
 
         // 이벤트 저장 또는 수정 처리
-        if (eventDTO.getEventNum() == null) {
-            // 새 이벤트 등록
-            eventService.eventRegister(eventDTO, model);
-            log.info("이벤트 등록 완료 - 제목: {}", eventDTO.getEventTitle());
-        } else {
-            // 기존 이벤트 수정
-            eventService.eventUpdate(eventDTO, model);
-            log.info("이벤트 수정 완료 - eventNum: {}", eventDTO.getEventNum());
-        }
+        saveOrUpdateEvent(eventDTO, model);
 
         addMessage(redirectAttributes, "이벤트가 성공적으로 등록되었습니다.", false);
         return "redirect:/event/list";
+    }
+
+    private void setEventDates(EventDTO eventDTO, String eventCreateTimeStr, String eventStartDateStr, String eventEndDateStr) {
+        if (eventCreateTimeStr != null && !eventCreateTimeStr.isEmpty()) {
+            eventDTO.setEventCreateTime(DateUtils.parseStringToLocalDate(eventCreateTimeStr));
+        } else {
+            eventDTO.setEventCreateTime(LocalDate.now());  // 기본값으로 현재 날짜 설정
+        }
+
+        if (eventStartDateStr != null && !eventStartDateStr.isEmpty()) {
+            eventDTO.setEventStartDate(DateUtils.parseStringToLocalDate(eventStartDateStr));
+        } else {
+            eventDTO.setEventStartDate(LocalDate.now());  // 기본값으로 현재 날짜 설정
+        }
+
+        if (eventEndDateStr != null && !eventEndDateStr.isEmpty()) {
+            eventDTO.setEventEndDate(DateUtils.parseStringToLocalDate(eventEndDateStr));
+        } else {
+            eventDTO.setEventEndDate(LocalDate.now().plusDays(7));  // 기본값으로 7일 후 날짜 설정
+        }
+    }
+
+
+    private void processEventImage(MultipartFile file, String existingImageName, EventDTO eventDTO) {
+        if (file != null && !file.isEmpty()) {
+            try {
+                String uploadedFileName = s3FileUploadService.uploadFileToS3Bucket(file);
+                eventDTO.setEventImageName(uploadedFileName); // 새로운 이미지 설정
+                log.info("새로운 파일이 S3에 업로드되었습니다: {}", uploadedFileName);
+
+                if (existingImageName != null && !existingImageName.isEmpty()) {
+                    s3FileUploadService.deleteFile(existingImageName);
+                    log.info("기존 이미지가 S3에서 삭제되었습니다: {}", existingImageName);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException("이미지 업로드 중 오류 발생", e);
+            }
+        } else {
+            eventDTO.setEventImageName(existingImageName); // 파일이 없으면 기존 이미지 유지
+        }
+    }
+
+    private void saveOrUpdateEvent(EventDTO eventDTO, Model model) {
+        if (eventDTO.getEventNum() == null) {
+            eventService.eventRegister(eventDTO, model); // 새 이벤트 등록
+            log.info("이벤트 등록 완료 - 제목: {}", eventDTO.getEventTitle());
+        } else {
+            eventService.eventUpdate(eventDTO, model); // 기존 이벤트 수정
+            log.info("이벤트 수정 완료 - eventNum: {}", eventDTO.getEventNum());
+        }
     }
 
     // 이벤트 삭제 처리
@@ -228,27 +248,19 @@ public class EventController {
     // 이벤트 임시 저장 처리 (임시 저장 또는 수정 처리)
     @PostMapping("/admin/tempSaveEvent")
     public String saveTempEvent(@ModelAttribute EventDTO eventDTO, RedirectAttributes redirectAttributes) throws Exception {
-        String userEmail = userSessionService.userEmail();
-        String userRole = userSessionService.userRole();
-        Long userNum = userSessionService.userNum();  // 세션에서 userNum 가져오기
-
-        // 권한 검사: 관리자만 임시 저장 가능
-        if (!userEmail.equals("admin") && !userRole.equals("ROLE_ADMIN")) {
+        if (!isAdminUser()) {
             redirectAttributes.addFlashAttribute("errorMessage", "이벤트 임시 저장 권한이 없습니다.");
             return "redirect:/event/list";
         }
 
-        // 임시 저장된 이벤트가 3개 이상이면 저장하지 않고 경고 메시지
         List<EventDTO> tempEventList = eventService.getTempEventList();
         if (tempEventList.size() >= 3) {
             redirectAttributes.addFlashAttribute("errorMessage", "임시 저장된 이벤트는 최대 3개까지만 가능합니다.");
             return "redirect:/event/list";
         }
 
-        // 이벤트 작성자의 userNum 설정
-        eventDTO.setUserNum(Math.toIntExact(userNum));
+        eventDTO.setUserNum(Math.toIntExact(userSessionService.userNum()));
 
-        // 임시 저장된 이벤트 수정 로직 추가
         if (eventDTO.getEventNum() == null) {
             eventService.saveTempEvent(eventDTO); // 새로운 임시 저장 이벤트
             log.info("이벤트 임시 저장 완료 - 제목: {}", eventDTO.getEventTitle());
