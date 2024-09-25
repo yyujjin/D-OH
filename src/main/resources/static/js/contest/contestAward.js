@@ -46,6 +46,7 @@ function submitAward() {
         data: JSON.stringify(formData),  // 데이터를 JSON으로 변환하여 전송
         success: function(response) {
             alert('시상식 정보가 성공적으로 제출되었습니다!');
+            window.location.href = '/contest/list';
         },
         error: function(xhr, status, error) {
             console.error('AJAX 요청 실패: ', error);
