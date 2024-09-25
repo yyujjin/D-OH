@@ -37,4 +37,6 @@ public class ContestUploadDTO {
     private int conHit; // 조회수
 
     private String orderNumber; // 주문번호
+
+    private String userEmail; //작성한 유저 이메일
 }

@@ -25,5 +25,11 @@ public interface ContestUploadMapper {
 
     // 오늘 날짜로 콘테스트 카운트 조회
     Integer findContestCountByDate(@Param("formattedDate") String formattedDate);
+
+    //컨테스트 지원자 목록 가져오기
+    List<String>getContestApplicants(Long contestNum);
+
+    //유저 이메일로 생성한 컨테스트 목록 조회하기
+    List<ContestUploadDTO>getContestsByUserEmail(String userEmail);
 }
 
