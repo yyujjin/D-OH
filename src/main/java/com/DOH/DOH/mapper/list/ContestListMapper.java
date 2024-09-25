@@ -25,4 +25,7 @@ public interface ContestListMapper {
     void addScrap(@Param("userEmail") String uerEmail,@Param("contestId") int contestId);
     void deleteScrap(@Param("userEmail") String uerEmail,@Param("contestId") int contestId);
 
+    ContestListDTO contestInfo(Long id);
+    int getApplyCount(Long id);
+
 }

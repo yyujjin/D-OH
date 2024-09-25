@@ -52,17 +52,40 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 15px;
+        gap: 20px;
         list-style-type: none;/*li 태그 점 없애기*/
         padding-left: 0;
+        &:first-child
+        {
+            margin-left: 10px;
+        }
     }
 
-    input[type="checkbox"]
-    { 
-        appearance: none; /* 기본 브라우저 스타일 제거 */
-        -webkit-appearance: none; /* WebKit 기반 브라우저에서 기본 스타일 제거 */
-        outline: none;
-    } 
+    label
+    {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 5px 10px;
+    }
+
+    .fa-check
+    {
+        display: none;
+        color: var(--main-color);
+    }
+
+    .type.active
+    {
+        border: 1px solid var(--main-color);
+        border-radius: 6px;
+    }
+
+    .type.active .fa-check
+    {
+        display: flex;
+    }
 
     button
     {
