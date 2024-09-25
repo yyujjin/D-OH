@@ -44,4 +44,9 @@
     <select id="getContestsByUserEmail" parameterType="String" resultType="com.DOH.DOH.dto.contest.ContestUploadDTO">
         SELECT * FROM DOH.contest_Upload where userEmail = #{userEmail};
     </select>
+
+    <!--모집 마감됐는지 isFinished 컬럼으로 확인하기 -->
+    <select id="isFinishedContest" parameterType="Long" resultType="java.lang.Integer">
+        SELECT isFinished FROM DOH.contest_Upload where id = #{conNum};
+    </select>
 </mapper>

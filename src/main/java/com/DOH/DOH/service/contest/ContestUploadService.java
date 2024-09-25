@@ -29,4 +29,7 @@ public interface ContestUploadService {
 
     //컨테스트 모집 종료
     void finishContest(Long conNum);
+
+    //모집 마감됐는지 isFinished 컬럼으로 확인하기
+    int isFinishedContest(Long conNum);
 }

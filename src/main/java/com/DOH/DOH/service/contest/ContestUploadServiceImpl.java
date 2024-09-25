@@ -79,4 +79,9 @@ public class ContestUploadServiceImpl implements ContestUploadService {
     public void finishContest(Long conNum) {
         contestUploadMapper.finishContest(conNum);
     }
+
+    @Override
+    public int isFinishedContest(Long conNum) {
+        return contestUploadMapper.isFinishedContest(conNum);
+    }
 }
