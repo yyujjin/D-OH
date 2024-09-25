@@ -94,7 +94,7 @@
     color: white;
 }
 
-   
+
 .expired {
     opacity: 0.5; /* 불투명도 설정 */
     pointer-events: none; /* 클릭 방지 */
