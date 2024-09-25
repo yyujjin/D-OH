@@ -3,9 +3,9 @@
     --primary-color: #212529;
     --primary-hover-color: rgba(193, 192, 255);
     --primary-box-shadow: rgba(193, 192, 255, 0.5);
-    --danger-color: rgb(255, 99, 71);
+    --danger-color: rgb(193, 192, 255);
     /* 삭제 버튼을 위한 색상 */
-    --danger-hover-color: rgba(255, 99, 71, 0.8);
+    --danger-hover-color: rgba(193, 192, 255, 0.5);
 }
 
 /* 컨테이너가 페이지의 남은 공간을 차지하게 설정 */
@@ -52,32 +52,26 @@
 /* 버튼 그룹 (일반 및 임시 저장 공지사항에서 동일 적용) */
 .buttons {
     display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 10px; /* 버튼 그룹의 상단 간격을 줄임 */
+    justify-content: flex-end; /* 버튼들을 오른쪽으로 정렬 */
+    gap: 10px; /* 버튼 사이의 간격 추가 */
+    margin-top: 10px;
 }
 
-.buttons a, .buttons button {
+.buttons .btn-primary, .buttons .btn-secondary, .buttons .btn-danger {
     background-color: var(--primary-color);
     color: white;
-    padding: 8px 15px; /* 버튼 내부 여백을 줄임 */
+    padding: 8px 15px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    text-align: center;
     transition: background-color 0.3s ease-in-out;
 }
 
-.buttons a:hover, .buttons button:hover {
+.buttons .btn-primary:hover, .buttons .btn-secondary:hover, .buttons .btn-danger:hover {
     background-color: var(--primary-hover-color);
 }
 
-/* 삭제 버튼 스타일 */
-.buttons .btn-danger {
-    background-color: var(--danger-color);
-    border: none;
-}
-
+/* 삭제 버튼 호버 효과 */
 .buttons .btn-danger:hover {
     background-color: var(--danger-hover-color);
 }
@@ -128,3 +122,15 @@
 .temp-buttons .btn-danger:hover, .buttons .btn-danger:hover {
     background-color: var(--danger-hover-color);
 }
+
+/* 기본 상태의 테이블 행 */
+.toggle-row {
+    cursor: pointer;
+}
+
+/* 배경색을 강제 적용하는 선택자 */
+tr.toggle-row.active-toggle td {
+    background-color: var(--primary-hover-color) !important;
+}
+
+
