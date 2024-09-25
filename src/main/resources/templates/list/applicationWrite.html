@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/fragments/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <title>페이지</title>
+
+    <!-- jQuery 추가 -->
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+            integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 커스텀 CSS 및 JS 추가 -->
+    <link rel="stylesheet" th:href="@{/css/list/applicationWrite.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/footer.css}">
+    <script th:src="@{/js/list/applicationWrite.js}"></script>
+
+</head>
+<th:block layout:fragment="content">
+    <main>
+        <div class="mainWarap">
+            <div class="contestWarap">
+                <div class="contestInfo">
+                    <div class="day">
+                        <div class="endDate info" th:text="${contestDTO.endDate}">8일</div>
+                        <div class="type info" th:text="${contestDTO.conType}">공공 기관</div>
+                    </div>
+                    <div class="contitle" th:text="${contestDTO.conTitle}">[포항문화재단] 포항국제불빛축체 브랜딩 콘테스트</div>
+                    <div class="applyInfo">
+                        <div class="info">총 상금 <span th:text="${contestDTO.totalPrice}">300</span>만원</div>
+                        <div class="info">참여작 <span th:text="${count}">9</span>개</div>
+                    </div>
+                </div><!--contestInfo-->
+                <a href="#" th:href="@{/contest/view(contestNum=${contestDTO.id})}">
+                    <div class="briefing">브리핑 확인하기</div>
+                </a>
+            </div><!--contestWarap-->
+            
+            
+            <section>
+                <form>
+                    <input type="hidden" id="conNum" name="conNum" th:value="${contestDTO.id}">
+                    <div class="applyContent">
+                        <input type="text" name="applyTitle" placeholder="제목을 입력해주세요." required>
+                        <div class="contArea">
+                            <div class="imgArea"></div>
+                            <div class="textArea"></div>
+                        </div>
+                    </div>
+                    <!-- </section> -->
+                    <!-- <section> -->
+                    <div class="applyWarap">
+                        <div div class="applyInput">
+                            <div class="InputArea">
+<!--                                <label for="image" class="imageUpload" onclick="imgUpload()">-->
+                                <label for="image" class="imageUpload">
+                                    <div class="content">
+                                        <span class="Image">
+                                            <i class="fa-regular fa-image"></i>
+                                        </span>
+                                        <div class="inputText">이미지 추가</div>
+                                    </div>
+                                </label>
+                                <input type="file" name="file" id="image" multiple>
+                            </div>
+                            <div class="InputArea">
+                                <div class="content text" th:onclick="addText()">
+                                    <span class="Image">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </span>
+                                    <div class="inputText" name="applyContent">텍스트 추가</div>
+                                </div>
+                            </div>
+                        </div><!--applyInput-->
+<!--                        <button type="button" class="temporary">-->
+<!--                          임시 저장-->
+<!--                        </button>-->
+                        <button type="submit" class="apply">
+                          지원하기
+                        </button>
+
+                    </div><!--applyWarap-->
+                </form>
+            </section>
+        </div>
+    </main>
+
+</th:block>
+
+</html>

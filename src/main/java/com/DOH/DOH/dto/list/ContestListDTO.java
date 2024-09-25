@@ -6,6 +6,7 @@ import lombok.Data;
 public class ContestListDTO {
 
     private int rownum;//콘테스트 번호 역순
+//    private Long id;//콘테스트 번호 : 타입 불일치로 변경함
     private int id;//콘테스트 번호
     private String conType;//콘테스트 유형(업종)
     private String conTitle;//콘테스트 제목

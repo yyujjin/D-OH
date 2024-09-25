@@ -54,4 +54,7 @@ public class CustomUserDetails implements UserDetails {
         return registerDTO.getNickName();
     }
 
+    public Long getUserNum() {
+        return (long) registerDTO.getUserNum();
+    }
 }

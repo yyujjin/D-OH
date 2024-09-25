@@ -3,17 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0.3//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.DOH.DOH.mapper.contest.ContestUploadMapper">
-    <insert id="insertContest" parameterType="com.DOH.DOH.dto.contest.ContestUploadDTO">
+
+    <insert id="insertContest" parameterType="com.DOH.DOH.dto.contest.ContestUploadDTO" useGeneratedKeys="true" keyProperty="conNum">
         INSERT INTO contest_Upload (conCompanyName, conOneLiner, conType, conLogoName, conBriefing,
                                     conTitle,
                                     conFirstPrice, conSecondPrice, conThirdPrice,
                                     conFirstPeople, conSecondPeople, conThirdPeople,
-                                    conStartDate, conEndDate)
+                                    conStartDate, conEndDate, orderNumber, createdAt)
         VALUES (#{conCompanyName}, #{conOneLiner}, #{conType}, #{conLogoName}, #{conBriefing},
                 #{conTitle},
                 #{conFirstPrice}, #{conSecondPrice}, #{conThirdPrice},
                 #{conFirstPeople}, #{conSecondPeople}, #{conThirdPeople},
-                #{conStartDate}, #{conEndDate})
+                #{conStartDate}, #{conEndDate}, #{orderNumber}, NOW())
     </insert>
 
     <!-- ID로 콘테스트 조회 -->
@@ -21,4 +22,20 @@
         SELECT * FROM contest_Upload WHERE id = #{conNum}
     </select>
 
+    <!-- 오늘 날짜로 콘테스트 카운트 조회 -->
+    <select id="findContestCountByDate" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM contest_Upload
+        WHERE DATE(createdAt) = #{formattedDate}
+    </select>
+
+    <!--컨테스트 지원자 목록 가져오기-->
+    <select id="getContestApplicants" parameterType="Long" resultType="String">
+        select userEmail from DOH.apply_contest where conNum=#{contestNum};
+    </select>
+
+    <!--유저 이메일로 생성한 컨테스트 목록 가져오기-->
+    <select id="getContestsByUserEmail" parameterType="String" resultType="com.DOH.DOH.dto.contest.ContestUploadDTO">
+        SELECT * FROM DOH.contest_Upload where userEmail = #{userEmail};
+    </select>
 </mapper>

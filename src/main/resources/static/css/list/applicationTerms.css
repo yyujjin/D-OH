@@ -1,4 +1,3 @@
-@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 
 :root
 {
@@ -31,11 +30,14 @@ main
 /* 콘테스트 정보 영역 */
 .contestWarap
 {
+    width: 100%;
     height: 114px;
     padding: 15px 35px 15px 35px;
+    box-sizing:border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 40px;
 }
 
 .day, .applyInfo
@@ -75,32 +77,32 @@ a
     color: var(--color-black);
     text-decoration-line: none;
 }
+
 .briefing
 {
-    font-size: var(--font-size-20);
-    padding: 15px 20px;
+    font-size: var(--font-size-16);
+    padding: 10px 20px;
     border: 1px solid var(--line-gray);
     border-radius: 6px;
+    &:hover
+    {
+        border: 1px solid var(--color-black);
+        background: var(--color-black);
+        color: var(--color-white);
+    }
 }
 
 /* section */
 section
 {
-    /* display: flex;
-    justify-content: center; */
     margin-bottom: 90px;
 }
 
-/* .sectionWrap
-{
-    display: flex;
-    justify-content: center;
-
-} */
 .titleWrap
 {
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 .sectionBri .title
@@ -119,11 +121,8 @@ section
 
 /* 약관 동의 항목 */
 .contentWrap
-/* .contentWrap */
 {
     width: 100%;
-    /* width: 80%; */
-    /* display: block; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -166,9 +165,13 @@ section
 }
 
 /* 콘테스트 이용약관 동의 버튼 영역 */
+.agreeButton
+{
+    margin-top:40px;
+}
+
 .agree
 {
-    /* font-weight: 500; */
     color: var(--color-black);
     margin-bottom: 15px;
 }
@@ -188,8 +191,15 @@ section
     width: 92px;
     height: 45px;
     border-radius: 6px;
+    gap : 5px;
     background-color: var(--line-gray);
     cursor: pointer;
+    &:hover
+    {
+        color: var(--color-white);
+        background: var(--main-color);
+        border: 1px solid var(--main-color);
+    }
 }
 
 /* 이용 약관 부분 */
@@ -202,12 +212,7 @@ section
     line-height: 1.6; /* 줄 간격 조정 */
     white-space: pre-line; /* 줄바꿈과 연속 공백을 유지 */
     font-size: var(--font-size-14);
+    overflow: scroll;
+    height: 200px;
 }
 
-
-/* footer 영역 */
-footer
-{
-    height: 322px;
-    border-top: 1px solid var(--line-gray);
-}

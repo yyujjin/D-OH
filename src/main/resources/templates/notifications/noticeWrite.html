@@ -1,38 +1,44 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/fragments/layout}">
 
 <head>
-    <title>공지사항 등록</title>
+    <title>공지사항 등록 & 수정</title>
     <link rel="stylesheet" th:href="@{/css/notifications/noticeWrite.css}">
     <script th:src="@{/js/notifications/noticeWrite.js}"></script>
 </head>
 <th:block layout:fragment="content">
     <!-- Main Content -->
     <div class="container">
-        <h2>공지사항 등록</h2>
-        <form id="noticeForm" th:action="@{/notice/register}" method="post">
+        <h2 th:text="${noticeDTO.noticeNum != null ? '공지사항 수정' : '공지사항 등록'}"></h2>
+        <form id="noticeForm" th:action="@{/notice/admin/register}" method="post">
             <div class="form-group">
                 <label for="date">날짜</label>
                 <input type="date" id="date" name="date" class="form-control"
-                    th:value="${#dates.format(new java.util.Date(), 'yyyy-MM-dd')}" required>
+                       th:value="${noticeDTO.noticeCreateTime != null ? #dates.format(noticeDTO.noticeCreateTime, 'yyyy-MM-dd') : #dates.format(new java.util.Date(), 'yyyy-MM-dd')}"
+                       readonly required>
             </div>
             <div class="form-group">
                 <label for="noticeTitle">제목</label>
-                <input type="text" id="noticeTitle" name="noticeTitle" class="form-control" placeholder="제목을 입력하세요" required>
+                <input type="text" id="noticeTitle" name="noticeTitle" class="form-control" placeholder="제목을 입력하세요"
+                       th:value="${noticeDTO.noticeTitle}" required>
             </div>
             <div class="form-group">
                 <label for="content">내용</label>
-                <textarea id="content" name="noticeContent" class="form-control" placeholder="내용을 입력하세요"></textarea>
+                <textarea id="content" name="noticeContent" class="form-control" placeholder="내용을 입력하세요" th:text="${noticeDTO.noticeContent}"></textarea>
             </div>
             <!-- hidden input to handle temporary save state -->
-            <input type="hidden" id="noticeTempSave" name="noticeTempSave" value="false">
+            <input type="hidden" id="noticeTempSave" name="noticeTempSave" th:value="${noticeDTO.noticeTempSave ? 'true' : 'false'}">
+            <!-- hidden input for noticeNum in case of update -->
+            <input type="hidden" id="noticeNum" name="noticeNum" th:value="${noticeDTO.noticeNum}">
 
             <div class="btn-group">
-                <a th:href="@{/notice/list}" class="btn-secondary">목록보기</a>
-                <button type="submit" class="btn-primary">등록</button>
-                <button type="button" class="btn-secondary" id="tempSaveBtn">임시 저장</button>
+                <a th:href="@{/notice/list}" class="btn btn-secondary">목록보기</a>
+                <button type="submit" class="btn btn-primary"
+                        th:text="${noticeDTO.noticeNum != null and !noticeDTO.noticeTempSave ? '수정' : '등록'}"></button>
+                <button type="button" class="btn btn-secondary" id="tempSaveBtn"
+                        th:text="${noticeDTO.noticeTempSave ? '수정' : '임시 저장'}"
+                        onclick="handleTempSave()"></button>
             </div>
         </form>
     </div>
