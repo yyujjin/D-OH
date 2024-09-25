@@ -48,7 +48,7 @@
                             <img class="cardImage"  th:src="${list.imageUrl} == null ? '/img/default_image.png' : ${list.imageUrl}">
 <!--                            </div>-->
                             <div class="content">
-                                <div class="endDate"><span th:text="${list.endDate}">8</span>일 남음</div>
+                                <div class="endDate" th:classappend="${list.endDate < 4} ? 'active' : ''"><span th:text="${list.endDate}">8</span>일 남음</div>
                                 <div class="conTitle" th:text="${list.conTitle}">글로벌 한방 브랜드 네이밍 콘테스트</div>
                                 <div class="conSub">
                                     <div class="context" th:text="${list.conCompanyName}">헬스마켓</div>
@@ -81,7 +81,7 @@
                                 </div>
                             </div>
                             <div class="importData">
-                                <div class="endDate"><span th:text="${list.endDate}">8</span>일 남음</div>
+                                <div class="endDate" th:classappend="${list.endDate < 4} ? 'active' : ''"><span th:text="${list.endDate}">8</span>일 남음</div>
                                 <div class="price">상금 <span th:text="${list.totalPrice}">20</span>만원</div>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                                 </div>
                             </div>
                             <div class="importData">
-                                <div class="endDate"><span th:text="${list.endDate}">8</span>일 남음</div>
+                                <div class="endDate" th:classappend="${list.endDate < 4} ? 'active' : ''"><span th:text="${list.endDate}">8</span>일 남음</div>
                                 <div class="price">상금 <span th:text="${list.totalPrice}">20</span>만원</div>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                                 </div>
                             </div>
                             <div class="importData">
-                                <div class="endDate"><span th:text="${list.endDate}">8</span>일 남음</div>
+                                <div class="endDate" th:classappend="${list.endDate < 4} ? 'active' : ''"><span th:text="${list.endDate}">8</span>일 남음</div>
                                 <div class="price">상금 <span th:text="${list.totalPrice}">20</span>만원</div>
                             </div>
                         </div>

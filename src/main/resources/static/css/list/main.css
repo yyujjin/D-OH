@@ -145,6 +145,11 @@ a {
     margin-bottom: 8px;
 }
 
+.endDate.active
+{
+    background: var(--main-color);
+}
+
 .conTitle {
     font-size: var(--font-size-16);
     font-weight: 700;
