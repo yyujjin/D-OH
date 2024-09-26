@@ -80,4 +80,11 @@
     <select id="getApplyCount" resultType="int">
         select count(*) from apply_contest where conNum = ${id}
     </select>
+
+    <!-- conNum과 userEmail을 기반으로 작성된 글 조회 -->
+    <select id="findApplyByConNumAndUserEmail" parameterType="map" resultType="com.DOH.DOH.dto.list.ApplyDTO">
+        SELECT conNum, userEmail, applyTitle, applyContent, applyDate, imageUrl
+        FROM apply_contest
+        WHERE conNum = #{conNum} AND userEmail = #{userEmail}
+    </select>
 </mapper>
