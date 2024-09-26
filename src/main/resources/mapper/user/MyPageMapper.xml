@@ -4,12 +4,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.DOH.DOH.mapper.user.MyPageMapper">
     <select id="findByuserEmail" parameterType="hashmap" resultType="com.DOH.DOH.dto.user.MyPageDTO">
-        SELECT u.userNum, u.userEmail
+        SELECT m.id, m.userEmail, u.userNum, u.userEmail, m.profilePhoto AS profilePhotoPath
         FROM mypage m
                  JOIN user_info u ON u.userEmail = m.userEmail
         WHERE m.userEmail = #{userEmail};
     </select>
+
+    <select id="profilePhoto" resultType="com.DOH.DOH.dto.user.MyPageDTO">
+        SELECT id, userEmail, profilePhoto AS profilePhotoPath FROM mypage WHERE userEmail = #{userEmail}
+    </select>
     <insert id="insertUserEmail" parameterType="String">
         INSERT INTO mypage (userEmail) VALUES(#{userEmail})
     </insert>
+
+    <update id="insertProfilePhoto" parameterType="com.DOH.DOH.dto.user.MyPageDTO">
+        UPDATE mypage
+        SET profilePhoto = #{profilePhotoPath}
+        WHERE userEmail = #{userEmail}
+    </update>
 </mapper>

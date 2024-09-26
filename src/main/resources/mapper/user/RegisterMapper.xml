@@ -16,4 +16,19 @@
         FROM user_info
         WHERE userEmail = #{userEmail};
     </select>
+
+    <!-- DB에 이메일 조회 -->
+    <select id="checkUserEmail" parameterType="String" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM user_info
+        WHERE userEmail = #{userEmail}
+    </select>
+
+    <!-- DB에 닉네임 조회 -->
+    <select id="checkNickName" parameterType="String" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM user_info
+        WHERE nickName = #{nickName}
+    </select>
+
 </mapper>

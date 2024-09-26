@@ -34,7 +34,34 @@
     <main>
         <div class="container">
             <div class="sidebar">
-                <img th:src="@{/img/quokka.jpg}" alt="quokka"><br>
+                <form method="post" action="/users/mypage" enctype="multipart/form-data">
+                    <input type="hidden" name="id" th:value="${myPageDTO?.id}">
+                    <input type="hidden" name="userEmail" th:value="${myPageDTO?.userEmail}">
+                    <!-- 프로필 사진 경로가 null일 경우 기본 이미지 표시 -->
+                    <label class="profilePhoto" for="profilePhotoInput" title="파일 업로드">
+                        <img id="profilePreview2" th:src="${myPageDTO.profilePhotoPath}" alt="마이페이지 프로필 사진">
+                    </label>
+                    <input type="file" accept="image/*" name="profilePhoto" id="profilePhotoInput" onchange="previewImage2(event)">
+                    <button type="submit" class="submit-button">이미지 저장</button>
+                </form>
+                <script>
+                    // 이미지 미리보기
+                    function previewImage2(event) {
+                        const file = event.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                const output = document.getElementById('profilePreview2');
+                                if (output) {
+                                    output.src = e.target.result;  // 이미지가 로드되면 미리보기 설정
+                                } else {
+                                    console.error("profilePreview 요소를 찾을 수 없습니다.");
+                                }
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    }
+                </script>
                 <div class="username">
                     <p th:if="${profile != null and profile?.userNickName != null}" th:text="${profile?.userNickName}"></p>
                 </div>

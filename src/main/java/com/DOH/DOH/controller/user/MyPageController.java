@@ -29,7 +29,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.*;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
@@ -81,6 +83,28 @@ public class MyPageController {
         model.addAttribute("myPageDTO", myPageDTO);
         model.addAttribute("profile", profile);
         return "user/MyPage";
+    }
+    @PostMapping("/users/mypage")
+    public String postmypage(@RequestParam("profilePhoto") MultipartFile file,Model model, MyPageDTO myPageDTO, MyPageProfileDTO profile) throws IOException {
+        //유저 이메일 가져오기
+        String userEmail = userSessionService.userEmail();
+        MyPageDTO existingMyPage = myPageService.findByuserEmail(userEmail);
+
+        if (existingMyPage == null) {
+            log.error("{}에게 존재하지 않습니다.", userEmail);
+            return "redirect:/users/mypage"; // 에러 페이지로 리디렉션하거나 적절한 처리
+        }
+        if (file != null && !file.isEmpty()) {
+            String newFileName = uploadFileToS3Bucket(file);
+            myPageDTO.setProfilePhotoPath(newFileName);
+        }
+        profile.setUserEmail(userEmail);
+        myPageService.insertProfilePhoto(myPageDTO);
+        log.info("마이페이지 프로필 사진2323 : {}", myPageDTO.getProfilePhotoPath());
+
+        model.addAttribute("profilePhotoPath", myPageDTO.getProfilePhotoPath());
+        model.addAttribute("myPageDTO", myPageDTO);
+        return "redirect:/users/mypage";
     }
 
     @GetMapping("/users/mypage/portfolio")
