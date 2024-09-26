@@ -83,4 +83,24 @@ public class ApplyController {
         contestListService.saveContest(applyDTO);
         return ResponseEntity.ok().build();
     }
+
+    // conNum과 userEmail로 작성된 글 상세보기 페이지 로드
+    @GetMapping("/application/detail/{conNum}/{userEmail}")
+    public String getContestDetail(@PathVariable("conNum") Long conNum, @PathVariable("userEmail") String userEmail, Model model) {
+        log.info("컨테스트 상세보기 conNum: " + conNum + ", userEmail: " + userEmail);
+
+        // conNum과 userEmail로 ApplyDTO 정보 가져오기
+        ApplyDTO applyDTO = contestListService.getApplyByConNumAndUserEmail(conNum, userEmail);
+
+        if (applyDTO == null) {
+            log.warn("해당 컨테스트를 찾을 수 없습니다. conNum: " + conNum + ", userEmail: " + userEmail);
+            return "error/404";  // 404 페이지로 리다이렉트할 수 있음
+        }
+
+        // 모델에 컨테스트 상세정보 추가
+        model.addAttribute("applyDTO", applyDTO);
+
+        // HTML 파일 경로를 올바르게 설정
+        return "list/applyInfDetail";
+    }
 }

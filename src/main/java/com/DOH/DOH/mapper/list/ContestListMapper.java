@@ -32,4 +32,7 @@ public interface ContestListMapper {
     ContestListDTO contestInfo(Long id);
     int getApplyCount(Long id);
 
+    // conNum과 userEmail을 기반으로 글 조회
+    ApplyDTO findApplyByConNumAndUserEmail(@Param("conNum") Long conNum, @Param("userEmail") String userEmail);
+
 }

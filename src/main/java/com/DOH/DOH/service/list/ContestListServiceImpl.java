@@ -83,4 +83,10 @@ public class ContestListServiceImpl implements ContestListService {
         return contestListMapper.getApplyCount(id);
 
     }
+
+    // conNum과 userEmail을 기반으로 작성된 글을 조회하는 메서드
+    @Override
+    public ApplyDTO getApplyByConNumAndUserEmail(Long conNum, String userEmail) {
+        return contestListMapper.findApplyByConNumAndUserEmail(conNum, userEmail);
+    }
 }

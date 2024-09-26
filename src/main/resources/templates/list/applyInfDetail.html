@@ -1,121 +1,47 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="/fragments/layout">
 <head>
     <link rel="stylesheet" th:href="@{/css/list/applyInfDetail.css}">
     <script th:src="@{/js/list/applyInfDetail.js}"></script>
-</head>
+    <style>
 
+    </style>
+</head>
 <th:block layout:fragment="content">
     <main>
-        <div class="banner"></div><!--banner-->
+        <div class="mainWrap">
+            <div class="contestWrap">
+                <div class="contestInfo">
+                    <h1><p><strong>
+                        <span th:text="${applyDTO.applyTitle}"></span>
+                    </p></strong></h1>
 
-        <section>
-            <div class="mainWrap">
-                <div class="applyWrap">
-                    <div class="applyMain">
-                    <!-- 지원 or 포토폴리오 첫번 째 이미지가 출력될 부분 -->
-                    </div><!--applyMain-->
-                    <div class="applyTitle">
-                        <h5>작품 설명</h5>
-                    </div>
-                    <div class="applyContet">
-                    <!--지원 or 포토폴리오 내용이 출력될 부분 -->
-                        <ul>
-                            <li></li><!--image가 출력될 영역-->
-                        </ul>
-                    </div><!--applyContet-->
-                </div><!--applyWrap-->
-
-                <div class="sectionInfo">
-                    <div class="infoArea">
-                        <div class="info">
-                            로고는 심플하고 강렬하게 기억되어야 합니다.
+                    <!-- 지원 정보 표시 -->
+                    <div class="applyDetails">
+                        <p><strong>이메일 </strong>
+                            <span th:text="${applyDTO.userEmail}"></span>
+                        </p>
+                        <p><strong>지원일 </strong>
+                            <span th:text="${#dates.format(applyDTO.applyDate, 'yyyy-MM-dd')}"></span>
+                        </p>
+                        <div class="applyContent" th:text="${applyDTO.applyContent}"></div>
+                        <!-- 이미지가 있을 경우 표시 -->
+                        <div class="applyImage" th:if="${applyDTO.imageUrl != null}">
+                            <p><strong>첨부 이미지</strong></p>
+                            <img th:src="@{${applyDTO.imageUrl}}" alt="첨부 이미지">
                         </div>
-                        <div class="info id">아이줌디자인</div>
                     </div>
 
-                    <div class="boxSection">
-                    <!-- <div class="box">
-                            <div class="boxContent">
-                                <div class="trophyArea">
-                                    <i class="fa-solid fa-medal"></i>
-                                    <div>1등</div>
-                                </div>
-                                <div class="awardPay">30만원</div>
-                            </div>
-                            <div class="buttonWrap">
-                                <button type="button">수상작으로 선정하기</button>
-                            </div>
-                        </div>box type_1 -->
-                        <!-- <div class="box">
-                            <div class="boxContent">
-                                <div class="trophyArea">
-                                    <i class="fa-solid fa-medal"></i>
-                                    <div>2등 <span>· 2</span>명</div>
-                                </div>
-                                <div class="awardPay">20만원</div>
-                            </div>
-                            <div class="buttonWrap">
-                                <button type="button">수상작으로 선정하기</button>
-                            </div>
-                        </div>box type_2 -->
-                        <div class="boxWrap">
-                            <div class="box">
-                                <div class="boxContent">
-                                    <div class="trophyArea">
-                                        <i class="fa-solid fa-medal"></i>
-                                        <div>1등</div>
-                                    </div>
-                                    <div class="awardPay">30만원</div>
-                                </div>
-                            </div><!--box-->
-                            <div class="choosePeople">선정 인원 : <span>1</span>명</div>
-
-                            <div class="buttonWrap">
-                                <button type="button">수상작으로 선정하기</button>
-                            </div>
-                        </div><!--boxWrap-->
-
-                        <div class="boxWrap">
-                            <div class="box">
-                                <div class="boxContent">
-                                    <div class="trophyArea">
-                                        <i class="fa-solid fa-medal"></i>
-                                        <div>2등</div>
-                                    </div>
-                                    <div class="awardPay">20만원</div>
-                                </div>
-                            </div><!--box-->
-                            <div class="choosePeople">선정 인원 : <span>2</span>명</div>
-
-                            <div class="buttonWrap">
-                                <button type="button">수상작으로 선정하기</button>
-                            </div>
-                        </div><!--boxWrap-->
-
-                        <div class="boxWrap">
-                            <div class="box">
-                                <div class="boxContent">
-                                    <div class="trophyArea">
-                                        <i class="fa-solid fa-medal"></i>
-                                        <div>3등</div>
-                                    </div>
-                                    <div class="awardPay">10만원</div>
-                                </div>
-                            </div><!--box-->
-                            <div class="choosePeople">선정 인원 : <span>3</span>명</div>
-
-                            <div class="buttonWrap">
-                                <button type="button">수상작으로 선정하기</button>
-                            </div>
-                        </div><!--boxWrap-->
-                    </div><!--boxSection-->
-                </div><!--sectionInfo-->
-            </div><!--mainWrap-->
-        </section>
+                    <!-- 버튼 -->
+                    <div class="buttonArea">
+                        <a th:href="@{/contest/view(contestNum=${applyDTO.conNum})}" class="btn">콘테스트 보기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
-
 </th:block>
 
 </html>
