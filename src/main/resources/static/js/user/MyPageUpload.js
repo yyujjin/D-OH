@@ -34,3 +34,39 @@ function previewImage(event) {
     };
     reader.readAsDataURL(file);
 }
+
+        //mypage.js
+
+            function viewAwardResult(conNum) {
+        $.ajax({
+            url: '/users/contest/award/result', // 요청할 서버의 URL
+            type: 'GET', // GET 요청 방식
+            data: { conNum: conNum }, // 쿼리스트링으로 conNum 전송
+            success: function(response) {
+
+                // 응답 결과에서 contestNum을 가져와서 URL에 포함
+                window.location.href = '/users/contest/result?contestNum=' + response.conNum;
+
+            },
+            error: function(xhr, status, error) {
+                alert("콘테스트가 진행 중입니다. 모집 기간 종료 후 결과를 확인할 수 있습니다!");
+            }
+        });
+    }
+
+    // 이미지 미리보기
+    function previewImage2(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const output = document.getElementById('profilePreview2');
+                if (output) {
+                    output.src = e.target.result;  // 이미지가 로드되면 미리보기 설정
+                } else {
+                    console.error("profilePreview 요소를 찾을 수 없습니다.");
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    }
