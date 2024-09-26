@@ -1,36 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="/fragments/layout">
 <head>
     <link rel="stylesheet" th:href="@{/css/list/applyInfDetail.css}">
     <script th:src="@{/js/list/applyInfDetail.js}"></script>
+    <style>
+
+    </style>
 </head>
 <th:block layout:fragment="content">
     <main>
         <div class="mainWrap">
             <div class="contestWrap">
                 <div class="contestInfo">
-                    <h1>지원서 상세보기</h1>
+                    <h1><p><strong>
+                        <span th:text="${applyDTO.applyTitle}"></span>
+                    </p></strong></h1>
 
                     <!-- 지원 정보 표시 -->
                     <div class="applyDetails">
-                        <p><strong>지원자 이메일:</strong> <span th:text="${applyDTO.userEmail}"></span></p>
-                        <p><strong>지원 제목:</strong> <span th:text="${applyDTO.applyTitle}"></span></p>
-                        <p><strong>지원 내용:</strong></p>
+                        <p><strong>이메일 </strong>
+                            <span th:text="${applyDTO.userEmail}"></span>
+                        </p>
+                        <p><strong>지원일 </strong>
+                            <span th:text="${#dates.format(applyDTO.applyDate, 'yyyy-MM-dd')}"></span>
+                        </p>
                         <div class="applyContent" th:text="${applyDTO.applyContent}"></div>
-
-                        <p><strong>지원 날짜:</strong> <span th:text="${#dates.format(applyDTO.applyDate, 'yyyy-MM-dd')}"></span></p>
-
-                        <!-- 이미지가 있으면 보여줌 -->
-                        <div class="applyImage">
-                            <p><strong>첨부 이미지:</strong></p>
-                            <img th:if="${applyDTO.imageUrl != null}" th:src="@{${applyDTO.imageUrl}}" alt="첨부 이미지" style="max-width: 100%;">
+                        <!-- 이미지가 있을 경우 표시 -->
+                        <div class="applyImage" th:if="${applyDTO.imageUrl != null}">
+                            <p><strong>첨부 이미지</strong></p>
+                            <img th:src="@{${applyDTO.imageUrl}}" alt="첨부 이미지">
                         </div>
                     </div>
 
                     <!-- 버튼 -->
                     <div class="buttonArea">
-                        <a href="#" th:href="@{/contest/view(contestNum=${applyDTO.conNum})}" class="btn btn-primary">콘테스트 보기</a>
+                        <a th:href="@{/contest/view(contestNum=${applyDTO.conNum})}" class="btn">콘테스트 보기</a>
                     </div>
                 </div>
             </div>
