@@ -35,8 +35,7 @@ public class securityConfig {
                 .formLogin((auth)-> auth.loginPage("/users/login")
                         .loginProcessingUrl("/users/login")
                         .defaultSuccessUrl("/", true)
-                        .failureUrl("/users/login")
-                        .failureUrl("/login?error=true")
+                        .failureUrl("/users/login?error=true")// 로그인 실패 시
                         .permitAll()
                 );
         http
