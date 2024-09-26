@@ -37,13 +37,6 @@ main
     width: 1200px;
 }
 
-.banner
-{
-    height: 100px;
-    background-color: var(--line-gray);
-    border-radius: 6px;
-}
-
 .listHead
 {
     height: 198px;
@@ -219,3 +212,41 @@ section
     font-size: var(--font-size-12);
     margin-bottom: 0;
 }
+
+/* 현재 페이지 링크 (활성화된 페이지) */
+.pagination .page-item.active .page-link {
+    background-color: black;
+    border-color: black;
+    color: white;
+    font-weight: bold;
+}
+
+/* 기본 페이지 링크 스타일 */
+.pagination .page-link {
+    color: black;
+}
+
+/* 페이지 링크 호버 시 스타일 */
+.pagination a:hover {
+    color: black;
+    background-color: white;
+    font-weight: bold;
+}
+
+/* 활성화된 페이지의 a 태그 스타일 */
+.pagination .active a {
+    font-weight: bold;
+    background-color: rgb(193, 192, 255);
+    color: black;
+}
+
+/*
+#ajax_area {
+ AJAX 결과를 표시할 영역 스타일
+    margin-top: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+}
+*/
+

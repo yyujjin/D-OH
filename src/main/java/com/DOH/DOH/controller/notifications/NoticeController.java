@@ -1,5 +1,6 @@
 package com.DOH.DOH.controller.notifications;
 
+import com.DOH.DOH.dto.list.PagingDTO;
 import com.DOH.DOH.dto.notifications.NoticeDTO;
 import com.DOH.DOH.service.notifications.NoticeService;
 import com.DOH.DOH.service.user.UserSessionService;
@@ -27,15 +28,21 @@ public class NoticeController {
 
     // 공지사항 목록 페이지
     @GetMapping("/list")
-    public String noticeList(@RequestParam(value = "pageNum", required = false, defaultValue = "1") String pageNum, Model model) {
-        int page = Integer.parseInt(pageNum);
+    public String noticeList(@RequestParam(defaultValue = "1") int page, Model model) {
+//        int page = Integer.parseInt(pageNum);
 
         int totalPages = noticeService.getTotalPages();
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("currentPage", page);
+        log.info("totalPages" +totalPages);
+        log.info("page" +page);
+        PagingDTO dto = new PagingDTO(page,noticeService.getTotalPages(),2);
+//        model.addAttribute("totalPages", totalPages);
+//        model.addAttribute("currentPage", page);
+        model.addAttribute("pageMaker", dto);
 
         // 정식 등록된 공지사항 가져오기
-        List<NoticeDTO> noticeList = noticeService.getNoticeList(page);
+//        List<NoticeDTO> noticeList = noticeService.getNoticeList(page);
+        List<NoticeDTO> noticeList = noticeService.getNoticeList(dto);
+        log.info("noticeList ->"+ noticeList);
         model.addAttribute("noticeList", noticeList);
 
         // 임시 저장된 공지사항 가져오기 (관리자만 표시)

@@ -1,18 +1,7 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f2f3f5;
-}
 
 .container {
   display: flex;
-  height: 100vh;
-  width: 100vw;
+  width: 1000px;
 }
 
 /* 채팅 목록 */
@@ -30,6 +19,20 @@ body {
   text-align: center;
   font-size: 18px;
   font-weight: bold;
+}
+
+.receiver {
+    width: 50px; /* 원하는 너비로 설정 */
+    height: 50px; /* 원하는 높이로 설정 */
+    border-radius: 50%; /* 동그란 이미지로 만들기 */
+    object-fit: cover; /* 이미지가 영역을 채우도록 */
+    margin-right: 10px; /* 이미지와 텍스트 사이의 간격 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+}
+
+.receiver, .chat-title {
+    display: inline-flex; /* 두 요소를 나란히 배치 */
+    align-items: center; /* 이미지와 텍스트를 세로로 가운데 정렬 */
 }
 
 .chat-item {
@@ -81,15 +84,18 @@ body {
   display: flex;
   flex-direction: column;
   background-color: #f2f3f5;
+  height: 700px;
 }
 
 .chat-header {
-  padding: 15px;
+  padding: 30px;
   background-color: #fff;
   border-bottom: 1px solid #e6e6e6;
   display: flex;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
+  background-color:rgb(193, 192, 255);
   align-items: center;
+  display: flex;
 }
 
 .chat-header .chat-title {
@@ -126,7 +132,7 @@ body {
 
 .message-bubble.sent {
   background-color: #C1C0FF;
-  color: white;
+  color: black;
   border-bottom-right-radius: 0;
 }
 
@@ -156,7 +162,7 @@ body {
 
 .chat-footer button {
   background-color: #C1C0FF;
-  color: white;
+  color: black;
   border: none;
   padding: 10px 20px;
   border-radius: 20px;
@@ -166,7 +172,6 @@ body {
 .chat-footer button:hover {
   background-color: #e65c00;
 }
-
 
 .exit-button {
   position: absolute;
@@ -181,5 +186,5 @@ body {
 }
 
 .exit-button:hover {
-  background-color: #d32f2f;
+  background-color: rgb(193, 192, 255);
 }

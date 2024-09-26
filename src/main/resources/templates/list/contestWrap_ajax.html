@@ -63,22 +63,17 @@
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
-        <li class="page-item" th:each="i : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}">
-            <!-- <a class="page-link" th:text="${i}" th:href="@{/contest/list(page=${i}, orderType=${param.orderType})}">3</a>-->
-            <!-- <a class="page-link" th:text="${i}" th:href="@{/contest/list_ajax(page=${i}, orderType=${param.orderType})}">3</a> -->
-            <a class="page-link" th:text="${i}" th:attr="onclick='order_page(' + ${i} + ')'">3</a>
+        <li class="page-item" th:each="i : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}"
+            th:classappend="${pageMaker.currentPage == i} ? 'active'">
+            <a class="page-link" th:text="${i}" th:attr="onclick='order_page(' + ${i} + ')'" href="javascript:void(0);">3</a>
         </li>
         <li class="page-item" th:if="${pageMaker.next}">
-            <!--
-            <a class="page-link" th:href="@{/contest/list_ajax(page=${pageMaker.endPage + 1}, orderType=${param.orderType})}" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-            -->
             <a class="page-link" th:onclick="order_page('${pageMaker.endPage + 1}', '${param.orderType}')" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
     </ul>
 </nav>
+
 </body>
 </html>

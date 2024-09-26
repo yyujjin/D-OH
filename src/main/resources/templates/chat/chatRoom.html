@@ -1,22 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/fragments/layout}">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chat Room</title>
     <!-- StompJS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!--    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
     <script src="/js/chat/chatRoom.js" defer></script>
     <link rel="stylesheet" href="/css/chat/chatRoom.css" />
   </head>
-  <body>
+  <th:block layout:fragment="content">
     <div class="container">
       <!-- 채팅 목록 -->
     
       <!-- 채팅 창 -->
       <div class="chat-window">
         <div class="chat-header">
+<!--          <img th:src="${mypage.profilePhoto != null ? mypage.profilePhoto : '/img/chatimg.png'}" alt="상대방유저" class="receiver">-->
+          <img th:src="@{/img/chaatimg.png}" alt="상대방유저" class="receiver">
           <div class="chat-title" th:text="${receiver}" id="receiver">상대방 유저</div>
           <input id="sender" type="hidden" th:value="${sender}">
           <button class="exit-button" id="exitButton"> 채팅 종료하기</button>
@@ -32,5 +35,5 @@
         </div>
       </div>
     </div>
-  </body>
+  </th:block>
 </html>

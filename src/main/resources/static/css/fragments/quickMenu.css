@@ -52,6 +52,23 @@
     font-size: var(--font-size-20);
 }
 
+.icon {
+    position: relative; /* 자식 요소의 위치를 기준으로 */
+    display: inline-block; /* 아이콘과 배지가 한 줄에 함께 표시되도록 */
+}
+
+.notification-badge {
+    position: absolute;
+    top: -20px;  /* 상단으로 살짝 이동 */
+    right: -20px; /* 오른쪽으로 살짝 이동 */
+    background-color: rgb(193, 192, 255); /* 배지 배경색 */
+    color: white; /* 배지 텍스트 색 */
+    padding: 5px 8px; /* 배지의 크기 */
+    border-radius: 50%; /* 원형 배지 */
+    font-size: 12px; /* 텍스트 크기 */
+    display: inline-block; /* 배지를 보여주기 위한 기본 설정 */
+}
+
 .quickMenu .chat.active {
     background-color: var(--color-white);
     border: 1px solid var(--line-gray);
@@ -93,6 +110,7 @@
     border-radius: 6px;
     z-index: 9;
     background: var(--color-white);
+    margin-bottom: 10px;
 }
 
 .quickMenu .text.show {

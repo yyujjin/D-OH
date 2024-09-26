@@ -70,7 +70,7 @@
         event
         WHERE
         eventTempSave = false
-        ORDER BY eventCreateTime DESC, eventNum DESC
+        ORDER BY eventEndDate DESC, eventCreateTime DESC, eventNum DESC
         LIMIT 12
     </select>
 
@@ -82,8 +82,8 @@
         event
         WHERE
         eventTempSave = true
-        ORDER BY eventCreateTime DESC, eventNum DESC
-        LIMIT 3
+        ORDER BY eventEndDate DESC, eventCreateTime DESC, eventNum DESC
+        LIMIT 4
     </select>
 
     <!-- 전체 정식 이벤트 수 조회 -->

@@ -4,7 +4,7 @@
 <th:block th:fragment="footerFragment">
     <div class="quickMenu">
         <ul>
-            <li class="list chat" onclick="clickChatIcon()">
+            <li class="list chat" th:if="${userRole != 'ROLE_ADMIN'}" onclick="clickChatIcon()">
                 <span class="icon">
                     <i class="fa-regular fa-comment-dots"></i>
                     <span class="notification-badge" style="display: none;">N</span> <!-- 알림 배지 -->
@@ -39,20 +39,21 @@
             </li>
 
             <!-- 마이페이지 이동 버튼 -->
-            <li class="list">
+            <li class="list" th:if="${userRole != 'ROLE_ADMIN'}">
                 <a th:href="@{/users/mypage}">
-                    <span class="icon">
-                        <i class="fa-solid fa-user-pen"></i>
-                    </span>
+        <span class="icon">
+            <i class="fa-solid fa-user-pen"></i>
+        </span>
                 </a>
             </li>
 
             <!-- 상단으로 스크롤 버튼 -->
             <li class="list scrollTop" onclick="scrollToTop()">
-                <span class="icon">
-                    <i class="fa-solid fa-arrow-up"></i>
-                </span>
+    <span class="icon">
+        <i class="fa-solid fa-arrow-up"></i>
+    </span>
             </li>
+
         </ul>
     </div>
 

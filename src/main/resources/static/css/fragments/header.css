@@ -17,6 +17,10 @@ html {
     margin-bottom: 100px;
 }
 
+a{
+text-decoration: none;
+}
+
 /* 네비게이션 바 */
 .navbar {
     width: 1200px;

@@ -4,8 +4,6 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 
     <link rel="stylesheet" th:href="@{/css/contest/ContestView.css}">
@@ -13,10 +11,10 @@
 </head>
 <th:block layout:fragment="content">
 <div class="Contestview">
-    <form action="/contest/view" method="post" enctype="multipart/form-data">
+    <form action="/contest/view" method="post" enctype="multipart/form-data" class="maxw">
         <div class="Contestviewheader">
-            <h1><p>제목 : <span th:text="${contestUploadDTO.conTitle}"></span></p></h1>
-            <p>회사명 : <span th:text="${contestUploadDTO.conCompanyName}"></span></p>
+            <h1><span th:text="${contestUploadDTO.conTitle}"></span></h1>
+            <span th:text="${contestUploadDTO.conCompanyName}"></span>
             <div class="meta">
                 <span id="request-tab" onclick="showContent('request')">📋 요청 사항</span>
                 <span id="work-tab" onclick="showContent('work')">👥 참여자</span>
@@ -25,11 +23,12 @@
         <!-- 요청사항 -->
         <div class="request">
             <div>
-                <p>한줄 소개: <span th:text="${contestUploadDTO.conOneLiner}"></span></p>
-                <p>로고명: <span th:text="${contestUploadDTO.conLogoName}"></span></p>
-
+                <h3>한줄 소개</h3>
+                <span th:text="${contestUploadDTO.conOneLiner}"></span>
+                <h3>로고명</h3>
+                <span th:text="${contestUploadDTO.conLogoName}"></span>
                 <!-- Summernote 에디터 적용 -->
-                <label for="briefing">브리핑:</label>
+                <h3><label for="briefing">브리핑</label></h3>
                 <div id="briefing" class="summernote">
                     <span th:utext="${contestUploadDTO.conBriefing}"></span>
                 </div>
@@ -38,7 +37,7 @@
 
         <!-- 참여자 -->
         <div class="work">
-            <div th:if="${#lists.isEmpty(applicantList)}">
+            <div th:if="${#lists.isEmpty(applicantList)}" class="maxw">
                 <p>참여자가 없습니다.</p>
             </div>
             <div th:each="applicant : ${applicantList}" th:unless="${#lists.isEmpty(applicantList)}">
@@ -56,9 +55,9 @@
 
     <!-- 사이드바 -->
     <div class="Contestviewsidebar">
-        <h2>제목 : <span th:text="${contestUploadDTO.conTitle}"></span></h2>
+        <h2><span th:text="${contestUploadDTO.conTitle}"></span></h2>
 
-        <h4>회사명 : <span th:text="${contestUploadDTO.conCompanyName}"></span></h4>
+        <h4><span th:text="${contestUploadDTO.conCompanyName}"></span></h4>
 
         <h2>총 상금 <span th:text="${contestUploadDTO.conFirstPrice +
                                     contestUploadDTO.conSecondPrice +
@@ -78,13 +77,12 @@
         <span th:text="${#dates.format(contestUploadDTO.conStartDate, 'yyyy/MM/dd')}"></span> ~
         <span th:text="${#dates.format(contestUploadDTO.conEndDate, 'yyyy/MM/dd')}"></span>
 
-        <p>참여작</p>
         <p>조회수  <span th:text="${contestUploadDTO.conHit}"></span></p>
 
         <!-- 시상하기 버튼 추가 -->
-        <a th:if="${userEmail == writer}" th:href="@{/users/contest/award(contestNum=${contestUploadDTO.id})}" class="button" style="background-color: #28a745; color: white;">
-            시상하기
-        </a>
+            <a th:if="${userEmail == writer}" th:href="@{/users/contest/award(contestNum=${contestUploadDTO.id})}" class="button">
+                시상하기
+            </a>
 
         <a href="/contest/list" class="button">콘테스트 목록으로</a>
 <!--        <a href="/api/users/contest/application/terms" class="button">콘테스트 참여하기</a>-->

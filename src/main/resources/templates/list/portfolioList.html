@@ -45,7 +45,7 @@
             <section>
                 <div class="cardList" th:each="list : ${portfolioList}">
                     <a href="#" th:href="@{/portfolio/list/detail(portfolioId=${list.id})}" th:onclick="hitUp(this)">
-                        <img class="img" th:src="${list.personalWork}">
+                        <img class="img" th:src="${list.personalWork} == null ? '/img/fragments/noimg.png' : ${list.personalWork}">
                             <!--포토폴리오 이미지가 들어갈 영역-->
                         </img>
                         <div class="portfolioSummary">
@@ -63,21 +63,25 @@
 
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
-                  <li class="page-item" th:if="${pageMaker.prev}">
-                    <a class="page-link" href="#" th:href="@{/portfolio/list(page=${pageMaker.startPage - 1}, orderType=${param.orderType})}" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li class="page-item" th:each="i : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}">
-                      <a class="page-link" href="#" th:text="${i}" th:href="@{/portfolio/list(page=${i}, orderType=${param.orderType})}">3</a>
-                  </li>
-                  <li class="page-item" th:if="${pageMaker.next}">
-                    <a class="page-link" href="#" th:onclick="order_page('${pageMaker.endPage + 1}', '${param.orderType}')" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
+                    <!-- 이전 페이지로 이동 -->
+                    <li class="page-item" th:classappend="${pageMaker.currentPage == 1} ? 'disabled'" th:if="${pageMaker.prev}">
+                        <a class="page-link" th:href="@{/portfolio/list(page=${pageMaker.startPage - 1}, orderType=${param.orderType})}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <!-- 페이지 번호 -->
+                    <li class="page-item" th:each="i : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}" th:classappend="${i == pageMaker.currentPage} ? 'active'">
+                        <a class="page-link" th:text="${i}" th:href="@{/portfolio/list(page=${i}, orderType=${param.orderType})}"></a>
+                    </li>
+                    <!-- 다음 페이지로 이동 -->
+                    <li class="page-item" th:if="${pageMaker.next}">
+                        <a class="page-link" th:href="@{/portfolio/list(page=${pageMaker.endPage + 1}, orderType=${param.orderType})}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
                 </ul>
-              </nav>
+            </nav>
+
         </div><!--mainWrap-->
     </main>
 </th:block>
