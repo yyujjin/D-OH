@@ -26,7 +26,7 @@
             <div class="contestWarap">
                 <div class="contestInfo">
                     <div class="day">
-                        <div class="endDate info"><span th:text="${contestDTO.endDate}">8</span>일</div>
+                        <div class="endDate info" th:classappend="${contestDTO.endDate < 4} ? 'active' : ''"><span th:text="${contestDTO.endDate}">8</span>일</div>
                         <div class="type info" th:text="${contestDTO.conType}">공공 기관</div>
                     </div>
                     <div class="contitle" th:text="${contestDTO.conTitle}">[포항문화재단] 포항국제불빛축체 브랜딩 콘테스트</div>
