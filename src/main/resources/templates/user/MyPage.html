@@ -39,7 +39,7 @@
                     <input type="hidden" name="userEmail" th:value="${myPageDTO?.userEmail}">
                     <!-- 프로필 사진 경로가 null일 경우 기본 이미지 표시 -->
                     <label class="profilePhoto" for="profilePhotoInput" title="파일 업로드">
-                        <img id="profilePreview2" th:src="${myPageDTO.profilePhotoPath}" alt="마이페이지 프로필 사진">
+                        <img id="profilePreview2" th:src="${myPageDTO?.profilePhotoPath}" alt="마이페이지 프로필 사진">
                     </label>
                     <input type="file" accept="image/*" name="profilePhoto" id="profilePhotoInput" onchange="previewImage2(event)">
                     <button type="submit" class="submit-button">이미지 저장</button>
