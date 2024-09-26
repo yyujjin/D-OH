@@ -1,5 +1,6 @@
 package com.DOH.DOH.service.notifications;
 
+import com.DOH.DOH.dto.list.PagingDTO;
 import com.DOH.DOH.dto.notifications.NoticeDTO;
 import com.DOH.DOH.mapper.notifications.NoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.List;
 @Service
 public class NoticeServiceImpl implements NoticeService {
 
-    private static final int PAGE_SIZE = 10; // 페이지당 공지사항 수
+    private static final int PAGE_SIZE = 1; // 페이지당 공지사항 수
 
     @Autowired
     private NoticeMapper noticeMapper;
@@ -22,8 +23,12 @@ public class NoticeServiceImpl implements NoticeService {
      * @return 공지사항 목록
      */
     @Override
-    public List<NoticeDTO> getNoticeList(int page) {
-        int offset = (page > 0) ? (page - 1) * PAGE_SIZE : 0; // 페이징 처리를 위한 offset 계산
+//    public List<NoticeDTO> getNoticeList(int page) {
+    public List<NoticeDTO> getNoticeList(PagingDTO dto) {
+//        int offset = (page > 0) ? (page - 1) * PAGE_SIZE : 0; // 페이징 처리를 위한 offset 계산
+        int offset = (dto.getCurrentPage() - 1) * dto.getPageSize();  // 페이징 offset 계산
+        int pageSize = dto.getPageSize();
+//        log.info("getpageSize : "+pageSize);
         List<NoticeDTO> noticeList = noticeMapper.getNoticeList(offset, PAGE_SIZE);
         return (noticeList != null) ? noticeList : new ArrayList<>();
     }

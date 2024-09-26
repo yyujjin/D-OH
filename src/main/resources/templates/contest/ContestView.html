@@ -4,7 +4,6 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css">
-<!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 
     <link rel="stylesheet" th:href="@{/css/contest/ContestView.css}">
@@ -12,7 +11,7 @@
 </head>
 <th:block layout:fragment="content">
 <div class="Contestview">
-    <form action="/contest/view" method="post" enctype="multipart/form-data">
+    <form action="/contest/view" method="post" enctype="multipart/form-data" class="maxw">
         <div class="Contestviewheader">
             <h1><p>제목 : <span th:text="${contestUploadDTO.conTitle}"></span></p></h1>
             <p>회사명 : <span th:text="${contestUploadDTO.conCompanyName}"></span></p>
@@ -37,7 +36,7 @@
 
         <!-- 참여자 -->
         <div class="work">
-            <div th:if="${#lists.isEmpty(applicantList)}">
+            <div th:if="${#lists.isEmpty(applicantList)}" class="maxw">
                 <p>참여자가 없습니다.</p>
             </div>
             <div th:each="applicant : ${applicantList}" th:unless="${#lists.isEmpty(applicantList)}">

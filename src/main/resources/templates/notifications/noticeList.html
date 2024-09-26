@@ -108,17 +108,22 @@
         </div>
 
         <!-- Pagination Controls -->
-        <nav aria-label="Page navigation example" th:if="${totalPages != null and totalPages > 0}">
+        <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
-                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
-                    <a class="page-link" th:href="@{/notice/list(page=${currentPage - 1})}">&laquo;</a>
+                <!--                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">-->
+                <li class="page-item" th:if="${pageMaker.prev}">
+                    <!--                    <a class="page-link" th:href="@{/notice/list(page=${currentPage - 1})}">&laquo;</a>-->
+                    <a class="page-link" th:href="@{/notice/list(page=${pageMaker.startPage - 1})}">&laquo;</a>
                 </li>
-                <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}"
-                    th:classappend="${i == currentPage} ? 'active'">
-                    <a class="page-link" th:href="@{/notice/list(page=${i})}" th:text="${i}"></a>
+                <!--                <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}"-->
+                <li class="page-item" th:each="i : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}">
+                    <!--                    th:classappend="${i == '${pageMaker.startPage}' ? 'active'">-->
+                    <a class="page-link" th:text="${i}"   th:href="@{/notice/list(page=${i})}"></a>
                 </li>
-                <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
-                    <a class="page-link" th:href="@{/notice/list(page=${currentPage + 1})}">&raquo;</a>
+                <!--                <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">-->
+                <li class="page-item" th:if="${pageMaker.next}">
+                    <!--                    <a class="page-link" th:href="@{/notice/list(page=${currentPage + 1})}">&raquo;</a>-->
+                    <a class="page-link" th:href="@{/notice/list(page=${pageMaker.endPage + 1})}">&raquo;</a>
                 </li>
             </ul>
         </nav>

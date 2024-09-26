@@ -1,14 +1,15 @@
 package com.DOH.DOH.service.notifications;
 
+import com.DOH.DOH.dto.list.PagingDTO;
 import com.DOH.DOH.dto.notifications.NoticeDTO;
-import org.springframework.ui.Model;
 
 import java.util.List;
 
 public interface NoticeService {
 
     // 공지사항 목록 조회 (페이징 처리)
-    List<NoticeDTO> getNoticeList(int page);
+//    List<NoticeDTO> getNoticeList(int page);
+    List<NoticeDTO> getNoticeList(PagingDTO pagingDTO);
 
     List<NoticeDTO> getTempNoticeList();
 
