@@ -33,6 +33,27 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    // 첫 번째 글자 수 제한
+    const titles = document.querySelectorAll('.conTitle');
+    titles.forEach(function(title) {
+        const maxLength = 19; // 원하는 글자 수 제한
+        if (title.innerText.length > maxLength) {
+            title.innerText = title.innerText.slice(0, maxLength) + '...';
+        }
+    });
+
+    // 두 번째 글자 수 제한
+    const contexts = document.querySelectorAll('.content .context');
+    contexts.forEach(function(context) {
+        const maxcontext = 15; // 원하는 글자 수 제한
+        if (context.innerText.length > maxcontext) {
+            context.innerText = context.innerText.slice(0, maxcontext) + '...';
+        }
+    });
+});
+
+
 
     function hitUp(e) {
     const href = e.getAttribute('href');

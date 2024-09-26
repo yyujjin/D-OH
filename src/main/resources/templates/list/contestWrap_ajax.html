@@ -11,7 +11,7 @@
 <!--        <a href="#" th:onclick="hitUp(this)">-->
             <div class="listArea">
                 <div class="content A">
-                    <div class="endDate"><span th:text="${list.endDate}">8</span>일 남음</div>
+                    <div class="endDate" th:classappend="${list.endDate < 4} ? 'active' : ''"><span th:text="${list.endDate}">8</span>일 남음</div>
                     <div class="industry" th:text="${list.conType}">식품/건강</div>
                     <div class="heart">
                         <i class="fa-solid fa-heart" th:classappend="${scrapList != null && scrapList.contains(list.id) ? 'active' : ''}" th:onclick="scrap(this)"></i>
@@ -47,7 +47,7 @@
                         <div class="host">남은 기간</div>
                         <!-- </div> -->
                     </div>
-                    <div class="total E"><span th:text="${list.endDate}">8</span> 일</div>
+                    <div class="total E" ><span th:text="${list.endDate}">8</span> 일</div>
                 </div><!--마감일 부분-->
                 <div class="priceInfo">
                     <div class="lastDate"><span th:text="${list.conEndDate}">24.08.18</span> 마감</div>

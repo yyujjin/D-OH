@@ -106,7 +106,7 @@
                     </a>
                 </div><!--tabContent-->
                 <div class="tabContent"  id="hit">
-                    <a href="#" th:each="list, listStat : ${priceList}" th:href="@{/contest/view(contestNum=${list.id})}" th:onclick="hitUp(this)">
+                    <a href="#" th:each="list, listStat : ${hitList}" th:href="@{/contest/view(contestNum=${list.id})}" th:onclick="hitUp(this)">
                         <div class="list">
                             <div class="listContent">
                                 <div class="conTitle"><span th:text="${listStat.count}">1</span><span th:text="${list.conTitle}">글로벌 한방 브랜드 네이밍 콘테스트</span></div>
