@@ -20,6 +20,17 @@ public class MyPageServiceImpl implements MyPageService{
     }
 
     @Override
+    public MyPageDTO profilePhoto(String userEmail) {
+        return myPageMapper.profilePhoto(userEmail);
+    }
+
+    @Override
+    public void insertProfilePhoto(MyPageDTO myPageDTO) {
+        log.info("마이페이지 232323 : {}", myPageDTO);
+        myPageMapper.insertProfilePhoto(myPageDTO);
+    }
+
+    @Override
     public void insertUserEmail(String userEmail) {
         myPageMapper.insertUserEmail(userEmail);
     }
