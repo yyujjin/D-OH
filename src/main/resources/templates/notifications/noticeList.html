@@ -110,28 +110,27 @@
         <!-- Pagination Controls -->
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
-                <!-- 이전 페이지로 이동 버튼 (prev가 true일 때만 활성화) -->
-                <li class="page-item" th:classappend="${!pageMaker.prev} ? 'disabled'">
-                    <a class="page-link" th:href="@{/notice/list(page=${pageMaker.startPage - 1})}" aria-label="Previous" th:if="${pageMaker.prev}">
-                        &laquo;
+                <!-- 이전 페이지로 이동 -->
+                <li class="page-item" th:if="${pageMaker.prev}">
+                    <a class="page-link" th:href="@{/notice/list(page=${pageMaker.startPage - 1})}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
 
-                <!-- 페이지 번호 순회 -->
-                <li class="page-item" th:each="i : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}"
-                    th:classappend="${i == pageMaker.currentPage} ? 'active'">
+                <!-- 페이지 번호 -->
+                <li class="page-item" th:each="i : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}" th:classappend="${i == pageMaker.currentPage} ? 'active'">
                     <a class="page-link" th:text="${i}" th:href="@{/notice/list(page=${i})}"></a>
                 </li>
 
-                <!-- 다음 페이지로 이동 버튼 (next가 true일 때만 활성화) -->
-                <li class="page-item" th:classappend="${!pageMaker.next} ? 'disabled'">
-                    <a class="page-link" th:href="@{/notice/list(page=${pageMaker.endPage + 1})}" aria-label="Next" th:if="${pageMaker.next}">
-                        &raquo;
+                <!-- 다음 페이지로 이동 -->
+                <li class="page-item" th:if="${pageMaker.next}">
+                    <a class="page-link" th:href="@{/notice/list(page=${pageMaker.endPage + 1})}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
-
             </ul>
         </nav>
+
 
         <!-- 등록 버튼 -->
         <div class="buttons" th:if="${userRole == 'ROLE_ADMIN'}">

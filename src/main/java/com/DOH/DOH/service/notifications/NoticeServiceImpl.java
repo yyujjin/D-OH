@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class NoticeServiceImpl implements NoticeService {
 
-    private static final int PAGE_SIZE = 1; // 페이지당 공지사항 수
+    private static final int PAGE_SIZE = 2; // 페이지당 공지사항 수
 
     @Autowired
     private NoticeMapper noticeMapper;
