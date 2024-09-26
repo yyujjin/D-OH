@@ -19,17 +19,23 @@ public class NoticeServiceImpl implements NoticeService {
 
     /**
      * 공지사항 목록을 가져오는 메서드
-     * @param page 현재 페이지 번호 (페이징 처리용)
+     * @param dto 페이징 처리 정보를 포함하는 DTO (현재 페이지, 페이지 크기 등)
      * @return 공지사항 목록
      */
     @Override
-//    public List<NoticeDTO> getNoticeList(int page) {
     public List<NoticeDTO> getNoticeList(PagingDTO dto) {
-//        int offset = (page > 0) ? (page - 1) * PAGE_SIZE : 0; // 페이징 처리를 위한 offset 계산
-        int offset = (dto.getCurrentPage() - 1) * dto.getPageSize();  // 페이징 offset 계산
-        int pageSize = dto.getPageSize();
-//        log.info("getpageSize : "+pageSize);
-        List<NoticeDTO> noticeList = noticeMapper.getNoticeList(offset, PAGE_SIZE);
+        // 현재 페이지가 1보다 작은 경우 1로 설정
+        int currentPage = dto.getCurrentPage() < 1 ? 1 : dto.getCurrentPage();
+
+        // 페이지 크기를 DTO에서 가져오되, 값이 없으면 기본값을 사용
+//        int pageSize = dto.getPageSize() > 0 ? dto.getPageSize() : PAGE_SIZE;
+
+        // offset 계산 (offset = (현재 페이지 - 1) * 페이지 크기)
+        int offset = (dto.getCurrentPage() - 1) * dto.getPageSize();
+
+        // 공지사항 목록을 데이터베이스에서 가져옴
+        List<NoticeDTO> noticeList = noticeMapper.getNoticeList(offset, dto.getPageSize());
+
         return (noticeList != null) ? noticeList : new ArrayList<>();
     }
 

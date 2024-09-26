@@ -28,12 +28,12 @@ public class NoticeController {
 
     // 공지사항 목록 페이지
     @GetMapping("/list")
-    public String noticeList(@RequestParam(value = "pageNum", required = false, defaultValue = "1") String pageNum, Model model) {
-        int page = Integer.parseInt(pageNum);
+    public String noticeList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, Model model) {
+//        int page = Integer.parseInt(pageNum);
 
         int totalPages = noticeService.getTotalPages();
         log.info("totalPages" +totalPages);
-        PagingDTO dto = new PagingDTO(page,noticeService.getTotalPages(),1);
+        PagingDTO dto = new PagingDTO(pageNum,noticeService.getTotalPages(),1);
 //        model.addAttribute("totalPages", totalPages);
 //        model.addAttribute("currentPage", page);
         model.addAttribute("pageMaker", dto);
