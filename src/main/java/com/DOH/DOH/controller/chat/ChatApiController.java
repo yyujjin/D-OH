@@ -36,16 +36,11 @@ public class ChatApiController {
     // WebSocket을 통해 /app/message 경로로 메시지를 받음
     public MessageDTO sendMessage(MessageDTO messageDTO) throws JsonProcessingException {
 
-        log.info("수신자 : {}", messageDTO.getReceiver());
-        log.info("보낸 메시지 : {}", messageDTO.getContent());
-
         chatService.saveMessage(messageDTO);
         //세션이 있다면 바로 구독 경로로 보내고 없다면 디비에 저장하는 로직 추가
 
         String messageAsJson = new ObjectMapper().writeValueAsString(messageDTO.getContent());
         messagingTemplate.convertAndSend("/queue/messages/"+ messageDTO.getReceiver(), messageAsJson);
-
-        log.info("수신자 경로 : /queue/messages/" + messageDTO.getReceiver());
 
         return messageDTO;
 
@@ -54,17 +49,23 @@ public class ChatApiController {
     //읽지 않은 메시지 조회
     @GetMapping("/messages/unread")
     public Map<String,List<MessageDTO>> getUnreadMessages() {
-        String userId = userSessionService.userEmail();
-        log.info("가져와진 메시지"+ chatService.getUnreadMessages(userId));
+        String  userNickName = userSessionService.nickName();
 
-        if ("anonymousUser".equals(userId)) {
+        if ("Anonymous".equals( userNickName)) {
             // 빈 리스트 반환 또는 상태 코드를 명확하게 설정하는 것이 좋음
             return Collections.emptyMap(); // 빈 리스트 반환
         }
 
-        List<MessageDTO>getUnreadMessages = chatService.getUnreadMessages(userId);
+        List<MessageDTO>getUnreadMessages = chatService.getUnreadMessages(userNickName);
 
         return  chatService.groupMessagesBySender(getUnreadMessages);
+    }
+
+    //전체 메시지 가져오기
+    @GetMapping("/messages")
+    public List<MessageDTO> getAllMessages(@RequestBody MessageDTO messageDTO) {
+
+        return  chatService.getAllMessages(messageDTO);
     }
 
     // 로그인 상태 확인
@@ -77,12 +78,12 @@ public class ChatApiController {
     }
 
     // 특정 사용자와의 메시지 조회
-    @PostMapping("/messages/{userId}")
+    @PostMapping("/messages/{userNickName}")
     public ResponseEntity<Map<String, List<MessageDTO>>> getMessagesByUserId(
-            @PathVariable String userId,
+            @PathVariable String userNickName,
             @RequestBody MessageDTO messageDTO) {
 
-        Map<String, List<MessageDTO>> messages = chatService.filterMessagesBySenderAndReceiver(userId, messageDTO);
+        Map<String, List<MessageDTO>> messages = chatService.filterMessagesBySenderAndReceiver( userNickName, messageDTO);
         //메시지 읽음 처리
         chatService.setMessageAsRead(messageDTO);
 
@@ -93,5 +94,11 @@ public class ChatApiController {
     public ResponseEntity deleteMessages(@RequestBody MessageDTO messageDTO) {
         chatService.deleteMessages(messageDTO);
         return ResponseEntity.ok().build();
+    }
+
+    //로그인한 유저를 기준으로 다른 유저가 보낸 최신 메시지들을 조회
+    @PostMapping("/messages/latest")
+    public List<MessageDTO>findLatestMessagesForLoggedInUser(@RequestParam String userNickName) {
+        return chatService.findLatestMessagesForLoggedInUser(userNickName);
     }
 }
