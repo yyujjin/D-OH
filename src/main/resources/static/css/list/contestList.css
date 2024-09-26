@@ -135,6 +135,11 @@ section
     padding: 3px 7px;
 }
 
+.endDate.active
+{
+    background: var(--main-color);
+}
+
 .heart
 {
     margin-left: auto;

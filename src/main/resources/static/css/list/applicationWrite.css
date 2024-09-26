@@ -57,6 +57,10 @@ main
     padding: 8px 15px;
     border-radius: 50px;
 }
+.endDate.active
+{
+    background: var(--main-color);
+}
 
 .contitle
 {

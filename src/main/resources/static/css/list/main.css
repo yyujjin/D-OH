@@ -92,7 +92,7 @@ main {
 .cardConWarap {
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: 30px;
     overflow: hidden;
     width: 100%;
 }
