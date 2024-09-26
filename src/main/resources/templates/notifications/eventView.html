@@ -32,15 +32,15 @@
         <div th:if="${userRole == 'ROLE_ADMIN' && userEmail == 'admin'}" class="mt-4">
             <form th:action="@{/event/admin/write(eventNum=${event.eventNum})}" method="post">
                 <input type="hidden" name="eventNum" th:value="${event.eventNum}" />
-                <button type="submit" class="btn btn-primary">수정</button>
+                <button type="submit" class="btn btn-edit">수정</button>
             </form>
 
-            <!-- 삭제 버튼을 POST 방식으로 변경 -->
             <form th:action="@{/event/admin/delete}" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
                 <input type="hidden" name="eventNum" th:value="${event.eventNum}" />
-                <button type="submit" class="btn btn-danger">삭제</button>
+                <button type="submit" class="btn btn-delete">삭제</button>
             </form>
         </div>
+
     </div>
 </div>
 </body>
