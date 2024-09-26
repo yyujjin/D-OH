@@ -207,46 +207,41 @@ section
     font-size: var(--font-size-12);
     margin-bottom: 0;
 }
-/*
 
-#ajax_area {
-    */
-/* AJAX 결과를 표시할 영역 스타일 *//*
-
-    margin-top: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 15px;
-}
-*/
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+/* 현재 페이지 링크 (활성화된 페이지) */
+.pagination .page-item.active .page-link {
+    background-color: black;
+    border-color: black;
+    color: white;
+    font-weight: bold;
 }
 
-.pagination li {
-    list-style: none;
+/* 기본 페이지 링크 스타일 */
+.pagination .page-link {
+    color: black;
 }
 
-.pagination a {
-    display: block; /* li 전체를 클릭 가능하게 하기 위해 block으로 설정 */
-    background-color: white;
-    color: gray; /* a 태그의 색상 */
-    text-decoration: none;
-    border:none;
-}
-
+/* 페이지 링크 호버 시 스타일 */
 .pagination a:hover {
     color: black;
     background-color: white;
     font-weight: bold;
 }
 
+/* 활성화된 페이지의 a 태그 스타일 */
 .pagination .active a {
-    font-weight: bold; /* 현재 페이지의 텍스트를 굵게 표시 */
-    background-color: rgb(193, 192, 255); /* 현재 페이지의 배경색 변경 */
-    color: black; /* 텍스트 색상 */
+    font-weight: bold;
+    background-color: rgb(193, 192, 255);
+    color: black;
 }
+
+/*
+#ajax_area {
+ AJAX 결과를 표시할 영역 스타일
+    margin-top: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+}
+*/
 
