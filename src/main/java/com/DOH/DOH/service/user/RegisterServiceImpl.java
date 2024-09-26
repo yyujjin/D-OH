@@ -33,5 +33,23 @@ public class RegisterServiceImpl implements RegisterService{
         registerMapper.userRegister(registerDTO);
     }
 
+    //이메일 중복 검사
+    @Override
+    public boolean duplicateUserEmail(String userEmail) {
+
+        Integer count = registerMapper.checkUserEmail(userEmail);
+        return count > 0;
+
+    }
+
+    //닉네임 중복 검사
+    @Override
+    public boolean duplicateNickName(String nickName) {
+
+        Integer count = registerMapper.checkNickName(nickName);
+        return count > 0;
+
+    }
+
 
 }
