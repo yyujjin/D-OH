@@ -7,24 +7,22 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class MyPageProfileDTO {
-    int id;
-    String userEmail;
-    String userNickName;
-    String profileOneLiner;
-    String profileIntroduce;
-    int commissionStatus;
-    String mittingLocation;
+    private Long id;
+    private String userEmail;
+    private String userNickName;
+    private String profileOneLiner;
+    private String profileIntroduce;
+    private int commissionStatus;
+    private String mittingLocation;
 
-    @JsonFormat(pattern = "HH:mm")
-    String messageStart;
+    private String messageStart;
+    private String messageEnd;
 
-    @JsonFormat(pattern = "HH:mm")
-    String messageEnd;
-
-    String myPageUrl;
+    private String myPageUrl;
+    private String skillName;
 }
