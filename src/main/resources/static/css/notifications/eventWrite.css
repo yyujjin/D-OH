@@ -65,7 +65,7 @@ textarea {
     margin-top: 30px;
 }
 
-button {
+.btn-group {
     padding: 12px 40px; /* 버튼의 넓이를 더 넓게 */
     font-size: 16px;
     border: none;
