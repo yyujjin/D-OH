@@ -1,0 +1,64 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    max-width: 600px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* 제목 섹션 */
+.title-section h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #ff69b4; /* 핑크 색상 */
+    margin-bottom: 10px;
+}
+
+.title-section p {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* 1등, 2등, 3등 섹션 */
+.award-section {
+    margin-bottom: 30px;
+}
+
+.award-section h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.award-section p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.first-place h2 {
+    color: #ffcc00; /* 1등 - 금색 */
+}
+
+.second-place h2 {
+    color: #
+
+}
+
+.contact-message {
+    margin-top: 100px; /* 위쪽 여백을 추가 */
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+}

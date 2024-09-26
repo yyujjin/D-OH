@@ -23,12 +23,20 @@ public class PortFolioServiceImpl implements PortFolioService {
         return portFolioMapper.getPortFolioList(offset, pageSize);
     }
 
+    @Override
     public void hitUp(int id){//조회수 증가 메서드
         portFolioMapper.hitUp(id);
     }
 
+    @Override
     public int getTotalCount() {// 전체 포토폴리오 수를 조회하는 메서드
 
         return portFolioMapper.getTotalCount();
+    }
+
+    @Override
+    public PortFolioDTO getPortfolioInfo(int portfolioId)
+    {
+        return  portFolioMapper.getPortfolioInfo(portfolioId);
     }
 }
