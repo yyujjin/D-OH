@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0.3//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.DOH.DOH.mapper.contest.ContestAwardMapper">
+
+    <insert id="saveAwardResult" parameterType="com.DOH.DOH.dto.contest.AwardDTO">
+        insert into award values( #{id},#{conNum},#{userEmail}, #{firstPlace},#{secondPlace},#{thirdPlace});
+    </insert>
+
+    <select id="viewResult" parameterType="Long" resultType="com.DOH.DOH.dto.contest.AwardDTO">
+        SELECT * FROM DOH.award where conNum=#{conNum};
+    </select>
+</mapper>

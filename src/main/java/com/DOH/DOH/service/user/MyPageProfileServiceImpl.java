@@ -1,12 +1,16 @@
 package com.DOH.DOH.service.user;
 
 import com.DOH.DOH.dto.user.MyPageProfileDTO;
+import com.DOH.DOH.dto.user.MyPageSkillDTO;
+import com.DOH.DOH.dto.user.RegisterDTO;
 import com.DOH.DOH.mapper.user.MyPageProfileMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Service("MyPageProfileService")
+@Service
 @Slf4j
 public class MyPageProfileServiceImpl implements MyPageProfileService {
 
@@ -24,4 +28,31 @@ public class MyPageProfileServiceImpl implements MyPageProfileService {
         log.info("findByUserEmail:{}", userEmail);
         return myPageProfileMapper.findByUserEmail(userEmail);
     }
+
+    @Override
+    public MyPageProfileDTO findIdByUserEmail(@Param("id") Long id, String userEmail) {
+        log.info("id:{} findIdByUserEmail:{}", id, userEmail);
+        return myPageProfileMapper.findIdByUserEmail(id, userEmail);
+    }
+
+    @Override
+    public void update(MyPageProfileDTO myPageProfileDTO) {
+        log.info("myPageProfileDTOUPDATE:{}", myPageProfileDTO);
+        myPageProfileMapper.update(myPageProfileDTO);
+    }
+
+    @Override
+    public void updateUserNickName(String newName, String oldName) {
+        log.info("updateUserNickName: newName={}, oldName={}", newName, oldName);
+        myPageProfileMapper.updateUserNickName(newName, oldName);
+    }
+
+    @Transactional
+    @Override
+    public void updateUserInfoNickName(String newName, String oldName) {
+        log.info("updateUserInfoNickName: newName={}, oldName={}", newName, oldName);
+        myPageProfileMapper.updateUserInfoNickName(newName, oldName);
+        myPageProfileMapper.updateUserNickName(newName, oldName);
+    }
+
 }

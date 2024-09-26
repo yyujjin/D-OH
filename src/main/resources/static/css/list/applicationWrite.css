@@ -75,12 +75,19 @@ a
     color: var(--color-black);
     text-decoration-line: none;
 }
+
 .briefing
 {
-    font-size: var(--font-size-20);
-    padding: 15px 20px;
+    font-size: var(--font-size-16);
+    padding: 10px 20px;
     border: 1px solid var(--line-gray);
     border-radius: 6px;
+    &:hover
+    {
+        border: 1px solid var(--color-black);
+        background: var(--color-black);
+        color: var(--color-white);
+    }
 }
 
 /* 지원 입력 내용 부분 */

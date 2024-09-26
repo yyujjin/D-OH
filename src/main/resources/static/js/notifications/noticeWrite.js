@@ -1,34 +1,48 @@
 $(document).ready(function() {
-    // 공지사항 등록 폼의 유효성 검사
-    $('#noticeForm').on('submit', function(event) {
-        var title = $('#title').val().trim();
+
+    // 유효성 검증 함수
+    function validateForm() {
+        var title = $('#noticeTitle').val().trim();
         var content = $('#content').val().trim();
-        
+
         // 제목 유효성 검사
         if (title === '') {
             alert('제목을 입력하세요.');
-            $('#title').focus();
-            event.preventDefault();
+            $('#noticeTitle').focus();
+            return false; // 검증 실패
+        }
+
+        return true; // 검증 통과
+    }
+
+    // 공지사항 등록 폼의 유효성 검사
+    $('#noticeForm').on('submit', function(event) {
+        if (!validateForm()) {
+            event.preventDefault(); // 폼 제출 방지
             return false;
         }
-        
-        // 내용 유효성 검사
-        // if (content === '') {
-        //     alert('내용을 입력하세요.');
-        //     $('#content').focus();
-        //     event.preventDefault();
-        //     return false;
-        // }
+
+        // 기본적으로 정식 등록
+        $('#noticeTempSave').val('false');
     });
 
     // 임시 저장 버튼 클릭 시 처리
-    $('#tempSaveBtn').on('click', function() {
-        $('#noticeTempSave').val('true'); // 임시 저장으로 플래그 설정
-        $('#noticeForm').submit(); // 폼 제출
-    });
+    $('#tempSaveBtn').on('click', function(event) {
+        event.preventDefault(); // 폼 제출 방지
 
-    // 등록 버튼 클릭 시 처리 (기본값으로 정식 등록)
-    $('#noticeForm button[type="submit"]').on('click', function() {
-        $('#noticeTempSave').val('false'); // 등록으로 플래그 설정
+        if (!validateForm()) {
+            return false; // 유효성 검증 실패 시 처리 중단
+        }
+
+        // 임시 저장 시 버튼 텍스트 변경
+        $('#noticeTempSave').val('true'); // 임시 저장 플래그 설정
+        $('#noticeForm').attr('action', '/notice/admin/tempSave'); // 임시 저장 경로 설정
+
+        // '등록' 버튼을 '수정'으로, '임시 저장' 버튼을 '등록'으로 변경
+        $('.btn-primary').text('등록');
+        $('#tempSaveBtn').text('수정');
+
+        // 폼 제출
+        $('#noticeForm').submit();
     });
 });

@@ -42,7 +42,7 @@ html {
     height: 40px;
 }
 
-.search-bar input {
+.header-search-bar {
     border: none;
     outline: none;
     height: 30px;
@@ -155,4 +155,28 @@ html {
 #logoutForm button:hover {
     color: rgb(193, 192, 255);
     transform: scale(1.1);
+}
+
+.notification-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgb(193, 192, 255);
+    color: white;
+    padding: 3px 7px;
+    border-radius: 50%;
+    font-size: 12px;
+}
+
+.nav-tabs {
+    margin-bottom: 10px;
+}
+
+.list-group-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.list-group-item:hover {
+    background-color: #f1f1f1;
 }

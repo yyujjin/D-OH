@@ -6,7 +6,7 @@
 
     <!-- 공지사항 작성 (insert) -->
     <insert id="insertNotice">
-        <selectKey keyProperty="noticeNum" resultType="int" order="BEFORE">
+        <selectKey keyProperty="noticeNum" resultType="long" order="BEFORE">
             SELECT IFNULL(MAX(noticeNum), 0) + 1 FROM notice
         </selectKey>
         INSERT INTO notice (
@@ -15,6 +15,16 @@
         #{noticeNum}, #{noticeTitle}, #{noticeContent}, NOW(), #{userNum}, #{noticeTempSave}
         )
     </insert>
+
+    <!-- 공지사항 번호로 공지사항 조회 -->
+    <select id="selectNoticeById" resultType="com.DOH.DOH.dto.notifications.NoticeDTO">
+        SELECT
+        noticeNum, noticeTitle, noticeContent, noticeCreateTime, userNum, noticeTempSave
+        FROM
+        notice
+        WHERE
+        noticeNum = #{noticeNum}
+    </select>
 
     <!-- 공지사항 수정 -->
     <update id="updateNotice">
@@ -27,45 +37,50 @@
         noticeNum = #{noticeNum}
     </update>
 
+    <!-- 임시 저장된 공지사항 수정 -->
+    <update id="updateTempNotice">
+        UPDATE notice
+        SET
+        noticeTitle = #{noticeTitle},
+        noticeContent = #{noticeContent},
+        noticeCreateTime = NOW()  <!-- 수정 시 수정 시간을 갱신할 수 있음 -->
+        WHERE
+        noticeNum = #{noticeNum}
+        AND noticeTempSave = true
+    </update>
+
     <!-- 공지사항 삭제 -->
     <delete id="deleteNotice">
         DELETE FROM notice
         WHERE noticeNum = #{noticeNum}
     </delete>
 
-    <!-- 공지사항 상세 조회 -->
-    <select id="getNoticeDetail" resultType="com.DOH.DOH.dto.notifications.NoticeDTO">
+    <!-- 정식 저장된 공지사항 목록 조회 (페이징 처리 포함) -->
+    <select id="getNoticeList" resultType="com.DOH.DOH.dto.notifications.NoticeDTO">
         SELECT
         noticeNum, noticeTitle, noticeContent, noticeCreateTime, userNum, noticeTempSave
         FROM
         notice
         WHERE
-        noticeNum = #{noticeNum}
-    </select>
-
-    <!-- 정식 저장된 공지사항 목록 조회 (페이징 처리 포함) -->
-    <select id="getNoticeList" resultType="com.DOH.DOH.dto.notifications.NoticeDTO">
-        SELECT
-        noticeNum, noticeTitle, noticeCreateTime, userNum, noticeTempSave
-        FROM
-        notice
-        WHERE noticeTempSave = false
-        ORDER BY noticeCreateTime DESC
+        noticeTempSave = false
+        ORDER BY noticeCreateTime DESC, noticeNum DESC
         LIMIT #{offset}, #{limit}
     </select>
 
-    <!-- 임시 저장된 공지사항 목록 조회 -->
-    <select id="getTempNoticeList" resultType="com.DOH.DOH.dto.notifications.NoticeDTO">
+
+    <!-- 임시 저장된 공지사항 목록 조회 (최대 3개) -->
+    <select id="findTempNotices" resultType="com.DOH.DOH.dto.notifications.NoticeDTO">
         SELECT
-        noticeNum, noticeTitle, noticeCreateTime, userNum, noticeTempSave
+        noticeNum, noticeTitle, noticeContent, noticeCreateTime, userNum, noticeTempSave
         FROM
         notice
-        WHERE noticeTempSave = true
-        ORDER BY noticeCreateTime DESC
-        LIMIT #{offset}, #{limit}
+        WHERE
+        noticeTempSave = true
+        ORDER BY noticeCreateTime DESC, noticeNum DESC
+        LIMIT 3
     </select>
 
-    <!-- 전체 공지사항 수 조회 -->
+    <!-- 전체 정식 공지사항 수 조회 -->
     <select id="getTotalNotices" resultType="int">
         SELECT COUNT(*) FROM notice WHERE noticeTempSave = false
     </select>
