@@ -35,7 +35,10 @@ public class PortFolioController {
     }
 
     @GetMapping("/list/detail")
-    public String viewPortfolio() {
+    public String viewPortfolio(int portfolioId, Model model)
+    {
+        PortFolioDTO portFolioDTO = portFolioService.getPortfolioInfo(portfolioId);
+        model.addAttribute("portFolio",portFolioDTO);
         return "user/portfolioDetail";
     }
 

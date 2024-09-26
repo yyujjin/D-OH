@@ -3,7 +3,8 @@ $(document).ready(function(){
     $(".user.more").click(function () {
         var profileInfo = $(".profileInfo");
         // var icon = $(".fa-angle-down, .fa-angle-up"); // 둘 다 선택
-        var icon = $(".fa-solid");
+//        var icon = $(".fa-solid");
+        var icon = $("#more");
         // $(".profileInfo").css({"display":"block"});
 
         // 현재 display 상태에 따라 block 또는 none으로 토글

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Mapper
 public interface ContestListMapper {
@@ -25,7 +26,13 @@ public interface ContestListMapper {
     void addScrap(@Param("userEmail") String uerEmail,@Param("contestId") int contestId);
     void deleteScrap(@Param("userEmail") String uerEmail,@Param("contestId") int contestId);
 
+    List<ApplyDTO> getApplicationList(String userEmail);
+
+
     ContestListDTO contestInfo(Long id);
     int getApplyCount(Long id);
+
+    // conNum과 userEmail을 기반으로 글 조회
+    ApplyDTO findApplyByConNumAndUserEmail(@Param("conNum") Long conNum, @Param("userEmail") String userEmail);
 
 }

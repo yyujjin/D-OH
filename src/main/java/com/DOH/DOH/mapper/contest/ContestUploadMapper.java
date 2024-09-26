@@ -31,5 +31,11 @@ public interface ContestUploadMapper {
 
     //유저 이메일로 생성한 컨테스트 목록 조회하기
     List<ContestUploadDTO>getContestsByUserEmail(String userEmail);
+
+    //컨테스트 모집 마감으로 설정
+    void finishContest(Long conNum);
+
+    //모집 마감됐는지 isFinished 컬럼으로 확인하기
+    int isFinishedContest(Long conNum);
 }
 

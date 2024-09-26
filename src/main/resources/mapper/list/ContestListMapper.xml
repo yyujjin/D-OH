@@ -12,6 +12,7 @@
                 (datediff(conEndDate, now())) as endDate, conCompanyName
             FROM contest_Upload
             WHERE datediff(conEndDate, now()) >= 0
+            AND isFinished = 0  <!-- isFinished = 0 조건 추가 -->
         <choose>
             <when test="orderType == 'price'"><!--총 상금 순-->
                 order by totalPrice desc
@@ -53,8 +54,13 @@
         select count(*) from scrap_contest where userEmail = "${userEmail}"
                 and conNum = ${contestId}
     </select>
+    <select id="getApplicationList" parameterType="String" resultType="com.DOH.DOH.dto.list.ApplyDTO">
+        SELECT * FROM DOH.apply_contest where userEmail = #{userEmail};
+    </select>
+
 
 <!--    관심 공모전 정보 등록-->
+
     <insert id="addScrap">
         insert into scrap_contest(userEmail, conNum) values("${userEmail}", ${contestId})
     </insert>
@@ -73,5 +79,12 @@
 
     <select id="getApplyCount" resultType="int">
         select count(*) from apply_contest where conNum = ${id}
+    </select>
+
+    <!-- conNum과 userEmail을 기반으로 작성된 글 조회 -->
+    <select id="findApplyByConNumAndUserEmail" parameterType="map" resultType="com.DOH.DOH.dto.list.ApplyDTO">
+        SELECT conNum, userEmail, applyTitle, applyContent, applyDate, imageUrl
+        FROM apply_contest
+        WHERE conNum = #{conNum} AND userEmail = #{userEmail}
     </select>
 </mapper>

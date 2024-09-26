@@ -42,9 +42,16 @@
                 <p>참여자가 없습니다.</p>
             </div>
             <div th:each="applicant : ${applicantList}" th:unless="${#lists.isEmpty(applicantList)}">
-                <p><span>👤 </span><span th:text="${applicant}"> 지원자 이름</span></p>
+                <p>
+                    <span>👤 </span>
+                    <!-- 지원자의 이메일을 클릭하면 상세보기 페이지로 이동하는 링크 -->
+                    <a th:href="@{/api/users/contest/application/detail/{conNum}/{userEmail}(conNum=${contestUploadDTO.id}, userEmail=${applicant})}">
+                        <span th:text="${applicant}">지원자 이름</span>
+                    </a>
+                </p>
             </div>
         </div>
+
     </form>
 
     <!-- 사이드바 -->
@@ -75,7 +82,7 @@
         <p>조회수  <span th:text="${contestUploadDTO.conHit}"></span></p>
 
         <!-- 시상하기 버튼 추가 -->
-        <a th:if="${userEmail == writer}" th:href="@{/contest/award(contestNum=${contestUploadDTO.id})}" class="button" style="background-color: #28a745; color: white;">
+        <a th:if="${userEmail == writer}" th:href="@{/users/contest/award(contestNum=${contestUploadDTO.id})}" class="button" style="background-color: #28a745; color: white;">
             시상하기
         </a>
 

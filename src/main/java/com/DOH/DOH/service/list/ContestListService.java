@@ -20,7 +20,11 @@ public interface ContestListService {
     ArrayList<Integer> getScrapList(String userEmail);
     int scrap(String email, int contestId);
     void saveContest(ApplyDTO applyDTO);
-
+    List<ApplyDTO> getApplicationList(String userEmail);
     ContestListDTO contestInfo(Long id);
     int getApplyCount(Long id);
+
+    // conNum과 userEmail을 기반으로 작성된 글을 조회하는 메서드
+    ApplyDTO getApplyByConNumAndUserEmail(Long conNum, String userEmail);
+
 }
