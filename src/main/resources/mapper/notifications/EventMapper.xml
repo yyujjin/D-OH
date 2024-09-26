@@ -83,7 +83,7 @@
         WHERE
         eventTempSave = true
         ORDER BY eventEndDate DESC, eventCreateTime DESC, eventNum DESC
-        LIMIT 3
+        LIMIT 4
     </select>
 
     <!-- 전체 정식 이벤트 수 조회 -->

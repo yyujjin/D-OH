@@ -65,8 +65,8 @@ public class EventServiceImpl implements EventService {
         // 현재 임시 저장된 이벤트 수 확인
         List<EventDTO> tempEvents = eventMapper.getTempSavedEvents();
 
-        if (tempEvents != null && tempEvents.size() >= 3) {
-            throw new IllegalStateException("임시 저장된 이벤트는 최대 3개까지만 저장할 수 있습니다.");
+        if (tempEvents != null && tempEvents.size() >= 4) {
+            throw new IllegalStateException("임시 저장된 이벤트는 최대 4개까지만 저장할 수 있습니다.");
         }
 
         eventDTO.setEventTempSave(true); // 임시 저장으로 설정

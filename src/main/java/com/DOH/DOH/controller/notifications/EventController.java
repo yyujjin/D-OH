@@ -289,8 +289,8 @@ public class EventController {
         }
 
         List<EventDTO> tempEventList = eventService.getTempEventList();
-        if (tempEventList.size() >= 3) {
-            redirectAttributes.addFlashAttribute("errorMessage", "임시 저장된 이벤트는 최대 3개까지만 가능합니다.");
+        if (tempEventList.size() >= 4) {
+            redirectAttributes.addFlashAttribute("errorMessage", "임시 저장된 이벤트는 최대 4개까지만 가능합니다.");
             return "redirect:/event/list";
         }
 

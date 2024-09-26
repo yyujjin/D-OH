@@ -28,20 +28,21 @@ public class NoticeController {
 
     // 공지사항 목록 페이지
     @GetMapping("/list")
-    public String noticeList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum, Model model) {
+    public String noticeList(@RequestParam(defaultValue = "1") int pageNum, Model model) {
 //        int page = Integer.parseInt(pageNum);
 
         int totalPages = noticeService.getTotalPages();
         log.info("totalPages" +totalPages);
-        PagingDTO dto = new PagingDTO(pageNum,noticeService.getTotalPages(),1);
+        PagingDTO pagingDTO = new PagingDTO(pageNum,noticeService.getTotalPages(),1);
 //        model.addAttribute("totalPages", totalPages);
 //        model.addAttribute("currentPage", page);
-        model.addAttribute("pageMaker", dto);
 
         // 정식 등록된 공지사항 가져오기
 //        List<NoticeDTO> noticeList = noticeService.getNoticeList(page);
-        List<NoticeDTO> noticeList = noticeService.getNoticeList(dto);
+        List<NoticeDTO> noticeList = noticeService.getNoticeList(pagingDTO);
         model.addAttribute("noticeList", noticeList);
+
+        model.addAttribute("pageMaker", pagingDTO);
 
         // 임시 저장된 공지사항 가져오기 (관리자만 표시)
         String userRole = userSessionService.userRole();

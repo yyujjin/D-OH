@@ -31,7 +31,6 @@
                 <a th:href="@{/event/detail(eventNum=${event.eventNum})}" class="card-link"
                    th:class="${event.formattedEndDate < currentDate ? 'expired' : ''}">
                     <div class="card h-100">
-
                         <div th:if="${event.eventImageName != null}">
                             <img th:src="@{${event.eventImageName}}" class="card-img-top" alt="이벤트 이미지">
                         </div>

@@ -85,6 +85,8 @@ h2 {
 }
 
 .expired-message {
-    color: rgb(193, 192, 255);
+    color: #ff69b4;
     font-weight: bold; /* 글꼴 두껍게 */
-    font-size: 30px;
+    font-size: 45px;
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
