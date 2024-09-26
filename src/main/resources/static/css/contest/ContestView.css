@@ -5,7 +5,13 @@
             flex: 1;
             padding: 20px;
             display: flex;
+            margin: 0 auto;
+        }
+
+        form {
             justify-content: space-between; /* 콘텐츠와 사이드바 사이의 여백 */
+            max-width: 1200px;
+            border: 1px solid #ddd;
         }
 
         /* 사이드바 설정 */
