@@ -1,119 +1,50 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Podium with Trophies</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #ffffff;
-        color: white;
-        text-align: center;
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-image: url("background-image-url"); /* Optional background image */
-        background-size: cover;
-        background-position: center;
-      }
+<html lang="kr" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>네이밍 컨테스트 결과 발표</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/css/contest/result.css" />
+</head>
+<body>
+<div class="container">
+  <!-- 제목 섹션 -->
+  <div class="title-section">
+    <h1>🎉 네이밍 컨테스트 결과 발표 🎉</h1>
+    <p>모두 축하드립니다! 당첨자는 아래와 같습니다!</p>
+  </div>
 
-      .podium-container {
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        margin-bottom: 50px;
-      }
-
-      .podium {
-        width: 150px;
-        margin: 0 20px;
-        text-align: center;
-        position: relative;
-      }
-
-      .trophy {
-        width: 100%;
-      }
-
-      .user-id {
-        font-size: 18px;
-        font-weight: bold;
-        color: #000000;
-        margin-top: 10px;
-      }
-
-      .first-place .trophy {
-        height: 300px;
-      }
-
-      .second-place .trophy {
-        height: 270px;
-      }
-
-      .third-place .trophy {
-        height: 250px;
-      }
-
-      .back-button {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: rgb(193, 192, 255);
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        border-radius: 5px;
-        transition: background-color 0.3s ease;
-      }
-
-      .back-button:hover {
-        background-color: rgb(193, 192, 255);
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Top 3 Winners</h1>
-    <div class="podium-container">
-      <div class="podium third-place">
-        <img
-          src="/img/contest/trophy3.jpeg"
-          alt="3rd Place Trophy"
-          class="trophy"
-        />
-        <div class="user-id" th:text="${award.thirdPlace}">User3</div>
-      </div>
-      <div class="podium first-place">
-        <img
-
-          src="/img/contest/trophy1.jpeg"
-          alt="1st Place Trophy"
-          class="trophy"
-        />
-        <div class="user-id" th:text="${award.firstPlace}">User1</div>
-      </div>
-      <div class="podium second-place">
-        <img
-
-          src="/img/contest/trophy2.jpeg"
-          alt="2nd Place Trophy"
-          class="trophy"
-        />
-        <div class="user-id" th:text="${award.secondPlace}">User2</div>
-      </div>
+  <!-- 1등 -->
+  <div class="award-section first-place">
+    <h2>1등 🏆</h2>
+    <div class="winner">
+      <p th:text="${award.firstPlace}">user</p>
     </div>
+  </div>
 
-    <button
-      class="back-button"
-      onclick="window.location.href='/users/mypage';"
-    >
-      돌아가기
-    </button>
-  </body>
+  <!-- 2등 -->
+  <div class="award-section second-place">
+    <h2>2등 🥈</h2>
+    <div class="winner">
+      <p th:text="${award.secondPlace}">user</p>
+    </div>
+  </div>
+
+  <!-- 3등 -->
+  <div class="award-section third-place">
+    <h2>3등 🥉</h2>
+    <div class="winner">
+      <p th:text="${award.thirdPlace}">user</p>
+    </div>
+  </div>
+
+  <!-- 축하 메시지 -->
+  <div class="contact-message">
+    <p>🎁 당첨을 축하드립니다! 🎁</p>
+    <p>당첨된 분들께는 개별적으로 연락을 드릴 예정이니, 조금만 기다려주세요!</p>
+    <p>참여해주신 모든 분들께 감사드립니다! 🙏</p>
+  </div>
+</div>
+</body>
 </html>
