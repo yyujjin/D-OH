@@ -2,13 +2,13 @@ package com.DOH.DOH.controller.user;
 
 import com.DOH.DOH.dto.user.RegisterDTO;
 import com.DOH.DOH.service.user.RegisterService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
+
 @Controller
 public class RegisterController {
 
@@ -42,4 +42,26 @@ public class RegisterController {
         return "redirect:/users/login";
     }
 
+    @RestController
+    @RequestMapping("/api/v1/users")
+    @RequiredArgsConstructor
+    public class  RegisterApiController{
+
+        private final RegisterService registerService;
+
+        @GetMapping("/check-email")
+        public boolean checkEmail(@RequestParam String userEmail) {
+
+            return registerService.duplicateUserEmail(userEmail);
+
+        }
+
+        @GetMapping("/check-nickname")
+        public boolean checkNickName(@RequestParam String nickName) {
+
+            return registerService.duplicateNickName(nickName);
+
+        }
+
+    }
 }
