@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/fragments/layout}" lang="kr">
 <head>
     <title>시상하기 페이지</title>
-    <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    />
     <link rel="stylesheet" href="/css/contestAward.css"> <!-- Custom CSS 추가 -->
     <script src="/js/contest/contestAward.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="/css/contest/contestAward.css" />
 </head>
-<body>
+
+<th:block layout:fragment="content">
+
 <div class="container custom-container">
     <h2 class="page-title">🏆 수상자 선정 🏆</h2>
     <p class="instructions">참여자 중에서 수상자를 선택해주세요!</p>
@@ -66,5 +63,5 @@
         </div>
     </form>
 </div>
-</body>
+</th:block>
 </html>
