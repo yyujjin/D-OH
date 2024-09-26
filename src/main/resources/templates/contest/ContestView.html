@@ -13,8 +13,8 @@
 <div class="Contestview">
     <form action="/contest/view" method="post" enctype="multipart/form-data" class="maxw">
         <div class="Contestviewheader">
-            <h1><p>제목 : <span th:text="${contestUploadDTO.conTitle}"></span></p></h1>
-            <p>회사명 : <span th:text="${contestUploadDTO.conCompanyName}"></span></p>
+            <h1><span th:text="${contestUploadDTO.conTitle}"></span></h1>
+            <span th:text="${contestUploadDTO.conCompanyName}"></span>
             <div class="meta">
                 <span id="request-tab" onclick="showContent('request')">📋 요청 사항</span>
                 <span id="work-tab" onclick="showContent('work')">👥 참여자</span>
@@ -23,11 +23,12 @@
         <!-- 요청사항 -->
         <div class="request">
             <div>
-                <p>한줄 소개: <span th:text="${contestUploadDTO.conOneLiner}"></span></p>
-                <p>로고명: <span th:text="${contestUploadDTO.conLogoName}"></span></p>
-
+                <h3>한줄 소개</h3>
+                <span th:text="${contestUploadDTO.conOneLiner}"></span>
+                <h3>로고명</h3>
+                <span th:text="${contestUploadDTO.conLogoName}"></span>
                 <!-- Summernote 에디터 적용 -->
-                <label for="briefing">브리핑:</label>
+                <h3><label for="briefing">브리핑</label></h3>
                 <div id="briefing" class="summernote">
                     <span th:utext="${contestUploadDTO.conBriefing}"></span>
                 </div>
@@ -54,9 +55,9 @@
 
     <!-- 사이드바 -->
     <div class="Contestviewsidebar">
-        <h2>제목 : <span th:text="${contestUploadDTO.conTitle}"></span></h2>
+        <h2><span th:text="${contestUploadDTO.conTitle}"></span></h2>
 
-        <h4>회사명 : <span th:text="${contestUploadDTO.conCompanyName}"></span></h4>
+        <h4><span th:text="${contestUploadDTO.conCompanyName}"></span></h4>
 
         <h2>총 상금 <span th:text="${contestUploadDTO.conFirstPrice +
                                     contestUploadDTO.conSecondPrice +
@@ -76,7 +77,6 @@
         <span th:text="${#dates.format(contestUploadDTO.conStartDate, 'yyyy/MM/dd')}"></span> ~
         <span th:text="${#dates.format(contestUploadDTO.conEndDate, 'yyyy/MM/dd')}"></span>
 
-        <p>참여작</p>
         <p>조회수  <span th:text="${contestUploadDTO.conHit}"></span></p>
 
         <!-- 시상하기 버튼 추가 -->
