@@ -12,8 +12,12 @@
 
 /* 카드 링크에 대한 스타일링 (밑줄 제거) */
 .card-link {
-    text-decoration: none !important; /* 밑줄 제거 */
+    text-decoration: none !important;
     color: inherit;
+}
+
+a {
+    text-decoration: none !important;
 }
 
 .card-link:hover .card {
