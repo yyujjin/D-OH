@@ -4,9 +4,8 @@ var cnt = $("#cnt").val(); //id가 cnt인 value를 가지고 온다.
 
 //처음 실행 시 안읽은 메시지 가져오기
 getUnreadMessages();
-getAllMessages();
 
-//채팅 아이콘 눌렀을 때 실행 됨 
+//채팅 아이콘 눌렀을 때 실행 됨
 function clickChatIcon() {
 
   var cnt = Object.keys(data).length === 0 ? 0 : 1;
@@ -14,7 +13,7 @@ function clickChatIcon() {
   var txt = $("#txt" + ids);
 
   if (txt.hasClass("show")) {
-    txt.removeClass("show"); 
+    txt.removeClass("show");
     chat.removeClass("active");
   } else {
     txt.addClass("show");
@@ -22,7 +21,7 @@ function clickChatIcon() {
   }
 
   //메시지가 없을 때는 원래대로 진행중인 채팅이 없다는 문구 뜨고
-  //data가 빈배열이 아닐 경우에는 innterhtml로 목록 다시 만들기 
+  //data가 빈배열이 아닐 경우에는 innterhtml로 목록 다시 만들기
   if (ids == "On") {
     updateChatList();
   }
@@ -49,26 +48,11 @@ function getUnreadMessages(){
   });
 }
 
-//메시지 가져오기
-function getAllMessages() {
-  $.ajax({
-    url: "/api/users/chat/messages",
-    method: "GET",
-    success: function (messages) {
-      console.log(messages);
-      data = messages;
-      updateChatList();
-    },
-  });
-}
-
-
 checkLoginStatus().then(function (isLoggedIn) {
   if (isLoggedIn) {
     // 로그인이 되어 있을 때만 메시지 확인 로직을 실행
     setInterval(function () {
       getUnreadMessages(); //메시지 있는지 확인해서 아이콘 띄우기
-      getAllMessages();
     }, 5000); // 5초마다 새로운 메시지 확인
   }
 });
