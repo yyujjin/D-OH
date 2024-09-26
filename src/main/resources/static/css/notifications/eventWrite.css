@@ -32,7 +32,7 @@ label {
     font-weight: 600;
 }
 
-input[type="text"],
+.form-control,
 textarea,
 input[type="date"],
 input[type="time"],
@@ -45,7 +45,7 @@ input[type="file"] {
     transition: box-shadow 0.3s ease-in-out;
 }
 
-input[type="text"]:focus,
+.form-control:focus,
 textarea:focus,
 input[type="date"]:focus,
 input[type="time"]:focus,
@@ -66,25 +66,36 @@ textarea {
 }
 
 button {
-    padding: 12px 25px;
+    padding: 12px 40px; /* 버튼의 넓이를 더 넓게 */
     font-size: 16px;
     border: none;
-    border-radius: 25px;
+    border-radius: 5px; /* 모서리 둥글기 변경 */
     cursor: pointer;
-    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, transform 0.2s ease-in-out;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: flex-end; /* 버튼들을 오른쪽으로 정렬 */
+    margin-top: 20px; /* 버튼 그룹 위에 여백 추가 */
 }
 
 .btn-primary {
     background-color: rgb(193, 192, 255);
     color: white;
     font-weight: 600;
-    border: solid 1px rgb(193, 192, 255);
+    border: 1px solid rgb(193, 192, 255);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 살짝의 그림자 추가 */
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .btn-primary:hover {
     background-color: rgba(193, 192, 255, 0.8);
-    box-shadow: 0 4px 10px rgba(193, 192, 255, 0.3);
-    border: solid 1px rgb(193, 192, 255);
+    box-shadow: 0 4px 10px rgba(193, 192, 255, 0.3); /* hover 시 그림자 강조 */
+    transform: translateY(-2px); /* hover 시 살짝 위로 이동 */
+    border: 1px solid rgba(193, 192, 255, 0.8); /* hover 시 테두리 색상 변경 */
 }
 
 .btn-secondary {
@@ -92,13 +103,16 @@ button {
     color: rgb(193, 192, 255);
     text-decoration: none;
     border: 1px solid rgb(193, 192, 255);
-    padding: 10px 20px;
-    border-radius: 25px;
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    padding: 10px 35px; /* 버튼의 넓이를 더 넓게 */
+    border-radius: 5px; /* 모서리 둥글기 변경 */
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
+    font-weight: 500;
 }
 
 .btn-secondary:hover {
     background-color: rgb(193, 192, 255);
     color: white;
     border: 1px solid rgb(193, 192, 255);
+    box-shadow: 0 4px 10px rgba(193, 192, 255, 0.3); /* hover 시 그림자 추가 */
+    transform: translateY(-2px); /* hover 시 살짝 위로 이동 */
 }
