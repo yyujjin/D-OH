@@ -57,7 +57,7 @@ public class ContestUploadServiceImpl implements ContestUploadService {
         }
 
         // 4. 주문 번호 생성 (예: 240913-000001 형식)
-        String orderNumber = String.format("%s-%07d", formattedDate, contestCount);
+        String orderNumber = String.format("%s-%09d", formattedDate, contestCount);
 
         // 5. 생성된 주문 번호 반환
         return orderNumber;
