@@ -1,6 +1,7 @@
 var data = [];
 var chat = $(".chat");
 var cnt = $("#cnt").val(); //id가 cnt인 value를 가지고 온다.
+var latestChatList = []; //최신 메시지 가져오기 
 
 //처음 실행 시 안읽은 메시지 가져오기
 getUnreadMessages();
@@ -25,6 +26,8 @@ function clickChatIcon() {
   //data가 빈배열이 아닐 경우에는 innterhtml로 목록 다시 만들기
   if (ids == "On") {
     updateChatList();
+  }else if(ids == "None"&& cnt==0 && latestChatList.length!=0){
+    updateChatListByLatestMessages();
   }
 }
 
@@ -110,7 +113,7 @@ function scrollToTop() {
 }
 
 
-//최신 메시지 가져오기
+//진행중인 채팅방의 최신 메시지 가져오기
 function getLatestMessages(){
   $.ajax({
     url: `/api/users/chat/messages/latest`,
@@ -118,10 +121,39 @@ function getLatestMessages(){
     data: JSON.stringify(),
     contentType: 'application/json', 
     success: function (response) {
-      console.log(response);
+      latestChatList = response;
+      console.log("최신 메시지" , latestChatList);
     },
     error: function (error) {
       console.error("Error fetching messages: ", error);
     },
+  });
+}
+
+//최신 메시지 리스트 표시 
+function updateChatListByLatestMessages() {
+  console.log("최신 메시지 가져오기 실행되고 있음 ")
+  var txt = $("#txtNone"); 
+  txt.html(""); // 기존 내용을 초기화
+
+  latestChatList.forEach(function (value) {
+    console.log(value.receiver)
+
+    var chatHtml = `
+    <a href="/users/chat?receiver=${value.receiver}">
+        <div class="wrap">
+          <div class="chatImg"></div>
+          <div class="infoWrap">
+            <div class="content">
+              <div class="name">${value.receiver}</div>
+            </div>
+            <div class="info">
+              <div class="introduce">${value.content}</div>
+            </div>
+          </div>
+        </div>
+        </a>
+      `;
+    txt.append(chatHtml);
   });
 }
