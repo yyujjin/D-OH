@@ -70,6 +70,7 @@ public class MyPageController {
         myPageDTO = myPageService.findByuserEmail(userEmail);
         if(myPageDTO == null){
             myPageMapper.insertUserEmail(userEmail);
+            myPageMapper.insertUserNickName(userSessionService.nickName());
         }
 
         //유저 이메일로 생성한 컨테스트 목록 가져오기
