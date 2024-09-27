@@ -4,6 +4,7 @@ var cnt = $("#cnt").val(); //id가 cnt인 value를 가지고 온다.
 
 //처음 실행 시 안읽은 메시지 가져오기
 getUnreadMessages();
+getLatestMessages();
 
 //채팅 아이콘 눌렀을 때 실행 됨
 function clickChatIcon() {
@@ -53,6 +54,7 @@ checkLoginStatus().then(function (isLoggedIn) {
     // 로그인이 되어 있을 때만 메시지 확인 로직을 실행
     setInterval(function () {
       getUnreadMessages(); //메시지 있는지 확인해서 아이콘 띄우기
+      getLatestMessages(); //마지막 채팅 기록 가져오기
     }, 5000); // 5초마다 새로운 메시지 확인
   }
 });
@@ -105,4 +107,21 @@ function updateChatList() {
 //페이지의 스크롤을 맨 위로 이동시킴
 function scrollToTop() {
   $(window).scrollTop(0);
+}
+
+
+//최신 메시지 가져오기
+function getLatestMessages(){
+  $.ajax({
+    url: `/api/users/chat/messages/latest`,
+    type: "GET",
+    data: JSON.stringify(),
+    contentType: 'application/json', 
+    success: function (response) {
+      console.log(response);
+    },
+    error: function (error) {
+      console.error("Error fetching messages: ", error);
+    },
+  });
 }
