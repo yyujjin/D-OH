@@ -128,6 +128,7 @@ function getLatestMessages(){
       console.error("Error fetching messages: ", error);
     },
   });
+  updateChatListByLatestMessages();
 }
 
 //최신 메시지 리스트 표시 
@@ -148,7 +149,7 @@ function updateChatListByLatestMessages() {
               <div class="name">${value.receiver}</div>
             </div>
             <div class="info">
-              <div class="introduce">${value.content}</div>
+              <div class="introduce">채팅방이 열려 있습니다.</div>
             </div>
           </div>
         </div>
