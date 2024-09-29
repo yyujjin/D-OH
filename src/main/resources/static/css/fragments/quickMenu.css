@@ -133,7 +133,7 @@
 .quickMenu .wrap .chatImg {
     width: 45px;
     height: 45px;
-    background-color: var(--line-gray);
+    /*background-color: var(--line-gray);*/
     border-radius: 50%;
 }
 

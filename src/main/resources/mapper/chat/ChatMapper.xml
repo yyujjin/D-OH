@@ -10,11 +10,14 @@
     </insert>
 
     <select id="getUnreadMessages" parameterType="String" resultType="com.DOH.DOH.dto.chat.MessageDTO">
-         SELECT *
-         FROM chat
-         WHERE receiver = #{receiver} AND isRead = 0
-         ORDER BY sender, timestamp DESC;
-     </select>
+        SELECT c.*, m.profilePhoto
+        FROM chat c
+        JOIN DOH.mypage m ON c.receiver = m.userNickName
+        WHERE c.receiver = #{receiver} AND c.isRead = 0
+        ORDER BY c.sender, c.timestamp DESC;
+
+
+    </select>
 
     <select id="getAllMessages" parameterType="com.DOH.DOH.dto.chat.MessageDTO" resultType="com.DOH.DOH.dto.chat.MessageDTO">
         SELECT *
