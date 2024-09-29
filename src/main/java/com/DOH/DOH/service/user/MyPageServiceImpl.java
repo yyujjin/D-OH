@@ -34,4 +34,9 @@ public class MyPageServiceImpl implements MyPageService{
     public void insertUserEmail(String userEmail) {
         myPageMapper.insertUserEmail(userEmail);
     }
+
+    @Override
+    public void insertUserNickName(String userNickName) {
+        myPageMapper.insertUserNickName(userNickName);
+    }
 }
