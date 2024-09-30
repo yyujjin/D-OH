@@ -143,7 +143,7 @@ function updateChatListByLatestMessages() {
     var chatHtml = `
     <a href="/users/chat?receiver=${value.receiver}">
         <div class="wrap">
-          <div class="chatImg"></div>
+          <div class="chatImg"><img src ="${value.profilePhoto}" width="50" height="50" ></div>
           <div class="infoWrap">
             <div class="content">
               <div class="name">${value.receiver}</div>

@@ -47,7 +47,6 @@ public class ChatService {
 
     //전체 메시지 가져오기
     public List<MessageDTO> getAllMessages(MessageDTO messageDTO){
-        log.info("가져온 메시지 : "+chatMapper.getAllMessages(messageDTO));
         return chatMapper.getAllMessages(messageDTO);
     }
 
@@ -66,9 +65,6 @@ public class ChatService {
             }
         }
 
-        log.info("sned메시지 "+ senderMessageList);
-        log.info("recieve메시지" + receiverMessageList);
-
         // 두 리스트를 Map에 담아 반환
         Map<String, List<MessageDTO>> result = new HashMap<>();
         result.put("sentMessages", senderMessageList);  // sender 메시지 리스트
@@ -86,6 +82,10 @@ public class ChatService {
 
     //로그인한 유저를 기준으로 다른 유저가 보낸 최신 메시지들을 조회
     public List<MessageDTO>findLatestMessagesForLoggedInUser (String userNickName) {
-      return chatMapper.findLatestMessagesForLoggedInUser(userNickName);
+        List<MessageDTO> tempCHat = chatMapper.findLatestMessagesForLoggedInUser(userNickName);
+        for(MessageDTO dto : tempCHat){
+            dto.setProfilePhoto(chatMapper.getProfilePhoto(dto.getReceiver()));
+        }
+      return tempCHat;
     };
 }
