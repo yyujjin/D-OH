@@ -70,6 +70,7 @@ public class MyPageController {
         myPageDTO = myPageService.findByuserEmail(userEmail);
         if(myPageDTO == null){
             myPageMapper.insertUserEmail(userEmail);
+            myPageMapper.insertUserNickName(userSessionService.nickName());
         }
 
         //유저 이메일로 생성한 컨테스트 목록 가져오기
@@ -84,6 +85,7 @@ public class MyPageController {
         model.addAttribute("profile", profile);
         return "user/MyPage";
     }
+    //여기가 맞는데 dto 에 같이 넣어야함
     @PostMapping("/users/mypage")
     public String postmypage(@RequestParam("profilePhoto") MultipartFile file,Model model, MyPageDTO myPageDTO, MyPageProfileDTO profile) throws IOException {
         //유저 이메일 가져오기
@@ -97,6 +99,7 @@ public class MyPageController {
         if (file != null && !file.isEmpty()) {
             String newFileName = uploadFileToS3Bucket(file);
             myPageDTO.setProfilePhotoPath(newFileName);
+            myPageDTO.setUserNickName(userSessionService.nickName());
         }
         profile.setUserEmail(userEmail);
         myPageService.insertProfilePhoto(myPageDTO);

@@ -2,6 +2,7 @@ package com.DOH.DOH.service.chat;
 
 import com.DOH.DOH.dto.chat.MessageDTO;
 import com.DOH.DOH.mapper.chat.ChatMapper;
+import com.DOH.DOH.service.user.UserSessionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +17,11 @@ import java.util.stream.Collectors;
 public class ChatService {
 
     private final ChatMapper chatMapper;
+    private final UserSessionService userSessionService;
 
-    public ChatService(ChatMapper chatMapper) {
+    public ChatService(ChatMapper chatMapper, UserSessionService userSessionService) {
         this.chatMapper = chatMapper;
+        this.userSessionService = userSessionService;
     }
 
     // 메시지 저장
@@ -27,7 +30,14 @@ public class ChatService {
     }
 
     //안 읽은 메시지 불러오기
-    public List<MessageDTO>getUnreadMessages(String receiver){return chatMapper.getUnreadMessages(receiver);}
+    public List<MessageDTO>getUnreadMessages(String receiver){
+        List<MessageDTO> unreadMessages = chatMapper.getUnreadMessages(receiver);
+       //sender 유저 (로그인한 유저에게 메시지를 보낸) 의 프로필 사진 가져오기
+        for(MessageDTO dto :unreadMessages ){
+            dto.setProfilePhoto(chatMapper.getProfilePhoto(dto.getSender()));
+        }
+        return unreadMessages;
+    }
 
     //메시지 sender별 분류 후 그룹화
     public Map<String,List<MessageDTO>> groupMessagesBySender (List<MessageDTO> unreadMessagesList) {
@@ -37,7 +47,6 @@ public class ChatService {
 
     //전체 메시지 가져오기
     public List<MessageDTO> getAllMessages(MessageDTO messageDTO){
-        log.info("가져온 메시지 : "+chatMapper.getAllMessages(messageDTO));
         return chatMapper.getAllMessages(messageDTO);
     }
 
@@ -56,9 +65,6 @@ public class ChatService {
             }
         }
 
-        log.info("sned메시지 "+ senderMessageList);
-        log.info("recieve메시지" + receiverMessageList);
-
         // 두 리스트를 Map에 담아 반환
         Map<String, List<MessageDTO>> result = new HashMap<>();
         result.put("sentMessages", senderMessageList);  // sender 메시지 리스트
@@ -76,6 +82,15 @@ public class ChatService {
 
     //로그인한 유저를 기준으로 다른 유저가 보낸 최신 메시지들을 조회
     public List<MessageDTO>findLatestMessagesForLoggedInUser (String userNickName) {
-      return chatMapper.findLatestMessagesForLoggedInUser(userNickName);
+        List<MessageDTO> tempCHat = chatMapper.findLatestMessagesForLoggedInUser(userNickName);
+        for(MessageDTO dto : tempCHat){
+            dto.setProfilePhoto(chatMapper.getProfilePhoto(dto.getReceiver()));
+        }
+      return tempCHat;
+    };
+
+    //유저 프로필 사진 가져오기
+    public String userProfilePhoto(String userNickName){
+            return chatMapper.getProfilePhoto(userNickName);
     };
 }

@@ -1,9 +1,11 @@
 var data = [];
 var chat = $(".chat");
 var cnt = $("#cnt").val(); //id가 cnt인 value를 가지고 온다.
+var latestChatList = []; //최신 메시지 가져오기 
 
 //처음 실행 시 안읽은 메시지 가져오기
 getUnreadMessages();
+getLatestMessages();
 
 //채팅 아이콘 눌렀을 때 실행 됨
 function clickChatIcon() {
@@ -24,6 +26,8 @@ function clickChatIcon() {
   //data가 빈배열이 아닐 경우에는 innterhtml로 목록 다시 만들기
   if (ids == "On") {
     updateChatList();
+  }else if(ids == "None"&& cnt==0 && latestChatList.length!=0){
+    updateChatListByLatestMessages();
   }
 }
 
@@ -53,6 +57,7 @@ checkLoginStatus().then(function (isLoggedIn) {
     // 로그인이 되어 있을 때만 메시지 확인 로직을 실행
     setInterval(function () {
       getUnreadMessages(); //메시지 있는지 확인해서 아이콘 띄우기
+      getLatestMessages(); //마지막 채팅 기록 가져오기
     }, 5000); // 5초마다 새로운 메시지 확인
   }
 });
@@ -82,7 +87,7 @@ function updateChatList() {
     var chatHtml = `
     <a href="/users/chat?receiver=${key}">
         <div class="wrap">
-          <div class="chatImg"></div>
+          <div class="chatImg"><img src ="${data[key][0].profilePhoto}" width="50" height="50" ></div>
           <div class="infoWrap">
             <div class="content">
               <div class="name">${key}</div>
@@ -105,4 +110,51 @@ function updateChatList() {
 //페이지의 스크롤을 맨 위로 이동시킴
 function scrollToTop() {
   $(window).scrollTop(0);
+}
+
+
+//진행중인 채팅방의 최신 메시지 가져오기
+function getLatestMessages(){
+  $.ajax({
+    url: `/api/users/chat/messages/latest`,
+    type: "GET",
+    data: JSON.stringify(),
+    contentType: 'application/json', 
+    success: function (response) {
+      latestChatList = response;
+      console.log("최신 메시지" , latestChatList);
+    },
+    error: function (error) {
+      console.error("Error fetching messages: ", error);
+    },
+  });
+  updateChatListByLatestMessages();
+}
+
+//최신 메시지 리스트 표시 
+function updateChatListByLatestMessages() {
+  console.log("최신 메시지 가져오기 실행되고 있음 ")
+  var txt = $("#txtNone"); 
+  txt.html(""); // 기존 내용을 초기화
+
+  latestChatList.forEach(function (value) {
+    console.log(value.receiver)
+
+    var chatHtml = `
+    <a href="/users/chat?receiver=${value.receiver}">
+        <div class="wrap">
+          <div class="chatImg"><img src ="${value.profilePhoto}" width="50" height="50" ></div>
+          <div class="infoWrap">
+            <div class="content">
+              <div class="name">${value.receiver}</div>
+            </div>
+            <div class="info">
+              <div class="introduce">채팅방이 열려 있습니다.</div>
+            </div>
+          </div>
+        </div>
+        </a>
+      `;
+    txt.append(chatHtml);
+  });
 }

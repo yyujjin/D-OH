@@ -9,4 +9,5 @@ public interface MyPageService {
     MyPageDTO profilePhoto(String userEmail);
     void insertProfilePhoto(MyPageDTO myPageDTO);
     void insertUserEmail(String userEmail);
+    void insertUserNickName(String userNickName);
 }

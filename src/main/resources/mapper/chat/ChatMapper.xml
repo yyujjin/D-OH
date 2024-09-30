@@ -10,11 +10,12 @@
     </insert>
 
     <select id="getUnreadMessages" parameterType="String" resultType="com.DOH.DOH.dto.chat.MessageDTO">
-         SELECT *
-         FROM chat
-         WHERE receiver = #{receiver} AND isRead = 0
-         ORDER BY sender, timestamp DESC;
-     </select>
+        SELECT *
+        FROM chat
+        WHERE receiver = #{receiver} AND isRead = 0
+        ORDER BY sender, timestamp DESC;
+    </select>
+
 
     <select id="getAllMessages" parameterType="com.DOH.DOH.dto.chat.MessageDTO" resultType="com.DOH.DOH.dto.chat.MessageDTO">
         SELECT *
@@ -58,6 +59,10 @@
         ) t2 ON t1.receiver = t2.receiver AND t1.timestamp = t2.latestTimestamp
         WHERE t1.sender = #{sender}
         AND t1.isSenderDeleted = 0;
+    </select>
+
+    <select id="getProfilePhoto" parameterType="String" resultType="java.lang.String">
+        select profilePhoto from DOH.mypage where userNickName = #{userNickName};
     </select>
 
 </mapper>

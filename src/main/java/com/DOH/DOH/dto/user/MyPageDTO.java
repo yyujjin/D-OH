@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class MyPageDTO {
     private Long id;
     private String userEmail;
+    private String userNickName;
     private MultipartFile profilePhoto;
     private String profilePhotoPath;
 }

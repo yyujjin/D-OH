@@ -1,5 +1,6 @@
 package com.DOH.DOH.controller.chat;
 
+import com.DOH.DOH.service.chat.ChatService;
 import com.DOH.DOH.service.user.UserSessionService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -17,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ChatPageController {
 
     private final UserSessionService userSessionService;
+    private final ChatService chatService;
 
-    public ChatPageController(UserSessionService userSessionService) {
+    public ChatPageController(UserSessionService userSessionService, ChatService chatService) {
         this.userSessionService = userSessionService;
+        this.chatService = chatService;
     }
 
     //채팅방 입장
@@ -31,6 +34,7 @@ public class ChatPageController {
         model.addAttribute("sender",userNickName);
         //메시지를 받는 사람
         model.addAttribute("receiver",receiver);
+        model.addAttribute("receiverPhoto",chatService.userProfilePhoto(receiver));
         return "/chat/chatRoom";
     }
 }

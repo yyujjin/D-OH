@@ -17,9 +17,13 @@
         INSERT INTO mypage (userEmail) VALUES(#{userEmail})
     </insert>
 
+    <insert id="insertUserNickName" parameterType="String">
+        INSERT INTO mypage (userNickName) VALUES(#{userNickName})
+    </insert>
+
     <update id="insertProfilePhoto" parameterType="com.DOH.DOH.dto.user.MyPageDTO">
         UPDATE mypage
-        SET profilePhoto = #{profilePhotoPath}
+        SET profilePhoto = #{profilePhotoPath},userNickName = #{userNickName}
         WHERE userEmail = #{userEmail}
     </update>
 </mapper>
