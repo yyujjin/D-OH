@@ -87,7 +87,7 @@ function updateChatList() {
     var chatHtml = `
     <a href="/users/chat?receiver=${key}">
         <div class="wrap">
-          <div class="chatImg"><img src ="${data[key][0].profilePhoto}" ></div>
+          <div class="chatImg"><img src ="${data[key][0].profilePhoto}" width="50" height="50" ></div>
           <div class="infoWrap">
             <div class="content">
               <div class="name">${key}</div>
