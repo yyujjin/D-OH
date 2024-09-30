@@ -99,7 +99,7 @@ public class ChatApiController {
     //로그인한 유저를 기준으로 다른 유저가 보낸 최신 메시지들을 조회
     @GetMapping("/messages/latest")
     public List<MessageDTO>findLatestMessagesForLoggedInUser() {
-        log.info( "현재 가져오고 있는 리스트 : {}",chatService.findLatestMessagesForLoggedInUser(userSessionService.nickName()));
+
         return chatService.findLatestMessagesForLoggedInUser(userSessionService.nickName());
     }
 }

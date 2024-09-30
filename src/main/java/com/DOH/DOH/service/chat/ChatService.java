@@ -88,4 +88,9 @@ public class ChatService {
         }
       return tempCHat;
     };
+
+    //유저 프로필 사진 가져오기
+    public String userProfilePhoto(String userNickName){
+            return chatMapper.getProfilePhoto(userNickName);
+    };
 }
