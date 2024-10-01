@@ -45,7 +45,7 @@
                     <div class="cardList" th:each="list : ${imageList}">
                         <a href="#" th:href="@{/contest/view(contestNum=${list.id})}" th:onclick="hitUp(this)">
 <!--                            <div class="cardImage">-->
-                            <img class="cardImage"  th:src="${list.imageUrl} == null ? '/img/default_image.png' : ${list.imageUrl}">
+                            <img class="cardImage"  th:src="${list.imageUrl} == null ? '/img/fragments/noimg.png' : ${list.imageUrl}">
 <!--                            </div>-->
                             <div class="content">
                                 <div class="endDate" th:classappend="${list.endDate < 4} ? 'active' : ''"><span th:text="${list.endDate}">8</span>일 남음</div>

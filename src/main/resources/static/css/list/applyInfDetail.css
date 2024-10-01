@@ -41,8 +41,8 @@
         }
         .applyImage img {
             max-width: 100%;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+           /* border: 1px solid #ddd;
+            border-radius: 5px;*/
         }
         .buttonArea {
             display: flex;
