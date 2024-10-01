@@ -26,7 +26,6 @@
             border-radius: 5px;
             text-align : center;
         }
-
 .button-group {
     display: flex; /* 플렉스 컨테이너 설정 */
     gap: 10px; /* 버튼 사이 간격 설정 */
@@ -36,8 +35,7 @@
 .button {
     display: inline-block;
     width: auto;
-    padding: 5px 20px; /* 수정된 패딩 */
-    background-color: #212529; /* 기본 배경색을 검정색으로 설정 */
+    padding: 8px 20px; /* 수정된 패딩 */
     color: #fff; /* 텍스트 색상을 흰색으로 설정 */
     text-align: center;
     text-decoration: none;
@@ -48,10 +46,27 @@
     cursor: pointer; /* 커서 스타일 추가 */
 }
 
-.button:hover {
-    text-decoration: none;
+/* 목록으로 버튼 */
+.button-list {
+    background-color: #212529; /* 배경색을 검정색으로 설정 */
+}
+
+.button-list:hover {
     background-color: #333; /* hover 시 배경색 변경 */
-    color: white; /* 텍스트 색상을 흰색으로 유지 */
+    text-decoration: none;
+    color: white;
+}
+
+/* 참여하기 버튼 */
+.button-participate {
+    background-color: #d3d3d3; /* 밝은 회색으로 설정 */
+    color: black; /* 텍스트 색상을 검정색으로 설정 */
+}
+
+.button-participate:hover {
+    text-decoration: none;
+    background-color: #b3b3b3; /* hover 시 좀 더 어두운 회색으로 변경 */
+    color: white; /* hover 시 텍스트 색상 유지 */
 }
 
 
