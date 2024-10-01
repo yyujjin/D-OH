@@ -35,12 +35,6 @@ text-decoration: none;
     align-items: center;
 }
 
-a.navbar-brand
-{
-    display: flex;
-    align-items: center;
-}
-
 .search-bar {
     display: flex;
     align-items: center;
@@ -86,7 +80,6 @@ a.navbar-brand
 .nav-link:hover {
     color: rgb(193, 192, 255);
     transform: scale(1.1);
-    text-decoration: none;
 }
 
 .nav-link:active {
