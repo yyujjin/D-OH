@@ -1,9 +1,11 @@
 
         .Contestupload {
-            width: 1000px;
+            /*width: 1000px;*/
+            width: 1100px;
             margin: auto;
             background: white;
-            padding: 20px;
+            /*padding: 20px;*/
+            padding: 30px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
@@ -13,6 +15,7 @@
             color: #333;
             display: flex;
             align-items: center;
+            font-weight: 700;
         }
         .Contestupload h1::before {
             content: "👉";
@@ -20,6 +23,13 @@
             font-size: 1.5em;
             color: #f5b000;
         }
+
+        h3
+        {
+            margin: 40px 0 20px 0;
+            font-size: 1.3em;
+        }
+
         label {
             display: block;
             margin: 15px 0 5px;
@@ -39,12 +49,16 @@
             display: block;
             width: 100%;
             padding: 10px;
-            background-color: black;
+            background-color: #212529;
             color: white;
             border: none;
-            border-radius: 4px;
+            /*border-radius: 4px;*/
+            border-radius: 6px;
             cursor: pointer;
+            margin-top: 20px;
         }
         .btn:hover {
-            background-color: rgb(193, 192, 255);
+            /*background-color: rgb(193, 192, 255);*/
+            background-color: #333;
+            color: white;
         }
