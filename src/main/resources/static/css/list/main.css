@@ -19,11 +19,11 @@ main {
 }
 
 .mainWrap {
-    width: 1200px;
+    width: 1100px;
 }
 
 .swiper {
-    width: 1200px;
+    width: 1100px;
     height: 464px;
 }
 
@@ -38,7 +38,7 @@ main {
 
 .swiper-slide img {
     display: block;
-    width: 1200px;
+    width: 1100px;
     height: 464px;
     object-fit: cover;
     margin: auto;
@@ -90,7 +90,9 @@ main {
 }
 
 .cardConWarap {
-    display: flex;
+    /*display: flex;*/
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     justify-content: center;
     gap: 30px;
     overflow: hidden;
@@ -108,7 +110,7 @@ main {
 }
 
 .cardList {
-    min-width: 200px;
+    max-width: 250px;
 }
 
 .cardList:last-child {
@@ -120,12 +122,14 @@ main {
 }
 
 .cardConWarap .cardImage {
-    width: 260px;
+    width: 100%;
     height: 300px;
     border: 1px solid var(--line-gray);
     border-radius: 6px;
     margin-bottom: 10px;
 }
+
+
 .conIcon {
     gap: 5px;
 }
