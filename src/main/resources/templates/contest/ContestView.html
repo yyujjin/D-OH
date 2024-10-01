@@ -38,14 +38,14 @@
         <!-- 참여자 -->
         <div class="work">
             <div th:if="${#lists.isEmpty(applicantList)}" class="maxw">
-                <p>참여자가 없습니다.</p>
+                <p class="w2">참여자가 없습니다.</p>
             </div>
             <div th:each="applicant : ${applicantList}" th:unless="${#lists.isEmpty(applicantList)}">
                 <p>
                     <span>👤 </span>
                     <!-- 지원자의 이메일을 클릭하면 상세보기 페이지로 이동하는 링크 -->
                     <a th:href="@{/api/users/contest/application/detail/{conNum}/{userEmail}(conNum=${contestUploadDTO.id}, userEmail=${applicant})}">
-                        <span th:text="${applicant}">지원자 이름</span>
+                        <span th:text="${applicant}" class="w2">지원자 이름</span>
                     </a>
                 </p>
             </div>
@@ -55,13 +55,13 @@
 
     <!-- 사이드바 -->
     <div class="Contestviewsidebar">
-        <h2><span th:text="${contestUploadDTO.conTitle}"></span></h2>
+        <h4><span th:text="${contestUploadDTO.conTitle}"></span></h4>
 
-        <h4><span th:text="${contestUploadDTO.conCompanyName}"></span></h4>
+        <h5><span th:text="${contestUploadDTO.conCompanyName}"></span></h5>
 
-        <h2>총 상금 <span th:text="${contestUploadDTO.conFirstPrice +
+        <h4>총 상금 <span th:text="${contestUploadDTO.conFirstPrice +
                                     contestUploadDTO.conSecondPrice +
-                                    contestUploadDTO.conThirdPrice}"></span>만원</h2>
+                                    contestUploadDTO.conThirdPrice}"></span>만원</h4>
 
         <p>1등  <span th:text="${contestUploadDTO.conFirstPrice}"></span>만원
             x <span th:text="${contestUploadDTO.conFirstPeople}"></span>명</p>
@@ -84,10 +84,12 @@
                 시상하기
             </a>
 
-        <a href="/contest/list" class="button">콘테스트 목록으로</a>
-<!--        <a href="/api/users/contest/application/terms" class="button">콘테스트 참여하기</a>-->
-<!--        <a th:href="@{/api/users/contest/application/terms(contestNum=${contestUploadDTO.id})}" class="button">콘테스트 참여하기</a>-->
-        <a th:if="${userEmail != writer}" th:href="@{/api/users/contest/application/terms(contestNum=${contestUploadDTO.id})}" class="button">콘테스트 참여하기</a>
+        <div class="button-group">
+            <a href="/contest/list" class="button">목록으로</a>
+            <!-- <a href="/api/users/contest/application/terms" class="button">콘테스트 참여하기</a> -->
+            <!-- <a th:href="@{/api/users/contest/application/terms(contestNum=${contestUploadDTO.id})}" class="button">콘테스트 참여하기</a> -->
+            <a th:if="${userEmail != writer}" th:href="@{/api/users/contest/application/terms(contestNum=${contestUploadDTO.id})}" class="button">참여하기</a>
+        </div>
 
     </div>
 </div>
