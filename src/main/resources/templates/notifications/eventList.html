@@ -49,7 +49,7 @@
                             </p>
 
                             <!-- 관리자 전용 수정 및 삭제 버튼 -->
-                            <div th:if="${userRole == 'ROLE_ADMIN' && userEmail == 'admin'}">
+                            <div th:if="${userRole == 'ROLE_ADMIN' && userEmail == 'admin'}" class="button-container">
                                 <form th:action="@{/event/admin/write(eventNum=${event.eventNum})}" method="post" class="d-inline">
                                     <button type="submit" class="btn btn-primary btn-sm">수정</button>
                                 </form>
@@ -95,7 +95,7 @@
                                     </small>
                                 </p>
 
-                                <div>
+                                <div class="button-container">
                                     <form th:action="@{/event/admin/write(eventNum=${event.eventNum})}" method="post" class="d-inline">
                                         <button type="submit" class="btn btn-primary btn-sm">수정</button>
                                     </form>
