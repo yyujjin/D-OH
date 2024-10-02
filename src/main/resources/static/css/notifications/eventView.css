@@ -1,5 +1,5 @@
 .container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto; /* 컨테이너 가운데 정렬 */
 }
 .event-image {
@@ -7,18 +7,20 @@
 }
 
 .event-image img {
-    max-width: 100%;
-    height: auto;
+    width: 900px;
+    height: 500px;
     display: block;
     margin: 0 auto; /* 이미지 가운데 정렬 */
 }
 
 .event-details {
+    width: 900px;
+    height: 500px;
     padding: 30px 20px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    margin: 30px;
+    margin: 0 auto; /* 이미지 가운데 정렬 */
 }
 
 .event-details h2 {
@@ -68,6 +70,7 @@ form {
 }
 
 .mt-4 {
+    width:953px;
     display: flex;
     justify-content: flex-end; /* 버튼 오른쪽 정렬 */
 }
@@ -75,7 +78,7 @@ form {
 .btn {
     padding: 10px 30px;
     font-size: 16px;
-    border-radius: 10px;
+    border-radius: 6px;
     text-decoration: none;
     transition: background-color 0.3s ease-in-out;
     margin-right: 5px; /* 버튼 간 간격 추가 */
@@ -92,11 +95,12 @@ form {
 }
 
 .btn-delete {
-    background-color: rgb(193, 192, 255);
+    background-color: #d3d3d3;
     color: white;
 }
 
 .btn-delete:hover {
-    background-color: rgb(173, 172, 225);
+    background-color: #b3b3b3;
+    color: white;
 }
 
