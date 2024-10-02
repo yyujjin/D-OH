@@ -13,11 +13,12 @@
             color: #333;
             display: flex;
             align-items: center;
+            font-weight: 700;
         }
         .Contestupload1 h1::before {
             content: "👉";
             margin-right: 10px;
-            font-size: 1.5em;
+            font-size: 1.2em;
             color: #f5b000;
         }
         label {
@@ -28,6 +29,13 @@
             margin-left: 5px;
             vertical-align: middle;
         }
+
+        h3
+        {
+            margin: 30px 0 20px 0;
+            font-size: 1.3em;
+        }
+
         .companttype,
         select {
             width: 100%;
@@ -137,10 +145,12 @@
             display: inline-block;
             width: 48%;
             padding: 10px;
-            background-color: black;
+            /*background-color: black;*/
+            background-color: #212529;
             color: white;
             border: none;
-            border-radius: 4px;
+            /*border-radius: 4px;*/
+            border-radius: 6px;
             cursor: pointer;
             text-align: center;
             margin-top: 20px;
@@ -151,7 +161,7 @@
             background-color: rgb(193, 192, 255);
         }
         .previous-btn {
-            background-color: #6c757d;
+           /* background-color: #6c757d;*/
         }
         .previous-btn:hover {
             background-color: #5a6268;
