@@ -13,7 +13,7 @@
     --font-size-20 : 20px;
     --font-size-16 : 16px;
     --font-size-14 : 14px;
-    --font-size-14 : 12px;
+    --font-size-12 : 12px;
 
 }
 
@@ -29,22 +29,12 @@ main
     display: block;
 }
 
-.banner
-{
-    width: 100%;
-    min-height: 292px;
-    background-color: var(--dark-gray);
-    position: relative;
-
-}
 
 /* banner 하위 영역에 대한 전체적인 틀을 잡아중 */
 section
 {
     display: flex;
     justify-content: center;
-    position: relative;
-    top: -25vh;
 }
 
 .mainWrap
@@ -76,7 +66,8 @@ section
 .portfolioMain .img1
 {
     width: 100%;
-    height: 100%
+    height: 480px;
+    border-radius: 6px;
 }
 
 .description .title
@@ -105,11 +96,13 @@ article
 {
     margin-top: 20px;
 }
-
+/*
 article .img2
 {
  max-width: 100%
 }
+*/
+
 article .content
 {
     padding: 10px 15px 0 15px;
@@ -133,8 +126,9 @@ aside
     /* margin-top: 40px; */
     padding: 5px 15px;
     background-color: var(--color-white);
-    border: 1px solid var(--color-white);
+    border: 1px solid var(--line-gray);
     border-radius: 6px;
+    max-height: 400px;
 }
 
 figure  .title
@@ -211,6 +205,7 @@ a
     color: var(--color-black);
     text-decoration : none;
 }
+
 .commission
 {
     width: 100%;
@@ -226,19 +221,21 @@ a
 
 /* 채팅 버튼 */
 /* aside button */
-.but2
+.btn
 {
     margin-top: 20px;
     width: 100%;
     padding: 10px 20px;
-    background: var(--line-gray);
-    border: 1px solid var(--line-gray);
+    background: #212529;
+    border: 1px solid #212529;
     border-radius: 6px;
     font-size: var(--font-size-16);
+    color: var(--color-white);
     &:hover
     {
-        background-color: var(--main-color);
-        border-color: var(--main-color);
+        background-color: #333;
+        border-color: #333;
+        color: var(--color-white);
     }
 }
 
