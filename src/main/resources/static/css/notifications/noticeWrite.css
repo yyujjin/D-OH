@@ -3,14 +3,14 @@
     --primary-color: rgb(193, 192, 255);
     --primary-hover-color: rgba(193, 192, 255, 0.8);
     --primary-box-shadow: rgba(193, 192, 255, 0.5);
-    --secondary-color: rgba(193, 192, 255, 0.2); /* Secondary 버튼 배경색 추가 */
+    --secondary-color: #212529; /* Secondary 버튼 배경색 추가 */
 }
 
 .container {
     max-width: 1100px;
     padding: 30px;
     background-color: white;
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--secondary-color);
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     margin: 20px auto;
@@ -20,7 +20,7 @@
     font-size: 28px;
     text-align: center;
     margin-bottom: 30px;
-    color: var(--primary-color);
+    color: var(--secondary-color);
     font-weight: 700;
 }
 
@@ -32,7 +32,7 @@ label {
     font-size: 16px;
     margin-bottom: 8px;
     display: block;
-    color: var(--primary-color);
+    color: var(--secondary-color);
     font-weight: 600;
 }
 
@@ -41,7 +41,7 @@ textarea,
 input[type="date"] {
     width: 100%;
     padding: 12px;
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--secondary-color);
     border-radius: 8px;
     font-size: 14px;
     transition: box-shadow 0.3s ease-in-out;
@@ -64,39 +64,39 @@ textarea {
     justify-content: flex-end;
     gap: 15px;
     margin-top: 20px;
+    transition: background-color 0.3s ease-in-out;
 }
 
 .btn-primary {
-    padding: 10px 20px;
+    padding: 10px 30px;
     font-size: 14px;
     border: none;
     border-radius: 25px;
     cursor: pointer;
-    background-color: var(--primary-color);
+    background-color:  #d3d3d3;
     color: white;
     font-weight: 600;
     transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .btn-primary:hover {
-    background-color: var(--primary-hover-color);
-    box-shadow: 0 4px 10px var(--primary-box-shadow);
+    background-color:  #b3b3b3;
+    color:white;
 }
 
 /* Secondary 버튼 스타일 (목록보기 및 임시저장 버튼 동일) */
 .btn-secondary {
-    padding: 10px 20px;
+    padding: 10px 30px;
     font-size: 14px;
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--secondary-color);
     cursor: pointer;
     background-color: var(--secondary-color);
-    color: var(--primary-color);
+    color: white;
     text-decoration: none;
     transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .btn-secondary:hover {
-    background-color: rgba(193, 192, 255, 0.1);
-    color:black;
-    box-shadow: 0 4px 10px var(--primary-box-shadow);
+    background-color: #333;
+    color:white;
 }
