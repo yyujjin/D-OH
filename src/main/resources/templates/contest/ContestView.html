@@ -79,14 +79,15 @@
 
         <p>조회수  <span th:text="${contestUploadDTO.conHit}"></span></p>
 
-        <!-- 시상하기 버튼 추가 -->
-            <a th:if="${userEmail == writer}" th:href="@{/users/contest/award(contestNum=${contestUploadDTO.id})}" class="button">
-                시상하기
-            </a>
+
 
         <div class="button-group">
             <a href="/contest/list" class="button button-list">목록으로</a>
             <a th:if="${userEmail != writer}" th:href="@{/api/users/contest/application/terms(contestNum=${contestUploadDTO.id})}" class="button button-participate">참여하기</a>
+            <!-- 시상하기 버튼 추가 -->
+            <a th:if="${userEmail == writer}" th:href="@{/users/contest/award(contestNum=${contestUploadDTO.id})}" class="button button-participate">
+                시상하기
+            </a>
         </div>
 
     </div>
