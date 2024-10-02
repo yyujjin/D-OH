@@ -5,12 +5,16 @@
 <mapper namespace="com.DOH.DOH.mapper.list.PortFolioMapper">
 
     <select id="getPortFolioList" resultType="com.DOH.DOH.dto.list.PortFolioDTO">
-        select up.id, title, up.userEmail, userNickname, commissionStatus,
-            profileHit, personalWork
-            from portfolio_upload up
-                left join (select userEmail, userNickname, commissionStatus
-                            from profile_user_info) us
-                on us.userEmail = up.userEmail
+<!--        select up.id, title, up.userEmail, userNickname, commissionStatus,-->
+<!--            profileHit, personalWork-->
+<!--            from portfolio_upload up-->
+<!--                left join (select userEmail, userNickname, commissionStatus-->
+<!--                            from profile_user_info) us-->
+<!--                on us.userEmail = up.userEmail-->
+        select id, title, up.userEmail, userNickname, profileHit, personalWork
+                from portfolio_upload up
+                    join(select userNickname, userEmail from profile_user_info) u on up.userEmail = u.userEmail
+                    join user_info info on u.userEmail = info.userEmail and u.userNickname = info.nickName
                 limit #{offset} , #{pageSize}
     </select>
 
@@ -24,13 +28,23 @@
     </select>
 
     <select id="getPortfolioInfo" resultType="com.DOH.DOH.dto.list.PortFolioDTO">
+<!--        select up.id, up.userEmail, userNickname, title, up.userEmail, content, userNickname, profileIntroduce,-->
+<!--                commissionStatus, personalWork, messageStart, messageEnd, myPageUrl-->
+<!--            from portfolio_upload up-->
+<!--            left join (select userEmail, userNickname, profileIntroduce, commissionStatus,-->
+<!--                        time_format(messageStart, '%H:%i') as messageStart,-->
+<!--                        time_format(messageEnd, '%H:%i') as messageEnd, myPageUrl-->
+<!--                    from profile_user_info) us-->
+<!--                on us.userEmail = up.userEmail where id=#{id}-->
         select up.id, up.userEmail, userNickname, title, up.userEmail, content, userNickname, profileIntroduce,
-                commissionStatus, personalWork, messageStart, messageEnd, myPageUrl
-            from portfolio_upload up
-            left join (select userEmail, userNickname, profileIntroduce, commissionStatus,
-                        time_format(messageStart, '%H:%i') as messageStart,
-                        time_format(messageEnd, '%H:%i') as messageEnd, myPageUrl
-                    from profile_user_info) us
-                on us.userEmail = up.userEmail where id=#{id}
+            commissionStatus, personalWork, messageStart, messageEnd, myPageUrl
+                from portfolio_upload up
+                join (select userEmail, userNickname, profileIntroduce, commissionStatus,
+                    time_format(messageStart, '%H:%i') as messageStart,
+                    time_format(messageEnd, '%H:%i') as messageEnd, myPageUrl
+                from profile_user_info) us
+                on us.userEmail = up.userEmail
+                join user_info info on us.userEmail = info.userEmail and us.userNickname = info.nickName where id=#{id}
+
     </select>
 </mapper>
