@@ -1,11 +1,10 @@
 /* 공통 색상 변수 */
 :root {
     --primary-color: #212529;
-    --primary-hover-color: rgba(193, 192, 255);
-    --primary-box-shadow: rgba(193, 192, 255, 0.5);
-    --danger-color: rgb(193, 192, 255);
+    --primary-hover-color: #333;
+    --danger-color: #d3d3d3;
     /* 삭제 버튼을 위한 색상 */
-    --danger-hover-color: rgba(193, 192, 255, 0.5);
+    --danger-hover-color: #b3b3b3;
 }
 
 /* 컨테이너가 페이지의 남은 공간을 차지하게 설정 */
@@ -21,18 +20,23 @@
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
+    margin-bottom: 20px;
+}
+
+h1, h2 {
+    margin-bottom: 20px;
 }
 
 /* 테이블 스타일 */
 .table {
     width: 100%;
-    margin-bottom: 10px; /* 테이블 하단 간격을 줄임 */
+    margin-bottom: 100px;
     border-collapse: collapse;
 }
 
 .table th,
 .table td {
-    padding: 10px; /* 셀 내부 여백을 줄여 테이블의 크기를 줄임 */
+    padding: 20px;
     border-top: 1px solid #dee2e6;
 }
 
@@ -130,7 +134,7 @@
 
 /* 배경색을 강제 적용하는 선택자 */
 tr.toggle-row.active-toggle td {
-    background-color: var(--primary-hover-color) !important;
+    background-color: rgb(193, 192, 255, 0.2) !important;
 }
 
 /* 현재 페이지 링크 (활성화된 페이지) */
