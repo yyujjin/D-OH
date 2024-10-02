@@ -11,13 +11,6 @@
 <th:block layout:fragment="content">
     <div class="container mt-5">
 
-        <!-- 이벤트 등록 버튼 (관리자 전용) -->
-        <div class="d-flex justify-content-end mb-4" th:if="${userRole == 'ROLE_ADMIN' && userEmail == 'admin'}">
-            <form th:action="@{/event/admin/write}" method="post">
-                <button type="submit" class="btn">이벤트 등록</button>
-            </form>
-        </div>
-
         <!-- 최대 임시 저장 제한 알림 -->
         <div th:if="${tempSaveLimitReached}" class="alert alert-warning">
             <strong>알림:</strong> 임시 저장된 이벤트는 최대 3개까지만 가능합니다.
@@ -109,6 +102,14 @@
                     </a>
                 </div>
             </div>
+
+            <!-- 이벤트 등록 버튼 (관리자 전용) -->
+            <div class="d-flex justify-content-end mb-4" th:if="${userRole == 'ROLE_ADMIN' && userEmail == 'admin'}">
+                <form th:action="@{/event/admin/write}" method="post">
+                    <button type="submit" class="btn">이벤트 등록</button>
+                </form>
+            </div>
+
         </div>
     </div>
 </th:block>
