@@ -53,6 +53,7 @@
         .btn-container
         {
             display: flex;
+            justify-content: end;
             gap: 50px;
         }
 

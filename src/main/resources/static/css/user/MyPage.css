@@ -218,7 +218,7 @@ thead th {
     padding: 15px;
     font-size: 16px;
     font-weight: bold;
-    color: black;
+    color: white;
     border-bottom: 2px solid #adb5bd;
     text-align: center; /* 텍스트 중앙 정렬 */
     width: auto; /* 열 너비 자동 조정 */

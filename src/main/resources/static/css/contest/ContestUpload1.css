@@ -92,7 +92,7 @@
         .rank span {
             font-size: 1.2em;
             font-weight: bold;
-            color: #ff8c00;
+            color: black;
         }
         .currency {
             margin-left: 5px;
@@ -120,7 +120,8 @@
         .btn-secondary::before {
             content: "➕";
             margin-right: 5px;
-            color: #ff8c00;
+            /*color: #ff8c00;*/
+            color: #c1c0ff;
         }
         .remove-btn {
             /*width: 30px;*/
@@ -149,7 +150,7 @@
             color: #333;
         }
         .total-prize span {
-            color: #007bff;
+            color: #c1c0ff;
         }
         .date-settings {
             margin-top: 30px;
