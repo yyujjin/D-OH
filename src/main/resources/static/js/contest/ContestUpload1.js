@@ -33,11 +33,11 @@ let prizeIndex = 2; // 2등부터 시작
                 <span>${rankIcon}</span>
             </div>
             <div class="winners">
-                <input type="number" id="${peopleName}" name="${peopleName}" min="1" value="1" required>
+                <input type="number" class ="plusInput" id="${peopleName}" name="${peopleName}" min="1" value="1" required>
             </div>
             <span class="label-text">명</span>
             <div class="prize">
-                <input type="number" id="${priceName}" name="${priceName}" min="0" step="5" value="20" required>
+                <input type="number" class ="plusInput" id="${priceName}" name="${priceName}" min="0" step="5" value="20" required>
             </div>
             <span class="label-text">만원</span>
             <div class="remove-btn-container">
