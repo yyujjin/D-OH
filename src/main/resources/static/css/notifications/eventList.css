@@ -1,3 +1,4 @@
+
 /* 페이지 전체 너비 제한 */
 .container {
     max-width: 1100px;
@@ -36,8 +37,16 @@ a {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+/* 버튼 컨테이너 스타일 */
+.button-container {
+  border-radius: 6px; /* 둥근 테두리 */
+    margin-bottom: 5px;
+    text-align: center; /* 텍스트나 자식 요소들을 가운데 정렬 */
+}
+
 /* 수정, 삭제 버튼 색상 변경 및 hover 기능 추가 */
 .btn-primary {
+    padding: 8px 30px; /* 여백 설정 */
     background-color: #212529; /* 수정 버튼 색상 */
     border-color: #212529;
     color: white;
@@ -50,33 +59,38 @@ a {
 }
 
 .btn-danger {
-    background-color: rgb(193, 192, 255); /* 삭제 버튼 색상 */
-    border-color: rgb(193, 192, 255);
-    color: white;
+    padding: 8px 30px; /* 여백 설정 */
+    background-color: #d3d3d3;; /* 삭제 버튼 색상 */
+    border-color: #d3d3d3;;
+    color: black;
 }
 
 .btn-danger:hover {
-    background-color: rgba(193, 192, 255, 0.8); /* hover 시 색상 */
-    border-color: rgba(193, 192, 255, 0.8);
+    background-color: #b3b3b3; /* hover 시 색상 */
+    border-color: #b3b3b3;
     color: white;
 }
 
 /* 등록 버튼에 색상 추가 */
 .d-flex .btn {
+    margin-top: 50px;
+    margin-bottom: 30px;
     background-color:  #212529; /* 등록 버튼 색상 */
     border-color: #212529;
     color: white;
 }
 
 .d-flex .btn:hover {
-    background-color: rgba(193, 192, 255); /* hover 시 등록 버튼 색상 */
-    border-color: rgba(193, 192, 255);
+    background-color: #333; /* hover 시 등록 버튼 색상 */
+    border-color: #333;
     color: white;
 }
 
 /* 게시된 이벤트와 임시 저장된 이벤트 사이 간격 설정 */
-h2 {
+h1 ,h2 {
     margin-top: 50px; /* 임시 저장된 이벤트 제목 위에 간격 추가 */
+    margin-bottom: 30px;
+    font-weight:bold;
 }
 
 .expired {

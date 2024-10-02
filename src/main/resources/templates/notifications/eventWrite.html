@@ -64,7 +64,7 @@
                 <label for="eventImageName">이벤트 이미지</label>
                 <input type="file" id="eventImageName" name="file" class="form-control">
 
-                
+
                 <div class="mt-2">
                     <!-- 이미지가 존재하지 않을 경우 기본 이미지로 대체 -->
                     <img th:src="${eventDTO.eventImageName != null ? eventDTO.eventImageName : '/img/fragments/noimg.png'}"

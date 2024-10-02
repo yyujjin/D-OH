@@ -26,11 +26,14 @@
                         <p><strong>지원일 </strong>
                             <span th:text="${#dates.format(applyDTO.applyDate, 'yyyy-MM-dd')}"></span>
                         </p>
-                        <div class="applyContent" th:text="${applyDTO.applyContent}"></div>
+                        <div class="applyContent" th:if="${applyDTO.applyContent != null}">
+                            <p><strong>설명</strong></p>
+                            <div  th:text="${applyDTO.applyContent}"></div>
+                        </div>
                         <!-- 이미지가 있을 경우 표시 -->
-                        <div class="applyImage" th:if="${applyDTO.imageUrl != null}">
+                        <div class="applyImage">
                             <p><strong>첨부 이미지</strong></p>
-                            <img th:src="@{${applyDTO.imageUrl}}" alt="첨부 이미지">
+                            <img th:src="${applyDTO.imageUrl} == null ? '/img/fragments/noimg.png' :${applyDTO.imageUrl}" alt="첨부 이미지">
                         </div>
                     </div>
 

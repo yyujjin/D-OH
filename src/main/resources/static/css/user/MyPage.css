@@ -6,7 +6,7 @@ main {
 
 .container {
   display: grid;
-  width: 1200px;
+  width: 1100px;
   margin-top: 10px;
   grid-template-columns: 220px 2fr;
   grid-column-gap: 10px;
@@ -132,12 +132,12 @@ font-weight: bold;
   display: none;
 }
 .sidebar .submit-button {
-  padding: 5px 10px;
+  padding: 8px 20px;
   font-size: 12px;
   background-color: #212529;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   margin-top: 10px;
 }
@@ -204,21 +204,25 @@ table {
     width: 100%;
     border-collapse: collapse;
     background-color: white;
-    border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+    &:last-of-type
+    {
+    margin-bottom: 0;
+    }
 }
 
 thead {
-    background-color: rgb(193, 192, 255);
+    background-color: #212529;
+    color: white;
 }
 
 thead th {
     padding: 15px;
     font-size: 16px;
     font-weight: bold;
-    color: black;
+    color: white;
     border-bottom: 2px solid #adb5bd;
     text-align: center; /* 텍스트 중앙 정렬 */
     width: auto; /* 열 너비 자동 조정 */
@@ -235,29 +239,31 @@ tbody td {
 
 tbody tr:hover {
     background-color: rgb(193, 192, 255, 0.2);
-    transition: background-color 0.3s ease;
+    /*transition: background-color 0.3s ease;*/
 }
 
 button.action-btn, a.action-btn {
-    background-color: rgb(193, 192, 255);
-    color: white;
+    /*background-color: rgb(193, 192, 255);*/
+    background-color: #d3d3d3;
+    color: black;
     padding: 10px 20px;
     border: none;
-    border-radius: 20px;
+    /*border-radius: 20px;*/
+    border-radius: 6px;
     font-size: 14px;
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    /*transition: background-color 0.3s ease, color 0.3s ease;*/
 }
 
 button.action-btn:hover, a.action-btn:hover {
-    background-color: black;
+    background-color: #b3b3b3;
     color: white;
 }
 
 /* 테이블 셀 둥글게 */
-thead th:first-child, tbody td:first-child {
+/*thead th:first-child, tbody td:first-child {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }
@@ -266,17 +272,17 @@ thead th:last-child, tbody td:last-child {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }
-
+*/
 h3 {
     font-size: 17px;
     font-weight: bold;
     color: black;
     text-align: center;
     padding: 10px 20px;
-    background-color: rgb(193, 192, 255, 0.2); /* 은은한 배경색 */
+    /*background-color: rgb(193, 192, 255, 0.2); /* 은은한 배경색 */
     border-radius: 12px; /* 둥근 테두리 */
     border: 2px solid rgb(193, 192, 255); /* 테두리 색상 */
     display: inline-block; /* 크기 자동 조정 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 효과 */
+    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 효과 */
     margin: 20px auto; /* 상하 여백을 주고, 가운데 정렬 */
 }

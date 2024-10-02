@@ -1,23 +1,25 @@
 
         .Contestupload1 {
-            width: 1000px;
+            /*width: 1000px;*/
+            width: 1100px;
             margin: auto;
             background: white;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .Contestupload1 h1 {
+        .Contestupload1 > h1 {
             font-size: 1.75em;
             margin-bottom: 50px;
             color: #333;
             display: flex;
             align-items: center;
+            font-weight: 700;
         }
         .Contestupload1 h1::before {
             content: "👉";
             margin-right: 10px;
-            font-size: 1.5em;
+            font-size: 1.2em;
             color: #f5b000;
         }
         label {
@@ -26,13 +28,21 @@
             color: #333;
             display: inline-block;
             margin-left: 5px;
+            margin-bottom: 10px;
             vertical-align: middle;
         }
+
+        h3
+        {
+            margin: 40px 0 20px 0;
+            font-size: 1.4em;
+        }
+
         .companttype,
         select {
             width: 100%;
             padding: 10px;
-            margin-bottom: 20px;
+            /*margin-bottom: 20px;*/
             border-radius: 4px;
             border: 1px solid #ccc;
             box-sizing: border-box;
@@ -66,6 +76,14 @@
             text-align: center;
         }
 
+        .plusInput
+        {
+            border-radius: 6px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
         .rank, .winners, .prize, .currency {
             display: flex;
             align-items: center;
@@ -74,7 +92,7 @@
         .rank span {
             font-size: 1.2em;
             font-weight: bold;
-            color: #ff8c00;
+            color: black;
         }
         .currency {
             margin-left: 5px;
@@ -102,10 +120,14 @@
         .btn-secondary::before {
             content: "➕";
             margin-right: 5px;
+            /*color: #ff8c00;*/
+            color: #c1c0ff;
         }
         .remove-btn {
-            width: 40px;
-            height: 40px;
+            /*width: 30px;*/
+            width: 30px;
+            /*height: 40px;*/
+            height: 30px;
             background-color: #e0e0e0;
             color: #656565;
             border: none;
@@ -114,6 +136,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 12px;
         }
         .remove-btn:hover {
             background-color: #8b8b8b;
@@ -127,7 +150,7 @@
             color: #333;
         }
         .total-prize span {
-            color: #007bff;
+            color: #c1c0ff;
         }
         .date-settings {
             margin-top: 30px;
@@ -137,10 +160,12 @@
             display: inline-block;
             width: 48%;
             padding: 10px;
-            background-color: black;
+            /*background-color: black;*/
+            background-color: #212529;
             color: white;
             border: none;
-            border-radius: 4px;
+            /*border-radius: 4px;*/
+            border-radius: 6px;
             cursor: pointer;
             text-align: center;
             margin-top: 20px;
@@ -148,13 +173,19 @@
             font-weight: bold;
         }
         .btn:hover {
-            background-color: rgb(193, 192, 255);
+            /*background-color: rgb(193, 192, 255);*/
+            background: #333;
+            color: white;
         }
         .previous-btn {
-            background-color: #6c757d;
+           /* background-color: #6c757d;*/
+           background: #d3d3d3;
+           color: black;
         }
         .previous-btn:hover {
-            background-color: #5a6268;
+            /*background-color: #5a6268;*/
+            background: #b3b3b3;
+            color: white;
         }
         .flex-buttons {
             display: flex;

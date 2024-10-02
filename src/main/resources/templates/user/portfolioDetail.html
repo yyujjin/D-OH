@@ -8,7 +8,7 @@
 <th:block layout:fragment="content">
 
 <main>
-        <div class="banner"></div><!--banner-->
+<!--        <div class="banner"></div>&lt;!&ndash;banner&ndash;&gt;-->
 
         <section>
             <div class="mainWrap">
@@ -25,11 +25,11 @@
                         <h5>포토폴리오 소개</h5>
                     </div><!--description-->
                     <article>
-                        <div>
-                            <img class="img2" th:src="${portFolio.personalWork}">
-                            <!-- 이미지 파일 출력될 부분 -->
-                        </div>
-                        <div class="title">포토폴리오 설명</div>
+<!--                        <div>-->
+<!--                            <img class="img2" th:src="${portFolio.personalWork}">-->
+<!--                            &lt;!&ndash; 이미지 파일 출력될 부분 &ndash;&gt;-->
+<!--                        </div>-->
+<!--                        <div class="title">포토폴리오 설명</div>-->
                         <div class="content" th:text="${portFolio.content}">
                             담벼리라는 이름은 담 + 벼리의 합성어입니다.
                             벼리라는 뜻은 어떤 일이나 일의 뼈대를 이루는 줄거리를 말하는 순 우리말입니다.
@@ -97,7 +97,7 @@
                     <!--임시값으로 aaaa 고정 -->
                     <!--추후 사용자 닉네임 저장하는 로직 구현되면 닉네임을 쿼리로 넘겨야함 -->
                     <a href="/users/chat?receiver=aaaa" th:href="@{/users/chat(receiver=${portFolio.userNickname})}">
-                        <button type="button" >디자이너에게 문의하기</button>
+                        <button type="button" class="btn">디자이너에게 문의하기</button>
                     </a>
                 </aside><!--sectionInfo-->
             </div><!--mainWrap-->

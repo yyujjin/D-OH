@@ -10,12 +10,12 @@
 
         form, .maxw {
             justify-content: space-between; /* 콘텐츠와 사이드바 사이의 여백 */
-            width: 1100px;
+            width: 950px;
         }
 
         /* 사이드바 설정 */
         .Contestviewsidebar {
-            width: 300px; /* 사이드바의 고정 너비 설정 */
+            width: 250px; /* 사이드바의 고정 너비 설정 */
             padding: 20px;
             position: -webkit-sticky; /* For Safari */
             position: sticky;
@@ -24,30 +24,51 @@
             border: 1px solid #ddd;
             margin-left: 20px; /* 콘텐츠와 사이드바 사이에 여백 추가 */
             border-radius: 5px;
+            text-align : center;
         }
+.button-group {
+    display: flex; /* 플렉스 컨테이너 설정 */
+    gap: 10px; /* 버튼 사이 간격 설정 */
+    justify-content: flex-start; /* 버튼들을 왼쪽 정렬 */
+}
 
 .button {
     display: inline-block;
     width: auto;
-    padding: 12px 25px;
-    background-color: rgb(193, 192, 255); /* 기본 배경색 */
-    color: #212529; /* 텍스트 색상 */
+    padding: 8px 20px; /* 수정된 패딩 */
+    color: #fff; /* 텍스트 색상을 흰색으로 설정 */
     text-align: center;
     text-decoration: none;
     margin-top: 20px;
-    border-radius: 8px;
-    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    border-radius: 6px; /* 수정된 border-radius */
+    transition: background-color 0.3s ease-in-out; /* transform, box-shadow 제거 */
     font-weight: 600;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer; /* 커서 스타일 추가 */
 }
 
-.button:hover {
-    text-decoration: none;
-    background-color: rgba(193, 192, 255, 0.8); /* hover 시 배경색 변경 */
-    transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    color: white; /* hover 시 텍스트 색상을 흰색으로 변경 */
+/* 목록으로 버튼 */
+.button-list {
+    background-color: #212529; /* 배경색을 검정색으로 설정 */
 }
+
+.button-list:hover {
+    background-color: #333; /* hover 시 배경색 변경 */
+    text-decoration: none;
+    color: white;
+}
+
+/* 참여하기 버튼 */
+.button-participate {
+    background-color: #d3d3d3; /* 밝은 회색으로 설정 */
+    color: black; /* 텍스트 색상을 검정색으로 설정 */
+}
+
+.button-participate:hover {
+    text-decoration: none;
+    background-color: #b3b3b3; /* hover 시 좀 더 어두운 회색으로 변경 */
+    color: white; /* hover 시 텍스트 색상 유지 */
+}
+
 
         .Contestviewheader {
             margin-bottom: 20px;
@@ -67,7 +88,7 @@
             font-weight: bold;
         }
 
-        h1, h2, h3 {
+        h1, h2, h3, h4 {
         font-weight: bold;
         }
 
@@ -79,3 +100,14 @@
         .meta hr {
             margin-top: 10px;
         }
+
+    .w2 {
+        color : #212529;
+        font-weight : bold;
+        text-decoration : none;
+    }
+
+    .w2:hover {
+        color : #333;
+    }
+

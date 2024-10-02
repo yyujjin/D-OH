@@ -20,7 +20,7 @@
 
         <div class="event-details">
             <h2>이벤트 기간</h2>
-            <span th:text="'생성일: ' + ${event.eventCreateTime}"></span><br>
+            <!--<span th:text="'생성일: ' + ${event.eventCreateTime}"></span><br>-->
             <span th:text="${event.eventStartDate != null ? event.eventStartDate : 'N/A'}"></span> ~
             <span th:text="${event.eventEndDate != null ? event.eventEndDate : 'N/A'}"></span>
 
