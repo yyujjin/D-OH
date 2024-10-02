@@ -206,7 +206,11 @@ table {
     background-color: white;
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+    &:last-of-type
+    {
+    margin-bottom: 0;
+    }
 }
 
 thead {
