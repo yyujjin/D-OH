@@ -1,7 +1,13 @@
 body .container{
     width: 1050px
 }
+
+.nickname input {
+    margin-bottom: 15px; /* 첫 번째 input 필드와 두 번째 input 필드 사이의 간격 추가 */
+}
+
 .container{
+    margin: 20px auto;
     display: grid;
     background-color: white;
     padding: 30px;
@@ -31,7 +37,7 @@ body .container{
 }
 .profile input {
     width: 900px;
-    height: 40px;
+    height: 50px;
     padding: 10px;
     border: 1px solid grey;
     border-radius: 3px;
@@ -48,7 +54,7 @@ body .container{
 }
 select{
     width: 150px;
-    height: 50px;
+    height: 40px;
     padding: 10px;
 }
 .select-skill {
@@ -74,25 +80,51 @@ select{
     background-color: black; /* 선택된 탭 강조 */
     color: white;
 }
-.end{
-    display: flex;
-    /*background-color: whitesmoke;*/
-    grid-area: end;
-    margin-top: 50px;
-    justify-content: center;
-    align-content: center;
+.end {
+    display: flex; /* 플렉스 컨테이너로 설정하여 자식 요소를 정렬 */
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    width: auto; /* 요소 너비를 자동으로 설정 */
+    padding: 8px 20px; /* 요소 내부 패딩 설정 */
+    color: #fff; /* 텍스트 색상을 흰색으로 설정 */
+    text-align: center; /* 텍스트를 가운데 정렬 */
+    text-decoration: none; /* 텍스트의 밑줄 제거 */
+    margin-top: 20px; /* 상단 여백 설정 */
+    border-radius: 6px; /* 둥근 테두리 설정 */
+    transition: background-color 0.3s ease-in-out; /* 배경색 변화 시 부드럽게 전환 */
+    font-weight: 600; /* 텍스트 굵기 설정 */
+    height: 20px; /* 요소의 높이 설정 */
+    grid-area: end; /* Grid 레이아웃의 영역 지정 */
+    gap: 15px; /* 버튼 간의 간격 설정 */
 }
+
+
 .end .reset{
-    background-color: white;
+    background-color: #212529;
+    color:white;
     width: 150px;
     height: 50px;
-    border-radius: 10px;
-    border: 1px solid grey;
+    border-radius: 6px;
+    border: 1px solid #212529;
 }
+
+.end .reset:hover{
+background-color: #333; /* hover 시 배경색 변경 */
+text-decoration: none;
+color: white;
+}
+
 .end .submit{
-    background-color: #c1c0ff;
+    background-color: #d3d3d3;
+    color:white;
     width: 150px;
     height: 50px;
-    border-radius: 10px;
-    border: none;
+    border-radius: 6px;
+    border: 1px solid #d3d3d3;
+}
+
+.end .submit:hover{
+text-decoration: none;
+background-color: #b3b3b3; /* hover 시 좀 더 어두운 회색으로 변경 /
+color: white; / hover 시 텍스트 색상 유지 */
 }
