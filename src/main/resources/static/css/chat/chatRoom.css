@@ -89,12 +89,10 @@
 
 .chat-header {
   padding: 30px;
-  background-color: #fff;
+  color: white;
   border-bottom: 1px solid #e6e6e6;
   display: flex;
-  /*justify-content: space-between;*/
-  background-color:rgb(193, 192, 255);
-  align-items: center;
+  background-color:#212529;
   display: flex;
 }
 
@@ -161,30 +159,32 @@
 }
 
 .chat-footer button {
-  background-color: #C1C0FF;
-  color: black;
+transition: background-color 0.3s ease-in-out;
+  background-color: #212529;
+  color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
+  padding: 8px 20px;
+  border-radius: 6px;
   cursor: pointer;
 }
 
 .chat-footer button:hover {
-  background-color: #e65c00;
+  background-color: #333;
+  color: white;
 }
 
 .exit-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 5px 10px;
-  background-color: #282828;
-  color: white;
+transition: background-color 0.3s ease-in-out;
+  padding: 5px 15px;
+  background-color: #d3d3d3;
+  color: black;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  margin-left:700px;
 }
 
 .exit-button:hover {
-  background-color: rgb(193, 192, 255);
+  background-color: #b3b3b3;
+  color: white;
 }
