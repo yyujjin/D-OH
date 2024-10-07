@@ -58,7 +58,7 @@ checkLoginStatus().then(function (isLoggedIn) {
     setInterval(function () {
       getUnreadMessages(); //메시지 있는지 확인해서 아이콘 띄우기
       getLatestMessages(); //마지막 채팅 기록 가져오기
-    }, 5000); // 5초마다 새로운 메시지 확인
+    }, 1000); // 5초마다 새로운 메시지 확인
   }
 });
 
@@ -123,12 +123,27 @@ function getLatestMessages(){
     success: function (response) {
       latestChatList = response;
       console.log("최신 메시지" , latestChatList);
+       if(response.length==0) {noMessages()}else{ updateChatListByLatestMessages();}
     },
     error: function (error) {
       console.error("Error fetching messages: ", error);
     },
   });
-  updateChatListByLatestMessages();
+
+}
+
+//진행중인 메시지 없음
+function noMessages() {
+  var txt = $("#txtNone");
+  txt.html(""); // 기존 내용을 초기화
+
+  var chatHtml = `
+    <div class="wrap">
+        진행중인 채팅이 없습니다.
+    </div>
+  `;
+
+  txt.append(chatHtml);
 }
 
 //최신 메시지 리스트 표시 
