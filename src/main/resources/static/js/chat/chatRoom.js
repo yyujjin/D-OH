@@ -53,8 +53,34 @@ stompClient.onConnect = (frame) => {
     const parsedMessage = JSON.parse(message.body);
     console.log(sender + "가 받은 메시지 : " + parsedMessage);
     addMessageToChat(parsedMessage, "received");
+    //채팅방에 있을경우 메시지 받음과 동시에 읽음으로 처리
+    makeMessagesAsRead();
   });
 };
+
+
+//메시지 읽음으로 변경
+function makeMessagesAsRead() {
+  $.ajax({
+    url: `/api/users/chat/messages/makeMessagesAsRead`,
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(MessageDTO),
+    success: function (data) {
+      console.log("메시지 읽음으로 변경완료!");
+    },
+    error: function (error) {
+      console.error("Error fetching messages: ", error);
+    },
+  });
+}
+
+
+
+
+
+
+
 
 stompClient.onWebSocketError = (error) => {
   console.error("Error with websocket", error);
