@@ -107,7 +107,6 @@ public class ChatApiController {
     @PostMapping("/messages/makeMessagesAsRead")
     public ResponseEntity makeMessageAsRead ( @RequestBody MessageDTO messageDTO){
         chatService.setMessageAsRead(messageDTO);
-        log.info("잘실행되고 있음 !!!!!!!");
         return ResponseEntity.ok().build();
     }
 
