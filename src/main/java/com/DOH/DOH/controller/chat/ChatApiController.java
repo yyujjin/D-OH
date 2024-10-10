@@ -102,4 +102,13 @@ public class ChatApiController {
 
         return chatService.findLatestMessagesForLoggedInUser(userSessionService.nickName());
     }
+
+    //메시지 읽음 처리
+    @PostMapping("/messages/makeMessagesAsRead")
+    public ResponseEntity makeMessageAsRead ( @RequestBody MessageDTO messageDTO){
+        chatService.setMessageAsRead(messageDTO);
+        return ResponseEntity.ok().build();
+    }
+
+
 }

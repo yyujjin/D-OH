@@ -41,7 +41,6 @@ function getUnreadMessages(){
     url: "/api/users/chat/messages/unread",
     method: "GET",
     success: function (messages) {
-      console.log(messages);
       data = messages;
       if (ids === "On") {
         $(".notification-badge").show(); // 알림 배지를 보이기
@@ -58,7 +57,7 @@ checkLoginStatus().then(function (isLoggedIn) {
     setInterval(function () {
       getUnreadMessages(); //메시지 있는지 확인해서 아이콘 띄우기
       getLatestMessages(); //마지막 채팅 기록 가져오기
-    }, 5000); // 5초마다 새로운 메시지 확인
+    }, 1000); // 5초마다 새로운 메시지 확인
   }
 });
 
@@ -78,9 +77,6 @@ function updateChatList() {
   txt.html(""); // 기존 내용을 초기화
 
   Object.keys(data).forEach(function (key) {
-    // key에는 배열의 각 요소가 순서대로 전달됨
-    console.log("현재 key:", key);
-    console.log("현재 key에 해당하는 값:", data[key]);
 
     //원래는 진행중인 채팅이 없습니다. 라고 뜨는데 값이 있으면 
     //이렇게 바꾸는 거임 
@@ -122,24 +118,35 @@ function getLatestMessages(){
     contentType: 'application/json', 
     success: function (response) {
       latestChatList = response;
-      console.log("최신 메시지" , latestChatList);
+       if(response.length==0) {noMessages()}else{ updateChatListByLatestMessages();}
     },
     error: function (error) {
       console.error("Error fetching messages: ", error);
     },
   });
-  updateChatListByLatestMessages();
+
+}
+
+//진행중인 메시지 없음
+function noMessages() {
+  var txt = $("#txtNone");
+  txt.html(""); // 기존 내용을 초기화
+
+  var chatHtml = `
+    <div class="wrap">
+        진행중인 채팅이 없습니다.
+    </div>
+  `;
+
+  txt.append(chatHtml);
 }
 
 //최신 메시지 리스트 표시 
 function updateChatListByLatestMessages() {
-  console.log("최신 메시지 가져오기 실행되고 있음 ")
   var txt = $("#txtNone"); 
   txt.html(""); // 기존 내용을 초기화
 
   latestChatList.forEach(function (value) {
-    console.log(value.receiver)
-
     var chatHtml = `
     <a href="/users/chat?receiver=${value.receiver}">
         <div class="wrap">

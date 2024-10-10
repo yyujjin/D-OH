@@ -1,7 +1,5 @@
 const sender = document.getElementById("sender").value;
-console.log("메시지 보내는 사람 : ", sender);
 const receiver = document.getElementById("receiver").textContent;
-console.log("메시지 받는 사람 : ", receiver);
 const sendButton = document
   .getElementById("sendButton")
   .addEventListener("click", sendMesssage);
@@ -51,10 +49,27 @@ stompClient.onConnect = (frame) => {
 
   stompClient.subscribe(`/queue/messages/${sender}`, (message) => {
     const parsedMessage = JSON.parse(message.body);
-    console.log(sender + "가 받은 메시지 : " + parsedMessage);
     addMessageToChat(parsedMessage, "received");
+    //채팅방에 있을경우 메시지 받음과 동시에 읽음으로 처리
+    makeMessagesAsRead();
   });
 };
+
+
+//메시지 읽음으로 변경
+function makeMessagesAsRead() {
+  $.ajax({
+    url: `/api/users/chat/messages/makeMessagesAsRead`,
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify(MessageDTO),
+    success: function (data) {
+    },
+    error: function (error) {
+      console.error("Error fetching messages: ", error);
+    },
+  });
+}
 
 stompClient.onWebSocketError = (error) => {
   console.error("Error with websocket", error);
@@ -111,8 +126,6 @@ function getAllMessages() {
     success: function (data) {
       const sentMessages = data.sentMessages;
       const receivedMessages = data.receivedMessages;
-      console.log(sentMessages);
-      console.log(receivedMessages);
       displayMessages(sortMessagesByTimestamp(sentMessages, receivedMessages));
     },
     error: function (error) {
@@ -132,7 +145,6 @@ function sortMessagesByTimestamp(sentMessages, receivedMessages) {
   });
 
   // 정렬된 메시지 리스트 반환
-  console.log("전체 메시지", allMessages);
   return allMessages;
 }
 
