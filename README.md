@@ -14,12 +14,27 @@
   - Docker
 
 ## 🚀 프로젝트 전체 기능 소개
+<img width="1440" alt="스크린샷 2024-11-19 오후 9 42 55" src="https://github.com/user-attachments/assets/105d23f8-a194-4d39-b3d4-d00adbd31cf1">
+<img width="1440" alt="스크린샷 2024-11-19 오후 9 43 02" src="https://github.com/user-attachments/assets/1d504dd1-2d30-4079-910b-e2309c6e8e5a">
+<img width="1440" alt="스크린샷 2024-11-19 오후 9 43 11" src="https://github.com/user-attachments/assets/540de52b-d364-4158-aeae-f1804732c9e3">
+<img width="1440" alt="스크린샷 2024-11-19 오후 9 43 20" src="https://github.com/user-attachments/assets/d64c2306-0492-42b3-9d91-8dad85408d78">
+<img width="1440" alt="스크린샷 2024-11-19 오후 9 43 27" src="https://github.com/user-attachments/assets/9fe8c901-ca37-47ba-8f6e-c7ab1988b344">
+<img width="1440" alt="스크린샷 2024-11-19 오후 9 43 34" src="https://github.com/user-attachments/assets/7626088b-c143-44dd-a8f2-8071f719699b">
+<img width="1440" alt="스크린샷 2024-11-19 오후 9 43 41" src="https://github.com/user-attachments/assets/8f786f52-d8f5-448a-9503-8b5a41e0344f">
+<img width="1440" alt="스크린샷 2024-11-19 오후 9 43 48" src="https://github.com/user-attachments/assets/29123ec6-855a-4e29-a0b2-9179a342e69c">
+<img width="1440" alt="스크린샷 2024-11-19 오후 9 43 56" src="https://github.com/user-attachments/assets/eb471dd2-844f-42ae-a472-7692204aba8d">
+<img width="1440" alt="스크린샷 2024-11-19 오후 9 44 03" src="https://github.com/user-attachments/assets/77480d2b-4815-42b2-8f21-12a26fe16d08">
+<img width="1440" alt="스크린샷 2024-11-19 오후 9 44 10" src="https://github.com/user-attachments/assets/919659b8-419d-45ab-8b57-89447e2d1644">
+<img width="1440" alt="스크린샷 2024-11-19 오후 9 44 16" src="https://github.com/user-attachments/assets/6f7ee2cd-e0c1-44d1-9bed-40ece78d2dee">
+<img width="1440" alt="스크린샷 2024-11-19 오후 9 44 26" src="https://github.com/user-attachments/assets/54cb12e9-e057-4a22-b33a-db53d465b0ec">
 
 
-## 🙋‍♀️ 채팅 기능 소개
-### 💬 디자이너에게 문의하기
+
+## 💬 채팅 기능 소개
+### 🙋‍♀️디자이너에게 문의하기
 
 ![KakaoTalk_Photo_2024-11-07-16-35-00 007](https://github.com/user-attachments/assets/d4a8af3a-3f2a-4fbd-98f7-b95d5c2b3cfe)
+<img width="873" alt="스크린샷 2024-11-19 오후 9 34 18" src="https://github.com/user-attachments/assets/fd96f0a8-33e7-424b-9f75-b2add7a297c2">
 
 
 - 사용자는 **디자이너에게 문의하기** 버튼을 클릭하여 실시간 채팅방에 참여할 수 있습니다.
