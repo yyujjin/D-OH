@@ -10,8 +10,7 @@
   - MySQL
   - JavaScript
   - Thymeleaf
-  - Amazon EC2
-  - Docker
+ 
 
 ## 🚀 프로젝트 전체 기능 소개
 <img width="1440" alt="스크린샷 2024-11-19 오후 9 42 55" src="https://github.com/user-attachments/assets/105d23f8-a194-4d39-b3d4-d00adbd31cf1">
