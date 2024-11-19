@@ -1,26 +1,23 @@
 # <img width="200" alt="image" src="https://github.com/user-attachments/assets/cb614de8-b69b-4e70-b68f-a9be8f2709c6">
 
-로고 디자인 의뢰자가 컨테스트를 개최하거나 디자이너에게 직접 문의할 수 있으며, 누구나 디자이너로 참여해 상금을 받을 수 있는 로고 네이밍 서비스입니다. **사용자 간 실시간 소통을 위한 채팅 기능을 담당하여 구현**하였습니다. 
+로고 디자인 의뢰자가 컨테스트를 개최하거나 디자이너에게 직접 문의할 수 있으며, 누구나 디자이너로 참여해 상금을 받을 수 있는 로고 네이밍 서비스입니다.
+이 프로젝트는 6명이 협업하여 진행했으며, 저는 **사용자 간 실시간 소통을 위한 채팅 기능을 담당하여 구현**하였습니다.
 
 ## 🛠️ 기술 스택
 
-- **백엔드**
   - Spring Boot
   - MyBatis
   - MySQL
-
-- **프론트엔드**
   - JavaScript
   - Thymeleaf
-
-- **인프라 및 배포**
   - Amazon EC2
   - Docker
 
-## 🚀 기능 소개
+## 🚀 프로젝트 전체 기능 소개
 
 
-## 💬 디자이너에게 문의하기
+## 🙋‍♀️ 채팅 기능 소개
+### 💬 디자이너에게 문의하기
 
 ![KakaoTalk_Photo_2024-11-07-16-35-00 007](https://github.com/user-attachments/assets/d4a8af3a-3f2a-4fbd-98f7-b95d5c2b3cfe)
 
@@ -30,21 +27,21 @@
 - 버튼을 클릭하면 자동으로 채팅방에 입장하게 되어 간편하게 소통할 수 있습니다.
 
 
-## 🔔 메시지 알림 기능
+### 🔔 메시지 알림 기능
 
 ![KakaoTalk_Photo_2024-11-07-16-34-58 001](https://github.com/user-attachments/assets/f21cd4ba-8e5a-41b7-af92-442166edfa0b)
 
 - 새로운 메시지가 도착하면, 사이드바의 **메시지 아이콘**에 알림이 표시됩니다.
 - 사용자는 알림을 통해 즉시 새로운 메시지가 도착했음을 확인할 수 있어 중요한 소통을 놓치지 않도록 돕습니다.
 
-## 💬 실시간 채팅 기능
+### 💬 실시간 채팅 기능
 
 ![KakaoTalk_Photo_2024-11-07-16-34-58 002](https://github.com/user-attachments/assets/3db9c5c5-b85d-4af4-b513-823dd0a7b527)
 
 - 채팅방에서는 양방향 대화가 가능하여, 사용자는 디자이너와 동시에 메시지를 주고받을 수 있습니다.
 
 
-## 👥 채팅방 참여자 정보 표시 기능
+### 👥 채팅방 참여자 정보 표시 기능
 
 ![KakaoTalk_Photo_2024-11-07-16-34-59 003](https://github.com/user-attachments/assets/f21337e5-1ef9-49dd-9c49-3e2bc3641b5c)
 
@@ -53,7 +50,7 @@
 
 
 
-## 🔚 채팅 종료 기능
+### 🔚 채팅 종료 기능
 
 ![KakaoTalk_Photo_2024-11-07-16-34-59 005](https://github.com/user-attachments/assets/e5b66706-10c1-4794-91f1-e8d1cddcf261)
 
