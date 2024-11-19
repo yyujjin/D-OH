@@ -13,13 +13,13 @@
  
 
 ## 🚀 프로젝트 전체 기능 소개
-<img width="1000" alt="스크린샷 2024-11-19 오후 9 42 55" src="https://github.com/user-attachments/assets/105d23f8-a194-4d39-b3d4-d00adbd31cf1">
-<img width="1000" alt="스크린샷 2024-11-19 오후 9 43 02" src="https://github.com/user-attachments/assets/1d504dd1-2d30-4079-910b-e2309c6e8e5a">
-<img width="1000" alt="스크린샷 2024-11-19 오후 9 43 11" src="https://github.com/user-attachments/assets/540de52b-d364-4158-aeae-f1804732c9e3">
-<img width="1000" alt="스크린샷 2024-11-19 오후 9 43 41" src="https://github.com/user-attachments/assets/8f786f52-d8f5-448a-9503-8b5a41e0344f">
-<img width="1000" alt="스크린샷 2024-11-19 오후 9 43 56" src="https://github.com/user-attachments/assets/eb471dd2-844f-42ae-a472-7692204aba8d">
-<img width="1000" alt="스크린샷 2024-11-19 오후 9 44 03" src="https://github.com/user-attachments/assets/77480d2b-4815-42b2-8f21-12a26fe16d08">
-<img width="1000" alt="스크린샷 2024-11-19 오후 9 44 26" src="https://github.com/user-attachments/assets/54cb12e9-e057-4a22-b33a-db53d465b0ec">
+<img width="800" alt="스크린샷 2024-11-19 오후 9 42 55" src="https://github.com/user-attachments/assets/105d23f8-a194-4d39-b3d4-d00adbd31cf1">
+<img width="800" alt="스크린샷 2024-11-19 오후 9 43 02" src="https://github.com/user-attachments/assets/1d504dd1-2d30-4079-910b-e2309c6e8e5a">
+<img width="800" alt="스크린샷 2024-11-19 오후 9 43 11" src="https://github.com/user-attachments/assets/540de52b-d364-4158-aeae-f1804732c9e3">
+<img width="800" alt="스크린샷 2024-11-19 오후 9 43 41" src="https://github.com/user-attachments/assets/8f786f52-d8f5-448a-9503-8b5a41e0344f">
+<img width="800" alt="스크린샷 2024-11-19 오후 9 43 56" src="https://github.com/user-attachments/assets/eb471dd2-844f-42ae-a472-7692204aba8d">
+<img width="800" alt="스크린샷 2024-11-19 오후 9 44 03" src="https://github.com/user-attachments/assets/77480d2b-4815-42b2-8f21-12a26fe16d08">
+<img width="800" alt="스크린샷 2024-11-19 오후 9 44 26" src="https://github.com/user-attachments/assets/54cb12e9-e057-4a22-b33a-db53d465b0ec">
 
 
 
